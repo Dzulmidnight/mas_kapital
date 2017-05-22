@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Inicio | Más kapital</title>
+    <title>MásFlexible | Más kapital</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet"> 
@@ -22,12 +22,37 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+    <style>
+.carousel-indicators {
 
+  position: absolute;
+  bottom: 40%;
+  z-index: 15;
+  width: 30px;
+  margin-left: 20px;
+  list-style: none;
+  text-align: center;
+  right: 5%;
+  left:95%
+}
+.carousel-indicators li{
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 20px;
+}
+.carousel-indicators .active {
+ width: 22px;
+ height: 22px;
+ margin-bottom: 20px;
+ background-color: #fff;
+}
+ul {
+    list-style-image: url('img/mas_flexible/circulo.png');
 
-
-
-
+}       
+        
+    </style>
 </head><!--/head-->
 
 <body>
@@ -64,45 +89,12 @@
                 </div>
                 <div class="collapse navbar-collapse" style="margin-top:10px;">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="index.html"><b>¿QUIÉNES SOMOS?</b></a></li>
-                        <li><a href="mas_flexible.html"><b>MÁS FLEXIBLE</b></a></li>
+                        <li><a href="index.html"><b>¿QUIÉNES SOMOS?</b></a></li>
+                        <li class="active"><a href="mas_flexible.html"><b>MÁS FLEXIBLE</b></a></li>
                         <li><a href="universidad_mk.html"><b>UNIVERSIDAD MK</b></a></li>
                         <li><a href="bolsa_trabajo.html"><b>BOLSA DE TRABAJO</b></a></li>
                         <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>
                         <li><a href="normatividad.html"><b>NORMATIVIDAD</b></a></li>
-                        <!--<li class="dropdown"><a href="#">MÁS FLEXIBLES <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="aboutus.html">About</a></li>
-                                <li><a href="aboutus2.html">About 2</a></li>
-                                <li><a href="service.html">Services</a></li>
-                                <li><a href="pricing.html">Pricing</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
-                                <li><a href="contact2.html">Contact us 2</a></li>
-                                <li><a href="404.html">404 error</a></li>
-                                <li><a href="coming-soon.html">Coming Soon</a></li>
-                            </ul>
-                        </li>-->                   
-                        <!--15_05_2017 <li class="dropdown"><a href="blog.html">UNIVERSIDAD MK <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="blog.html">Blog Default</a></li>
-                                <li><a href="blogtwo.html">Timeline Blog</a></li>
-                                <li><a href="blogone.html">2 Columns + Right Sidebar</a></li>
-                                <li><a href="blogthree.html">1 Column + Left Sidebar</a></li>
-                                <li><a href="blogfour.html">Blog Masonary</a></li>
-                                <li><a href="blogdetails.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="portfolio.html">BOLSA DE TRABAJO <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="portfolio.html">Portfolio Default</a></li>
-                                <li><a href="portfoliofour.html">Isotope 3 Columns + Right Sidebar</a></li>
-                                <li><a href="portfolioone.html">3 Columns + Right Sidebar</a></li>
-                                <li><a href="portfoliotwo.html">3 Columns + Left Sidebar</a></li>
-                                <li><a href="portfoliothree.html">2 Columns</a></li>
-                                <li><a href="portfolio-details.html">Portfolio Details</a></li>
-                            </ul>
-                        </li>                         
-                        <li><a href="shortcodes.html ">ATENCIÓN A CLIENTES</a></li> 15_05_2017 -->               
                     </ul>
                 </div>
                 <!--<div class="search" style="margin-top:10px;">
@@ -116,17 +108,16 @@
             </div>
         </div>
     </header>
-    <div class="col-md-12" style='background-image: url("img/index/cuadro_azul.jpg"); background-color: #cccccc;'>
-      
-    </div>
+    
     <!--/#header-->
 
     <section id="home-slider" style="border-top: 10px solid #8787b7;">
-
-
         <div class="container-fluid">
             <div class="row">
-        
+                <div class="col-md-12 text-center">
+                    <h1 style="color: #2a3031;font-size:50px"><b>MÁSFLEXIBLE</b></h1>
+                    <h2 style="font-size:30px"><i>Un crédito personalizado con el respaldo de un grupo.</i></h2>
+                </div>
                 <div style="padding:0px;">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
@@ -141,19 +132,19 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <div class="item active ">
-                                <img src="img/slider/principal/principal_1.jpg"  alt="imagen1">
+                                <img src="img/slider/mas_flexible/mas_flexible_1.jpg"  alt="imagen1">
                             </div>
                             <div class="item">
-                                <img src="img/slider/principal/principal_2.jpg" alt="imagen2">
+                                <img src="img/slider/mas_flexible/mas_flexible_2.jpg" alt="imagen2">
                             </div>
                             <div class="item">
-                                <img src="img/slider/principal/principal_3.jpg" alt="imagen3">
+                                <img src="img/slider/mas_flexible/mas_flexible_3.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="img/slider/principal/principal_4.jpg" alt="imagen3">
+                                <img src="img/slider/mas_flexible/mas_flexible_4.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="img/slider/principal/principal_5.jpg" alt="imagen3">
+                                <img src="img/slider/mas_flexible/mas_flexible_5.jpg" alt="imagen3">
                             </div>
                         </div>
 
@@ -168,24 +159,10 @@
                         </a>
                     </div>                  
                 </div>
-
-                <!--<div class="main-slider">
-                    <div class="slide-text">
-                        <h1>We Are Creative Nerds</h1>
-                        <p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>
-                        <a href="#" class="btn btn-common">SIGN UP</a>
-                    </div>
-                    <img src="images/home/slider/hill.png" class="slider-hill" alt="slider image">
-                    <img src="images/home/slider/house.png" class="slider-house" alt="slider image">
-                    <img src="images/home/slider/sun.png" class="slider-sun" alt="slider image">
-                    <img src="images/home/slider/birds1.png" class="slider-birds1" alt="slider image">
-                    <img src="images/home/slider/birds2.png" class="slider-birds2" alt="slider image">
-                </div>-->
             </div>
         </div>
         <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
     </section>
-    
     <div id="div_lateral">
         <div class="barra_lateral">
             <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
@@ -251,7 +228,7 @@
     </section>
     <!--/#services-->
 
-    <section id="action" class="responsive" style="background-color:#323534">
+    <!-- <section id="action" class="responsive" style="background-color:#323534">
         <div class="vertical-center">
              <div class="container-fluid">
                 <div class="row">
@@ -262,12 +239,12 @@
                 </div>
             </div>
         </div>
-   </section>
+   </section> -->
     <!--/#action-->
 
     <!-- QUIENES SOMOS -->
     <section id="features">
-        <div >
+        <div class="container">
             <div class="row">
                 <!--<div class="single-features">
                     <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
@@ -278,87 +255,226 @@
                         <P>Pork belly leberkas cow short ribs capicola pork loin. Doner fatback frankfurter jerky meatball pastrami bacon tail sausage. Turkey fatback ball tip, tri-tip tenderloin drumstick salami strip steak.</P>
                     </div>
                 </div>-->
-                <div class="">
-                    <!-- 15_05_2017 <div class="col-sm-6 col-md-offset-1 fadeInLeft text-center" style="padding-left:20em;margin-top:3em;"> -->
-                    <div class="col-sm-6 col-md-offset-1 fadeInLeft text-center" style="padding-left:20em;margin-top:3em;">
-                        <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b>QUIENES SOMOS</b></h1>
-                        <p style="font-size:16px;text-align:justify;">
-                            Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento. 
-                        </p>
-                        <p style="font-size:16px;text-align:justify;">
-                            Nuestra experiencia en el área de las microfinanzas nos ha posicionado como una empresa sólida, moderna, e innovadora, que en forma eficiente y funcional otorga servicios financieros para el sector de la población de bajos ingresos sin acceso a fuentes bancarias de financiamiento.
-                        </p>
-                        <p style="font-size:16px;text-align:justify;">
-                            Nuestra función consiste básicamente en ser el vehículo que lleve hasta las comunidades los recursos económicos y herramientas para su gestión. Y encaminamos nuestros servicios financieros a potenciar y hacer más eficientes las actividades productivas que se desarrollan en sus comunidades.
-                        </p>
-                    </div>
-                    <div class="col-sm-5">
-                        <img class="img-responsive" src="img/quienes_somos/quienes_somos.png" alt="" style="float:right;margin-top:-150px;">
-                    </div>
+                <div class="col-md-12 ">
+                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><b>BENEFICIOS MASFLEXIBLE</b></h1>
+                    <p class="text-justify">
+                        Por que MásKapital es una institución que piensa en las necesidades reales de nuestras clientas, nuestro crédito, fue diseñado especialmente para ti, una mujer emprendedora con necesidades reales, que aprovecha las oportunidades y se sabe de la flexibilidad con la que se mueve su mercado.
+                    </p>
+                    <p class="text-justify">
+                        Nuestro crédito es único en el mercado, el cuál conjunta la oportunidades de un crédito grupal fortalecidas con características personalizadas que no encontrarás en otra empresa. 
+                    </p>
                 </div>
-
             </div>
         </div>
     </section>
      <!--/#features-->
-    <section style="margin-top:4em;">
-        <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-            <p><img src="img/nuestros_valores/nuestros_valores.jpg" class="img-responsive" alt=""></p>
+    <section id="beneficios_masflexible" style="margin-top:4em;">
+
+            <div class="row">
+                <div class="divs col-md-2" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        No necesita formar un grupo nosotros la incorporamos a uno en cualquier momento.    
+                    </p>
+                </div>
+                <div class="divs col-md-2" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        No se cobran multas de ningún tipo.    
+                    </p>
+                </div>
+                <div class="divs col-md-2" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        Cada clienta es responsable de su crédito, no pagas las deudas de tus compañeras.    
+                    </p>
+                </div>
+                <div class="divs col-md-2" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        Renueva tu crédito cuando lo necesites.
+                    </p>
+                </div>
+                <div class="divs col-md-2" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        Puede concluir su pago antes  y se le descuentan intereses de las siguientes semanas.    
+                    </p>
+                </div>
+                <div class="divs col-md-2" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        El monto es de acuerdo a sus necesidades y su capacidad de pago no al tiempo en la empresa.    
+                    </p>
+                </div>
+            </div>
+
+    </section>
+    <section id="features" style="margin-top:4em;">
+        <div class="container">
+            <div class="row">
+                <!--<div class="single-features">
+                    <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
+                        <img src="images/home/image1.png" class="img-responsive" alt="">
+                    </div>
+                    <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
+                        <h2>Experienced and Enthusiastic</h2>
+                        <P>Pork belly leberkas cow short ribs capicola pork loin. Doner fatback frankfurter jerky meatball pastrami bacon tail sausage. Turkey fatback ball tip, tri-tip tenderloin drumstick salami strip steak.</P>
+                    </div>
+                </div>-->
+                <div class="col-md-12 ">
+                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><b>CARACTERÍSTICAS DEL CRÉDITO</b></h1>
+                    <h2 class="text-center">MásFlexible, la personalización hace diferencia.</h2>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <p class="text-center">
+                        Cuando se piensa en créditos grupales, existen conceptos a los que relacionamos a este tipo de préstamos. En MásFlexible rompimos con los defectos de los créditos grupales y moldeamos un producto único para ofrecerte, conócelo y atrévete a notar sus grandes diferencias.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
+
     <section id="clients">
         <div class="container">
             <div class="row">
-                    <div class="col-sm-12">
-                        <h1 class="title text-center">NUESTRA MISIÓN</h1>
-                        <p style="text-align:justify;font-size:16px;">
-                            Somos una entidad financiera sostenible, que genera oportunidades de desarrollo para nuestros colaboradores, las familias de los microempresarios y accionistas, actuando con honestidad, transparencia y socialmente responsables.
-                        </p>
-                    </div>
-                    <div class="col-sm-12">
-                        <h1 class="title text-center">NUESTRA VISIÓN</h1>
-                        <p style="text-align:justify;font-size:16px;">
-                            Ser un verdadero agente de cambio que contribuya a mejorar las condiciones de vida de nuestros clientes.
-                        </p> 
-                    </div>
-                    <!--<div class="clients-logo wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client1.png" class="img-responsive" alt=""></a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client2.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client3.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client4.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client5.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client6.png" class="img-responsive" alt=""></a>
-                        </div>
-                    </div>-->
-              
+                <div class="col-sm-12">
+                    <img class="img-responsive" src="img/mas_flexible/caracteristicas_credito.jpg" alt="">    
+                </div>              
             </div>
         </div>
      </section>
-
     <!--/#clients-->
-
-
-
-    <section style="background-image: url('img/index/banner_azul.png');background-size:cover; padding-top:5em;border-top: 10px solid #263c89; border-bottom: 10px solid #263c89">
-        <div class="container">
-            <div class="col-md-6">
-                <img src="img/index/tablet.png" alt="">
+    <section id="requisitos" style="margin-bottom:4em;">
+        <div class="">
+            <div class="row">
+                <div class="col-md-12">
+                    <img class="img-responsive" style="width:100%;"src="img/mas_flexible/requisitos.jpg" alt="">
+                </div>
             </div>
-            <div class="col-md-6" style="text-align:justify;color:#ffffff">
-                <h1 style="color:#ffffff"><b>SÍGUENOS EN FACEBOOK</b></h1>
-                <h2 style="color:#ffffff;font-size:30px;"><b>Más Kapital</b></h2>
-                <p style="font-size:20px;">Entérate de todo lo que acontece en nuestra familia MásKapital en nuestra página de Facebook, donde podrás conocer a todos los integrantes de esta gran familia, así como las últimas noticias y todo lo que sea importante para tu crédito.</p>
+        </div>
+    </section>
+
+
+
+    <section style="background-image: url('img/index/banner_azul.png');background-size:cover; padding-top:2em;border-top: 10px solid #fac099; border-bottom: 10px solid #fac099">
+        <div class="container-fluid">
+            <div class="col-md-12 text-center">
+                <h1 style="color:#ffffff"><b>COMPROMISOS DEL GRUPO</b></h1>
+            </div>
+            <div class="col-md-6 col-md-push-6" style="text-align:justify;color:#ffffff">
+                <ul>
+                    <li><h3 style="font-size:30px;">Aceptar nuevas clientas.</h3></li>
+                    <li><h3 style="font-size:30px;">Hacer apoyo mutuo cuando haga falta.</h3></li>
+                    <li><h3 style="font-size:30px;">Devolver el apoyo mutuo en tiempo.</h3></li>
+                    <li><h3 style="font-size:30px;">Aceptar las reglas del grupo.</h3></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-md-pull-6" style="padding-top:30px;position:relative">
+                <img src="img/mas_flexible/compromisos.png" alt="">
+            </div>
+            <!--<div class="col-md-5 col-md-push-1" style="text-align:justify;color:#ffffff">
+                <ul>
+                    <li><h3 style="font-size:30px;">Aceptar nuevas clientas.</h3></li>
+                    <li><h3 style="font-size:30px;">Hacer apoyo mutuo cuando haga falta.</h3></li>
+                    <li><h3 style="font-size:30px;">Devolver el apoyo mutuo en tiempo.</h3></li>
+                    <li><h3 style="font-size:30px;">Aceptar las reglas del grupo.</h3></li>
+                </ul>
+            </div>
+            <div class="col-md-5 col-md-pull-1" style="padding-top:30px">
+                <img src="img/mas_flexible/compromisos.png" alt="">
+            </div>-->
+        </div>
+    </section>
+
+    <section style="margin-top:5em;">
+        <div class="container">
+            <div class="col-md-12">
+                <h1>PREGUNTAS FRECUENTES</h1>
+            </div>
+            <div class="scroll col-md-12">    
+                    <h3>¿Cuánto tarda el proceso de crédito?</h3>
+                    <p>
+                        El proceso de crédito tarda alrededor de 7 días. Nos interesa que nuestros clientes gocen de todos los beneficios y ventajas que tiene nuestro producto, para ello escogemos quienes son las personas que se integraran a nuestros grupos, pues la base de la confiabilidad es contar con personas comprometidas para respaldar el grupo y eso lleva algo de tiempo.
+                    </p>
+                    <h3>¿Se necesita aval?</h3>
+                    <p>
+                        No, una de las ventajas del producto es que no se basa en solicitar garantías físicas, o avales.
+                    </p>
+                    <h3>¿Qué tengo que hacer para crear un grupo cerca de mi negocio?</h3>
+                    <p>
+                        Simplemente acérquese o llame a nuestras oficinas con gusto le atenderemos (Dejar link al catálogo de contacto.)
+                    </p>
+                    <h3>¿Qué hago si no tengo el dinero para pagar el día de recuperación?</h3>
+                    <p>
+                        Una de las claves del éxito de nuestros grupos es el apoyo que los integrantes se brindan entre sí, si usted presenta dificultades para completar su pago, asista a la reunión normalmente exponga los motivos por los que no pudo completar su pago y el grupo la apoyara a completarlo con un compromiso de devolución no mayor a una semana.
+                    </p>
+                    <h3>¿Puedo solicitar un crédito si tengo otro crédito?</h3>
+                    <p>
+                        Si usted cuenta con créditos de otras entidades financieras si puede solicitar crédito con nosotros, en base a una revisión de su capacidad de pago determinaremos si aun puede adquirir otro compromiso de crédito.
+                    </p>
+                    <h3>¿Cuál es el tiempo mínimo para renovar?</h3>
+                    <p>
+                        El tiempo mínimo en el que le otorgamos su crédito de renovación es a siete días.
+                    </p>
+                    <h3>¿A quién debo acudir si tengo dudas de mi crédito?</h3>
+                    <p>
+                       Acérquese a su asesor de crédito, o a su coordinador en turno. 
+                    </p>
+                    <h3>¿Puedo liquidar mi crédito antes del plazo acordado?</h3>
+                    <p>
+                        Si, una más de las ventajas del crédito que ofrecemos es que usted puede liquidar su crédito antes del plazo acordado y así mismo renovar, sin esperar a todo el grupo.
+                    </p>
+                    <h3>¿Es forzoso tener un negocio para solicitar un crédito?</h3>
+                    <p>
+                        Los créditos que otorgamos son para capital de trabajo, por lo que si solicitamos que usted tenga un negocio o piense en emprender uno con el crédito solicitado. 
+                    </p>
+              
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <img class="img-responsive" src="img/mas_flexible/mas_regalos.jpg" alt="">
+            </div>
+        </div>
+    </section>
+    <section style="margin-top:5em;margin-bottom:6em;">
+        <div class="container" style="width:90%;border-bottom: 10px solid #263c89">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center" style="font-size:40px;color:#2a3031"><b>¿DONDE PAGAR?</b></h1>
+                </div>
+                <div class="col-md-3">
+                    <img src="img/mas_flexible/donde_pagar.png" alt="">
+                </div>
+                <div class="col-md-9 text-center" style="margin-top:4em;">
+                    <div class="col-sm-4">
+                        <img class="img-responsive" src="img/mas_flexible/logo_banorte.jpg" alt="">
+                    </div>
+                    <div class="col-sm-4">
+                        <img class="img-responsive" src="img/mas_flexible/logo_scotiabank.jpg" alt="">
+                    </div>
+                    <div class="col-sm-4">
+                        <img class="img-responsive" src="img/mas_flexible/logo_telecomm.jpg" alt="">
+                    </div>
+                    <div class="col-sm-8">
+                        <h3 class="text-center"><b>Para cobrar su crédito o realizar sus pagos</b></h3>
+                    </div>
+                    <div class="col-sm-4">
+                        <h3 class="text-center">Para realizar únicamente pagos</h3>
+                    </div>
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;"><b>Además podrás realizar tus pagos y desembolsos en las sucursales que cuentan con caja.</b></h2>
+                        <h4 class="text-left" style="color:#858789"><b>RECOMENDACIONES para poder realizar pagos de recuperación del crédito.</b></h4>
+                        <p class="text-left" style="color:#858789">- Presentarse en Ventanilla a realizar el pago (Recuperación). De preferencia antes de las 3:30 pm.</p>
+                        <p class="text-left" style="color:#858789">- Llevar consigo número de referencia, cuenta y monto a depositar.</p>
+                        <p class="text-left" style="color:#858789">- Antes de salir del Banco, revisar la ficha de depósito que tenga los datos correctos como son: NOMBRE DE LA EMPRESA, NÚMERO DE REFERENCIA Y MONTO.</p>
+                        <p class="text-left" style="color:#858789">- Verificar en el tiket de deposito que se haya registrado correctamente No. DE REFERENCIA Y MONTO.</p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>

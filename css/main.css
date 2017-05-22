@@ -70,6 +70,213 @@
     font-size: 18px;
   }
 
+ /********** ESTILOS *************/
+  /**slide**/
+  .carousel-indicators {
+
+  position: absolute;
+  bottom: 40%;
+  z-index: 15;
+  width: 30px;
+  margin-left: 20px;
+  list-style: none;
+  text-align: center;
+  right: 5%;
+  left:95%
+}
+.carousel-indicators li{
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 20px;
+}
+.carousel-indicators .active {
+ width: 22px;
+ height: 22px;
+ margin-bottom: 20px;
+ background-color: #fff;
+}
+    div.scroll {
+        height: 500px;
+        overflow-x:hidden; 
+        overflow-y:scroll;"
+
+    }
+    #talento{
+      background-image: url(../img/bolsa_trabajo/taza.jpg);
+      background-color: #fbfafa;
+      background-size: cover;
+      height: 700px;
+      background-position: center;
+      display: table;
+      position: static;
+      width: 100%;
+    }
+    #boton_trabajo{
+      background:#9c91c5;
+      color: #fff;
+
+    }
+    #boton_trabajo:hover{
+      background: #263c89;
+      transition: .5s;
+    }
+    #descripcion_universidad{
+      background-image: url(../img/universidad_mk/banner_descripcion.jpg);
+      background-color: #fbfafa;
+      background-size: cover;
+      height: 700px;
+      position: static;
+      width: 100%;
+    }
+
+    #portal_mk{
+      margin-top:3em;
+    }
+
+    /*#seccion_ayuda{
+      background-image: url(../img/atencion_clientes/banner_atencion.png);
+      background-color: #fbfafa;
+      background-repeat: no-repeat;
+      height: 300px;
+      position: static;
+
+    }*/
+    #formulario_ayuda input, select{
+      margin-top:1em;
+    }
+    #div_lateral{
+      z-index: 1;
+      display: block; 
+      position: fixed; 
+      top: 240px;
+      right:0px;
+      background: #263c89;
+    }
+    .barra_lateral{
+      padding: 1em;
+    }
+    .barra_lateral:hover{
+      background: #f58947;
+      transition: .2s;
+    }
+    #beneficios_masflexible{
+      margin-top: 4em;
+    }
+    #beneficios_masflexible p{
+      font-size: 18px;
+    }
+    #ayuda{
+      background-image: url(../img/atencion_clientes/banner_atencion.png);
+      background-color: #fbfafa;
+      background-size: cover;
+      height: 350px;
+      position: static;
+   
+    }
+
+
+    .divs{
+      background-color: #b0b0d1;
+      height: 300px;
+      padding: 4em 3em 0em 3em;
+      text-align: center;
+      color: #FFFFFF;
+      transition: .5s;
+    }
+    .divs p{
+      margin-top: 1em;
+    }
+    .divs:hover{
+      background-color: #263c89;
+      height: 310px;
+    }
+    .divs:hover img{
+      height: 50px;
+    }
+
+    #normatividad{
+      text-align: center;
+      margin-top:4em;
+    }
+    #normatividad h2{
+      color: #ffffff;
+    }
+    
+    .div-normatividad{
+      padding: 1em;
+      left:0px;
+      background-color: #8787b7; 
+    }
+    .div-normatividad:hover{
+      background-color: #f26e23;
+      width: 490px;
+      transition: .5s;
+    }
+    .a-normatividad:active{
+      background: red;
+    }
+    .otra_prueba{
+      background: blue;
+      width: 300px;
+      color:red;
+    }
+
+    .btn-sucursal{
+      color: #ffffff;
+      background-color: #f26e23;
+      border: none;
+      width: 100%;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    .btn-sucursal:hover{
+      background: #263c89;
+      transition: .3s;
+    }
+    .vinculo:hover{
+      height: 50px;
+      width: 50px;
+    }
+    #buzon-denuncias:hover{
+      color: #f26e23;
+    }
+    #aviso-privacidad:hover{
+      color: #f26e23;
+    }
+
+
+
+/*
+FLECHA
+.rectangulo {
+position:relative;
+display:block; 
+width:200px;
+height:40px;
+padding:4px 10px 0px 18px;
+background:green;
+color:white;
+text-align:center;
+}
+.t6:hover {
+position:absolute;
+top:-8px;
+left:200px;
+display:block;
+
+width:0;
+height:0;
+border-color:transparent transparent transparent green;
+border-style: solid;
+border-width: 30px;
+}*/
+
+
+ /***********************/
+ /***********************/
+ /***********************/
+
   .overflow{
     overflow: hidden;
   }
@@ -289,12 +496,13 @@
 .navbar-inverse .navbar-nav > .open > a {
   background-color: inherit;
   border: 0;
-  color: #00aeef;
+  color: #164998;
 }
 
 #header .navbar-inverse .navbar-nav  li a:hover{
   color: #00aeef;
 }
+
 
 
 /*  Dropdown menu*/
@@ -380,17 +588,28 @@ ul.sub-menu {
   }
 }
 
+/*************************
+*******Footer_2******
+**************************/
+#footer_2{
+  margin-top: 3em;
+  padding-top: 1em;
+  padding-bottom: 3em;
+  background-color: #2a3031;
+  color: #FFFFFF;
+}
+#footer_2 a{
+  text-decoration: none;
+  color: white;
+}
 
 /*************************
 *******Footer******
 **************************/
 
 #footer {
-  padding-bottom: 10px;
-  background-image: url(../images/home/footer.png);
-  background-repeat: repeat-x;
-  background-position: bottom;
-  background-size: contain;
+  background-color: #1c2324;
+
 }
 
 #footer h1{
@@ -642,7 +861,7 @@ ul.sub-menu {
 }
 
 #action {
-  background-image: url(../img/index/cuadro.jpg);
+  background-image: url(../img/index/cuadro.png);
   background-color: #fbfafa;
   background-repeat: repeat-x;
   height: 157px;
@@ -739,7 +958,19 @@ ul.sub-menu {
 }
 
 
-
+/*************************
+*******Siguenos en facebook******
+**************************/
+#action {
+  background-image: url(../img/index/cuadro_azul.png);
+  background-color: #fbfafa;
+  background-repeat: repeat-x;
+  height: 157px;
+  background-position: center;
+  display: table;
+  position: static;
+  width: 100%;
+}
 /*************************
 *******About Us Page******
 **************************/
