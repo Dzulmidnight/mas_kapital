@@ -64,7 +64,7 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
 </head><!--/head-->
 
 <body>
-	<header id="header" style="border-bottom:10px solid #263c89">      
+	<header id="header" style="border-bottom:10px solid #263c89;">      
         <!--<div class="container">
             <div class="row">
                 <div class="col-sm-12 overflow">
@@ -149,9 +149,7 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
             </div>
         </div>
     </header>
-    <div class="col-md-12" style='background-image: url("img/index/cuadro_azul.jpg"); background-color: #cccccc;'>
-      
-    </div>
+
     <!--/#header-->
 
     <section id="home-slider" style="border-top: 10px solid #8787b7;">
