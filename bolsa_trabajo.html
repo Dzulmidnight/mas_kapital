@@ -86,23 +86,8 @@ ul {
 </head><!--/head-->
 
 <body>
-	<header id="header" style="border-bottom:10px solid #263c89">      
-        <!--<div class="container">
-            <div class="row">
-                <div class="col-sm-12 overflow">
-                   <div class="social-icons pull-right">
-                        <ul class="nav nav-pills">
-                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href=""><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div> 
-                </div>
-             </div>
-        </div>-->
-        <div class="navbar navbar-inverse" role="banner">
+	<header id="header">      
+        <div class="navbar navbar-inverse" role="banner" style="margin-bottom:-20px;">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -139,22 +124,20 @@ ul {
                         <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>             
                     </ul>
                 </div>
-                <!--<div class="search" style="margin-top:10px;">
-                    <form role="form">
-                        <i class="fa fa-search"></i>
-                        <div class="field-toggle">
-                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                        </div>
-                    </form>
-                </div>-->
             </div>
         </div>
     </header>
-    
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style='border-top:10px solid #263c89;border-bottom: 10px solid #8787b7;'>
+            </div>
+        </div>
+    </div>
     <!--/#header-->
 
-    <section id="bolsa-trabajo" style="border-top: 10px solid #8787b7;background-color: #f0f0f6;padding-bottom:2em;">
-        <div class="container">
+    <section id="bolsa-trabajo">
+        <div class="container" style="background-color: #f0f0f6;padding-bottom:2em;">
             <div class="row">
                 <div class="col-md-12 text-center" style="padding-top:2em;padding-bottom:2em;">
                     <h1 style="color: #2a3031;font-size:50px"><b>BOLSA DE TRABAJO</b></h1>
@@ -212,9 +195,9 @@ ul {
         </div>
     </section>
 
-    <section id="talento" style="background-image:red">
+    <section>
         <div class="container">
-            <div class="row">
+            <div class="row" id="talento">
                 <div class="text-center col-md-12" style="margin-top:35%">
                     <button class="text-center" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
                         <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
@@ -229,7 +212,7 @@ ul {
     <!--/#services-->
 
 
-    <section id="footer_2">
+    <section id="footer_2" style="margin-top:5em;">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-xs-6">

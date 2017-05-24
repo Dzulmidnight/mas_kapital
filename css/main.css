@@ -125,7 +125,7 @@
       background-image: url(../img/universidad_mk/banner_descripcion.jpg);
       background-color: #fbfafa;
       background-size: cover;
-      height: 700px;
+
       position: static;
       width: 100%;
     }
@@ -177,7 +177,7 @@
       margin-top: 4em;
     }
     #beneficios_masflexible p{
-      font-size: 18px;
+      font-size: 16px;
     }
     #ayuda{
       background-image: url(../img/atencion_clientes/banner_atencion.png);
@@ -201,7 +201,7 @@
     .divs{
       background-color: #b0b0d1;
       height: 300px;
-      padding: 4em 3em 0em 3em;
+      padding: 2em 3em 0em 3em;
       text-align: center;
       color: #FFFFFF;
       transition: .5s;
@@ -235,9 +235,7 @@
       width: 490px;
       transition: .5s;
     }
-    .a-normatividad:active{
-      background: red;
-    }
+
     .otra_prueba{
       background: blue;
       width: 300px;
@@ -879,7 +877,7 @@ ul.sub-menu {
 *******Home Page******
 **************************/
 #home-slider {
-  background: url(../images/home/slider-bg.png) 0 100% repeat-x;
+  background: #ffffff;
   position: relative;
 }
 
