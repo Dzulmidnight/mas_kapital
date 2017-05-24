@@ -12,7 +12,6 @@
     <link href="css/lightbox.css" rel="stylesheet"> 
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
@@ -24,32 +23,34 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
-    
-<script>
-    $(document).ready(function() {
-        $('#menu_oculto').hide(0);
-        $(window).scroll(function(){
-            var windowHeight = $(window).scrollTop();
-            var contenido2 = $("#services").offset();
-            contenido2 = contenido2.top;
-            if(windowHeight >= contenido2  ){
-                $('#menu_oculto').fadeIn(500);
-            }else{
-				$('#menu_oculto').fadeOut(500);
-            }
+
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#menu_oculto').hide(0);
+            $(window).scroll(function(){
+                var windowHeight = $(window).scrollTop();
+                var contenido2 = $("#services").offset();
+                contenido2 = contenido2.top;
+                if(windowHeight >= contenido2  ){
+                    $('#menu_oculto').fadeIn(500);
+                }else{
+    				$('#menu_oculto').fadeOut(500);
+                }
+            });
         });
-    });
-</script>
-<style>
-	#menu_oculto{
-        z-index: 1;
-		margin: 0 auto;
-		top: 10px;
-		position: fixed;
-		width: 100%;
-		padding: 30px 10px 30px 10px;
-	}
-</style>
+    </script>
+    <style>
+    	#menu_oculto{
+            z-index: 1;
+    		margin: 0 auto;
+    		top: 10px;
+    		position: fixed;
+    		width: 100%;
+    		padding: 30px 10px 30px 10px;
+    	}
+    </style>
 
     
 </head><!--/head-->
@@ -87,45 +88,24 @@
                 </div>
                 <div class="collapse navbar-collapse" style="margin-top:10px;">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="index.html"><b>¿QUIÉNES SOMOS?</b></a></li>
-                        <li><a href="mas_flexible.html"><b>MÁS FLEXIBLE</b></a></li>
-                        <li><a href="universidad_mk.html"><b>UNIVERSIDAD MK</b></a></li>
-                        <li><a href="bolsa_trabajo.html"><b>BOLSA DE TRABAJO</b></a></li>
-                        <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>
-                        <li><a href="normatividad.html"><b>NORMATIVIDAD</b></a></li>
-                        <!--<li class="dropdown"><a href="#">MÁS FLEXIBLES <i class="fa fa-angle-down"></i></a>
+                        <li class="active"><a href="index.html">
+                            <b>¿QUIÉNES SOMOS? <i class="fa fa-angle-down"></i></b></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="aboutus.html">About</a></li>
-                                <li><a href="aboutus2.html">About 2</a></li>
-                                <li><a href="service.html">Services</a></li>
-                                <li><a href="pricing.html">Pricing</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
-                                <li><a href="contact2.html">Contact us 2</a></li>
-                                <li><a href="404.html">404 error</a></li>
-                                <li><a href="coming-soon.html">Coming Soon</a></li>
-                            </ul>
-                        </li>-->                   
-                        <!--15_05_2017 <li class="dropdown"><a href="blog.html">UNIVERSIDAD MK <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="blog.html">Blog Default</a></li>
-                                <li><a href="blogtwo.html">Timeline Blog</a></li>
-                                <li><a href="blogone.html">2 Columns + Right Sidebar</a></li>
-                                <li><a href="blogthree.html">1 Column + Left Sidebar</a></li>
-                                <li><a href="blogfour.html">Blog Masonary</a></li>
-                                <li><a href="blogdetails.html">Blog Details</a></li>
+                                <li><a href="#mision-vision">MISIÓN Y VISIÓN</a></li>
+                                <li><a href="normatividad.html">NORMATIVIDAD</a></li>
+                                <li><a href="sucursales.html">SUCURSALES</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown"><a href="portfolio.html">BOLSA DE TRABAJO <i class="fa fa-angle-down"></i></a>
+                        <li><a href="mas_flexible.html">
+                            <b>MÁS FLEXIBLE <i class="fa fa-angle-down"></i></b></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="portfolio.html">Portfolio Default</a></li>
-                                <li><a href="portfoliofour.html">Isotope 3 Columns + Right Sidebar</a></li>
-                                <li><a href="portfolioone.html">3 Columns + Right Sidebar</a></li>
-                                <li><a href="portfoliotwo.html">3 Columns + Left Sidebar</a></li>
-                                <li><a href="portfoliothree.html">2 Columns</a></li>
-                                <li><a href="portfolio-details.html">Portfolio Details</a></li>
+                                <li><a href="mas_flexible.html#caracteristicas">MÁSPUNTOS</a></li>
+                                <li><a href="mas_flexible.html#donde-pagar">¿DÓNDE PAGAR?</a></li>
                             </ul>
-                        </li>                         
-                        <li><a href="shortcodes.html ">ATENCIÓN A CLIENTES</a></li> 15_05_2017 -->               
+                        </li>
+                        <li><a href="universidad_mk.html"><b>UNIVERSIDAD MK</b></a></li>
+                        <li><a href="bolsa_trabajo.html"><b>BOLSA DE TRABAJO</b></a></li>
+                        <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>             
                     </ul>
                 </div>
                 <!--<div class="search" style="margin-top:10px;">
@@ -147,7 +127,7 @@
     <section id="home-slider">
 
 
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
         
                 <div style="padding:0px;">
@@ -211,25 +191,39 @@
     
 
 
- <div id="menu_oculto">
-    
+     <div id="menu_oculto">
         <div id="div_lateral">
-        <div class="barra_lateral">
-            <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="right:0px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>¿QUIÉNES SOMOS?</b></a>
+                </div>
+                <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="right:0px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>UNIVERSIDAD MK</b></a>
+                </div>
+                <a href="universidad_mk.html"><img src="img/logos/ico_universidad.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="padding-left:49px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>MÁSFLEXIBLE</b></a>
+                </div>
+                <a href="mas_flexible.html"><img src="img/logos/ico_masflexible.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="padding-left:53px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>MÁSPUNTOS</b></a>
+                </div>
+                <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="padding-left:53px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>SUCURSALES</b></a>
+                </div>
+                <a href="sucursales.html"><img src="img/logos/ico_localizacion.png" alt=""></a>
+            </div>
         </div>
-        <div class="barra_lateral">
-            <a href="universidad_mk.html"><img src="img/logos/ico_universidad.png" alt=""></a>
-        </div>
-        <div class="barra_lateral">
-            <a href="mas_flexible.html"><img src="img/logos/ico_masflexible.png" alt=""></a>
-        </div>
-        <div class="barra_lateral">
-            <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
-        </div>
-        <div class="barra_lateral">
-            <a href="sucursales.html"><img src="img/logos/ico_localizacion.png" alt=""></a>
-        </div>
-    </div>
     </div>	
     <!--/#home-slider-->
 
@@ -278,26 +272,38 @@
     </section>
     <!--/#services-->
 
-    <section id="action" class="responsive" style="background-color:#323534">
-        <div class="vertical-center">
-             <div class="container-fluid">
+    <!--23_05_2017<section id="action" class="responsive">
+        <div class="">
+             <div class="container" style="background-color:#323534">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <h1 class="hidden-sm hidden-xs" style="padding-left:2em;color:#ffffff;font-size:34px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></h1>
                         <h1 class="visible-xs visible-sm" style="padding-left:2em;color:#ffffff;font-size:26px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></h1>                        
                     </div>
                 </div>
             </div>
         </div>
+   </section>-->
+
+   <section>
+       <div class="container" style="background-color:#323534;padding-top:1em;padding-bottom:1em">
+           <div class="row">
+               <div class="col-md-12">
+                   <h2 class="visible-lg" style="padding-left:2em;color:#ffffff;font-size:28px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></h2>
+                   <p class="visible-md" style="padding-left:1em;color:#ffffff;font-size:24px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></p>
+                   <p class="visible-sm visible-xs" style="color:#ffffff;font-size:18px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></p>
+               </div>
+           </div>
+       </div>
    </section>
     <!--/#action-->
 
     <!-- QUIENES SOMOS -->
     <section id="features">
-        <div class="container" >
+        <div class="container">
             <div class="row">
                     <!-- 15_05_2017 <div class="col-sm-6 col-md-offset-1 fadeInLeft text-center" style="padding-left:20em;margin-top:3em;"> -->
-                    <div class="col-sm-6 col-xs-6  fadeInLeft text-center" style="margin-top:3em;">
+                    <div class="col-md-6 col-xs-6  fadeInLeft text-center" style="margin-top:3em;">
                         <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b>QUIENES SOMOS</b></h1>
                         <p style="font-size:16px;text-align:justify;">
                             Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento. 
@@ -311,8 +317,8 @@
                     </div>
 
 
-                    <div class="col-sm-6 col-xs-6" style="position:absolute;right:-15px;">
-                        <img class="img-responsive" src="img/quienes_somos/quienes_somos.png" alt="" style="float:right;margin-top:-150px;">
+                    <div class="col-md-6 col-xs-6">
+                        <img class="img-responsive" src="img/quienes_somos/quienes_somos.png" alt="" style="float:right;margin-top:-100px;">
                     </div>
 
             </div>
@@ -320,12 +326,15 @@
     </section>
      <!--/#features-->
     <section style="margin-top:10em;">
-        <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-            <p><img src="img/nuestros_valores/nuestros_valores.jpg" class="img-responsive" alt=""></p>
+        <div class="container" style="height:500px;background-image: url('img/nuestros_valores/nuestros_valores.jpg');background-size:cover;background-position:center;padding-top:5em;">
+            <div class="row">
+
+            </div>
         </div>
     </section>
-    <section id="clients">
-        <div class="container">
+
+    <section id="mision-vision">
+        <div class="container" >
             <div class="row">
                     <div class="col-sm-12">
                         <h1 class="title text-center">NUESTRA MISIÓN</h1>
@@ -347,15 +356,17 @@
 
 
 
-    <section style="background-image: url('img/index/banner_azul.png');background-size:cover; padding-top:5em;border-top: 10px solid #263c89; border-bottom: 10px solid #263c89">
-        <div class="container">
-            <div class="col-md-6">
-                <img src="img/index/tablet.png" alt="">
-            </div>
-            <div class="col-md-6" style="text-align:justify;color:#ffffff">
-                <h1 style="color:#ffffff"><b>SÍGUENOS EN FACEBOOK</b></h1>
-                <h2 style="color:#ffffff;font-size:30px;"><b>Más Kapital</b></h2>
-                <p style="font-size:20px;">Entérate de todo lo que acontece en nuestra familia MásKapital en nuestra página de Facebook, donde podrás conocer a todos los integrantes de esta gran familia, así como las últimas noticias y todo lo que sea importante para tu crédito.</p>
+    <section id="siguenos">
+        <div class="container" style="background-image: url('img/index/banner_azul.png');background-size:cover; padding-top:5em;border-top: 10px solid #263c89; border-bottom: 10px solid #263c89">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="https://www.facebook.com/mas.kapital"><img src="img/index/tablet.png" alt=""></a>
+                </div>
+                <div class="col-md-6" style="text-align:justify;color:#ffffff">
+                    <a href="https://www.facebook.com/mas.kapital"><h1><b>SÍGUENOS EN FACEBOOK</b></h1></a>
+                    <h2 style="color:#ffffff;font-size:30px;"><b>Más Kapital</b></h2>
+                    <p style="font-size:20px;">Entérate de todo lo que acontece en nuestra familia MásKapital en nuestra página de Facebook, donde podrás conocer a todos los integrantes de esta gran familia, así como las últimas noticias y todo lo que sea importante para tu crédito.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -364,16 +375,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-xs-6">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_cnbv.jpg" alt="">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_condusef.jpg" alt="">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_buro.jpg" alt="">
+                    <a href="https://www.gob.mx/cnbv" target="_new">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_cnbv.jpg" alt="">
+                    </a>
+                    <a href="http://www.gob.mx/condusef" target="_new">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_condusef.jpg" alt="">
+                    </a>
+                    <a href="http://www.buro.gob.mx" target="_new">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_buro.jpg" alt="">
+                    </a>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="col-xs-12">
                         <h2 style="color: #FFFFFF"><b>CONTACTO</b></h2>    
                     </div>
                     <div class="col-xs-12">
-                        <a href="https://www.facebook.com/mas.kapital" target="_new"><img src="img/index/logos/facebook.jpg" alt=""> Más Kapital</a>
+                        <a class="link-hover" href="https://www.facebook.com/mas.kapital" target="_new"><img src="img/index/logos/facebook.jpg" alt=""> Más Kapital</a>
                     </div>
                     <div class="col-xs-12">
                         <h2 style="color: #FFFFFF"><b>KAPITEL 01 800 822 06 73</b></h2>
@@ -605,7 +622,35 @@
         </div>
     </div>
 
+    <script>
+        function aparecer(){
+            //document.getElementsByClassName('barra_lateral_2').style.display = 'inline';
+            /*var x = document.getElementsByClassName("barra_lateral_2");
+            x[0].style.display = "inline";
+            */
+            var elements = document.getElementsByClassName('barra_lateral_2');
 
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'inline';
+                elements[i].style.transitionDelay = "2s";
+            }
+
+      
+        }
+        function desaparecer(){
+            //document.getElementsByClassName('barra_lateral_2').style.display = 'none';
+            /*var x = document.getElementsByClassName("barra_lateral_2");
+            x[0].style.display = "inline";
+            */
+            var elements = document.getElementsByClassName('barra_lateral_2');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'none';
+                elements[i].style.transitionDelay = "2s";
+            }
+        }
+
+
+    </script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lightbox.min.js"></script>

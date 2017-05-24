@@ -99,7 +99,7 @@
     div.scroll {
         height: 500px;
         overflow-x:hidden; 
-        overflow-y:scroll;"
+        overflow-y:scroll;
 
     }
     #talento{
@@ -153,10 +153,23 @@
       right:0px;
       background: #263c89;
     }
-    .barra_lateral{
+    #div_lateral_2{
+      color:#ffffff;
+      z-index: 1;
+      display: block; 
+      position: fixed; 
+      top: 200px;
+      right:60px;
+      background: #b0b0d1;
+    }
+    .barra_lateral_1{
       padding: 1em;
     }
-    .barra_lateral:hover{
+    .barra_lateral_2{
+      color:#ffffff;
+      padding: 23px;
+    }
+    .barra_lateral_1:hover{
       background: #f58947;
       transition: .2s;
     }
@@ -174,8 +187,17 @@
       position: static;
    
     }
-
-
+    #siguenos h1{
+      color:#ffffff;
+    }
+    #siguenos h1:hover{
+      color:#f58947;
+      transition: .3s;
+    }
+    .link-hover:hover{
+      border-bottom: 2px solid #f58947;
+      transition: .2s;
+    }
     .divs{
       background-color: #b0b0d1;
       height: 300px;

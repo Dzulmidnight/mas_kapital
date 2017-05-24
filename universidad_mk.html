@@ -22,6 +22,34 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#menu_oculto').hide(0);
+            $(window).scroll(function(){
+                var windowHeight = $(window).scrollTop();
+                var contenido2 = $("#descripcion_universidad").offset();
+                contenido2 = contenido2.top;
+                if(windowHeight >= contenido2  ){
+                    $('#menu_oculto').fadeIn(500);
+                }else{
+                    $('#menu_oculto').fadeOut(500);
+                }
+            });
+        });
+    </script>
+    <style>
+        #menu_oculto{
+            z-index: 1;
+            margin: 0 auto;
+            top: 10px;
+            position: fixed;
+            width: 100%;
+            padding: 30px 10px 30px 10px;
+        }
+    </style>
+
 </head><!--/head-->
 
 <body>
@@ -58,12 +86,24 @@
                 </div>
                 <div class="collapse navbar-collapse" style="margin-top:10px;">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html"><b>¿QUIÉNES SOMOS?</b></a></li>
-                        <li><a href="mas_flexible.html"><b>MÁS FLEXIBLE</b></a></li>
+                        <li><a href="index.html">
+                            <b>¿QUIÉNES SOMOS? <i class="fa fa-angle-down"></i></b></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="index.html#mision-vision">MISIÓN Y VISIÓN</a></li>
+                                <li><a href="normatividad.html">NORMATIVIDAD</a></li>
+                                <li><a href="sucursales.html">SUCURSALES</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="mas_flexible.html">
+                            <b>MÁS FLEXIBLE <i class="fa fa-angle-down"></i></b></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="mas_flexible.html#caracteristicas">MÁSPUNTOS</a></li>
+                                <li><a href="mas_flexible.html#donde-pagar">¿DÓNDE PAGAR?</a></li>
+                            </ul>
+                        </li>
                         <li class="active"><a href="universidad_mk.html"><b>UNIVERSIDAD MK</b></a></li>
                         <li><a href="bolsa_trabajo.html"><b>BOLSA DE TRABAJO</b></a></li>
-                        <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>
-                        <li><a href="normatividad.html"><b>NORMATIVIDAD</b></a></li>
+                        <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>             
                     </ul>
                 </div>
                 <!--<div class="search" style="margin-top:10px;">
@@ -94,21 +134,38 @@
         </div>
     </section>
 
-    <div id="div_lateral">
-        <div class="barra_lateral">
-            <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
-        </div>
-        <div class="barra_lateral">
-            <a href="universidad_mk.html"><img src="img/logos/ico_universidad.png" alt=""></a>
-        </div>
-        <div class="barra_lateral">
-            <a href="mas_flexible.html"><img src="img/logos/ico_masflexible.png" alt=""></a>
-        </div>
-        <div class="barra_lateral">
-            <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
-        </div>
-        <div class="barra_lateral">
-            <a href="sucursales.html"><img src="img/logos/ico_localizacion.png" alt=""></a>
+     <div id="menu_oculto">
+        <div id="div_lateral">
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="right:0px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>¿QUIÉNES SOMOS?</b></a>
+                </div>
+                <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="right:0px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>UNIVERSIDAD MK</b></a>
+                </div>
+                <a href="universidad_mk.html"><img src="img/logos/ico_universidad.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="padding-left:49px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>MÁSFLEXIBLE</b></a>
+                </div>
+                <a href="mas_flexible.html"><img src="img/logos/ico_masflexible.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="padding-left:53px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>MÁSPUNTOS</b></a>
+                </div>
+                <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
+            </div>
+            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
+                <div class="barra_lateral_2" style="padding-left:53px;display:none">
+                    <a style="color:#ffffff;" href="index.html"><b>SUCURSALES</b></a>
+                </div>
+                <a href="sucursales.html"><img src="img/logos/ico_localizacion.png" alt=""></a>
+            </div>
         </div>
     </div>
 
@@ -217,22 +274,26 @@
         </div>
     </section>
 
-
-
     <section id="footer_2">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-xs-6">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_cnbv.jpg" alt="">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_condusef.jpg" alt="">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_buro.jpg" alt="">
+                    <a href="https://www.gob.mx/cnbv" target="_new">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_cnbv.jpg" alt="">
+                    </a>
+                    <a href="http://www.gob.mx/condusef" target="_new">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_condusef.jpg" alt="">
+                    </a>
+                    <a href="http://www.buro.gob.mx" target="_new">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_buro.jpg" alt="">
+                    </a>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="col-xs-12">
                         <h2 style="color: #FFFFFF"><b>CONTACTO</b></h2>    
                     </div>
                     <div class="col-xs-12">
-                        <a href="https://www.facebook.com/mas.kapital" target="_new"><img src="img/index/logos/facebook.jpg" alt=""> Más Kapital</a>
+                        <a class="link-hover" href="https://www.facebook.com/mas.kapital" target="_new"><img src="img/index/logos/facebook.jpg" alt=""> Más Kapital</a>
                     </div>
                     <div class="col-xs-12">
                         <h2 style="color: #FFFFFF"><b>KAPITEL 01 800 822 06 73</b></h2>
@@ -464,7 +525,22 @@
         </div>
     </div>
 
-
+    <script>
+        function aparecer(){
+            var elements = document.getElementsByClassName('barra_lateral_2');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'inline';
+                elements[i].style.transitionDelay = "2s";
+            }
+        }
+        function desaparecer(){
+            var elements = document.getElementsByClassName('barra_lateral_2');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'none';
+                elements[i].style.transitionDelay = "2s";
+            }
+        }
+    </script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lightbox.min.js"></script>

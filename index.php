@@ -397,9 +397,15 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_cnbv.jpg" alt="">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_condusef.jpg" alt="">
-                    <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_buro.jpg" alt="">
+                    <a href="https://www.gob.mx/cnbv">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_cnbv.jpg" alt="">
+                    </a>
+                    <a href="http://www.gob.mx/condusef">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_condusef.jpg" alt="">
+                    </a>
+                    <a href="http://www.buro.gob.mx">
+                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_buro.jpg" alt="">
+                    </a>
                 </div>
                 <div class="col-md-4">
                     <div class="col-xs-12">
