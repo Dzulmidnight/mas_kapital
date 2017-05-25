@@ -335,55 +335,54 @@
                     <div class="row">
                         <form action="">
                             <div class="col-xs-12">
-                                <h3><b>Datos Denunciante:</b></h3>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Nombre</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>                            
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td class="info" colspan="2"><b>Datos Denunciante:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" name="" placeholder="Nombre">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="" placeholder="Ubicación(Estado):">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="" placeholder="Teléfono:">
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Ubicación (Estado):</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>                            
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Telefono:</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12">
-                                <h3><b>Datos Denuncia:</b></h3>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Nombre:</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>                            
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Sucursal:</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>                            
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Otro Departamento:</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>                            
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Motivo:</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>                            
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Descripción:</label>
-                                    <textarea class="form-control" name="" id="" rows="3"></textarea>
-                                </div>
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td class="info" colspan="2"><b>Datos Denuncia:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" name="" placeholder="Nombre:">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="" placeholder="Sucursal:">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="" placeholder="Otro departamento:">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" name="" placeholder="Motivo:">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <textarea class="form-control" rows="5" name="" placeholder="Descripción:"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="col-xs-12">
                                 <p>Debes seleccionar la casilla para poder enviar el correo</p>
@@ -398,6 +397,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- MODAL AVISO DE PRIVACIDAD -->
     <div class="modal fade" id="aviso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
