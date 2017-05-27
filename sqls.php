@@ -299,15 +299,15 @@ include ('conexion.php');
 
 			?><script type="text/javascript">				
 			$(document).ready(function() {
-			$('#result').load('parte9.php');
+			$('#result').load('parte10.php');
 			 });			
 			</script><?php
 
 }
 
-else if ($_POST['borrar']==1) {
-			 $sql="DELETE FROM Solicitante FROM Solicitante S INNER JOIN SolicitudTrabajo ST ON S.idSolicitante= ST.idSolicitante AND ST.Seccion<10";
-			 $mysqli->query($sql);
-}	
+// else if ($_POST['borrar']==1) {
+// 			 $sql="DELETE FROM Solicitante FROM Solicitante S INNER JOIN SolicitudTrabajo ST ON S.idSolicitante= ST.idSolicitante AND ST.Seccion<10";
+// 			 $mysqli->query($sql);
+// }	
 		?>
  ?>

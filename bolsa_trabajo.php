@@ -47,7 +47,7 @@
     })  
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
 
 $('.error').hide();
@@ -69,7 +69,7 @@ $('.error').hide();
 });
 
 
-</script>
+</script> -->
 
 <script>
     $(document).ready(function() {
