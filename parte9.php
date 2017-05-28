@@ -119,7 +119,9 @@
                     </form>
                     </div>
 <div class="modal-footer">
+<button style="color:white;" type="button" class="btn btn-warning" value="ATRAS" onclick="botonAtras()"><i class="fa fa-caret-left fa-1x" aria-hidden="true"></i> &nbsp;&nbsp; ATRAS</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
  <button type="submit" form="form1" id="btbSiguiente" name="btbSiguiente" class="btn btn-primary">Enviar Solicitud</button>
+
 <!--     <button style="color:orange" type="submit" form="form1" id="btbSiguiente" name="btbSiguiente" class="btn btn-link btn-lg">SIGUIENTE &nbsp; &nbsp;<i class="fa fa-caret-right fa-2x" aria-hidden="true"></i></button>
  --></div>

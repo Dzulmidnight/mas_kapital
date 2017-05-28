@@ -1,5 +1,7 @@
 <?php
 include ('conexion.php');
+if(isset($_POST['parte']))
+	{
 		if ($_POST['parte']==2) {
 
 			$Sueldo = $_POST['sueldoM'];
@@ -40,11 +42,13 @@ include ('conexion.php');
 			$sql3="INSERT INTO DomSolicitante(idSolicitante,Calle,NumExt,NumInt,Colonia,Municipio,Estado,CP) VALUES('$resultado[idSolicitante]','$Calle','$NumExt','$NumInt','$Colonia','$Municipio','$Estado','$CP')";
 			$mysqli->query($sql3);
 
-			?><script type="text/javascript">
+			?>
+			<script type="text/javascript">
 			$(document).ready(function() {
 			$('#result').load('parte2.php');
 			 });
-			</script><?php
+			</script>
+			<?php
 		}
 
 		else if ($_POST['parte']==3) {
@@ -303,7 +307,19 @@ include ('conexion.php');
 			 });			
 			</script><?php
 
+	}
 }
+else if ($_POST['parte2']==1) {
+	$Npagina = $_POST['pagina'];
+
+			?><script type="text/javascript">
+			$(document).ready(function() {
+			var pagina = "parte"+<? echo $Npagina?>+".php";
+			$('#result').load(pagina);
+			 });			
+			</script><?php
+}
+
 
 // else if ($_POST['borrar']==1) {
 // 			 $sql="DELETE FROM Solicitante FROM Solicitante S INNER JOIN SolicitudTrabajo ST ON S.idSolicitante= ST.idSolicitante AND ST.Seccion<10";
