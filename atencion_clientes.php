@@ -1,27 +1,181 @@
-<!DOCTYPE html>
+        </divr>
+<?php
+require_once('conexion/conexion.php');
+require_once('correo/mail.php');
+require_once('funciones/funciones.php');
+
+if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
+    $tema_motivo = $_POST['tema_motivo'];
+    $sucursal = $_POST['sucursal'];
+    $grupo = $_POST['grupo'];
+    $ap_materno = $_POST['ap_materno'];
+    $ap_paterno = $_POST['ap_paterno'];
+    $nombre = $_POST['nombre'];
+    $direccion = $_POST['direccion'];
+    $municipio = $_POST['municipio'];
+    $estado = $_POST['estado'];
+    $correo = $_POST['correo'];
+    $telefono = $_POST['telefono'];
+    $descripcion = $_POST['descripcion'];
+    $fecha = time();
+
+    //Insertamos la informacion del formulario en BD
+    $insertSQL = sprintf("INSERT INTO frm_atencion(tema_motivo, sucursal, grupo, nombre, ap_paterno, ap_materno, direccion, municipio, estado, correo, telefono, descripcion, fecha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        GetSQLValueString($tema_motivo, "text"),
+        GetSQLValueString($sucursal, "int"),
+        GetSQLValueString($grupo, "text"),
+        GetSQLValueString($nombre, "text"),
+        GetSQLValueString($ap_paterno, "text"),
+        GetSQLValueString($ap_materno, "text"),
+        GetSQLValueString($direccion, "text"),
+        GetSQLValueString($municipio, "text"),
+        GetSQLValueString($estado, "int"),
+        GetSQLValueString($correo, "text"),
+        GetSQLValueString($telefono, "text"),
+        GetSQLValueString($descripcion, "text"),
+        GetSQLValueString($fecha, "int"));
+    $mysqli->query($insertSQL);
+
+
+
+
+
+    $asunto = 'Atención a Clientes | '.$tema_motivo.'';
+
+    $cuerpo_mensaje = '
+        <html>
+        <head>
+            <meta charset="utf-8">
+        </head>
+        <body>
+
+            <table style="font-family: Tahoma, Geneva, sans-serif; font-size:13px; color: #797979;border: 1px solid #ddd;text-align: left;border-collapse: collapse;width: 100%;" >
+                <thead>
+                    <tr>
+                        <th style="padding: 15px;border: 1px solid #ddd" align="center">
+                            LOGO MÁSKAPITAL
+                        </th>
+                        <th style="padding: 15px;border: 1px solid #ddd" align="left">
+                            <h3>TEMA O MOTIVO: <span style="color:red">'.$tema_motivo.'</span></h3>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;padding:15px;background-color:#3498db;color:#ffffff;" colspan="2">DATOS DE IDENTIFICACIÓN</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            SUCURSAL:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            '.$sucursal.'
+                        </td>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            GRUPO:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            '.$grupo.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            NOMBRE:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            '.$nombre.' '.$ap_paterno.' '.$ap_materno.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            DIRECCIÓN:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            '.$estado.', '.$municipio.', '.$direccion.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            CORREO ELECTRÓNICO:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            '.$correo.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            NÚMERO TELEFÓNICO
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            '.$telefono.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;padding:15px;border: 1px solid #ddd;background-color:#3498db;color:#ffffff;" colspan="2">DESCRIPCIÓN</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 15px;border: 1px solid #ddd">
+                            '.$descripcion.'
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </body>
+        </html>
+    ';
+    if(isset($correos_oc['email1'])){
+        $token = strtok($correos_oc['email1'], "\/\,\;");
+        while ($token !== false)
+        {
+            $mail->AddCC($token);
+            $token = strtok('\/\,\;');
+        }
+    }
+    if(isset($correos_oc['email2'])){
+        $token = strtok($correos_oc['email2'], "\/\,\;");
+        while ($token !== false)
+        {
+            $mail->AddCC($token);
+            $token = strtok('\/\,\;');
+        }
+    }
+
+    $mail->Subject = utf8_decode($asunto);
+    $mail->Body = utf8_decode($cuerpo_mensaje);
+    $mail->MsgHTML(utf8_decode($cuerpo_mensaje));
+    $mail->Send();
+    $mail->ClearAddresses();
+    $mail->ClearAttachments();
+
+    echo "<script>alert('SE HA ENVIADO LA NOTIFICACIÓN');</script>";
+}
+ ?>
+
 <html lang="esp">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Normatividad | Más kapital</title>
+    <title>Atención a clientes | Más kapital</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet"> 
     <link href="css/lightbox.css" rel="stylesheet"> 
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/responsive.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
+	    <script src="js/html5shiv.js"></script>
+	    <script src="js/respond.min.js"></script>
     <![endif]-->       
     <link rel="shortcut icon" href="img/logos/favicon.jpg">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <script>
@@ -29,7 +183,7 @@
             $('#menu_oculto').hide(0);
             $(window).scroll(function(){
                 var windowHeight = $(window).scrollTop();
-                var contenido2 = $("#inicio-normatividad").offset();
+                var contenido2 = $("#atencion-clientes").offset();
                 contenido2 = contenido2.top;
                 if(windowHeight >= contenido2  ){
                     $('#menu_oculto').fadeIn(500);
@@ -50,136 +204,27 @@
         }
     </style>
 
-    <style>
-.carousel-indicators {
 
-  position: absolute;
-  bottom: 40%;
-  z-index: 15;
-  width: 30px;
-  margin-left: 20px;
-  list-style: none;
-  text-align: center;
-  right: 5%;
-  left:95%
-}
-.carousel-indicators li{
-  display: block;
-  width: 20px;
-  height: 20px;
-  margin-bottom: 20px;
-}
-.carousel-indicators .active {
- width: 22px;
- height: 22px;
- margin-bottom: 20px;
- background-color: #fff;
-}
-ul {
-    list-style-image: url('img/mas_flexible/circulo.png');
-
-}       
-        
-    </style>
 </head><!--/head-->
 
 <body>
-    <header id="header">      
-        <div class="navbar navbar-inverse" role="banner" style="margin-bottom:-20px;">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <a class="navbar-brand" href="index.html" style="margin-top:10px;">
-                        <h1><img src="img/logos/logo_mas_kapital.png" alt="logo"></h1>
-                    </a>
-                    
-                </div>
-                <div class="collapse navbar-collapse" style="margin-top:10px;">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown active"><a href="index.html"><b>¿QUIÉNES SOMOS?</b> <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="index.html#mision-vision">MISIÓN Y VISIÓN</a></li>
-                                <li><a href="normatividad.html">NORMATIVIDAD</a></li>
-                                <li><a href="sucursales.html">SUCURSALES</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="mas_flexible.html"><b>MÁS FLEXIBLE</b> <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="mas_flexible.html#caracteristicas">MÁSPUNTOS</a></li>
-                                <li><a href="mas_flexible.html#donde-pagar">¿DÓNDE PAGAR?</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="universidad_mk.html"><b>UNIVERSIDAD MK</b></a></li>
-                        <li><a href="bolsa_trabajo.html"><b>BOLSA DE TRABAJO</b></a></li>
-                        <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>             
-                    </ul>
-                </div>
+	<?php
+    $menu = 'atencion';
+    include('header.php');
+     ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style='border-top:10px solid #263c89;border-bottom: 10px solid #8787b7;'>
             </div>
         </div>
-    </header>
-    
-    <div class="container" style="border-top: 10px solid #8787b7;border-bottom:10px solid #263c89;">
     </div>
     <!--/#header-->
-    <section id="inicio-normatividad">
-        <div class="container" style="background-color: #f0f0f6;margin-bottom:1em;">
-            <div class="row">
+
+    <section id="atencion-clientes">
+        <div class="container" style="background-color: #f0f0f6;padding-top:3em;margin-bottom:1em;">
+            <div class="row" >
                 <div class="col-md-12 text-center">
-                    <h1 style="color: #2a3031;font-size:50px;padding-top:1em;padding-bottom:1em;"><b>NORMATIVIDAD</b></h1>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="home-slider" >
-        <div class="container">
-            <div class="row">
-                <div style="padding:0px;">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <div class="item active ">
-                                <img src="img/normatividad/normatividad_1.jpg"  alt="imagen1">
-                            </div>
-                            <div class="item">
-                                <img src="img/normatividad/normatividad_2.jpg" alt="imagen2">
-                            </div>
-                            <div class="item">
-                                <img src="img/normatividad/normatividad_3.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img src="img/normatividad/normatividad_4.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img src="img/normatividad/normatividad_5.jpg" alt="imagen3">
-                            </div>
-                        </div>
-
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>                  
+                    <h1 style="color: #2a3031;font-size:50px;padding-bottom:1em;"><b>ATENCIÓN A CLIENTES</b></h1>
                 </div>
             </div>
         </div>
@@ -220,99 +265,150 @@ ul {
             </div>
         </div>
     </div>
-    <!--/#home-slider-->
 
-    <section id="" style="margin-top:4em;">
+    <!--/#home-slider-->
+    <!--<section id="atencion" style="background-image: url('img/atencion_clientes/banner_atencion.png');background-repeat:no-repeat; padding-top:5em;">-->
+    <section id="">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-xs-12" style="padding:0;">
-                    <a href="#cnvb">
-                        <div class="div-normatividad col-sm-12">
-                            <h2>CNVB</h2>
-                        </div>
-                    </a>
-                    <a href="#condusef">
-                        <div class="div-normatividad col-sm-12">
-                            <h2>CONDUSEF</h2>
-                        </div>
-                    </a>
-                    <a href="#buro">
-                        <div class="div-normatividad col-sm-12">
-                            <h2>BURO DE ENTIDADES FINANCIERAS</h2>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="div-normatividad col-sm-12">
-                            <h2>RENOVACIÓN DE REGISTRO</h2>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="div-normatividad col-sm-12">
-                            <h2>OBTENCIÓN DE DICTAMEN TÉCNICO</h2>
-                        </div>
-                    </a>
+                <div class="col-md-4 col-xs-12 text-center" style="background-color: #f58947;border:10px solid #ffffff;">
+                    
+                    <div class="text-center col-xs-12">
+                        <h1 class="text-center" style="color:#ffffff;padding-top:1em;"><b>UNE</b></h1>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="text-center" style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                        <h2 style="color: #ffffff;"><b>Unidad Especializada de Atención a Clientes</b></h2>
+                    </div>
+                    <div class="col-xs-12">
+                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                        <h2 style="color:#ffffff;margin:1em;">Denuncia</h2>
+                    </div>
+                    <div class="col-xs-12" style="padding-bottom:2em;">
+                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                        <p style="color:#ffffff;margin-top:1em;">UNE_ACLARACIONESMK@maskapital.com.mx</p>
+                    </div>  
                 </div>
-                <div class="col-md-8 col-xs-12">
-                    <div class="text-justify scroll col-md-12">
-                        <div id="cnvb">
-                            <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b>CNVB</b></h2>
-                            <p style="font-size:18px;">
-                                La Comisión Nacional Bancaria y de Valores (CNBV), es un órgano desconcentrado de la Secretaría de Hacienda y Crédito Público (SHCP), con facultades en materia de autorización, regulación, supervisión y sanción sobre los diversos <a href="http://www.gob.mx/cnbv/acciones-y-programas/sectores-supervisados?idiom=es" target="_new">sectores</a> y <a href="http://www.gob.mx/cnbv/acciones-y-programas/padron-de-entidades-supervisadas-y-autorizadas-para-captar?idiom=es" target="_new">entidades</a> que integran el Sistema Financiero Mexicano, así como sobre aquellas personas físicas y morales que realicen actividades previstas en las leyes relativas al sistema financiero. La Comisión se rige por <a href="http://www.cnbv.gob.mx/Normatividad/Ley%20de%20la%20Comisión%20Nacional%20Bancaria%20y%20de%20Valores.pdf" target="_new">la Ley de la CNBV</a>.
-                            </p>
-                        </div>
-                        <div id="condusef">
-                            <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b>CONDUSEF</b></h2>
-                            <p style="font-size:18px;">
-                                Es una institución pública especializada en materia financiera, encargada de promover y difundir la educación y la transparencia financiera para que los usuarios tomen decisiones informadas sobre los beneficios, costos y riesgos de los productos y servicios ofertados en el sistema financiero mexicano; así como proteger sus intereses mediante la supervisión y regulación a las instituciones financieras y proporcionarles servicios que los asesoren y apoyen en la defensa de sus derechos.
-                            </p>
-                            <p style="font-size:18px;">
-                                Contacto:
-                                <br>
-                                Insurgentes Sur 762, Colonia del Valle, Ciudad de México. C.P. 03100
-                                <br>
-                                Página de Internet: www.condusef.gob.mx 
-                            </p>
-                            <p style="font-size:18px;">
-                                Teléfono: (55) 5340 0999 y (01 800) 999 8080
-                                <br>
-                                Correo electrónico: 
-                                <br>
-                                asesoria@condusef.gob.mx
-                                <br>
-                                <img src="img/normatividad/logo_condusef.png" alt="">
-                            </p>
-                        </div> 
-                        <div id="buro">
-                            <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b>BURO DE ENTIDADES FINANCIERAS</b></h2>
-                            <p style="font-size:18px">
-                                Es una herramienta de consulta y difusión con la que podrás conocer los productos que ofrecen las entidades financieras, sus comisiones y tasas, las reclamaciones de los usuarios, las prácticas no sanas en que incurren, las sanciones administrativas que les han impuesto, las cláusulas abusivas de sus contratos y otra información que resulte relevante para informarte sobre su desempeño. 
-                            </p>
-                            <p style="font-size:18px">
-                                Con el Buró de Entidades Financieras, se logrará saber quién es quién en bancos, seguros, sociedades financieras de objeto múltiple, cajas de ahorro, afores, entre otras entidades.
-                            </p>
-                            <p style="font-size:18px">
-                                Con ello, podrás comparar y evaluar a las entidades financieras, sus productos y servicios y tendrás mayores elementos para elegir lo que más te convenga. 
-                            </p>
-                            <p style="font-size:18px">
-                                Esta información te será útil para elegir un producto financiero y también para conocer y usar mejor los que ya tienes.
-                            </p>
-                            <p style="font-size:18px">
-                                Este Buró de Entidades Financieras, es una herramienta que puede contribuir al crecimiento económico del país, al promover la competencia entre las instituciones financieras; que impulsará la transparencia al revelar información a los usuarios sobre el desempeño de éstas y los productos que ofrecen y que va a facilitar un manejo responsable de los productos y servicios financieros al conocer a detalle sus características. 
-                            </p>
-                            <p style="font-size:18px">
-                                Lo anterior, podrá derivar en un mayor bienestar social, porque al conjuntar en un solo espacio tan diversa información del sistema financiero, el usuario tendrá más elementos para optimizar su presupuesto, para mejorar sus finanzas personales, para utilizar correctamente los créditos que fortalecerán su economía y obtener los seguros que la protejan, entre otros aspectos. 
-                            </p>
-                        </div>
-
+                <div id="ayuda" class="col-md-8 col-xs-12 text-justify">
+                    <div class="col-sm-8">
+                        <h2><b>ESTAMOS PARA AYUDARLE</b></h2>
+                        <p>
+                            Para brindarle un contacto directo y seguro con su financiera MásKapital, permitiéndole a clientes y externos aclarar dudas, quejas y sugerencias, ponemos a su disposición un buzón, el cual llegará al departamento correspondiente, iniciando en el momento en que envía su información un proceso de revisión y seguimiento, que asegura una respuesta oportuna y confiable.
+                        </p>
+                        <p>
+                            Rellene el siguiente formulario para poder ayudarle.
+                        </p>           
+                    </div>
+                    <div class="hidden-xs col-sm-4">
+                        <img src="img/atencion_clientes/img_atencion.png" alt="">
+                    </div>
+                    <div class="visible-xs col-xs-12">
+                        <img style="height:200px;" src="img/atencion_clientes/img_atencion.png" alt="">
                     </div>
                 </div>
+                
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-xs-12 text-center" style="background-color: #4f5898;border:10px solid #ffffff;">
+
+                    <div class="text-center col-xs-12">
+                        <h2 class="text-center" style="color:#ffffff;padding-top:1em;margin-bottom:0px;"><b>Conoce el</b></h2>
+                    </div>
+                    <div class="col-xs-12">
+                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                        <h2 style="color: #ffffff;margin:0px;"><b>Aviso de</b></h2>
+                    </div>
+                    <div class="col-xs-12">
+                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                        <h2 style="color:#ffffff;margin:0px;">Privacidad</h2>
+                    </div>
+                    <div class="col-xs-12" style="padding-bottom:2em;">
+                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                        <h2 style="color:#ffffff;margin:0px;">es tu derecho</h2>
+                    </div>
+                    <div class="col-xs-12">
+                        <a class="btn btn-default" href="documentos/AVISO DE PRIVACIDAD KAPITALMUJER.docx" target="_new" style="width:200px;margin-bottom:3em;">
+                            <img src="img/atencion_clientes/btn.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xs-12 text-center">
+                    <form id="formulario_ayuda" action="" method="POST">
+                        <div class="col-sm-12" style="margin-bottom:1em;">
+                            <select class="form-control" id="tema_motivo" name="tema_motivo" required>
+                                <option value="">* TEMA O MOTIVO</option>
+                                <option value="1">SOLICITA INFORMACIÓN</option>
+                                <option value="2">ACLARACIONES DE CRÉDITO</option>
+                                <option value="3">QUEJAS Y SUGERENCIAS</option>
+                                <option value="4">INFORMACIÓN LEGAL</option>
+                                <option value="5">PROVEEDORES</option>
+                                <option value="6">DENUNCIAS</option>
+                                <option value="7">-- OTROS --</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <p style="background-color: #d2ecfb;padding:10px;"><b>DATOS DE IDENTIFICACIÓN</b></p>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="sucursal" name="sucursal" required>
+                                <option value="">SUCURSAL QUE LE ATIENDE</option>
+                                <option value="1">OAXACA</option>
+                                <option value="2">PUEBLA</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="grupo" name="grupo" value="" placeholder="GRUPO AL QUE PERTENECE" onBlur="ponerMayusculas(this)">
+                        </div>
+                        
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="ap_paterno" name="ap_paterno" value="" placeholder="APELLIDO PATERNO" onBlur="ponerMayusculas(this)">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="ap_materno" name="ap_materno" value="" placeholder="APELLIDO MATERNO" onBlur="ponerMayusculas(this)">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="" placeholder="* NOMBRE(S)" onBlur="ponerMayusculas(this)" required>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="direccion" name="direccion" value="" placeholder="DIRECCIÓN" onBlur="ponerMayusculas(this)" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="municipio" name="municipio" value="" placeholder="MUNICIPIO" onBlur="ponerMayusculas(this)" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="estado" name="estado">
+                                <option value="">ESTADO</option>
+                                <option value="1">OAXACA</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="correo" name="correo" placeholder="CORREO ELECTRÓNICO" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="NÚMERO TELEFÓNICO CON LADA">
+                        </div>
+                        <div class="col-sm-12">
+                            <p style="background-color: #d2ecfb;padding:10px;margin-top:10px;"><b>DESCRIPCIÓN</b></p>
+                        </div>      
+                        <div class="col-sm-12">
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="10" placeholder="Para un atención más ágil, describa a detalle y si los tuviera puntualizando datos exactos." onBlur="ponerMayusculas(this)" required></textarea>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="hidden" name="correo_ayuda" value="1">
+                            <input type="submit" class="form-control btn btn-primary" value="ENVIAR" onclick="return validar()">
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </section>
 
-
-
-    <section id="footer_2">
+    <section id="footer_2" style="margin-top:5em;">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-xs-6">
@@ -564,6 +660,73 @@ ul {
     </div>
 
     <script>
+        function validar() {
+
+            tema = document.getElementById("tema_motivo").selectedIndex;
+            if( tema == null || tema == 0 ) {
+                alert('DEBES SELECCIONAR UN TEMA O MOTIVO');
+                document.getElementById("tema_motivo").focus();
+                return false;
+            }
+            sucursal = document.getElementById("sucursal").selectedIndex;
+            if( sucursal == null || sucursal == 0 ) {
+                alert('DEBES SELECCIONAR UNA SUCURSAL');
+                document.getElementById("sucursal").focus();
+                return false;
+            }
+
+            nombre = document.getElementById("nombre").value;
+            if ( nombre == null || nombre.length == 0 || /^\s+$/.test(nombre)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR TU NOMBRE');
+                document.getElementById("nombre").focus();
+                return false;
+
+            }
+
+            direccion = document.getElementById("direccion").value;
+            if ( direccion == null || direccion.length == 0 || /^\s+$/.test(direccion)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR TU DIRECCIÓN');
+                document.getElementById("direccion").focus();
+                return false;
+            }
+
+            municipio = document.getElementById("municipio").value;
+            if ( municipio == null || municipio.length == 0 || /^\s+$/.test(municipio)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR TU MUNICIPIO');
+                document.getElementById("municipio").focus();
+                return false;
+            }
+
+            estado = document.getElementById("estado").selectedIndex;
+            if( estado == null || estado == 0 ) {
+                alert('DEBES SELECCIONAR TU ESTADO');
+                document.getElementById("estado").focus();
+                return false;
+            }
+
+            correo = document.getElementById("correo").value;
+            if ( correo == null || correo.length == 0 || /^\s+$/.test(correo)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR UN CORREO ELECTRÓNICO DE CONTACTO');
+                document.getElementById("correo").focus();
+                return false;
+            }
+
+            descripcion = document.getElementById("descripcion").value;
+            if ( descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR UNA DESCRIPCIÓN');
+                document.getElementById("descripcion").focus();
+                return false;
+            }
+           
+            return true;
+        }
+
+
         function aparecer(){
             var elements = document.getElementsByClassName('barra_lateral_2');
             for(var i = 0, length = elements.length; i < length; i++) {
@@ -578,6 +741,11 @@ ul {
                 elements[i].style.transitionDelay = "2s";
             }
         }
+        function ponerMayusculas(nombre) 
+        { 
+            nombre.value=nombre.value.toUpperCase(); 
+        } 
+
     </script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>

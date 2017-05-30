@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
@@ -22,6 +21,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <script>
@@ -84,53 +84,10 @@ ul {
 </head><!--/head-->
 
 <body>
-	<header id="header">      
-        <div class="navbar navbar-inverse" role="banner" style="margin-bottom:-20px;">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <a class="navbar-brand" href="index.html" style="margin-top:10px;">
-                    	<h1><img src="img/logos/logo_mas_kapital.png" alt="logo"></h1>
-                    </a>
-                    
-                </div>
-                <div class="collapse navbar-collapse" style="margin-top:10px;">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"><a href="index.html"><b>¿QUIÉNES SOMOS?</b> <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="index.html#mision-vision">MISIÓN Y VISIÓN</a></li>
-                                <li><a href="normatividad.html">NORMATIVIDAD</a></li>
-                                <li><a href="sucursales.html">SUCURSALES</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown active"><a href="mas_flexible.html"><b>MÁS FLEXIBLE</b> <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="mas_flexible.html#caracteristicas">MÁSPUNTOS</a></li>
-                                <li><a href="mas_flexible.html#donde-pagar">¿DÓNDE PAGAR?</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="universidad_mk.html"><b>UNIVERSIDAD MK</b></a></li>
-                        <li><a href="bolsa_trabajo.html"><b>BOLSA DE TRABAJO</b></a></li>
-                        <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>             
-                    </ul>
-                </div>
-                <!--<div class="search" style="margin-top:10px;">
-                    <form role="form">
-                        <i class="fa fa-search"></i>
-                        <div class="field-toggle">
-                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                        </div>
-                    </form>
-                </div>-->
-            </div>
-        </div>
-    </header>
+	<?php
+    $menu = 'flexible';
+    include('header.php');
+     ?>
     <div class="container">
         <div class="row">
             <div class="col-md-12" style='border-top:10px solid #263c89;border-bottom: 10px solid #8787b7;'>
@@ -426,40 +383,30 @@ ul {
             
             <!-- visible lg-md -->
             <div class="hidden-sm hidden-xs col-md-7">
-                <img style="margin-top:4em;" src="img/mas_flexible/compromisos.png" alt="">
+                <img style="margin-top:6em;" src="img/mas_flexible/compromisos.png" alt="">
             </div>
             <div class="hidden-sm hidden-xs col-md-5" style="text-align:justify;color:#ffffff;">
                 <ul>
-                    <li><h3 style="font-size:30px;">MD-LG Aceptar nuevas clientas.</h3></li>
+                    <li><h3 style="font-size:30px;">Aceptar nuevas clientas.</h3></li>
                     <li><h3 style="font-size:30px;">Hacer apoyo mutuo cuando haga falta.</h3></li>
                     <li><h3 style="font-size:30px;">Devolver el apoyo mutuo en tiempo.</h3></li>
                     <li><h3 style="font-size:30px;">Aceptar las reglas del grupo.</h3></li>
                 </ul>
             </div>
-            <!-- visible sm -->
-            <div class="visible-sm col-sm-7">
-                <img style="margin-top:15px;" src="img/mas_flexible/compromisos.png" alt="">
-            </div>
-            <div class="visible-sm col-sm-5" style="text-align:justify;color:#ffffff;">
+
+            <!-- visible sm y xs -->
+            <div class="visible-sm visible-xs col-sm-12 col-xs-12" style="text-align:justify;color:#ffffff;">
                 <ul>
-                    <li><h3 style="font-size:30px;">SM Aceptar nuevas clientas.</h3></li>
+                    <li><h3 style="font-size:30px;">Aceptar nuevas clientas.</h3></li>
                     <li><h3 style="font-size:30px;">Hacer apoyo mutuo cuando haga falta.</h3></li>
                     <li><h3 style="font-size:30px;">Devolver el apoyo mutuo en tiempo.</h3></li>
                     <li><h3 style="font-size:30px;">Aceptar las reglas del grupo.</h3></li>
                 </ul>
             </div>
-            <!-- visible xs -->
-            <div class="visible-xs col-xs-7">
-                <img style="margin-top:15px;" src="img/mas_flexible/compromisos.png" alt="">
+            <div class="visible-sm visible-xs col-sm-12 col-xs-12">
+                <img src="img/mas_flexible/compromisos.png" alt="">
             </div>
-            <div class="visible-xs col-xs-5" style="text-align:justify;color:#ffffff;">
-                <ul>
-                    <li><h3 style="font-size:30px;">XS Aceptar nuevas clientas.</h3></li>
-                    <li><h3 style="font-size:30px;">Hacer apoyo mutuo cuando haga falta.</h3></li>
-                    <li><h3 style="font-size:30px;">Devolver el apoyo mutuo en tiempo.</h3></li>
-                    <li><h3 style="font-size:30px;">Aceptar las reglas del grupo.</h3></li>
-                </ul>
-            </div>
+
 
 
         </div>
@@ -522,25 +469,25 @@ ul {
     </section>
     
     <section id="donde-pagar" style="margin-top:5em;margin-bottom:6em;">
-        <div class="container" style="width:90%;border-bottom: 10px solid #263c89">
+        <div class="container" style="border-bottom: 10px solid #263c89">
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center" style="font-size:40px;color:#2a3031"><b>¿DONDE PAGAR?</b></h1>
                 </div>
-                <div class="hidden-xs col-md-3">
+
+                <!-- VISIBLE LG-MD -->
+                <div class="hidden-sm hidden-xs col-md-3">
                     <img src="img/mas_flexible/donde_pagar.png" alt="">
                 </div>
-                <div class="visible-xs col-md-3">
-                    <img style="height:200px;" src="img/mas_flexible/donde_pagar.png" alt="">
-                </div>
-                <div class="col-md-9 text-center" style="margin-top:4em;">
-                    <div class="col-sm-4 col-xs-6">
+
+                <div class="hidden-sm hidden-xs col-md-9 text-center" style="margin-top:4em;">
+                    <div class="col-sm-4">
                         <img class="img-responsive" src="img/mas_flexible/logo_banorte.jpg" alt="">
                     </div>
-                    <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-4">
                         <img class="img-responsive" src="img/mas_flexible/logo_scotiabank.jpg" alt="">
                     </div>
-                    <div class="col-sm-4 col-xs-12">
+                    <div class="col-sm-4">
                         <img class="img-responsive" src="img/mas_flexible/logo_telecomm.jpg" alt="">
                     </div>
                     <div class="col-sm-8 col-xs-12">
@@ -557,262 +504,82 @@ ul {
                         <p class="text-left" style="color:#858789">- Antes de salir del Banco, revisar la ficha de depósito que tenga los datos correctos como son: NOMBRE DE LA EMPRESA, NÚMERO DE REFERENCIA Y MONTO.</p>
                         <p class="text-left" style="color:#858789">- Verificar en el tiket de deposito que se haya registrado correctamente No. DE REFERENCIA Y MONTO.</p>
                     </div>
+                </div>
+                
+                <!-- VISIBLE SM -->
+                <div class="visible-sm col-sm-12 col-xs-12 text-center" style="margin-top:4em;">
+                    <div class="col-xs-4">
+                        <img class="img-responsive" src="img/mas_flexible/logo_banorte.jpg" alt="">
+                    </div>
+                    <div class="col-xs-4">
+                        <img class="img-responsive" src="img/mas_flexible/logo_scotiabank.jpg" alt="">
+                    </div>
+                    <div class="col-xs-4">
+                        <img class="img-responsive" src="img/mas_flexible/logo_telecomm.jpg" alt="">
+                    </div>
+                    <div class="col-sm-8 col-xs-12">
+                        <h3 class="text-center"><b>Para cobrar su crédito o realizar sus pagos</b></h3>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <h3 class="text-center">Para realizar únicamente pagos</h3>
+                    </div>
 
                 </div>
+                <div class="visible-sm col-sm-3 col-xs-3">
+                    <img style="height:300px;margin-top:8em;" src="img/mas_flexible/donde_pagar.png" alt="">
+                </div>
+                <div class="visible-sm col-sm-9 col-xs-9">
+
+                    <div class="col-sm-9 col-xs-12 col-sm-offset-3">
+                        <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;"><b>Además podrás realizar tus pagos y desembolsos en las sucursales que cuentan con caja.</b></h2>
+                        <h4 class="text-left" style="color:#858789"><b>RECOMENDACIONES para poder realizar pagos de recuperación del crédito.</b></h4>
+                        <p class="text-left" style="color:#858789">- Presentarse en Ventanilla a realizar el pago (Recuperación). De preferencia antes de las 3:30 pm.</p>
+                        <p class="text-left" style="color:#858789">- Llevar consigo número de referencia, cuenta y monto a depositar.</p>
+                        <p class="text-left" style="color:#858789">- Antes de salir del Banco, revisar la ficha de depósito que tenga los datos correctos como son: NOMBRE DE LA EMPRESA, NÚMERO DE REFERENCIA Y MONTO.</p>
+                        <p class="text-left" style="color:#858789">- Verificar en el tiket de deposito que se haya registrado correctamente No. DE REFERENCIA Y MONTO.</p>
+                    </div>
+                </div>
+
+                <!-- VISIBLE XS -->
+                <div class="visible-xs col-xs-12 col-xs-12 text-center" style="margin-top:4em;">
+                    <div class="col-xs-6">
+                        <img class="img-responsive" src="img/mas_flexible/logo_banorte.jpg" alt="">
+                    </div>
+                    <div class="col-xs-6">
+                        <img class="img-responsive" src="img/mas_flexible/logo_scotiabank.jpg" alt="">
+                    </div>
+                    <div class="col-xs-12">
+                        <h3 class="text-center"><b>Para cobrar su crédito o realizar sus pagos</b></h3>
+                    </div>
+                    <div class="col-xs-12">
+                        <img class="" src="img/mas_flexible/logo_telecomm.jpg" alt="">
+                    </div>
+                    <div class="col-xs-12">
+                        <h3 class="text-center">Para realizar únicamente pagos</h3>
+                    </div>
+
+                </div>
+                <div class="visible-xs col-xs-12 text-justify">
+                    <div class="col-xs-12">
+                        <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;"><b>Además podrás realizar tus pagos y desembolsos en las sucursales que cuentan con caja.</b></h2>
+                        <h4 class="text-left" style="color:#858789"><b>RECOMENDACIONES para poder realizar pagos de recuperación del crédito.</b></h4>
+                        <p class="text-left" style="color:#858789">- Presentarse en Ventanilla a realizar el pago (Recuperación). De preferencia antes de las 3:30 pm.</p>
+                        <p class="text-left" style="color:#858789">- Llevar consigo número de referencia, cuenta y monto a depositar.</p>
+                        <p class="text-left" style="color:#858789">- Antes de salir del Banco, revisar la ficha de depósito que tenga los datos correctos como son: NOMBRE DE LA EMPRESA, NÚMERO DE REFERENCIA Y MONTO.</p>
+                        <p class="text-left" style="color:#858789">- Verificar en el tiket de deposito que se haya registrado correctamente No. DE REFERENCIA Y MONTO.</p>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </section>
 
-    <section id="footer_2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-xs-6">
-                    <a href="https://www.gob.mx/cnbv" target="_new">
-                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_cnbv.jpg" alt="">
-                    </a>
-                    <a href="http://www.gob.mx/condusef" target="_new">
-                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_condusef.jpg" alt="">
-                    </a>
-                    <a href="http://www.buro.gob.mx" target="_new">
-                        <img class="img-responsive" style="padding-top:1em;padding-bottom:1em" src="img/index/logos/logo_buro.jpg" alt="">
-                    </a>
-                </div>
-                <div class="col-md-4 col-xs-6">
-                    <div class="col-xs-12">
-                        <h2 style="color: #FFFFFF"><b>CONTACTO</b></h2>    
-                    </div>
-                    <div class="col-xs-12">
-                        <a class="link-hover" href="https://www.facebook.com/mas.kapital" target="_new"><img src="img/index/logos/facebook.jpg" alt=""> Más Kapital</a>
-                    </div>
-                    <div class="col-xs-12">
-                        <h2 style="color: #FFFFFF"><b>KAPITEL 01 800 822 06 73</b></h2>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-xs-12">
-                        <h2 style="color:#ffffff"><b>NORMATIVIDAD</b></h2>
-                        <p style="text-align: justify;">Cónoce nuestro aviso de privacidad, es tu derecho.</p>
-                        <p ><a id="aviso-privacidad" href="" data-toggle="modal" data-target="#aviso"><b>AVISO DE PRIVACIDAD</b></a></p>
-                        <p style="text-align: justify;">Denuncia cualquier irregularidad, tu reporte es completamente anónimo.</p>
-                        <p ><a id="buzon-denuncias" href="" data-toggle="modal" data-target="#buzon"><b>BUZÓN DE DENUNCIAS PLD</b></a></p>
-                    </div>
-                </div>                
-            </div>
-        </div>
-    </section>
-    
-    <footer id="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12" >
-                    <div class="copyright-text text-center">
-                        <p>&copy; Derechos reservados Kapitalmujer S.A de C.V SOFOM ENR</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- MODAL BUZÓN DE DENUNCIAS PLD -->
-    <div class="modal fade" id="buzon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel"><b>BUZÓN DE DENUNCIAS PLD</b></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <form action="">
-                            <div class="col-xs-12">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td class="info" colspan="2"><b>Datos Denunciante:</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <input type="text" class="form-control" name="" placeholder="Nombre">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="text" class="form-control" name="" placeholder="Ubicación(Estado):">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="" placeholder="Teléfono:">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-md-12">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td class="info" colspan="2"><b>Datos Denuncia:</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <input type="text" class="form-control" name="" placeholder="Nombre:">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="text" class="form-control" name="" placeholder="Sucursal:">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="" placeholder="Otro departamento:">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <input type="text" class="form-control" name="" placeholder="Motivo:">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <textarea class="form-control" rows="5" name="" placeholder="Descripción:"></textarea>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-xs-12">
-                                <p>Debes seleccionar la casilla para poder enviar el correo</p>
-                                <div class="g-recaptcha" data-sitekey="6LfhBiIUAAAAAFgntz5Hso60CCY6uRthO4C7Z0UV"></div>    
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Enviar Correo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- MODAL AVISO DE PRIVACIDAD -->
-    <div class="modal fade" id="aviso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel"><b>AVISO DE PRIVACIDAD PARA LA PROTECCIÓN DE DATOS PERSONALES</b></h4>
-                </div>
-                <div class="modal-body text-justify" style="padding-left:4em;padding-right:4em;">
-                    
-                    <p>
-                        En cumplimiento a lo establecido por la Ley Federal de Protección de datos personales en Posesión de los Particulares LFPDPPP (“LEY”), KAPITALMUJER SOCIEDAD ANÓNIMA DE CAPITAL VARIABLE SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE ENTIDAD NO REGULADA, con domicilio ubicado en Heroica Escuela Naval Militar No. 316, colonia Reforma, Oaxaca de Juárez, Oaxaca, C.P. 68050, hace de su conocimiento que está comprometido con la protección de sus datos personales, al ser responsable de su uso, manejo y confidencialidad, por lo que en todo momento buscará que el tratamiento de sus datos sea legítimo, controlado e informado, a efecto de garantizar la privacidad de los mismos.
-                    </p>
-                    <h3>
-                        <b>
-                            Finalidad del tratamiento de sus datos.
-                        </b>
-                    </h3>
-                    <p>
-                        Los datos personales que proporcione usted como titular o su representante legal a KAPITALMUJER S.A. DE C.V. SOFOM ENR, tendrán el uso que en forma enunciativa pero no limitativa se describe a continuación:
-                    </p>
-                    <p>
-                        Para identificar, ubicar, comunicar, contactar y/o enviar o suministrar información, necesaria para llevar a cabo la relación contractual de arrendamiento de un inmueble para uso comercial que tenemos con usted.
-                    </p>
-                    <p>
-                        Entendiéndose por datos personales, aquellos que la Ley identifica como cualquier información concerniente a una persona física identificada o identificable.
-                    </p>
-                    <p>
-                        Así mismo le informamos que para cumplir con las finalidades previstas en este aviso de privacidad, serán recabados y tratados datos personales sensibles, como aquéllos que refieren a:
-                        <ul>
-                            <li>Situación crediticia; y</li>
-                            <li>Estado de salud presente o futuro</li>
-                        </ul>
-                    </p>
-                    <p>
-                        Por lo que nos comprometemos a que los mismos serán tratados bajo las más estrictas medidas de seguridad que garanticen su confidencialidad.
-                    </p>
-                    <h3>
-                        <b>
-                            Seguridad, Uso o Divulgación de datos personales 
-                        </b>
-                    </h3>
-                    <p>
-                        KAPITALMUJER S.A. DE C.V. SOFOM ENR implementará las medidas de seguridad, técnicas, administrativas y físicas, necesarias para proteger sus datos personales y evitar su daño, pérdida, alteración destrucción o el uso, acceso o tratamiento no autorizado.
-                    </p>
-                    <p>
-                        Únicamente el personal autorizado, que ha cumplido y observado los correspondientes requisitos de confidencialidad, podrá participar en el tratamiento de sus datos personales. El personal autorizado tiene prohibido permitir el acceso de personas no autorizadas y utilizar sus datos personales para fines distintos a los establecidos por el presente Aviso de Publicidad. La obligación de confidencialidad de las personas que participan en el tratamiento e sus datos personales subsiste aún después de terminada la relación con KAPITALMUJER S.A. DE C.V. SOFOM ENR.
-                    </p>
-                    <h3>
-                        <b>
-                            Derechos que le corresponden
-                        </b>
-                    </h3>
-                    <p>
-                        Usted como titular de datos personales tiene derecho de acceder a sus datos personales que poseemos y a los detalles del tratamiento de los mismos, así como a rectificarlos en caso de ser inexactos o incompletos; cancelarlos cuando considere que no se requieren para alguna de las finalidades señalados en el presente aviso de privacidad, estén siendo utilizados para finalidades no consentidas o haya finalizado la relación contractual o de servicio, o bien, oponerse al tratamiento de los mismos para fines específicos.
-                    </p>
-                    <p>
-                        En caso de que desee ejercer sus derechos de Acceso, Ratificación, Cancelación u Oposición, estos los podrán ejercer en todo momento utilizando los siguientes mecanismos:
-                    </p>
-                    <p>
-                        <ul>
-                            <li>
-                                Vía correo electrónico a: notificaciones.maskapital@gmail.com
-                            </li>
-                            <li>
-                                Carta enviada a Heroica Escuela Naval Militar No. 316, colonia Reforma, Oaxaca de Juárez, Oaxaca; Código Postal 68050, en atención a la C. Erendira Itandehui Vásquez Arrazola. 
-                            </li>
-                        </ul>
-                    </p>
-                    <p>
-                        La recepción de solicitudes podrá realizarse de lunes a viernes de las 8:00 a las 17:00 horas, excepto días festivos. Por lo anterior, deberá hacernos saber de manera fehaciente y detallada los datos personales específicos a los que usted desea tener acceso o quiere sean rectificados, cancelados o revisados, así como cumplir con los requisitos que solicita la “Ley” en el art. 29 que son:
-                    </p>
-                    <p>
-                        <ul>
-                            <li>
-                                Nombre del titular (dueño de los datos) y domicilio completo o cualquier otro medio para comunicarle la respuesta a su solicitud.
-                            </li>
-                            <li>
-                                Documentos que acrediten la identidad del titular o en su caso, la representación legal de aquella persona que actúa a nombre del titular.
-                            </li>
-                            <li>
-                                Descripción clara y precisa de los datos personales respecto de los que se busca ejercer alguno de los derechos antes mencionados (ARCO).
-                            </li>
-                            <li>
-                                Cualquier otro elemento o documento que facilite la localización de los datos personales.
-                            </li>
-                        </ul>
-                    </p>
-                    <h3>
-                        <b>
-                            Comunicación  y Transferencia de los datos personales
-                        </b>
-                    </h3>
-                    <p>
-                        Sus datos personales pueden ser transferidos y tratados dentro y fuera del país, por personas distintas a esta empresa. En ese sentido, su información puede ser compartida con abogados y/o gestores por acto o resolución judicial o mandamiento de Ley, en el marco de un procedimiento judicial y/o por requerimiento de una autoridad gubernamental, tanto dentro como fuera de México. Así mismo podemos divulgar información si consideramos que dicha divulgación es necesaria o conveniente para cumplir las legislaciones vigentes o por cualquier otro motivo de orden público o privado en donde KAPITALMUJER S.A. DE C.V. SOFOM ENR tenga jurisdicción. 
-                    </p>
-                    <p>
-                        En ese entendido nos comprometemos a no transferir su información personal a terceros sin su consentimiento, salvo las excepciones previstas en el artículo 37 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, así como a realizar esta transferencia en los términos que fija esa ley. 
-                    </p>
-                    <p>
-                        Por lo que en el caso de que exista la necesidad de transferir sus datos personales, KAPITALMUJER S.A. DE C.V. SOFOM ENR debe tener su consentimiento previo. Si usted no manifiesta su oposición para que sus datos personales sean transferidos, se entenderá que ha otorgado su consentimiento para ello. 
-                    </p>
-                    <p>
-                        Así mismo únicamente transferiremos sus datos personales sensibles, contando con su consentimiento expreso, lo anterior de conformidad con lo que establece el artículo 9 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares. 
-                    </p>
-                    <h3>
-                        <b>
-                            Cambios al aviso de Privacidad
-                        </b>
-                    </h3>
-                    <p>
-                        KAPITALMUJER S.A. DE C.V. SOFOM ENR se reserva el derecho de efectuar en cualquier momento modificaciones o actualizaciones al presente aviso de privacidad como estime conveniente, esto con el objeto de cumplir con los cambios en la legislación aplicable sobre protección de datos o cumplir con disposiciones internas de KAPITALMUJER S.A. DE C.V. SOFOM ENR, y en general en atención de las novedades legislativas, políticas internas o nuevos requerimientos para la prestación u ofrecimiento de nuestros servicios o productos.  
-                    </p>
-                    <p>
-                        En tal caso, dichas modificaciones o actualizaciones estarán a su disposición a través de anuncios visibles en nuestras oficinas o sucursales de atención a clientes.
-                    </p>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- INICIA FOOTER -->
+    <?php 
+    include('footer.php');
+     ?>
+    <!-- TERMINA FOOTER -->
 
     <script>
         function aparecer(){
