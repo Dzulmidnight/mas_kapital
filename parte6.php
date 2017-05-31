@@ -1,13 +1,18 @@
+<?php                         
+include ('conexion.php');
+$sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
+$idsol=$mysqli->query($sql2);
+$resultado=$idsol->fetch_assoc(); 
+?>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4 class="modal-title" id="myModalLabel">Formulario Vacantes</h4>
 </div>
 <div class="modal-body">
     <div class="row" id="">
-    <form action="sqls.php" method="POST" id="form1">
-
-<div class="col-xs-12">
-                            <table class="table table-bordered">
+    <form action="sqls.php" method="POST" id="form1" name="form1">
+        <div class="col-xs-12">
+            <table class="table table-bordered">
                                 <tr>
                                     <td class="info" colspan="6">CONOCIMIENTOS GENERALES</td>
                                 </tr>
@@ -85,15 +90,25 @@
                             Lista de Trabajos Anteriores
                         </div>
                         <div class="col-xs-6">
-                            <select class="form-control" name="" id="">
-                                <option value=""></option>
+                            <select class="form-control" name="TrabajoAnt" id="TrabajoAnt"> 
+                            <?php 
+                            include ('conexion.php');
+            $sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
+            $idsol=$mysqli->query($sql2);
+            $resultado=$idsol->fetch_assoc();
+                    $sqlEmp = "SELECT idEmpleos,Compania,Puesto FROM Empleos WHERE idSolicitante=$resultado[idSolicitante]";
+                    $result=$mysqli->query($sqlEmp);
+                    ?> <option value="0">Empleos Anteriores:</option> <?php
+                    while ($fila=$result->fetch_row()) {?>
+                    <option value=" <?php echo $fila[0]; ?>"> <?php echo "$fila[1] - $fila[2]";?></option><?php } ?>
+
                             </select>
                         </div>
                         <div class="col-xs-4 text-center">
-                            <button  type="submit" class="btn btn-primary" id="GuardarTrabajo" name="GuardarTrabajo">Guardar Trabajo</button>
+                            <button onclick="GuardarTrabajo()" type="button" class="btn btn-primary" id="GuardarT" name="GuardarT">Guardar Trabajo</button>
                         </div>
                         <div class="col-xs-4 text-center">
-                            <button class="btn btn-primary">Eliminar Trabajo</button>
+                            <button onclick="BorrarTrabajo()" type="button" class="btn btn-primary" id="BorrarT" name="BorrarT">Eliminar Trabajo</button>
                         </div>
                         <div class="col-xs-4 text-center">
                             <button class="btn btn-primary">Limpiar Campos</button>
@@ -103,7 +118,8 @@
 <div class="modal-footer">
 <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>-->
 <!--  <button type="button" class="btn btn-primary">Enviar Solicitud</button> -->
-   <button style="color:orange;" type="button" class="btn btn-link btn-lg" value="ATRAS" onclick="botonAtras()"><i class="fa fa-caret-left fa-2x" aria-hidden="true"></i> &nbsp;&nbsp; ATRAS</button>
+
+   <button style="color:orange;" type="button" class="btn btn-link btn-lg" onclick="btnAtras()" value="ATRAS" ><i class="fa fa-caret-left fa-2x" aria-hidden="true"></i> &nbsp;&nbsp; ATRAS</button>
     <button style="color:orange" type="submit" form="form1" id="btbSiguiente" name="btbSiguiente" class="btn btn-link btn-lg">SIGUIENTE &nbsp; &nbsp;<i class="fa fa-caret-right fa-2x" aria-hidden="true"></i></button>
 
 </div>

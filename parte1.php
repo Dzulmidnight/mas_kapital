@@ -12,7 +12,10 @@
                             08/12/2016
                         </div>
                         <div class="col-xs-4">
-                            ASESOR DE CRÉDITO(de acuerdo a la opción seleccionada)
+                                <select name="Puesto" id="Puesto">
+                                    <option>Puesto1</option>
+                                    <option>Puesto2</option>
+                                </select>
                         </div>
                         <div class="col-xs-4">
                             <input type="text" class="form-control" name="sueldoM" id="sueldoM" placeholder="SUELDO MENSUAL DESEADO">

@@ -1,7 +1,109 @@
 <?php
 include ('conexion.php');
+
+	if($_POST['Ax']==1){
+ 
+			
+			$Compania =$_POST['Compania'];
+			$FechaInicio =$_POST['FechaInicio'];
+			$FechaTermino =$_POST['FechaTermino'];
+			$Direccion =$_POST['Direccion'];
+			$Telefono =$_POST['Telefono'];
+			$Puesto =$_POST['Puesto'];
+			$Motivo =$_POST['Motivo'];
+			$Salario =$_POST['Salario'];
+			$NombreJefe =$_POST['NombreJefe'];
+			$PuestoJefe =$_POST['PuestoJefe'];
+			$Informacion =$_POST['Informacion'];
+			$Porque =$_POST['Porque'];
+			$Ax =$_POST['Ax'];
+
+            $sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
+            $idsol=$mysqli->query($sql2);
+            $resultado=$idsol->fetch_assoc();
+
+			$sql ="INSERT INTO Empleos (idSolicitante,Compania,FechaInicio,FechaTermino,Direccion,Telefono,Puesto,Motivo,Salario,NombreJefe,PuestoJefe,Informacion,Porque) VALUES('$resultado[idSolicitante]','$Compania','$FechaInicio','$FechaTermino','$Direccion','$Telefono','$Puesto','$Motivo','$Salario','$NombreJefe','$PuestoJefe','$Informacion','$Porque')";
+			$mysqli->query($sql);
+
+			$sqlEmp = "SELECT idEmpleos,Compania,Puesto FROM Empleos WHERE idSolicitante=$resultado[idSolicitante]";
+
+			$result=$mysqli->query($sqlEmp);
+			?> <option value="0">Empleos Anteriores:</option> <?php
+
+			while ($fila=$result->fetch_row()) {
+			?>
+                 <option value=" <?php echo $fila[0]; ?>"> <?php echo "$fila[1] - $fila[2]";?></option>
+            <?php }
+
+
+			
+}
+if($_POST['Ax']==2){ //Eliminar Trabajo
+	$Trabajo= $_POST['Trabajo'];
+
+	$sql = "DELETE FROM Empleos WHERE idEmpleos='$Trabajo'";
+	$mysqli->query($sql);
+
+            $sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
+            $idsol=$mysqli->query($sql2);
+            $resultado=$idsol->fetch_assoc();
+            
+			$sqlEmp = "SELECT idEmpleos,Compania,Puesto FROM Empleos WHERE idSolicitante=$resultado[idSolicitante]";
+
+			$result=$mysqli->query($sqlEmp);
+			?> <option value="0">Empleos Anteriores:</option> <?php
+
+			while ($fila=$result->fetch_row()) {
+			?>
+                 <option value=" <?php echo $fila[0]; ?>"> <?php echo "$fila[1] - $fila[2]";?></option>
+            <?php }
+
+}
+
 if(isset($_POST['parte']))
 	{
+		if ($_POST['parte']==0) {
+			
+            $sql="INSERT INTO Solicitante(Nombre) VALUES ('NuevoR')";
+            $mysqli->query($sql);
+
+            $sql2="SELECT idSolicitante FROM Solicitante WHERE Nombre='NuevoR' ORDER BY idSolicitante DESC LIMIT 1";
+            $idsol=$mysqli->query($sql2);
+            $resultado=$idsol->fetch_assoc();
+
+            $sql="INSERT INTO SolicitudTrabajo(idSolicitante,Puesto,SueldoDeseado,Seccion,Estatus) VALUES('$resultado[idSolicitante]','NP','0','0','1')";        
+            $mysqli->query($sql);
+
+            $sql ="INSERT INTO Conocimientos(idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO DatosEconomicos (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO DatosGenerales (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO Documentacion (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO EdoSalud (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO Escolaridad (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO Esposa (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO Madre (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO PadreSol (idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO RefFamiliar (idSolicitante,NumF) VALUES('$resultado[idSolicitante]','1')";
+			$mysqli->query($sql);
+			$sql ="INSERT INTO RefFamiliar (idSolicitante,NumF) VALUES('$resultado[idSolicitante]','2')";
+			$mysqli->query($sql);
+			$sql="INSERT INTO DomSolicitante(idSolicitante) VALUES('$resultado[idSolicitante]')";
+			$mysqli->query($sql);
+		}
+
+
+
+
+
 		if ($_POST['parte']==2) {
 
 			$Sueldo = $_POST['sueldoM'];
@@ -19,6 +121,10 @@ if(isset($_POST['parte']))
 			$EdoCivil = $_POST['EdoCivil'];
 			$EspEdoCivil = $_POST['EspEC'];
 
+			$Estatus = 1;
+			$Puesto = $_POST['Puesto'];
+
+
 			$Calle = $_POST['Calle'];
 			$NumExt = $_POST['Numero'];
 			$NumInt = $_POST['NumInt'];
@@ -26,21 +132,22 @@ if(isset($_POST['parte']))
 			$Municipio = $_POST['Municipio'];
 			$Estado = $_POST['Estado'];
 			$CP = $_POST['Cp'];
-			$sql="INSERT INTO Solicitante(ApMaterno,ApPaterno,Nombre,Edad,TelCasa,TelCelular,Correo,TiempoRes,ViveCon,EspViveCon,Dependientes,EdoCivil,EspEdoCivil) VALUES ('$ApMaterno','$ApPaterno','$Nombre','$Edad','$TelCasa','$TelCelular','$Correo','$TiempoRes','$ViveCon','$EspViveCon','$Dependientes','$EdoCivil','$EspEdoCivil')";
-			$mysqli->query($sql);
 
-			// echo $sql;
 
 			$sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
 			$idsol=$mysqli->query($sql2);
 			$resultado=$idsol->fetch_assoc();
 
-			$sql1="INSERT INTO SolicitudTrabajo(idSolicitante,Seccion) VALUES('$resultado[idSolicitante]','$_POST[parte]')";
-			$mysqli->query($sql1);
+
+			$sql="UPDATE Solicitante SET ApMaterno='$ApMaterno', ApPaterno='$ApPaterno', Nombre='$Nombre', Edad='$Edad', TelCasa='$TelCasa', TelCelular='$TelCelular', Correo='$Correo', TiempoRes='$TiempoRes', ViveCon='$ViveCon', EspViveCon='$EspViveCon', Dependientes='$Dependientes', EdoCivil='$EdoCivil', EspEdoCivil='$EspEdoCivil' WHERE idSolicitante=$resultado[idSolicitante]";
+			$mysqli->query($sql);
+
+			$sql="UPDATE SolicitudTrabajo SET Puesto='$Puesto', SueldoDeseado='$Sueldo', Seccion='$_POST[parte]', Estatus='$Estatus' WHERE idSolicitante=$resultado[idSolicitante]";
+			$mysqli->query($sql);
 
 
-			$sql3="INSERT INTO DomSolicitante(idSolicitante,Calle,NumExt,NumInt,Colonia,Municipio,Estado,CP) VALUES('$resultado[idSolicitante]','$Calle','$NumExt','$NumInt','$Colonia','$Municipio','$Estado','$CP')";
-			$mysqli->query($sql3);
+			$sql ="UPDATE DomSolicitante SET Calle='$Calle', NumExt='$NumExt', NumInt='$NumInt', Colonia='$Colonia', Municipio='$Municipio', Estado='$Estado', CP='$CP' WHERE idSolicitante=$resultado[idSolicitante]";
+			$mysqli->query($sql);
 
 			?>
 			<script type="text/javascript">
@@ -62,8 +169,10 @@ if(isset($_POST['parte']))
 			$idsol=$mysqli->query($sql2);
 			$resultado=$idsol->fetch_assoc();
 
-			$sql = "INSERT INTO Documentacion(idSolicitante,Curp,Rfc,Imms,Licencia,NumLicencia) 
-					VALUES ('$resultado[idSolicitante]','$Curp','$Rfc','$Imss','$Licencia','$NumLicencia')";
+			// $sql = "INSERT INTO Documentacion(idSolicitante,Curp,Rfc,Imms,Licencia,NumLicencia) 
+					// VALUES ('$resultado[idSolicitante]','$Curp','$Rfc','$Imss','$Licencia','$NumLicencia')";
+
+			$sql="UPDATE Documentacion SET Curp='$Curp', Rfc='$Rfc', Imms='$Imss', Licencia='$Licencia', NumLicencia='$NumLicencia' WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sql);
 
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
@@ -86,8 +195,7 @@ if(isset($_POST['parte']))
 			$idsol=$mysqli->query($sql2);
 			$resultado=$idsol->fetch_assoc();
 			
-			$sql="INSERT INTO EdoSalud(idSolicitante,Estado,Padece,Enfermedad,Meta) 
-				  VALUES('$resultado[idSolicitante]','$Estado','$Padece','$Enfermedad','$Meta')";
+			$sql="UPDATE EdoSalud SET Estado='$Estado', Padece='$Padece', Enfermedad='$Enfermedad', Meta='$Meta' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
@@ -125,16 +233,14 @@ if(isset($_POST['parte']))
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
 
-			$sql = "INSERT INTO PadreSol(idSolicitante,Nombre,Vive,Domicilio,Ocupacion,Hijos) VALUES('$resultado[idSolicitante]','$NomP','$ViveP','$DomP','$OcupP','$Hijos')";
+			$sql="UPDATE PadreSol SET Nombre='$NomP', Vive='$ViveP', Domicilio='$DomP', Ocupacion='$OcupP', Hijos='$Hijos' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
-			$sql1 ="INSERT INTO Madre(idSolicitante,Nombre,Vive,Domicilio,Ocupacion) VALUES ('$resultado[idSolicitante]','$NomM','$ViveM','$DomM','$OcupM')";
-			$mysqli->query($sql1);
+			$sql="UPDATE Madre SET Nombre='$NomM', Vive='$ViveM', Domicilio='$DomM', Ocupacion='$OcupM' WHERE idSolicitante=$resultado[idSolicitante]";
+			$mysqli->query($sql);
 
-			$sql3 = "INSERT INTO Esposa(idSolicitante,Nombre,Vive,Domicilio,Ocupacion) VALUES ('$resultado[idSolicitante]','$NomE','$ViveE','$DomE','$OcupE')";
-			$mysqli->query($sql3);
-
-
+			$sql="UPDATE Esposa SET Nombre='$NomE', Vive='$ViveE', Domicilio='$DomE', Ocupacion='$OcupE' WHERE idSolicitante=$resultado[idSolicitante]";
+			$mysqli->query($sql);
 
 			?><script type="text/javascript">
 			$(document).ready(function() {
@@ -164,7 +270,8 @@ if(isset($_POST['parte']))
 			$resultado=$idsol->fetch_assoc();
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
-			$sql = "INSERT INTO Escolaridad (idSolicitante,Escuela,Direccion,FechaI,FechaF,Documento,Carrera,Nivel,EscuelaAct,Curso,Dias,Horario,NivelAct) VALUES('$resultado[idSolicitante]','$Nivel1','$Direccion','$FechaI','$FechaF','$Documento','$Carrera','$Nivel2','$EscuelaActual','$CarreraActual','$DiasAsiste','$Horario','$GradoActual')";
+
+$sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='$FechaI', FechaF='$FechaF', Documento='$Documento', Carrera='$Carrera', Nivel='$Nivel2', EscuelaAct='$EscuelaActual', Curso='$CarreraActual', Dias='$DiasAsiste', Horario='$Horario', NivelAct='$GradoActual' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
 			?><script type="text/javascript">				
@@ -199,11 +306,12 @@ if(isset($_POST['parte']))
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
 
-			$sql1 ="INSERT INTO Conocimientos (idSolicitante,Funciones,Software) VALUES('$resultado[idSolicitante]','$Funciones','$Software')";
-			$mysqli->query($sql1);
-
-			$sql =" INSERT INTO Empleos(idSolicitante,Compania,FechaInicio,FechaTermino,Direccion,Telefono,Puesto,Motivo,Salario,NombreJefe,PuestoJefe,Informacion,Porque) VALUES('$resultado[idSolicitante]','$Compania','$FechaInicio','$FechaTermino','$Direccion','$Telefono','$Puesto','$Motivo','$Salario','$NombreJefe','$PuestoJefe','$Informacion','$Porque')";
+			$sql ="UPDATE Conocimientos SET Funciones='$Funciones', Software='$Software' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
+
+			// $sql="UPDATE Empleos SET Compania='$Compania', FechaInicio='$FechaInicio',
+			// 		 FechaTermino='$FechaTermino', Direccion='$Direccion', Telefono='$Telefono', Puesto='$Puesto', Motivo='$Motivo', Salario='$Salario', NombreJefe='$NombreJefe', PuestoJefe='$PuestoJefe', Informacion='$Informacion', Porque='$Porque' WHERE idSolicitante=$resultado[idSolicitante]";
+			// $mysqli->query($sql);
 			
 			?><script type="text/javascript">
 			$(document).ready(function() {
@@ -233,13 +341,12 @@ if(isset($_POST['parte']))
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
 
-			$sql = "INSERT INTO RefFamiliar(idSolicitante,Nombre,Domicilio,Telefono,Ocupacion,Tiempo) 
-					VALUES ('$resultado[idSolicitante]','$Nombre1','$Domicilio1','$Telefono1','$Ocupacion1','$Tiempo1')";
+
+			$sql="UPDATE RefFamiliar SET Nombre='$Nombre1', Domicilio='$Domicilio1', Telefono='$Telefono1', Ocupacion='$Ocupacion1', Tiempo='$Tiempo1' WHERE idSolicitante=$resultado[idSolicitante] AND NumF=1";
 			$mysqli->query($sql);
 
-			$sql1 = "INSERT INTO RefFamiliar(idSolicitante,Nombre,Domicilio,Telefono,Ocupacion,Tiempo) 
-					VALUES ('$resultado[idSolicitante]','$Nombre2','$Domicilio2','$Telefono2','$Ocupacion2','$Tiempo2')";
-			$mysqli->query($sql1);
+			$sql="UPDATE RefFamiliar SET Nombre='$Nombre2', Domicilio='$Domicilio2', Telefono='$Telefono2', Ocupacion='$Ocupacion2', Tiempo='$Tiempo2' WHERE idSolicitante=$resultado[idSolicitante] AND NumF=2";
+			$mysqli->query($sql);
 
 			?><script type="text/javascript">				
 			$(document).ready(function() {
@@ -263,8 +370,7 @@ if(isset($_POST['parte']))
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
 
-			$sql = "INSERT INTO DatosGenerales (idSolicitante,ComoSupo,Pariente,Viajar,ExpViajar,Residencia,ExpResidencia,FechaTrabajar)
-				VALUES ('$resultado[idSolicitante]','$ComoSupo','$Pariente','$Viajar','$ExpViajar','$Residencia','$ExpResidencia','$FechaTrabajar')";
+			$sql ="UPDATE DatosGenerales SET ComoSupo='$ComoSupo', Pariente='$Pariente', Viajar='$Viajar', ExpViajar='$ExpViajar', Residencia='$Residencia', ExpResidencia='$ExpResidencia', FechaTrabajar='$FechaTrabajar' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
 			?><script type="text/javascript">				
@@ -274,7 +380,8 @@ if(isset($_POST['parte']))
 			</script><?php		
 		}
 
-		else if ($_POST['parte']==10) {
+		if ($_POST['parte']==10) {
+
 
 			$Ingresos = $_POST['Ingresos'];
 			$Importe = $_POST['Importe'];
@@ -295,17 +402,19 @@ if(isset($_POST['parte']))
 			$sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
 			$idsol=$mysqli->query($sql2);
 			$resultado=$idsol->fetch_assoc();
-			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
+
+			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte], Estatus='0' WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
 
-			$sql = "INSERT INTO DatosEconomicos(idSolicitante,Ingresos,Importe,Conyuge,IngresoConyuge,CasaPropia,ValorCasa,PagaRenta,ValorRenta,AutoMovil,MarcaAuto,ModeloAuto,Adeudo,ImporteAdeudo,AbonoAdeudo,GastosMensuales)VALUES ('$resultado[idSolicitante]','$Ingresos','$Importe','$Conyuge','$IngresoConyuge','$CasaPropia','$ValorCasa','$PagaRenta','$ValorRenta','$AutoMovil','$MarcaAuto','$ModeloAuto','$Adeudo','$ImporteAdeudo','$AbonoAdeudo','$GastosMensuales')";
+
+			$sql="UPDATE DatosEconomicos SET Ingresos='$Ingresos', Importe='$Importe', Conyuge='$Conyuge', IngresoConyuge='$IngresoConyuge', CasaPropia='$CasaPropia', ValorCasa='$ValorCasa', PagaRenta='$PagaRenta', ValorRenta='$ValorRenta', AutoMovil='$AutoMovil', MarcaAuto='$MarcaAuto', ModeloAuto='$ModeloAuto', Adeudo='$Adeudo', ImporteAdeudo='$ImporteAdeudo', AbonoAdeudo='$AbonoAdeudo', GastosMensuales='$GastosMensuales' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
-			?><script type="text/javascript">				
-			$(document).ready(function() {
-			$('#result').load('parte10.php');
-			 });			
-			</script><?php
+			header('Location: bolsa_trabajo.php?acc=1');
+			?>
+			<script type="text/javascript">	
+			</script>
+			<?php
 
 	}
 }
@@ -318,12 +427,5 @@ else if ($_POST['parte2']==1) {
 			$('#result').load(pagina);
 			 });			
 			</script><?php
-}
-
-
-// else if ($_POST['borrar']==1) {
-// 			 $sql="DELETE FROM Solicitante FROM Solicitante S INNER JOIN SolicitudTrabajo ST ON S.idSolicitante= ST.idSolicitante AND ST.Seccion<10";
-// 			 $mysqli->query($sql);
-// }	
+}	
 		?>
- ?>

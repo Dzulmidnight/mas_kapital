@@ -1,11 +1,10 @@
-<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4 class="modal-title" id="myModalLabel">Formulario Vacantes</h4>
 </div>
 <div class="modal-body">
     <div class="row" id="">
-<form action="sqls.php" method="POST" id="form1">
+<form action="sqls.php" method="POST" id="form2">
 <div class="col-xs-12"> 
                             <table class="table table-bordered">
                                 <tr>
@@ -109,19 +108,20 @@
                             </table>
                             </div>
                         <div class="col-xs-12">
-                            <input type="checkbox"> HAGO CONSTAR QUE TODOS LOS DATOS ASENTADOS EN LA PRESENTE SOLICITUD SON CIERTOS Y AUTORIZO A KAPITALMUJER, SA DE CV SOFOM ENR A VERIFICARLOS.
+                            <input type="checkbox" id="Acepto" name="Acepto" required> HAGO CONSTAR QUE TODOS LOS DATOS ASENTADOS EN LA PRESENTE SOLICITUD SON CIERTOS Y AUTORIZO A KAPITALMUJER, SA DE CV SOFOM ENR A VERIFICARLOS.
                         </div>
                         <div class="col-xs-12">
                         <p style="color:red">Debes seleccionar la casilla para poder enviar el correo</p>
-                        <div class="g-recaptcha" data-sitekey="6LfhBiIUAAAAAFgntz5Hso60CCY6uRthO4C7Z0UV"></div><input type="hidden" id="parte" name="parte" value="10">
+                        
+                        <div class="g-recaptcha" data-sitekey="6LfhBiIUAAAAAFgntz5Hso60CCY6uRthO4C7Z0UV"></div>
 
+                        <input type="hidden" id="parte" name="parte" value="10">
                         </div>
                     </form>
+                        <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
                     </div>
-<div class="modal-footer">
-<button style="color:white;" type="button" class="btn btn-warning" value="ATRAS" onclick="botonAtras()"><i class="fa fa-caret-left fa-1x" aria-hidden="true"></i> &nbsp;&nbsp; ATRAS</button>
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
- <button type="submit" form="form1" id="btbSiguiente" name="btbSiguiente" class="btn btn-primary">Enviar Solicitud</button>
-
-<!--     <button style="color:orange" type="submit" form="form1" id="btbSiguiente" name="btbSiguiente" class="btn btn-link btn-lg">SIGUIENTE &nbsp; &nbsp;<i class="fa fa-caret-right fa-2x" aria-hidden="true"></i></button>
- --></div>
+    <div class="modal-footer">
+        <button style="color:white;" type="button" class="btn btn-warning" onclick="btnAtras()" value="ATRAS"><i class="fa fa-caret-left fa-1x" aria-hidden="true"></i> &nbsp;&nbsp; ATRAS</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+         <button type="submit" form="form2" id="btbSiguiente" name="btbSiguiente" class="btn btn-primary">Enviar Solicitud</button>
+     </div>
