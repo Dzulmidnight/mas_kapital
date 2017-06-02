@@ -1,9 +1,3 @@
-<?php
- 
-// grab recaptcha library
-require_once "recaptchalib.php";
- 
-?>
 <!DOCTYPE html>
 <html lang="esp">
 <head>
@@ -16,12 +10,12 @@ require_once "recaptchalib.php";
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet"> 
     <link href="css/lightbox.css" rel="stylesheet"> 
-	<link href="css/main.css" rel="stylesheet">
-	<link href="css/responsive.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
-	    <script src="js/html5shiv.js"></script>
-	    <script src="js/respond.min.js"></script>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
     <![endif]-->       
     <link rel="shortcut icon" href="img/logos/favicon.jpg">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
@@ -29,97 +23,18 @@ require_once "recaptchalib.php";
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+
     <script language="javascript" src="js/jquery-1.3.min.js"></script>
 
-<!-- <script language="javascript">   -->
-    <!-- function GuardarTrabajo(){ -->
-        <!-- alert ('GuardarTrabajo'); -->
-<!-- // var Compania = $('#Compania').val(); -->
-<!-- // var FechaInicio = $('#FechaInicio').val();
-// var FechaTermino = $('#FechaTermino').val();
-// var Direccion = $('#Direccion').val();
-// var Telefono = $('#Telefono').val();
-// var Puesto = $('#Puesto').val();
-// var Motivo = $('#Motivo').val();
-// var Salario = $('#Salario').val();
-// var NombreJefe = $('#NombreJefe').val();
-// var PuestoJefe = $('#PuestoJefe').val();
-// var Informacion = $('#Informacion').val();
-// var Porque = $('#Porque').val();
-// var Ax=1;
-
-//         $.ajax({ 
-//             type: 'POST', 
-//             url: 'sqls.php',
-//             data: {Compania:Compania,
-//                     FechaInicio:FechaInicio,
-//                     FechaTermino:FechaTermino,
-//                     Direccion:Direccion,
-//                     Telefono:Telefono,
-//                     Puesto:Puesto,
-//                     Motivo:Motivo,
-//                     Salario:Salario,
-//                     NombreJefe:NombreJefe,
-//                     PuestoJefe:PuestoJefe,
-//                     Informacion:Informacion,
-//                     Porque:Porque,
-//                     Ax:Ax}, 
-//             success: function(data) { 
-//             $('#TrabajoAnt').html(data); 
-//             $('#result div').slideDown(1000); 
-//             } 
-//         });
-    } 
-</script> -->
-
-
-<script>
-    $(document).ready(function(e) {
-    // Capturamos el evento submit del formulario
-    $('#formTrabajo').on('submit', '#form, #fat, #form2', function() {
-        $respuesta=false; // Suponemos por defecto que la validación será erronea
-        // Realizamos llamada en AJAX
-        $.ajax({
-        url:"vrfcaptcha.php",  // script al que le enviamos los datos
-        type:"POST",           // método de envío POST
-        dataType:"json",       // la respuesta será en formato JSON
-        data: $(this).serialize({ checkboxesAsBools: true }),
-        async:false,     // Llamada síncrona para que el código no continúe hasta obtener la respuesta
-        success:         // Si se ha podido realizar la comunicación
-            function(msg){
-               $respuesta=msg.success; // Obtenemos el valor de estado de la validación
-               if($respuesta) {        // La validación ha sido correcta
-                // Eliminamos del formulario el campo que contiene los parámetros de validación
-                $("#g-recaptcha-response","#form2").remove();
-               } else    {
-                  alert('Porfavor Valide el reCATPCHA'); // Mostramos mensaje
-               } 
-        },
-        error:  // En caso de error de comunicación mostraremos mensaje de aviso con el error
-            function (xhr, ajaxOptions, thrownError){
-                alert('Url: '+this.url+'\n\r’+’Error: '+thrownError);
-            }  
-        }); // Final de la llamada en AJAX
-        // Si la respuesta es true continuará el evento submit, de lo contrario será cancelado
-        return $respuesta;
-        });
-    });
-  </script>  
-<script type="text/javascript">
-    $(document).ready(function(){
-        <?
-        if (isset($_GET['acc'])==1){ ?>
-        $('#modalAlert').modal('toggle');
-    <?}?>
-    });
-</script>
 <script language="javascript">
-    $(document).ready(function() { //Guarda y muestra la siguiente seccion del modal Solicitud trabajo
+    $(document).ready(function() {
+
     $('#formTrabajo').on('submit', '#form, #fat, #form1', function() {
           $.ajax({
               type: 'POST',
               url: $(this).attr('action'),
               data: $(this).serialize({ checkboxesAsBools: true }),
+              //data: $(this).serialize(),
               success: function(data) {
                 $('#result').fadeIn(500);
                   $('#result').html(data);
@@ -131,35 +46,11 @@ require_once "recaptchalib.php";
       }); 
     })  
 </script>
-<script language="javascript">  
-         function NuevoR(){
-            var parte=0;
-            $.ajax({ 
-            type: 'POST', 
-            url: 'sqls.php',
-            data: {parte:parte}, 
-            success: function(data) { 
-            } 
-        });
-        }
-</script>
 
-<script language="javascript">  
-    $(document).ready(function(){ //Elimina los registros de solicitudes de trabajo no terminadas (cuando cirra el modal)
-$('#modal_frm_trabajo').on('hidden.bs.modal', function (e) {
-<? include ('conexion.php');
-            $sql="UPDATE SolicitudTrabajo SET Estatus='0' WHERE SolicitudTrabajo.Seccion<10";
-            $mysqli->query($sql);
 
-            $sqlD="DELETE FROM Solicitante WHERE EXISTS (SELECT 1 FROM SolicitudTrabajo WHERE Solicitante.idSolicitante = SolicitudTrabajo.idSolicitante AND SolicitudTrabajo.Seccion < 10 AND SolicitudTrabajo.Estatus=0)";
-            $mysqli->query($sqlD);
-?>
-        });
-    })
-</script>
 
 <script language="javascript">
-    function btnAtras() { // Muestra la seccion anterior de la solicitud de trabajo ( boton atras)
+    function botonAtras() { 
         var parte2=1;
         var pagina1 = $('#parte').val();
         pagina = pagina1-2;
@@ -174,60 +65,7 @@ $('#modal_frm_trabajo').on('hidden.bs.modal', function (e) {
         });
     }  
 </script>
-<script language="javascript">
-    function BorrarTrabajo() {
-    var Trabajo = $('#TrabajoAnt').val();
-    var Ax='2';
-    alert ('Trabajo Eliminado');
-        $.ajax({ 
-            type: 'POST', 
-            url: 'sqls.php',
-            data: {Trabajo:Trabajo,Ax:Ax}, 
-            success: function(data) { 
-                $('#TrabajoAnt').html(data); 
-            } 
-        });
-    }  
-</script>
-<script language="javascript">
-    function GuardarTrabajo() {
-var Compania = $('#Compania').val();
-var FechaInicio = $('#FechaInicio').val();
-var FechaTermino = $('#FechaTermino').val();
-var Direccion = $('#Direccion').val();
-var Telefono = $('#Telefono').val();
-var Puesto = $('#Puesto').val();
-var Motivo = $('#Motivo').val();
-var Salario = $('#Salario').val();
-var NombreJefe = $('#NombreJefe').val();
-var PuestoJefe = $('#PuestoJefe').val();
-var Informacion = $('#Informacion').val();
-var Porque = $('#Porque').val();
-var Ax='1';
-        $.ajax({ 
-            type: 'POST', 
-            url: 'sqls.php',
-            data: {Compania:Compania,
-                    FechaInicio:FechaInicio,
-                    FechaTermino:FechaTermino,
-                    Direccion:Direccion,
-                    Telefono:Telefono,
-                    Puesto:Puesto,
-                    Motivo:Motivo,
-                    Salario:Salario,
-                    NombreJefe:NombreJefe,
-                    PuestoJefe:PuestoJefe,
-                    Informacion:Informacion,
-                    Porque:Porque,
-                    Ax:Ax}, 
-            success: function(data) { 
-                $('#TrabajoAnt').html(data); 
-                $("form#form1").find("input[type=text], select, textarea").val("");
 
-            } 
-        });
-    }  
-</script>
 <script>
     $(document).ready(function() {
         $('#menu_oculto').hide(0);
@@ -289,7 +127,7 @@ ul {
 </head><!--/head-->
 
 <body>
-	<header id="header">      
+    <header id="header">      
         <div class="navbar navbar-inverse" role="banner" style="margin-bottom:-20px;">
             <div class="container">
                 <div class="navbar-header">
@@ -301,7 +139,7 @@ ul {
                     </button>
 
                     <a class="navbar-brand" href="index.html" style="margin-top:10px;">
-                    	<h1><img src="img/logos/logo_mas_kapital.png" alt="logo"></h1>
+                        <h1><img src="img/logos/logo_mas_kapital.png" alt="logo"></h1>
                     </a>
                     
                 </div>
@@ -352,42 +190,85 @@ ul {
         <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
     </section>
 
-     <div id="menu_oculto">
-        <div id="div_lateral">
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="right:0px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>¿QUIÉNES SOMOS?</b></a>
-                </div>
-                <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="right:0px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>UNIVERSIDAD MK</b></a>
-                </div>
-                <a href="universidad_mk.html"><img src="img/logos/ico_universidad.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:49px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>MÁSFLEXIBLE</b></a>
-                </div>
-                <a href="mas_flexible.html"><img src="img/logos/ico_masflexible.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:53px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>MÁSPUNTOS</b></a>
-                </div>
-                <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:53px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>SUCURSALES</b></a>
-                </div>
-                <a href="sucursales.html"><img src="img/logos/ico_localizacion.png" alt=""></a>
-            </div>
-        </div>
-    </div>
+    <?php 
+    include('menu_lateral.php');
+     ?>
 
     <!--/#home-slider-->
+    <section>
+        <div style="padding-top:10em;padding-bottom:10em;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4" style="background:#8787b7;">
+                        <h2 style="color:#ffffff">FILTRAR</h2>
+                        
+                        <div class="acidjs-css3-treeview">
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="node-0" checked="checked" /><label><input type="checkbox" /><span></span></label><label for="node-0">Libraries</label>
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox" id="node-0-0" checked="checked" /><label><input type="checkbox" /><span></span></label><label for="node-0-0">Documents</label>
+                                            <ul>
+                                                <li>
+                                                    <input type="checkbox" id="node-0-0-0" checked="checked" /><label><input type="checkbox" /><span></span></label><label for="node-0-0-0">My Documents</label>
+                                                    <ul>
+                                                        <li>
+                                                            <input type="checkbox" id="node-0-0-0-0" /><label><input type="checkbox" /><span></span></label><label for="node-0-0-0-0">Downloads</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" id="node-0-0-0-1" /><label><input type="checkbox" /><span></span></label><label for="node-0-0-0-1">Projects</label>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-1" /><label><input type="checkbox" /><span></span></label><label for="node-0-1">Music</label>
+                                            <ul>
+                                                <li>
+                                                    <input type="checkbox" id="node-0-1-0" /><label><input type="checkbox" /><span></span></label><label for="node-0-1-0">My Music</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="node-0-1-1" /><label><input type="checkbox" /><span></span></label><label for="node-0-1-1">Public Music</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-2" /><label><input type="checkbox" /><span></span></label><label for="node-0-2">Pictures</label>
+                                            <ul>
+                                                <li>
+                                                    <input type="checkbox" id="node-0-2-0" /><label><input type="checkbox" /><span></span></label><label for="node-0-2-0">My Pictures</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="node-0-2-1" /><label><input type="checkbox" /><span></span></label><label for="node-0-2-1">Public Pictures</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-3" checked="checked" /><label><input type="checkbox" checked="checked" /><span></span></label><label for="node-0-3">Video</label>
+                                            <ul>
+                                                <li>
+                                                    <input type="checkbox" id="node-0-3-0" /><label><input type="checkbox" checked="checked" /><span></span></label><label for="node-0-3-0">My Videos</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="node-0-3-1" /><label><input type="checkbox" checked="checked" /><span></span></label><label for="node-0-3-1">Public Videos</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8" style="background:#8787b7;">
+                        <h2 style="color:#ffffff">Resultados Obtenidos</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section>
         <div class="container" style="padding-top:10em;padding-bottom:10em;">
             <div class="row">
@@ -399,10 +280,10 @@ ul {
     </section>
 
     <section>
-        <div class="container"> 
+        <div class="container">
             <div class="row" id="talento">
                 <div class="text-center col-md-12" style="margin-top:35%">
-                    <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
+                    <button class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
                         <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
                     </button>
                 </div>
@@ -666,7 +547,7 @@ ul {
 
 
 <!-- MODAL FORMULARIO TRABAJO -->
-<div class="modal fade" id="modal_frm_trabajo" name="modal_frm_trabajo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modal_frm_trabajo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document" id="formTrabajo" name="formTrabajo">
         <div class="modal-content" id="result" name="result">
         <?php include ('parte1.php');?>
@@ -676,31 +557,6 @@ ul {
     </div>
 </div>
 <!-------------------------->
-
-<!-- Modal -->
-<div id="modalAlert" name="modalAlert" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body text-center">
-        <h3>Gracias por querer formar parte de nosotros <br>¡SU SOLICITUD HA SIDO ENVIADA CON EXITO!</h3>      
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-<script type="text/javascript">
-    
-
-</script>
-
     <script>
         function aparecer(){
             var elements = document.getElementsByClassName('barra_lateral_2');
