@@ -52,7 +52,7 @@ $(document).ready(function(){
 $('#cheksbx').on('change','#micheckbox', function() {
 
     if( $(this).is(':checked') ) {
-        // alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+        alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
         var combo = $(this).val();
         var Ax='3';
         $.ajax({
@@ -68,34 +68,13 @@ $('#cheksbx').on('change','#micheckbox', function() {
     else {
         // Hacer algo si el checkbox ha sido deseleccionado
         var combo = $(this).val(); 
-         var Ax='4';
-         $.ajax({
-            type:'POST',
-            url:'sqls.php',
-            data:{Ax:Ax,combo:combo},
-            success:function(data){
-             $("div").remove("."+combo); 
-            }
-         });
+        alert("El checkbox con valor " + combo + " ha sido deseleccionado");
+         $("div").remove("."+combo); 
     }
 });
 })
 </script>
-<script language="javascript">
-    function btnPostularse(idVacante) { 
-        var idVacante=idVacante;
-        var Ax='5';
-        $.ajax({ 
-            type: 'POST', 
-            url: 'sqls.php',
-            data: {idVacante:idVacante,Ax:Ax}, 
-            success: function(data) { 
-            $('#requisitos').html(data); 
-            $('#requisitos div').slideDown(1000); 
-            } 
-        });
-    }  
-</script>
+
 <script language="javascript">
     function botonAtras() { 
         var parte2=1;
@@ -291,9 +270,9 @@ ul {
                             </div>
                             <div class="col-md-5">
                                 <div class="row">
-
                                     <label class="h4">Requisitos de la vacante</label>
-                                    <div class="col-md-12" id="requisitos" name="requisitos">
+                                    <div style="background-color: green; color: white ">
+                                        <h4><label>Nombre de Puesto</label></h4>
                                     </div>
                                 </div>
                             </div>                        

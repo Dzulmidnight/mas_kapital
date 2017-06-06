@@ -1,9 +1,8 @@
 <?php
 include ('conexion.php');
 
+if($_POST['Ax']){
 	if($_POST['Ax']==1){
- 
-			
 			$Compania =$_POST['Compania'];
 			$FechaInicio =$_POST['FechaInicio'];
 			$FechaTermino =$_POST['FechaTermino'];
@@ -34,9 +33,6 @@ include ('conexion.php');
 			?>
                  <option value=" <?php echo $fila[0]; ?>"> <?php echo "$fila[1] - $fila[2]";?></option>
             <?php }
-
-
-			
 }
 if($_POST['Ax']==2){ //Eliminar Trabajo
 	$Trabajo= $_POST['Trabajo'];
@@ -58,6 +54,100 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
                  <option value=" <?php echo $fila[0]; ?>"> <?php echo "$fila[1] - $fila[2]";?></option>
             <?php }
 
+}
+
+	if($_POST['Ax']==3){ 
+		$emp = $_POST['combo'];
+		$sql="SELECT * FROM Sucursales WHERE Estado='$emp' OR Municipio='$emp'";
+		$result=$mysqli->query($sql);
+
+		while ($fila=$result->fetch_row()){
+
+			$sql2="SELECT * FROM Vacantes WHERE idSucursales='$fila[0]'";
+			$result2=$mysqli->query($sql2); 
+			while ($fila2=$result2->fetch_row()){
+				?>
+			<? if ($fila2[6]==0) {
+			$sql3="UPDATE Vacantes SET Activo='1' WHERE idVacantes=$fila2[0]";
+			$mysqli->query($sql3);
+			?>
+			<div class="col-md-12 <?echo $fila[3].' '.$emp; ?>" style="border: 0.2em solid #8787b7; margin-top: 1em"
+			<div class="row">
+			<div class="col-md-12"><label style="color:green"><? echo $fila2[1];//Puesto ?></label></div>
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row">
+						<div class="col-md-12"><label><? echo $fila[1];//Nombre de Sucursal  ?></label></div>
+
+						<div class="col-md-6"><p style="margin: 0px">Salario: <? echo $fila2[3] ; ?></p></div>
+						<div class="col-md-6"><p style="margin: 0px">Jornada: <? echo $fila2[4] ; ?></p></div>
+						</div>
+					</div>
+					<div class="col-md-4">
+					<button onclick="btnPostularse(<? echo $fila2[0];?>)" style="background-color:#8787b7" class="btn btn-primary btn-block">Postularse</button>
+					</div>
+					<div class="col-md-12"><p style="margin: 0px">Tipo de Contrato:<? echo $fila2[5] ; ?></p></div>
+
+				</div>
+			</div>
+			</div>
+			</div>	
+		<?php } 
+		} //WHILE
+	}//While
+
+	}//AX=3
+	if($_POST['Ax']==4) { //Marcar Vacante como inactiva
+		$emp = $_POST['combo'];
+		$sql="SELECT * FROM Sucursales WHERE Estado='$emp' OR Municipio='$emp'";
+		$result=$mysqli->query($sql);
+		while ($fila=$result->fetch_row()){
+
+			$sql2="SELECT * FROM Vacantes WHERE idSucursales='$fila[0]'";
+			$result2=$mysqli->query($sql2); 
+			while ($fila2=$result2->fetch_row()){
+				?>
+			<? 
+				if ($fila2[6]==1) {
+				$sql3="UPDATE Vacantes SET Activo='0' WHERE idVacantes=$fila2[0]";
+				$mysqli->query($sql3);
+				}
+			}
+		}
+	}//Ax==4
+	if ($_POST['Ax']==5) {
+		$idVacante=$_POST['idVacante'];
+
+		$sql2="SELECT * FROM Vacantes WHERE idVacantes=$idVacante";
+		$res2=$mysqli->query($sql2);
+		$fila2=$res2->fetch_assoc();
+		?>
+        <div class="col-md-12" style="background-color: green; color: white ">
+		<label class="h4"><? echo $fila2['Puesto'] ?></label>
+		</div>
+		<div class="col-md-12">
+			<p style="margin: 0em">Requisitos</p>
+		<?php
+		$sql="SELECT Requisito FROM Requisitos WHERE idVacantes=$idVacante";
+		$res=$mysqli->query($sql);
+		 while ($fila=$res->fetch_assoc()) {?>
+			<p style="margin: 0em">-<?	echo $fila['Requisito'];?></p><?
+			}
+		?><p style="margin: 1em 0em 0em">Ofrecemos</p> <?php
+		$sql3="SELECT Ofrecemos FROM Requisitos WHERE idVacantes=$idVacante";
+		$res3=$mysqli->query($sql3);
+		 while ($fila3=$res3->fetch_assoc()) {
+		 	if ($fila3['Ofrecemos']!="") {
+		 		# code...
+		 	
+		 	?>
+
+		 <p style="margin: 0em">-<?	echo $fila3['Ofrecemos'];?></p><?
+			}} ?>
+		</div>
+		<?
+	}
 }
 
 if(isset($_POST['parte']))
@@ -418,7 +508,7 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 
 	}
 }
-else if ($_POST['parte2']==1) {
+else if (isset($_POST['parte2'])==1) {
 	$Npagina = $_POST['pagina'];
 
 			?><script type="text/javascript">
