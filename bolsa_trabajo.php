@@ -22,9 +22,15 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="stylesheet" href="dist/themes/default/style.css" />
+
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 
     <script language="javascript" src="js/jquery-1.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="dist/jstree.min.js"></script>
+
+
 
 <script language="javascript">
     $(document).ready(function() {
@@ -174,6 +180,7 @@ ul {
 </head><!--/head-->
 
 <body>
+
     <header id="header">      
         <div class="navbar navbar-inverse" role="banner" style="margin-bottom:-20px;">
             <div class="container">
@@ -248,35 +255,40 @@ ul {
                 <div class="col-md-3" style=" background:#8787b7; padding: 0em; color:#ffffff; height: 30em">
                     <h2  style="color:#ffffff" class="text-center">FILTRAR</h2>
                     <div style="background-color: #263c89; padding:2em 0em 1em 2em; height: 100%; overflow-x: scroll;" class="acidjs-css3-treeview" id="cheksbx">
-                        <ul style="font-size: 1.3em;">
+
+<ul style="font-size: 1.3em;">
+<?php
+include ('conexion.php');
+$Aux=0;
+$sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
+$sqlResE=$mysqli->query($sqlSuc);
+while ($fila=$sqlResE->fetch_row()) 
+{ 
+  if ($Aux=0) {
+?><li data-jstree='{ "opened" : true }' id="<?php echo $fila[0] ?>"> <?php echo $fila[0]?>
+<? } else {
+    ?> <li id="<?php echo $fila[0]?>"> <?php echo $fila[0]?>
+    <?} ?>
+        <ul>
+        <?php  
+        $sqlMun="SELECT idSucursales,Municipio FROM Sucursales WHERE Estado='$fila[0]' ";
+        $ResMun=$mysqli->query($sqlMun); 
+
+        while ($Mun=$ResMun->fetch_row())
+        { 
+              if ($Aux=0) {?>
+            <li data-jstree='{"selected" : false}' id="<?php echo $Mun[1]?>" value="<?php echo $Mun[1]; ?>" ><?php echo $Mun[1]; ?></li>
+    <?}        else
+                { 
+                ?> <li id="<?php echo $Mun[1]?>" value="<?php echo $Mun[1]; ?>" ><?php echo $Mun[1]; ?> </li>
+              <?  }
 
 
-                            <?php
-                            include ('conexion.php');
-                            $Aux=0;
-                            $sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
-                            $sqlResE=$mysqli->query($sqlSuc);
-                            while ($fila=$sqlResE->fetch_row()) 
-                            { ?>
-                                <li>
-                                    <input type="checkbox" id="node-0-<?php echo $Aux?>" />
-                                    <label><input type="checkbox" id="micheckbox" name="micheckbox" value="<?php echo $fila[0] ?>" checked="checked" /><span></span></label><label for="node-0-<?php echo $Aux ?>"><?php echo $fila[0] ?></label>
-                                    <ul><?php  
-
-                                    $sqlMun="SELECT idSucursales,Municipio FROM Sucursales WHERE Estado='$fila[0]' ";
-                                    $ResMun=$mysqli->query($sqlMun); 
-
-                                    while ($Mun=$ResMun->fetch_row())
-                                    { ?>
-                                    <li>
-                                        <input type="checkbox" id="node-0-<?php echo $Aux ?>-<?php echo $Mun[0]; ?>"/><label><input type="checkbox" name="micheckbox" id="micheckbox" value="<?php echo $Mun[1]; ?>" checked="checked" /><span></span></label><label for="node-0-<?php echo $Aux ?>-<?php echo $Mun[0]; ?>" ><?php echo $Mun[1]; ?></label>
-                                    </li>
-                                   <? } ?>
-                                   </ul>
-                                </li>
-                         <? $Aux++; } ?>
-                            
-                        </ul>
+     } ?>
+        </ul>
+    </li>
+<? $Aux++; } ?>
+</ul>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -612,6 +624,68 @@ ul {
             }
         }
     </script>
+  <script>
+  $('#cheksbx')
+  .bind("after_open.jstree", function (event, data) {
+$(this).css("height","auto");
+})
+  .on("changed.jstree", function (e, data) {
+
+            if(data.changed.selected.length) {
+                alert('The selected node is: ' + data.changed.selected);
+                var combo = data.changed.selected; 
+                alert('SELECTED:'+combo);
+                 var Ax='3';
+                $.ajax({
+                    type:'POST',
+                    url:'sqls.php',
+                    data:{Ax:Ax,combo:combo},
+                    success:function(data){
+                        $('#divPuesto').before(data); 
+                    }
+                });
+
+            }else
+            {
+                alert('The deselected node is: ' + data.changed.deselected);
+                var Ax='4';
+                var combo = data.changed.deselected; 
+                alert('Eliminar:'+combo);
+                 $.ajax({
+                    type:'POST',
+                    url:'sqls.php',
+                    data:{Ax:Ax,combo:combo},
+                    success:function(data){
+
+                        combo.forEach( function(valor, indice, array) {
+                        var patron = " ",
+                        nuevoValor    = "",
+                        nuevaCadena = valor.replace(patron, nuevoValor);
+                        nuevaCadena = nuevaCadena.replace(patron,nuevoValor);
+                        nuevaCadena = nuevaCadena.replace(patron,nuevoValor);
+                        nuevaCadena = nuevaCadena.replace(patron,nuevoValor);
+
+                        alert("En el índice " + indice + " hay este valor: " + nuevaCadena);
+                         $("div").remove("."+nuevaCadena); 
+
+                        });
+                    }
+                 });
+            }
+    })
+  .jstree({
+    checkbox : {
+        tie_selection : true
+    },
+    types : {
+      default: {
+        icon : false
+      }
+  },
+    plugins : ['checkbox','types','wholerow','changed']
+
+});
+</script>
 
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>

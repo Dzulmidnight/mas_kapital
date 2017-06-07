@@ -58,7 +58,7 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 
 	if($_POST['Ax']==3){ 
 		$emp = $_POST['combo'];
-		$sql="SELECT * FROM Sucursales WHERE Estado='$emp' OR Municipio='$emp'";
+		$sql="SELECT * FROM Sucursales WHERE Estado='$emp[0]' OR Municipio='$emp[0]'";
 		$result=$mysqli->query($sql);
 
 		while ($fila=$result->fetch_row()){
@@ -67,11 +67,14 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 			$result2=$mysqli->query($sql2); 
 			while ($fila2=$result2->fetch_row()){
 				?>
-			<? if ($fila2[6]==0) {
+			<? 
 			$sql3="UPDATE Vacantes SET Activo='1' WHERE idVacantes=$fila2[0]";
 			$mysqli->query($sql3);
+			 $espacio = " ";
+				$clase1 = str_replace($espacio, "",$emp[0]);
+				$clase2 = str_replace($espacio,"",$fila[3]);
 			?>
-			<div class="col-md-12 <?echo $fila[3].' '.$emp; ?>" style="border: 0.2em solid #8787b7; margin-top: 1em"
+			<div class="col-md-12 <?echo $clase2 ; ?>" style="border: 0.2em solid #8787b7; margin-top: 1em"
 			<div class="row">
 			<div class="col-md-12"><label style="color:green"><? echo $fila2[1];//Puesto ?></label></div>
 			<div class="col-md-12">
@@ -93,14 +96,15 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 			</div>
 			</div>
 			</div>	
-		<?php } 
+		<?php
 		} //WHILE
 	}//While
 
 	}//AX=3
 	if($_POST['Ax']==4) { //Marcar Vacante como inactiva
 		$emp = $_POST['combo'];
-		$sql="SELECT * FROM Sucursales WHERE Estado='$emp' OR Municipio='$emp'";
+		foreach ($emp as $valor){
+		$sql="SELECT * FROM Sucursales WHERE Estado='$valor' OR Municipio='$valor'";
 		$result=$mysqli->query($sql);
 		while ($fila=$result->fetch_row()){
 
@@ -109,12 +113,13 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 			while ($fila2=$result2->fetch_row()){
 				?>
 			<? 
-				if ($fila2[6]==1) {
-				$sql3="UPDATE Vacantes SET Activo='0' WHERE idVacantes=$fila2[0]";
-				$mysqli->query($sql3);
-				}
+				// if ($fila2[6]==1) {
+				// $sql3="UPDATE Vacantes SET Activo='0' WHERE idVacantes=$fila2[0]";
+				// $mysqli->query($sql3);
+				// }
 			}
 		}
+	}
 	}//Ax==4
 	if ($_POST['Ax']==5) {
 		$idVacante=$_POST['idVacante'];
