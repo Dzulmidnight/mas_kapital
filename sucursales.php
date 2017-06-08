@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script language="javascript" src="js/jquery-1.3.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -50,6 +50,16 @@
             padding: 30px 10px 30px 10px;
         }
     </style>
+<style>
+  #map {
+    height: 100%;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 
 </head><!--/head-->
 
@@ -90,7 +100,6 @@
     <section>
         <div class="container">
             <div class="row">
-                <form action="" method="POST">
                     <div class="col-md-12">
                         <select class="form-control"  name="nombre_sucursal" id="">
                             <option value="">¿Sábes el nombre de tu sucursal?</option>
@@ -98,47 +107,34 @@
                     </div>
                     <div class="col-md-9" style="font-size:16px;">
                         <h2>Selecciona el Estado</h2>
-                        <div class="row">
+                        <div class="row" id="Estados">
+                        <?php
+                        include ('conexion.php');
+                        $sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
+                        $sqlResE=$mysqli->query($sqlSuc);
+                        while ($fila=$sqlResE->fetch_row()) 
+                        {?>
                             <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Oaxaca</button>
+                                <button class="btn-sucursal" id="btnEstados" name="btnEstados" value="<?php echo $fila[0]; ?>"><?php echo $fila[0]; ?></button>
                             </div>
-                            <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Morelos</button>
-                            </div>
-                            <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Edo. de México</button>
-                            </div>    
-                            <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Tlaxcala</button>
-                            </div>
-                            <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Cd. de México</button>
-                            </div>
-                            <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Puebla</button>
-                            </div>
-                            <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Guerrero</button>
-                            </div>
-                            <div class="col-xs-4 col-sm-3">
-                                <button class="btn-sucursal">Veracruz</button>
-                            </div>
+                         <?php } ?>
+                          
                         </div>
                     </div>
                     <div class="col-md-3">
                         <h3 style="margin-top:3.1em;color: #263c89;"><a class="vinculo" href=""><img src="img/sucursales/logo_facebook.png" alt=""></a> <b>Más Kapital</b></h3>
                         <h3 style="color: #263c89;"><b>KAPITEL 01 800 822 06 73</b></h3>
                     </div>
-                </form>
             </div>
         </div>
     </section>
     <section style="margin-top:2em">
         <div class="container">
             <div class="row">
-                <div class="col-md-9">
-                    <img style="width:100%" src="img/sucursales/mapa.png" alt="">
+                <div class="col-md-9"  id="map" name="map" style="height: 40em">  
+
                 </div>
+
                 <div class="col-md-3">
                     <div class="row">
                         <div class="col-sm-12">
@@ -158,93 +154,8 @@
                     </div>
                 </div>
                 <div class="col-md-12 text-justify" style="margin-top:3em;color:#858789;">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p>
-                                <b>Atlixco</b>
-                            </p>
-                            <p>
-    Calle 10 Oriente No. 26, int.105, Col. Centro, Atlixco, Puebla, C.P. 74200. <br>
-    Tel: (01 244) 446 58 35<br>
-    GERSUC031@maskapital.com.mx
-                            </p>
-                        </div>
-                        <div class="col-sm-3">
-                            <p>
-                                <b>Tepeaca</b>
-                            </p>
-                            <p>
-    Maximino Ávila Camacho No. 504, Barrio el Santuario, Tepeaca, Puebla. C.P. 75200<br>
-    Tel: (01 223) 275 34 41<br>
-    GERSUC007@maskapital.com.mx
-                            </p>
-                        </div>
-                        <div class="col-sm-3">
-                            <p>
-                                <b>Tecamachalco</b>
-                            </p>
-                            <p>
-    Calle 3 Sur No. 503, local 8, Tecamachalco, Puebla, C.P. 75487.<br>
-    Tel: (01 249) 422 65 34 <br>
-    GERSUC006@maskapital.com.mx
-
-                            </p>
-                        </div>
-                        <div class="col-sm-3">
-                            <p>
-                                <b>San Martín Texmelucan</b>
-                            </p>
-                            <p>
-    Lic. Bernardo P. Angulo No. 608, Int. 10 y 11, Col. Centro, San Martín Texmelucan, Puebla, C.P. 74000.<br>
-    Tel: (01 248) 484 65 03<br>
-    GERSUC027@maskapital.com.mx
-                            </p>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <p>
-                                <b>Puebla</b>
-                            </p>
-                            <p>
-    Circuito Interior Juan Pablo II No. 508, local A, Col. Residencial Boulevares Puebla, Puebla, C.P. 72440.<br>
-    Tel: (01 222) 211 01 03<br>
-    GERSUC011@maskapital.com.mx
-                            </p>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <p>
-                                <b>Teziutlán</b>
-                            </p>
-                            <p>
-    Cuauhtémoc No. 1001, locales 1 y 2, Col. Centro, Teziutlán, Puebla, C.P. 73800<br>
-    Tel: (01 231) 313 58 70<br>
-    GERSUC021@maskapital.com.mx
-                            </p>
-                        </div>
-                        <div class="col-sm-3">
-                            <p>
-                                <b>Tehuacán</b>
-                            </p>
-                            <p>
-    Independencia Poniente No. 214, local A, Col. Zaragoza, Tehuacán, Puebla, C.P. 75770.<br>
-    Tel: (01 238) 382 68 68<br>
-    GERSUC004@maskapital.com.mx
-                            </p>
-                        </div>
-                        <div class="col-sm-3">
-                            <p>
-                                <b>Zacapoaxtla</b>
-                            </p>
-                            <p>
-    Alonso Luque No. 2, Int. 5  y 6, Col. Centro, Zacapoaxtla, Puebla, C.P. 73680.<br>
-    Tel: (01 233) 314 31 20<br>
-    GERSUC042@maskapital.com.mx
-                            </p>
-                        </div>                    
+                    <div class="row" id="Sucursales">
                     </div>
-
-
                 </div> 
 
             </div>
@@ -257,7 +168,64 @@
     include('footer.php');
      ?>
     <!-- TERMINA FOOTER -->
+<script>
+ function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 17.0617703, lng: -96.7104049},
+          zoom: 12
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+        
 
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Localizacion Actual.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+    </script>
+        <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABeKyIubatLSwh8zRTwaT7agLxPOH0Rdc&callback=initMap">
+    </script>
+
+<script>
+$(document).ready(function() {
+$('#Estados').on('click','#btnEstados', function() {
+    var Estado = $(this).val();
+                   $.ajax({
+                    type:'POST',
+                    url:'ConsultasSucursal.php',
+                    data:{Estado:Estado},
+                    success:function(data){
+                        $('#Sucursales').html(data); 
+                    }
+                });
+
+                return false;
+});
+});
+</script>
     <script>
         function aparecer(){
             var elements = document.getElementsByClassName('barra_lateral_2');
