@@ -1,9 +1,3 @@
-<?php
- 
-// grab recaptcha library
-require_once "recaptchalib.php";
- 
-?>
 <!DOCTYPE html>
 <html lang="esp">
 <head>
@@ -34,95 +28,17 @@ require_once "recaptchalib.php";
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="dist/jstree.min.js"></script>
 
-<!-- <script language="javascript">   -->
-    <!-- function GuardarTrabajo(){ -->
-        <!-- alert ('GuardarTrabajo'); -->
-<!-- // var Compania = $('#Compania').val(); -->
-<!-- // var FechaInicio = $('#FechaInicio').val();
-// var FechaTermino = $('#FechaTermino').val();
-// var Direccion = $('#Direccion').val();
-// var Telefono = $('#Telefono').val();
-// var Puesto = $('#Puesto').val();
-// var Motivo = $('#Motivo').val();
-// var Salario = $('#Salario').val();
-// var NombreJefe = $('#NombreJefe').val();
-// var PuestoJefe = $('#PuestoJefe').val();
-// var Informacion = $('#Informacion').val();
-// var Porque = $('#Porque').val();
-// var Ax=1;
-
-//         $.ajax({ 
-//             type: 'POST', 
-//             url: 'sqls.php',
-//             data: {Compania:Compania,
-//                     FechaInicio:FechaInicio,
-//                     FechaTermino:FechaTermino,
-//                     Direccion:Direccion,
-//                     Telefono:Telefono,
-//                     Puesto:Puesto,
-//                     Motivo:Motivo,
-//                     Salario:Salario,
-//                     NombreJefe:NombreJefe,
-//                     PuestoJefe:PuestoJefe,
-//                     Informacion:Informacion,
-//                     Porque:Porque,
-//                     Ax:Ax}, 
-//             success: function(data) { 
-//             $('#TrabajoAnt').html(data); 
-//             $('#result div').slideDown(1000); 
-//             } 
-//         });
-    } 
-</script> -->
 
 
-<script>
-    $(document).ready(function(e) {
-    // Capturamos el evento submit del formulario
-    $('#formTrabajo').on('submit', '#form, #fat, #form2', function() {
-        $respuesta=false; // Suponemos por defecto que la validación será erronea
-        // Realizamos llamada en AJAX
-        $.ajax({
-        url:"vrfcaptcha.php",  // script al que le enviamos los datos
-        type:"POST",           // método de envío POST
-        dataType:"json",       // la respuesta será en formato JSON
-        data: $(this).serialize({ checkboxesAsBools: true }),
-        async:false,     // Llamada síncrona para que el código no continúe hasta obtener la respuesta
-        success:         // Si se ha podido realizar la comunicación
-            function(msg){
-               $respuesta=msg.success; // Obtenemos el valor de estado de la validación
-               if($respuesta) {        // La validación ha sido correcta
-                // Eliminamos del formulario el campo que contiene los parámetros de validación
-                $("#g-recaptcha-response","#form2").remove();
-               } else    {
-                  alert('Porfavor Valide el reCATPCHA'); // Mostramos mensaje
-               } 
-        },
-        error:  // En caso de error de comunicación mostraremos mensaje de aviso con el error
-            function (xhr, ajaxOptions, thrownError){
-                alert('Url: '+this.url+'\n\r’+’Error: '+thrownError);
-            }  
-        }); // Final de la llamada en AJAX
-        // Si la respuesta es true continuará el evento submit, de lo contrario será cancelado
-        return $respuesta;
-        });
-    });
-  </script>  
-<script type="text/javascript">
-    $(document).ready(function(){
-        <?
-        if (isset($_GET['acc'])==1){ ?>
-        $('#modalAlert').modal('toggle');
-    <?}?>
-    });
-</script>
 <script language="javascript">
-    $(document).ready(function() { //Guarda y muestra la siguiente seccion del modal Solicitud trabajo
+    $(document).ready(function() {
+
     $('#formTrabajo').on('submit', '#form, #fat, #form1', function() {
           $.ajax({
               type: 'POST',
               url: $(this).attr('action'),
               data: $(this).serialize({ checkboxesAsBools: true }),
+              //data: $(this).serialize(),
               success: function(data) {
                 $('#result').fadeIn(500);
                   $('#result').html(data);
@@ -135,6 +51,40 @@ require_once "recaptchalib.php";
     })  
 </script>
 
+<script>
+$(document).ready(function(){
+$('#cheksbx').on('change','#micheckbox', function() {
+
+    if( $(this).is(':checked') ) {
+        // alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+        var combo = $(this).val();
+        var Ax='3';
+        $.ajax({
+            type:'POST',
+            url:'sqls.php',
+            data:{Ax:Ax,combo:combo},
+            success:function(data){
+                $('#divPuesto').before(data); 
+            }
+
+        });
+    } 
+    else {
+        // Hacer algo si el checkbox ha sido deseleccionado
+        var combo = $(this).val(); 
+         var Ax='4';
+         $.ajax({
+            type:'POST',
+            url:'sqls.php',
+            data:{Ax:Ax,combo:combo},
+            success:function(data){
+             $("div").remove("."+combo); 
+            }
+         });
+    }
+});
+})
+</script>
 <script language="javascript">
     function btnPostularse(idVacante) { 
         var idVacante=idVacante;
@@ -150,35 +100,8 @@ require_once "recaptchalib.php";
         });
     }  
 </script>
-<script language="javascript">  
-         function NuevoR(){
-            var parte=0;
-            $.ajax({ 
-            type: 'POST', 
-            url: 'sqls.php',
-            data: {parte:parte}, 
-            success: function(data) { 
-            } 
-        });
-        }
-</script>
-
-<script language="javascript">  
-    $(document).ready(function(){ //Elimina los registros de solicitudes de trabajo no terminadas (cuando cirra el modal)
-$('#modal_frm_trabajo').on('hidden.bs.modal', function (e) {
-<? include ('conexion.php');
-            $sql="UPDATE SolicitudTrabajo SET Estatus='0' WHERE SolicitudTrabajo.Seccion<10";
-            $mysqli->query($sql);
-
-            $sqlD="DELETE FROM Solicitante WHERE EXISTS (SELECT 1 FROM SolicitudTrabajo WHERE Solicitante.idSolicitante = SolicitudTrabajo.idSolicitante AND SolicitudTrabajo.Seccion < 10 AND SolicitudTrabajo.Estatus=0)";
-            $mysqli->query($sqlD);
-?>
-        });
-    })
-</script>
-
 <script language="javascript">
-    function btnAtras() { // Muestra la seccion anterior de la solicitud de trabajo ( boton atras)
+    function botonAtras() { 
         var parte2=1;
         var pagina1 = $('#parte').val();
         pagina = pagina1-2;
@@ -193,65 +116,7 @@ $('#modal_frm_trabajo').on('hidden.bs.modal', function (e) {
         });
     }  
 </script>
-<script language="javascript">
-    function BorrarTrabajo() {
-    var Trabajo = $('#TrabajoAnt').val();
-    var Ax='2';
-    alert ('Trabajo Eliminado');
-        $.ajax({ 
-            type: 'POST', 
-            url: 'sqls.php',
-            data: {Trabajo:Trabajo,Ax:Ax}, 
-            success: function(data) { 
-                $('#TrabajoAnt').html(data); 
-            } 
-        });
-    }  
-</script>
-<script language="javascript">
-    function GuardarTrabajo() {
-var Compania = $('#Compania').val();
-var FechaInicio = $('#FechaInicio').val();
-var FechaTermino = $('#FechaTermino').val();
-var Direccion = $('#Direccion').val();
-var Telefono = $('#Telefono').val();
-var Puesto = $('#Puesto').val();
-var Motivo = $('#Motivo').val();
-var Salario = $('#Salario').val();
-var NombreJefe = $('#NombreJefe').val();
-var PuestoJefe = $('#PuestoJefe').val();
-var Informacion = $('#Informacion').val();
-var Porque = $('#Porque').val();
-var Ax='1';
-        $.ajax({ 
-            type: 'POST', 
-            url: 'sqls.php',
-            data: {Compania:Compania,
-                    FechaInicio:FechaInicio,
-                    FechaTermino:FechaTermino,
-                    Direccion:Direccion,
-                    Telefono:Telefono,
-                    Puesto:Puesto,
-                    Motivo:Motivo,
-                    Salario:Salario,
-                    NombreJefe:NombreJefe,
-                    PuestoJefe:PuestoJefe,
-                    Informacion:Informacion,
-                    Porque:Porque,
-                    Ax:Ax}, 
-            success: function(data) { 
-                $('#TrabajoAnt').html(data); 
-                $("form#form1").find("input[type=text], select, textarea").val("");
 
-            } 
-        });
-    }  
-</script>
-<script>
-    function LimpiarCampos(){
-        $("form#form1").find("input[type=text], select, textarea").val("");
-    }
-</script>
 <script>
     $(document).ready(function() {
         $('#menu_oculto').hide(0);
@@ -313,6 +178,7 @@ ul {
 </head><!--/head-->
 
 <body>
+
     <header id="header">      
         <div class="navbar navbar-inverse" role="banner" style="margin-bottom:-20px;">
             <div class="container">
@@ -375,48 +241,16 @@ ul {
         </div>
         <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
     </section>
+
     <?php 
     include('menu_lateral.php');
      ?>
-    <!--  <div id="menu_oculto">
-        <div id="div_lateral">
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="right:0px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>¿QUIÉNES SOMOS?</b></a>
-                </div>
-                <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="right:0px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>UNIVERSIDAD MK</b></a>
-                </div>
-                <a href="universidad_mk.html"><img src="img/logos/ico_universidad.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:49px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>MÁSFLEXIBLE</b></a>
-                </div>
-                <a href="mas_flexible.html"><img src="img/logos/ico_masflexible.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:53px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>MÁSPUNTOS</b></a>
-                </div>
-                <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:53px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>SUCURSALES</b></a>
-                </div>
-                <a href="sucursales.html"><img src="img/logos/ico_localizacion.png" alt=""></a>
-            </div>
-        </div>
-    </div> -->
+
 <section>
-    <div style="padding-top:1em;padding-bottom:1em; height:29em ">
+    <div style="padding-top:1em;padding-bottom:1em; height:30em ">
         <div class="container">
             <div class="row" style="height: 100%">
-                <div class="col-md-3" style=" background:#8787b7; padding: 0em; color:#ffffff; height: 29em">
+                <div class="col-md-3" style=" background:#8787b7; padding: 0em; color:#ffffff; height: 30em">
                     <h2  style="color:#ffffff" class="text-center">FILTRAR</h2>
                     <div style="background-color: #263c89; padding:2em 0em 1em 2em; height: 100%; overflow-x: scroll;" class="acidjs-css3-treeview" id="cheksbx">
 
@@ -481,11 +315,24 @@ while ($fila=$sqlResE->fetch_row())
         </div>
     </div>
 </section>
+
+    <!--/#home-slider-->
+
     <section>
-        <div class="container"> 
+        <div class="container" style="padding-top:10em;padding-bottom:10em;">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>SECCIÓN DINAMICA</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
             <div class="row" id="talento">
                 <div class="text-center col-md-12" style="margin-top:35%">
-                    <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
+                    <button class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
                         <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
                     </button>
                 </div>
@@ -749,7 +596,7 @@ while ($fila=$sqlResE->fetch_row())
 
 
 <!-- MODAL FORMULARIO TRABAJO -->
-<div class="modal fade" id="modal_frm_trabajo" name="modal_frm_trabajo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modal_frm_trabajo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document" id="formTrabajo" name="formTrabajo">
         <div class="modal-content" id="result" name="result">
         <?php include ('parte1.php');?>
@@ -759,26 +606,6 @@ while ($fila=$sqlResE->fetch_row())
     </div>
 </div>
 <!-------------------------->
-
-<!-- Modal -->
-<div id="modalAlert" name="modalAlert" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body text-center">
-        <h3>Gracias por querer formar parte de nosotros <br>¡SU SOLICITUD HA SIDO ENVIADA CON EXITO!</h3>      
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
     <script>
         function aparecer(){
             var elements = document.getElementsByClassName('barra_lateral_2');
@@ -795,7 +622,7 @@ while ($fila=$sqlResE->fetch_row())
             }
         }
     </script>
- <script>
+  <script>
   $('#cheksbx')
   .bind("after_open.jstree", function (event, data) {
 $(this).css("height","auto");
@@ -850,6 +677,7 @@ $(this).css("height","auto");
 
 });
 </script>
+
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lightbox.min.js"></script>

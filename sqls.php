@@ -1,7 +1,8 @@
 <?php
 include ('conexion.php');
 
-if($_POST['Ax']){
+if(isset($_POST['Ax'])){
+
 	if($_POST['Ax']==1){
 			$Compania =$_POST['Compania'];
 			$FechaInicio =$_POST['FechaInicio'];
@@ -253,7 +254,7 @@ if(isset($_POST['parte']))
 			<?php
 		}
 
-		else if ($_POST['parte']==3) {
+		if ($_POST['parte']==3) {
 			$Curp = $_POST['Curp'];
 			$Rfc = $_POST['Rfc'];
 			$Imss = $_POST['Imss'];
@@ -280,7 +281,7 @@ if(isset($_POST['parte']))
 			</script><?php
 		}
 
-		else if ($_POST['parte']==4) {
+		 if ($_POST['parte']==4) {
 			$Estado = $_POST['Estado'];
 			$Padece = $_POST['Padece'];
 			$Enfermedad = $_POST['Enfermedad'];
@@ -303,7 +304,7 @@ if(isset($_POST['parte']))
 			 });			
 			</script><?php		
 		}
-		else if ($_POST['parte']==5) {
+		 if ($_POST['parte']==5) {
 
 			$NomP = $_POST['NomP'];
 			$ViveP = $_POST['ViveP'];
@@ -345,7 +346,7 @@ if(isset($_POST['parte']))
 		}
 
 
-		else if ($_POST['parte']==6) {
+		 if ($_POST['parte']==6) {
 
 			$Nivel1 = $_POST['Nivel1'];
 			$Direccion = $_POST['Direccion'];
@@ -377,7 +378,7 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 		}	
 
 
-		else if ($_POST['parte']==7) {
+	 if ($_POST['parte']==7) {
 
 			$Funciones = $_POST['Funciones'];
 			$Software = $_POST['Software'];
@@ -416,7 +417,7 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 		}
 
 
-		else if ($_POST['parte']==8) {
+	 if ($_POST['parte']==8) {
 
 			$Nombre1 = $_POST['Nombre1'];
 			$Domicilio1 = $_POST['Domicilio1'];
@@ -450,7 +451,7 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 			</script><?php		
 		}
 
-		else if ($_POST['parte']==9) {
+	 if ($_POST['parte']==9) {
 			$ComoSupo = $_POST['ComoSupo'];
 			$Pariente = $_POST['Pariente'];
 			$Viajar = $_POST['Viajar'];
@@ -513,7 +514,7 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 
 	}
 }
-else if (isset($_POST['parte2'])==1) {
+if (isset($_POST['parte2'])==1) {
 	$Npagina = $_POST['pagina'];
 
 			?><script type="text/javascript">
@@ -523,4 +524,4 @@ else if (isset($_POST['parte2'])==1) {
 			 });			
 			</script><?php
 }	
-		?>
+?>
