@@ -40,6 +40,6 @@
 <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>-->
 <!--  <button type="button" class="btn btn-primary">Enviar Solicitud</button> -->
 
-<button style="color:orange;" type="button" class="btn btn-link btn-lg" onclick="btnAtras()" value="ATRAS"><i class="fa fa-caret-left fa-2x" aria-hidden="true"></i> &nbsp;&nbsp; ATRAS</button>
+<button id="btnAtras" style="color:orange;" type="button" class="btn btn-link btn-lg" onclick="btnAtras()" value="ATRAS"><i class="fa fa-caret-left fa-2x" aria-hidden="true"></i> &nbsp;&nbsp; ATRAS</button>
     <button style="color:orange" type="submit" form="form1"  id="" name="" class="btn btn-link btn-lg">SIGUIENTE &nbsp; &nbsp;<i class="fa fa-caret-right fa-2x" aria-hidden="true"></i></button>
 </div>

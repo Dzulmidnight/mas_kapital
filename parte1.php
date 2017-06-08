@@ -13,8 +13,12 @@
                         </div>
                         <div class="col-xs-4">
                                 <select name="Puesto" id="Puesto">
-                                    <option>Puesto1</option>
-                                    <option>Puesto2</option>
+                                <?php include 'conexion.php';
+                                $sql ="SELECT DISTINCT Puesto FROM Vacantes";
+                                $res=$mysqli->query($sql);
+                                while ($fila=$res->fetch_assoc()) {
+                                    ?><option> <? echo $fila['Puesto']; ?></option>
+                                <? } ?>
                                 </select>
                         </div>
                         <div class="col-xs-4">
