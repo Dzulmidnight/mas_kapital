@@ -31,7 +31,8 @@
                     </li>
                     <li <?php if($menu == 'universidad'){echo 'class="active"';} ?>><a href="universidad_mk.php"><b>UNIVERSIDAD MK</b></a></li>
                     <li <?php if($menu == 'bolsa'){echo 'class="active"';} ?>><a href="bolsa_trabajo.php"><b>BOLSA DE TRABAJO</b></a></li>
-                    <li <?php if($menu == 'atencion'){echo 'class="active"';} ?>><a href="atencion_clientes.php"><b>ATENCIÓN A CLIENTES</b></a></li>             
+                    <li <?php if($menu == 'atencion'){echo 'class="active"';} ?>><a href="atencion_clientes.php"><b>ATENCIÓN A CLIENTES</b></a></li>
+                    <li <?php if($menu == 'login'){echo 'class="active"';} ?>><a href="login.php"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a></li>             
                 </ul>
             </div>
 
