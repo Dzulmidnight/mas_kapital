@@ -248,6 +248,11 @@ var Ax='1';
     }  
 </script>
 <script>
+    function LimpiarCampos(){
+        $("form#form1").find("input[type=text], select, textarea").val("");
+    }
+</script>
+<script>
     $(document).ready(function() {
         $('#menu_oculto').hide(0);
             $(window).scroll(function(){

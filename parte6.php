@@ -111,7 +111,7 @@ $resultado=$idsol->fetch_assoc();
                             <button onclick="BorrarTrabajo()" type="button" class="btn btn-primary" id="BorrarT" name="BorrarT">Eliminar Trabajo</button>
                         </div>
                         <div class="col-xs-4 text-center">
-                            <button class="btn btn-primary">Limpiar Campos</button>
+                            <button onclick="LimpiarCampos();" class="btn btn-primary" type="button">Limpiar Campos</button>
                         </div> 
                         </form>
                         </div>
