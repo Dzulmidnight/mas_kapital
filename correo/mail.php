@@ -17,7 +17,6 @@ $mail->From = "soporte@d-spp.org";
 $mail->FromName = utf8_decode("ATENCIÓN A CLIENTES");
 $mail->AddBCC("yasser.midnight@gmail.com", "correo Oculto");
 
-$correoCert = "cert@spp.coop";
 
 /*
 $mail = new PHPMailer();

@@ -313,48 +313,11 @@ ul {
 </head><!--/head-->
 
 <body>
-    <header id="header">      
-        <div class="navbar navbar-inverse" role="banner" style="margin-bottom:-20px;">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <a class="navbar-brand" href="index.html" style="margin-top:10px;">
-                        <h1><img src="img/logos/logo_mas_kapital.png" alt="logo"></h1>
-                    </a>
-                    
-                </div>
-                <div class="collapse navbar-collapse" style="margin-top:10px;">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">
-                            <b>¿QUIÉNES SOMOS? <i class="fa fa-angle-down"></i></b></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="index.html#mision-vision">MISIÓN Y VISIÓN</a></li>
-                                <li><a href="normatividad.html">NORMATIVIDAD</a></li>
-                                <li><a href="sucursales.html">SUCURSALES</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="mas_flexible.html">
-                            <b>MÁS FLEXIBLE <i class="fa fa-angle-down"></i></b></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="mas_flexible.html#caracteristicas">MÁSPUNTOS</a></li>
-                                <li><a href="mas_flexible.html#donde-pagar">¿DÓNDE PAGAR?</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="universidad_mk.html"><b>UNIVERSIDAD MK</b></a></li>
-                        <li class="active"><a href="bolsa_trabajo.html"><b>BOLSA DE TRABAJO</b></a></li>
-                        <li><a href="atencion_clientes.html"><b>ATENCIÓN A CLIENTES</b></a></li>             
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
-
+    
+    <?php 
+    $menu = 'bolsa';
+    include('header.php'); 
+    ?>
     <div class="container">
         <div class="row">
             <div class="col-md-12" style='border-top:10px solid #263c89;border-bottom: 10px solid #8787b7;'>
@@ -373,45 +336,12 @@ ul {
 
             </div>
         </div>
-        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+        
     </section>
     <?php 
     include('menu_lateral.php');
      ?>
-    <!--  <div id="menu_oculto">
-        <div id="div_lateral">
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="right:0px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>¿QUIÉNES SOMOS?</b></a>
-                </div>
-                <a href="index.html"><img src="img/logos/ico_maskapital.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="right:0px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>UNIVERSIDAD MK</b></a>
-                </div>
-                <a href="universidad_mk.html"><img src="img/logos/ico_universidad.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:49px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>MÁSFLEXIBLE</b></a>
-                </div>
-                <a href="mas_flexible.html"><img src="img/logos/ico_masflexible.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:53px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>MÁSPUNTOS</b></a>
-                </div>
-                <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
-            </div>
-            <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
-                <div class="barra_lateral_2" style="padding-left:53px;display:none">
-                    <a style="color:#ffffff;" href="index.html"><b>SUCURSALES</b></a>
-                </div>
-                <a href="sucursales.html"><img src="img/logos/ico_localizacion.png" alt=""></a>
-            </div>
-        </div>
-    </div> -->
+
 <section>
     <div style="padding-top:1em;padding-bottom:1em; height:29em ">
         <div class="container">
@@ -461,13 +391,12 @@ while ($fila=$sqlResE->fetch_row())
                     <div class="container-fluid" style="padding-left: 0em ">
                         <div class="row">
                             <div class="col-md-7" style="height: 30em; overflow-x: scroll;">
-                            <div id="divPuesto" name="divPuesto">
+                                <div id="divPuesto" name="divPuesto">
 
-                            </div>
-                            </div>
-                            <div class="col-md-5">
+                                </div>
+                                </div>
+                            <div class="col-md-5" style="height: 30em; overflow-x: scroll;">
                                 <div class="row">
-
                                     <label class="h4">Requisitos de la vacante</label>
                                     <div class="col-md-12" id="requisitos" name="requisitos">
                                     </div>
@@ -481,20 +410,20 @@ while ($fila=$sqlResE->fetch_row())
         </div>
     </div>
 </section>
-    <section>
-        <div class="container"> 
-            <div class="row" id="talento">
-                <div class="text-center col-md-12" style="margin-top:35%">
-                    <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
-                        <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
-                    </button>
-                </div>
-                <div class="col-md-12" style="margin-top:5%;border-top: 3px solid #fff; border-bottom: 3px solid #fff;width:70%;left:15%">
-                    <h1 class="text-center" style="color:#fff;font-size:50px;">Tu talento es bienvenido</h1>
-                </div>
+<section style="margin-top:10em;">
+    <div class="container"> 
+        <div class="row" id="talento">
+            <div class="text-center col-md-12" style="margin-top:35%">
+                <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
+                    <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
+                </button>
+            </div>
+            <div class="col-md-12" style="margin-top:5%;border-top: 3px solid #fff; border-bottom: 3px solid #fff;width:70%;left:15%">
+                <h1 class="text-center" style="color:#fff;font-size:50px;">Tu talento es bienvenido</h1>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     <!--/#services-->
 
 
@@ -615,7 +544,7 @@ while ($fila=$sqlResE->fetch_row())
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Enviar Correo</button>
+                    <button type="button" class="btn btn-primary" Correo</button>
                 </div>
             </div>
         </div>
@@ -773,7 +702,7 @@ while ($fila=$sqlResE->fetch_row())
         <h3>Gracias por querer formar parte de nosotros <br>¡SU SOLICITUD HA SIDO ENVIADA CON EXITO!</h3>      
         </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
 

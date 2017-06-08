@@ -86,7 +86,7 @@
      ?> 
     <!--/#home-slider-->
 
-    <section >
+    <section>
         <div class="container">
             <div class="row" id="descripcion_universidad" style="padding-bottom:2em;">
                 <div class="col-md-12" style="left:25%">

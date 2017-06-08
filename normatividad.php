@@ -162,27 +162,27 @@ ul {
                 <div class="col-md-4 col-xs-12" style="padding:0;">
                     <a href="#cnvb">
                         <div class="div-normatividad col-sm-12">
-                            <h2>CNVB</h2>
+                            <h2 style="color:white">CNVB</h2>
                         </div>
                     </a>
                     <a href="#condusef">
                         <div class="div-normatividad col-sm-12">
-                            <h2>CONDUSEF</h2>
+                            <h2 style="color:white">CONDUSEF</h2>
                         </div>
                     </a>
                     <a href="#buro">
                         <div class="div-normatividad col-sm-12">
-                            <h2>BURO DE ENTIDADES FINANCIERAS</h2>
+                            <h2 style="color:white">BURO DE ENTIDADES FINANCIERAS</h2>
                         </div>
                     </a>
                     <a href="">
                         <div class="div-normatividad col-sm-12">
-                            <h2>RENOVACIÓN DE REGISTRO</h2>
+                            <h2 style="color:white;">RENOVACIÓN DE REGISTRO</h2>
                         </div>
                     </a>
                     <a href="">
                         <div class="div-normatividad col-sm-12">
-                            <h2>OBTENCIÓN DE DICTAMEN TÉCNICO</h2>
+                            <h2 style="color:white">OBTENCIÓN DE DICTAMEN TÉCNICO</h2>
                         </div>
                     </a>
                 </div>

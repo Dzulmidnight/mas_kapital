@@ -1,6 +1,6 @@
         </divr>
 <?php
-require_once('conexion/conexion.php');
+require_once('conexion.php');
 require_once('correo/mail.php');
 require_once('funciones/funciones.php');
 
@@ -228,7 +228,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                 </div>
             </div>
         </div>
-        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+        
     </section>
 
     <?php
