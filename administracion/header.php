@@ -20,17 +20,17 @@ require('../conexion/sesion.php');
             <ul class="dropdown-menu extended tasks-bar">
                 <div class="notify-arrow notify-arrow-green"></div>
                 <li>
-                    <p class="green">You have 6 pending tasks</p>
+                    <p class="green">Tienes 6 tareas pendientes</p>
                 </li>
-                <li>
+                <!--08_06_2017<li>
                     <a href="#">
                         <div class="task-info">
-                            <div class="desc">Dashboard v1.3</div>
+                            <div class="desc">Menu v1.3</div>
                             <div class="percent">40%</div>
                         </div>
                         <div class="progress progress-striped">
                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                <span class="sr-only">40% Complete (success)</span>
+                                <span class="sr-only">40% Completado</span>
                             </div>
                         </div>
                     </a>
@@ -38,12 +38,12 @@ require('../conexion/sesion.php');
                 <li>
                     <a href="#">
                         <div class="task-info">
-                            <div class="desc">Database Update</div>
+                            <div class="desc"></div>
                             <div class="percent">60%</div>
                         </div>
                         <div class="progress progress-striped">
                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                <span class="sr-only">60% Complete (warning)</span>
+                                <span class="sr-only">60% Completado</span>
                             </div>
                         </div>
                     </a>
@@ -51,7 +51,7 @@ require('../conexion/sesion.php');
                 <li>
                     <a href="#">
                         <div class="task-info">
-                            <div class="desc">Iphone Development</div>
+                            <div class="desc"></div>
                             <div class="percent">87%</div>
                         </div>
                         <div class="progress progress-striped">
@@ -87,9 +87,9 @@ require('../conexion/sesion.php');
                         </div>
 
                     </a>
-                </li>
+                </li>08_06_2017-->
                 <li class="external">
-                    <a href="#">See All Tasks</a>
+                    <a href="#">Ver todas</a>
                 </li>
             </ul>
         </li>
@@ -103,9 +103,9 @@ require('../conexion/sesion.php');
             <ul class="dropdown-menu extended inbox">
                 <div class="notify-arrow notify-arrow-red"></div>
                 <li>
-                    <p class="red">You have 5 new messages</p>
+                    <p class="red">Tienes 5 mensajes</p>
                 </li>
-                <li>
+                <!--08_06_2017<li>
                     <a href="#">
                         <span class="photo"><img alt="avatar" src="./img/avatar-mini.jpg"></span>
                               <span class="subject">
@@ -153,8 +153,8 @@ require('../conexion/sesion.php');
                               </span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">See all messages</a>
+                <li>08_06_2017-->
+                    <a href="#">Ver todos</a>
                 </li>
             </ul>
         </li>
@@ -169,9 +169,9 @@ require('../conexion/sesion.php');
             <ul class="dropdown-menu extended notification">
                 <div class="notify-arrow notify-arrow-yellow"></div>
                 <li>
-                    <p class="yellow">You have 7 new notifications</p>
+                    <p class="yellow">Tienes 7 notificaciones</p>
                 </li>
-                <li>
+                <!--08_06_2017<li>
                     <a href="#">
                         <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                         Server #3 overloaded.
@@ -206,8 +206,8 @@ require('../conexion/sesion.php');
                         <span class="small italic">10 mins</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">See all notifications</a>
+                <li>08_06_2017-->
+                    <a href="#">Ver todas</a>
                 </li>
             </ul>
         </li>
@@ -226,10 +226,10 @@ require('../conexion/sesion.php');
                 </a>
                 <ul class="dropdown-menu extended logout">
                     <div class="log-arrow-up"></div>
-                    <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                    <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                    <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
-                    <li><a href="login.php"><i class="fa fa-key"></i> Log Out</a></li>
+                    <li><a href="#"><i class=" fa fa-suitcase"></i>Perfil</a></li>
+                    <li><a href="#"><i class="fa fa-cog"></i> Configuración</a></li>
+                    <li><a href="#"><i class="fa fa-bell-o"></i> Notificaciones</a></li>
+                    <li><a href="login.php"><i class="fa fa-key"></i> Cerrar Sesión</a></li>
                 </ul>
             </li>
             <!-- user login dropdown end -->

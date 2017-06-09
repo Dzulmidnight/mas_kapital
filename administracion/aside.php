@@ -3,7 +3,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <li>
-                <a <?php if(isset($menu) && $menu == 'inicio'){echo 'class="active"';} ?>href="index.html">
+                <a <?php if(isset($menu) && $menu == 'inicio'){echo 'class="active"';} ?>href="index.php">
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
@@ -15,32 +15,36 @@
                     <span>Secciones</span>
                 </a>
                 <ul class="sub">
-                    <li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="quienes_somos.php">¿Quiénes Somos?</a></li>
+                    <!--<li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="quienes_somos.php">¿Quiénes Somos?</a></li>
                     <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="normatividad.php">Normatividad</a></li>
                     <li <?php if(isset($menu) && $menu == 'sucursales'){echo 'class="active"'; } ?>><a href="sucursales.php">Sucursales</a></li>
                     <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="mas_flexible.php">Más Flexible</a></li>
                     <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="universidad_mk.php">Universidad Mk</a></li>
-                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="bolsa_trabajo.php">Bolsa de Trabajo</a></li>
+                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="bolsa_trabajo.php">Bolsa de Trabajo</a></li>-->
+                    <li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="#">¿Quiénes Somos?</a></li>
+                    <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="#">Normatividad</a></li>
+                    <li <?php if(isset($menu) && $menu == 'sucursales'){echo 'class="active"'; } ?>><a href="#">Sucursales</a></li>
+                    <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="#">Más Flexible</a></li>
+                    <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="#">Universidad Mk</a></li>
+                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="#">Bolsa de Trabajo</a></li>
+
                 </ul>
             </li>
 
             <li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-laptop"></i>
-                    <span>Secciones-copia</span>
+                    <span>Información</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="boxed_page.html">Boxed Page</a></li>
-                    <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                    <li><a  href="header-color.html">Different Color Top bar</a></li>
-                    <li><a  href="mega_menu.html">Mega Menu</a></li>
-                    <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                    <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                    <li><a  href="#">Usuarios</a></li>
+                    <li><a  href="#">Sucursales</a></li>
+                    <li><a  href="#">Vacantes</a></li>
                 </ul>
             </li>
 
 
-            <li class="sub-menu">
+            <!--08_06_2017<li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-book"></i>
                     <span>UI Elements</span>
@@ -178,7 +182,7 @@
             </li>
 
             <!--multi level menu start-->
-            <li class="sub-menu">
+            <!--08_06_2017<li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-sitemap"></i>
                     <span>Multi level Menu</span>

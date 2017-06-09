@@ -94,7 +94,7 @@
                             <input type="text" class="form-control" id="usuario" name="usuario"  required placeholder="Usuario">
                         </div>
                         <div class="col-sm-12" style="margin-top:1em;">
-                            <input type="text" class="form-control" id="password" name="password"  required placeholder="Contraseña">
+                            <input type="password" class="form-control" id="password" name="password"  required placeholder="Contraseña">
                         </div>
                         <div class="col-md-12 text-left" style="margin-top:2em;">
                             <!--<button type="submit" class="btn btn-success botonlg" style="width:30%;" onclick="validar()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Iniciar Sesión</button>-->

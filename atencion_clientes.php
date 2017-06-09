@@ -1,4 +1,4 @@
-        </divr>
+
 <?php
 require_once('conexion.php');
 require_once('correo/mail.php');
@@ -20,20 +20,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     $fecha = time();
 
     //Insertamos la informacion del formulario en BD
-    $insertSQL = sprintf("INSERT INTO frm_atencion(tema_motivo, sucursal, grupo, nombre, ap_paterno, ap_materno, direccion, municipio, estado, correo, telefono, descripcion, fecha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-        GetSQLValueString($tema_motivo, "text"),
-        GetSQLValueString($sucursal, "int"),
-        GetSQLValueString($grupo, "text"),
-        GetSQLValueString($nombre, "text"),
-        GetSQLValueString($ap_paterno, "text"),
-        GetSQLValueString($ap_materno, "text"),
-        GetSQLValueString($direccion, "text"),
-        GetSQLValueString($municipio, "text"),
-        GetSQLValueString($estado, "int"),
-        GetSQLValueString($correo, "text"),
-        GetSQLValueString($telefono, "text"),
-        GetSQLValueString($descripcion, "text"),
-        GetSQLValueString($fecha, "int"));
+    $insertSQL = "INSERT INTO frm_atencion(tema_motivo, sucursal, grupo, nombre, ap_paterno, ap_materno, direccion, municipio, estado, correo, telefono, descripcion, fecha) VALUES ('$tema_motivo', '$sucursal', '$grupo', '$nombre', '$ap_paterno', '$ap_materno', ''$direccion', '$municipio', '$estado', '$correo', '$telefono', '$descripcion', '$fecha')";
     $mysqli->query($insertSQL);
 
 
@@ -311,13 +298,13 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                         <div class="col-sm-12" style="margin-bottom:1em;">
                             <select class="form-control" id="tema_motivo" name="tema_motivo" required>
                                 <option value="">* TEMA O MOTIVO</option>
-                                <option value="1">SOLICITA INFORMACIÓN</option>
-                                <option value="2">ACLARACIONES DE CRÉDITO</option>
-                                <option value="3">QUEJAS Y SUGERENCIAS</option>
-                                <option value="4">INFORMACIÓN LEGAL</option>
-                                <option value="5">PROVEEDORES</option>
-                                <option value="6">DENUNCIAS</option>
-                                <option value="7">-- OTROS --</option>
+                                <option value="SOLICITA INFORMACIÓN">SOLICITA INFORMACIÓN</option>
+                                <option value="ACLARACIONES DE CRÉDITO">ACLARACIONES DE CRÉDITO</option>
+                                <option value="QUEJAS Y SUGERENCIAS">QUEJAS Y SUGERENCIAS</option>
+                                <option value="INFORMACIÓN LEGAL">INFORMACIÓN LEGAL</option>
+                                <option value="PROVEEDORES">PROVEEDORES</option>
+                                <option value="DENUNCIAS">DENUNCIAS</option>
+                                <option value="OTROS">-- OTROS --</option>
                             </select>
                         </div>
                         <div class="col-sm-12">

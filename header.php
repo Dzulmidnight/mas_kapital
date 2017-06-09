@@ -18,7 +18,7 @@
                 <ul class="nav navbar-nav navbar-right">  
                     <li class="dropdown <?php if($menu == 'index'){echo 'active'; } ?>"><a href="index.php"><b>¿QUIÉNES SOMOS?</b> <i class="fa fa-angle-down"></i></a>
                         <ul role="menu" class="sub-menu">
-                            <li><a href="#mision-vision">MISIÓN Y VISIÓN</a></li>
+                            <li><a href="index.php#mision-vision">MISIÓN Y VISIÓN</a></li>
                             <li><a href="normatividad.php">NORMATIVIDAD</a></li>
                             <li><a href="sucursales.php">SUCURSALES</a></li>
                         </ul>
