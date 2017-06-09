@@ -110,6 +110,7 @@
                         <div class="row" id="Estados">
                         <?php
                         include ('conexion.php');
+                        mysql_set_charset('utf8');
                         $sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
                         $sqlResE=$mysqli->query($sqlSuc);
                         while ($fila=$sqlResE->fetch_row()) 
@@ -135,21 +136,9 @@
 
                 </div>
 
-                <div class="col-md-3">
-                    <div class="row">
+                <div class="col-md-3" id="FotoSuc" name="FotoSuc">
+                    <div class="row" >
                         <div class="col-sm-12">
-                            <h2><b>Información</b></h2>
-                        </div>
-                        <div class="col-sm-12">
-                            <img class="img-responsive" src="img/sucursales/img_sucursal/atlixco.jpg" alt="">
-                            <p><b>Atlixco</b></p>
-                            <p>
-                                Calle 10 Oriente No. 26, int 105.<br>
-                                Col. Centro, Atlixco, Puebla.</br>
-                                C.P. 74200</br>
-                                Tel: (01 244) 446 58 35<br>
-                                GERSUC035@maskapital.com.mx
-                            </p>
                         </div>                    
                     </div>
                 </div>
@@ -169,6 +158,61 @@
      ?>
     <!-- TERMINA FOOTER -->
 <script>
+$(document).ready(function() {
+$('#Sucursales').on('click','#btn_Suc', function() {
+    
+    var accion=2;
+
+    var Mun = $(this).val();
+                   $.ajax({
+                    type:'POST',
+                    url:'ConsultasSucursal.php',
+                    data:{Mun:Mun,accion:accion},
+                    success:function(data){
+                        $('#FotoSuc').html(data); 
+                    }
+                });
+
+                return false;
+});
+});
+</script>
+
+<script>
+$(document).ready(function() {
+$('#Estados').on('click','#btnEstados', function() {
+    var accion=1;
+    var Estado = $(this).val();
+                   $.ajax({
+                    type:'POST',
+                    url:'ConsultasSucursal.php',
+                    data:{Estado:Estado,accion:accion},
+                    success:function(data){
+                        $('#Sucursales').html(data); 
+                    }
+                });
+
+                return false;
+});
+});
+</script>
+    <script>
+        function aparecer(){
+            var elements = document.getElementsByClassName('barra_lateral_2');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'inline';
+                elements[i].style.transitionDelay = "2s";
+            }
+        }
+        function desaparecer(){
+            var elements = document.getElementsByClassName('barra_lateral_2');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'none';
+                elements[i].style.transitionDelay = "2s";
+            }
+        }
+    </script>
+    <script>
  function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 17.0617703, lng: -96.7104049},
@@ -207,40 +251,6 @@
     </script>
         <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABeKyIubatLSwh8zRTwaT7agLxPOH0Rdc&callback=initMap">
-    </script>
-
-<script>
-$(document).ready(function() {
-$('#Estados').on('click','#btnEstados', function() {
-    var Estado = $(this).val();
-                   $.ajax({
-                    type:'POST',
-                    url:'ConsultasSucursal.php',
-                    data:{Estado:Estado},
-                    success:function(data){
-                        $('#Sucursales').html(data); 
-                    }
-                });
-
-                return false;
-});
-});
-</script>
-    <script>
-        function aparecer(){
-            var elements = document.getElementsByClassName('barra_lateral_2');
-            for(var i = 0, length = elements.length; i < length; i++) {
-                elements[i].style.display = 'inline';
-                elements[i].style.transitionDelay = "2s";
-            }
-        }
-        function desaparecer(){
-            var elements = document.getElementsByClassName('barra_lateral_2');
-            for(var i = 0, length = elements.length; i < length; i++) {
-                elements[i].style.display = 'none';
-                elements[i].style.transitionDelay = "2s";
-            }
-        }
     </script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
