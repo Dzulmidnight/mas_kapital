@@ -11,6 +11,8 @@
     <link href="css/lightbox.css" rel="stylesheet"> 
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
 
     <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
@@ -159,8 +161,8 @@ ul {
     <section id="" style="margin-top:4em;">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-xs-12" style="padding:0;">
-                    <a href="#cnvb">
+                <div class="col-md-4 col-xs-12 sub_menu" style="padding:0;">
+                <a href="#cnvb">
                         <div class="div-normatividad col-sm-12">
                             <h2>CNVB</h2>
                         </div>

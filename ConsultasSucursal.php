@@ -7,8 +7,9 @@ if (isset($_POST['accion'])) {
 		$Estado = $_POST['Estado'];
 		$sql ="SELECT * FROM Sucursales WHERE Estado ='$Estado'";
 		$result=$mysqli->query($sql);
+		?><div class="col-md-12 h2"><?php echo $Estado ?></div><?php
 		while ($fila=$result->fetch_assoc()){?>
-			<div class="col-sm-3 align-self-stretch" name="Infos" id="Infos">
+			<div class="col-sm-3 text-justify" name="Infos" id="Infos" style="height: 10em">
 		        <button class="btn btn-link"  value="<?php echo $fila['Municipio']; ?>"  name="btn_Suc" id="btn_Suc">
 					<b><?php echo $fila['NombreSucursal']; ?></b>
 				</button>
@@ -25,10 +26,8 @@ if (isset($_POST['accion'])) {
 		$result2=$mysqli->query($sql2);
 		$Num = $result2->num_rows;
 		while ($fila=$result2->fetch_assoc()){?>
-			<div class="col-sm-12">
-				<img class="img-responsive" 
-				src="img/sucursales/img_sucursal/<?php echo $fila['UrlFoto']?>.jpg" alt="">
-			    <img class="img-responsive" src="img/sucursales/img_sucursal/<?php echo $fila['UrlFoto']?>.jpg" alt="<?php echo "img/sucursales/img_sucursal/".$fila['UrlFoto'].".jpg"?>"/>
+			<div class="col-sm-12 ">
+			    <img class="img-responsive" src="img/sucursales/img_sucursal/<?php echo $fila['UrlFoto']?>.jpg" alt="<?php echo "".$fila['UrlFoto'].".jpg"?>"/>
 		        <p>
 					<b><?php echo $fila['NombreSucursal']; ?></b>
 				</p>
