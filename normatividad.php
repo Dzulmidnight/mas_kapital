@@ -161,7 +161,7 @@ ul {
     <section id="" style="margin-top:4em;">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-xs-12 sub_menu" style="padding:0;">
+                <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em; color: white;">
                 <a href="#cnvb">
                         <div class="div-normatividad col-sm-12">
                             <h2>CNVB</h2>
