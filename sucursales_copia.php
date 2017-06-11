@@ -13,6 +13,7 @@
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
 
+
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
@@ -59,6 +60,22 @@
     margin: 0;
     padding: 0;
   }
+  .btn-sucursal {
+  color: #ffffff;
+    background-color: #f26e23;
+    border: none;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+}
+#Estados .active {
+    color: #ffffff;
+    background-color: #263c89;
+    border: none;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+}
 </style>
 
 </head><!--/head-->
@@ -110,8 +127,11 @@
                         <div class="row" id="Estados">
                         <?php
                         include ('conexion.php');
+                        mysql_set_charset('utf8');
                         $sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
                         $sqlResE=$mysqli->query($sqlSuc);
+                        $clase="";
+                        $num=1;
                         while ($fila=$sqlResE->fetch_row()) 
                         {?>
                             <div class="col-xs-4 col-sm-3">
@@ -131,25 +151,14 @@
     <section style="margin-top:2em">
         <div class="container">
             <div class="row">
-                <div class="col-md-9"  id="map" name="map" style="height: 40em">  
-
+                <div class="col-md-9"  id="mapa" name="mapa" style="height: 30em">  
+                        <div id="map" name="map">
+                        </div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="row">
+                <div class="col-md-3"> 
+                    <div class="row" id="FotoSuc" name="FotoSuc" >
                         <div class="col-sm-12">
-                            <h2><b>Información</b></h2>
-                        </div>
-                        <div class="col-sm-12">
-                            <img class="img-responsive" src="img/sucursales/img_sucursal/atlixco.jpg" alt="">
-                            <p><b>Atlixco</b></p>
-                            <p>
-                                Calle 10 Oriente No. 26, int 105.<br>
-                                Col. Centro, Atlixco, Puebla.</br>
-                                C.P. 74200</br>
-                                Tel: (01 244) 446 58 35<br>
-                                GERSUC035@maskapital.com.mx
-                            </p>
                         </div>                    
                     </div>
                 </div>
@@ -169,54 +178,84 @@
      ?>
     <!-- TERMINA FOOTER -->
 <script>
+$(document).ready(function() {
+$('#Sucursales').on('click','#btn_Suc', function() {
+    
+    var accion=2;
+
+    var Mun = $(this).val();
+                   $.ajax({
+                    type:'POST',
+                    url:'ConsultasSucursal.php',
+                    data:{Mun:Mun,accion:accion},
+                    success:function(data){
+                        $('#FotoSuc').html(data); 
+                    }
+                });
+
+                return false;
+});
+});
+</script>
+<script>
  function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 17.0617703, lng: -96.7104049},
-          zoom: 12
+
+<?php 
+    include('conexion.php');
+    $sql="SELECT * FROM sucursales ORDER BY idSucursales";
+    $result=$mysqli->query($sql);
+    $aux=1;
+    while ($fila=$result->fetch_assoc()){
+      ?>
+      var myLatlng<?php echo $aux; ?> = new google.maps.LatLng(<?php echo $fila['X']; ?>,<?php echo $fila['Y']; ?>);
+      <?php 
+      $aux++; 
+    }
+?>
+
+var mapOptions = {
+  zoom: 6,
+  center: myLatlng1
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+
+<?php 
+    include('conexion.php');
+    $sql="SELECT * FROM sucursales ORDER BY idSucursales DESC";
+    $result=$mysqli->query($sql);
+    $aux=1;
+    while ($fila=$result->fetch_assoc()){
+      ?>
+      var marker<?php echo $aux; ?> = new google.maps.Marker({
+        position: myLatlng<?php echo $aux; ?>,
+        title:"<?php echo $fila['NombreSucursal']; ?>!"
         });
-        var infoWindow = new google.maps.InfoWindow({map: map});
-        
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+        marker<?php echo $aux; ?>.setMap(map);
+      <?php
+      $aux++;  
+    }
+?>
+}
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Localizacion Actual.');
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
-
-
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }
-    </script>
-        <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABeKyIubatLSwh8zRTwaT7agLxPOH0Rdc&callback=initMap">
-    </script>
+</script>
 
 <script>
 $(document).ready(function() {
 $('#Estados').on('click','#btnEstados', function() {
+                
+            var botones = document.getElementsByClassName("active");
+            for (var i = 0; i<botones.length; i++) {
+               botones[i].classList.remove("active");
+            }
+            $(this).toggleClass('active');
+  var accion=1;
     var Estado = $(this).val();
                    $.ajax({
                     type:'POST',
                     url:'ConsultasSucursal.php',
-                    data:{Estado:Estado},
+                    data:{Estado:Estado,accion:accion},
                     success:function(data){
                         $('#Sucursales').html(data); 
                     }
@@ -241,6 +280,10 @@ $('#Estados').on('click','#btnEstados', function() {
                 elements[i].style.transitionDelay = "2s";
             }
         }
+    </script>
+
+        <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABeKyIubatLSwh8zRTwaT7agLxPOH0Rdc&callback=initMap">
     </script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
