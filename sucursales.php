@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-
+        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
     </section>
 
 
