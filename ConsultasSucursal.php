@@ -3,9 +3,18 @@ include ('conexion.php');
 if (isset($_POST['accion'])) {
 	if ($_POST['accion']==1) {
 		# code...
-		# code...
 		$Estado = $_POST['Estado'];
+		
+
+		$sqlM = "UPDATE sucursales SET MapaActivo= 0 WHERE MapaActivo = 1";
+		$mysqli->query($sqlM);
+
+		$sqlM = "UPDATE sucursales SET MapaActivo= 1 WHERE Estado ='$Estado'";
+		$mysqli->query($sqlM);
+
+
 		$sql ="SELECT * FROM Sucursales WHERE Estado ='$Estado'";
+
 		$result=$mysqli->query($sql);
 		?><div class="col-md-12 h2"><?php echo $Estado ?></div><?php
 		while ($fila=$result->fetch_assoc()){?>
@@ -18,9 +27,12 @@ if (isset($_POST['accion'])) {
 					<?php echo $fila['Email']; ?>
 			</p>
 			</div>
-<?php 	} // END while
+<?php 	}// END while ?>
+
+<?php
 	}//If accion==1
-		if ($_POST['accion']==2) {
+
+	if ($_POST['accion']==2) {
 		$Mun = $_POST['Mun'];
 		$sql2 ="SELECT * FROM Sucursales WHERE Municipio ='$Mun'";
 		$result2=$mysqli->query($sql2);
@@ -39,4 +51,4 @@ if (isset($_POST['accion'])) {
 <?php 	} // END while
 	}//If accion==2
 }
-?>
+
