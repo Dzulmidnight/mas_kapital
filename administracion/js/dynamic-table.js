@@ -5,10 +5,10 @@ var Script = function () {
             "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
             "sPaginationType": "bootstrap",
             "oLanguage": {
-                "sLengthMenu": "_MENU_ records per page",
+                "sLengthMenu": "_MENU_ registros por página",
                 "oPaginate": {
-                    "sPrevious": "Prev",
-                    "sNext": "Next"
+                    "sPrevious": "Anterior",
+                    "sNext": "Siguiente"
                 }
             },
             "aoColumnDefs": [{
@@ -31,14 +31,14 @@ var Script = function () {
         });
 
         jQuery('#sample_1_wrapper .dataTables_filter input').addClass("form-control"); // modify table search input
-        jQuery('#sample_1_wrapper .dataTables_length select').addClass("form-control"); // modify table per page dropdown
+        jQuery('#sample_1_wrapper .dataTables_length select').addClass("form-control"); // modify table por página dropdown
 
         // begin second table
         $('#sample_2').dataTable({
             "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
             "sPaginationType": "bootstrap",
             "oLanguage": {
-                "sLengthMenu": "_MENU_ per page",
+                "sLengthMenu": "_MENU_ por página",
                 "oPaginate": {
                     "sPrevious": "Prev",
                     "sNext": "Next"
@@ -64,14 +64,14 @@ var Script = function () {
         });
 
         jQuery('#sample_2_wrapper .dataTables_filter input').addClass("form-control"); // modify table search input
-        jQuery('#sample_2_wrapper .dataTables_length select').addClass("form-control"); // modify table per page dropdown
+        jQuery('#sample_2_wrapper .dataTables_length select').addClass("form-control"); // modify table por página dropdown
 
         // begin: third table
         $('#sample_3').dataTable({
             "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
             "sPaginationType": "bootstrap",
             "oLanguage": {
-                "sLengthMenu": "_MENU_ per page",
+                "sLengthMenu": "_MENU_ por página",
                 "oPaginate": {
                     "sPrevious": "Prev",
                     "sNext": "Next"
@@ -97,7 +97,7 @@ var Script = function () {
         });
 
         jQuery('#sample_3_wrapper .dataTables_filter input').addClass("form-control"); // modify table search input
-        jQuery('#sample_3_wrapper .dataTables_length select').addClass("form-control"); // modify table per page dropdown
+        jQuery('#sample_3_wrapper .dataTables_length select').addClass("form-control"); // modify table por página dropdown
 
 
 

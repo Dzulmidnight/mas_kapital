@@ -22,7 +22,7 @@ require('../conexion/sesion.php');
                 <li>
                     <p class="green">Tienes 6 tareas pendientes</p>
                 </li>
-                <!--08_06_2017<li>
+                <li>
                     <a href="#">
                         <div class="task-info">
                             <div class="desc">Menu v1.3</div>
@@ -87,7 +87,7 @@ require('../conexion/sesion.php');
                         </div>
 
                     </a>
-                </li>08_06_2017-->
+                </li>
                 <li class="external">
                     <a href="#">Ver todas</a>
                 </li>
@@ -105,7 +105,7 @@ require('../conexion/sesion.php');
                 <li>
                     <p class="red">Tienes 5 mensajes</p>
                 </li>
-                <!--08_06_2017<li>
+                <li>
                     <a href="#">
                         <span class="photo"><img alt="avatar" src="./img/avatar-mini.jpg"></span>
                               <span class="subject">
@@ -153,7 +153,7 @@ require('../conexion/sesion.php');
                               </span>
                     </a>
                 </li>
-                <li>08_06_2017-->
+                <li>
                     <a href="#">Ver todos</a>
                 </li>
             </ul>
@@ -171,7 +171,7 @@ require('../conexion/sesion.php');
                 <li>
                     <p class="yellow">Tienes 7 notificaciones</p>
                 </li>
-                <!--08_06_2017<li>
+                <li>
                     <a href="#">
                         <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                         Server #3 overloaded.
@@ -206,7 +206,7 @@ require('../conexion/sesion.php');
                         <span class="small italic">10 mins</span>
                     </a>
                 </li>
-                <li>08_06_2017-->
+                <li>
                     <a href="#">Ver todas</a>
                 </li>
             </ul>

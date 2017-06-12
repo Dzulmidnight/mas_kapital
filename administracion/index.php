@@ -71,7 +71,7 @@
                             <li>
                                 <p class="green">Tienes 6 tareas pendientes</p>
                             </li>
-                            <!--08_06_2017<li>
+                            <li>
                                 <a href="#">
                                     <div class="task-info">
                                         <div class="desc">Dashboard v1.3</div>
@@ -136,7 +136,7 @@
                                     </div>
 
                                 </a>
-                            </li>08_06_2017-->
+                            </li>
                             <li class="external">
                                 <a href="#">Ver todas</a>
                             </li>
@@ -154,7 +154,7 @@
                             <li>
                                 <p class="red">Tienes 5 mensajes</p>
                             </li>
-                            <!--08_06_2017<li>
+                            <li>
                                 <a href="#">
                                     <span class="photo"><img alt="avatar" src="./img/avatar-mini.jpg"></span>
                                     <span class="subject">
@@ -201,7 +201,7 @@
                                         Hello, this is metrolab
                                     </span>
                                 </a>
-                            </li>08_06_2017-->
+                            </li>
                             <li>
                                 <a href="#">Ver todos</a>
                             </li>
@@ -220,7 +220,7 @@
                             <li>
                                 <p class="yellow">Tienes 7 notificaciones</p>
                             </li>
-                            <!--08_06_2017<li>
+                            <li>
                                 <a href="#">
                                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                                     Server #3 overloaded.
@@ -254,7 +254,7 @@
                                     Application error.
                                     <span class="small italic">10 mins</span>
                                 </a>
-                            </li>08_06_2017-->
+                            </li>
                             <li>
                                 <a href="#">Ver todas</a>
                             </li>
@@ -308,14 +308,7 @@
       <!-- Right Slidebar end -->
 
       <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              2017 &copy; Kapitalmujer S.A de C.V SOFOM ENR.
-              <a href="#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
+        <?php include('footer.php'); ?>
       <!--footer end-->
   </section>
 

@@ -37,14 +37,14 @@
                     <span>Información</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="#">Usuarios</a></li>
+                    <li><a  href="usuarios.php">Usuarios</a></li>
                     <li><a  href="#">Sucursales</a></li>
                     <li><a  href="#">Vacantes</a></li>
                 </ul>
             </li>
 
 
-            <!--08_06_2017<li class="sub-menu">
+            <li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-book"></i>
                     <span>UI Elements</span>
@@ -182,7 +182,7 @@
             </li>
 
             <!--multi level menu start-->
-            <!--08_06_2017<li class="sub-menu">
+            <li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-sitemap"></i>
                     <span>Multi level Menu</span>
