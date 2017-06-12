@@ -245,7 +245,6 @@ $('#Sucursales').on('click','#btn_Suc', function() {
 
 function Mapear(est){    
     var accion=1;
-    alert ('Mapear'+est+'');
        $.ajax({
                     type:'POST',
                     url:'mapa.php',
