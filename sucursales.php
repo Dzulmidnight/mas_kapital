@@ -177,32 +177,12 @@
     include('footer.php');
      ?>
     <!-- TERMINA FOOTER -->
-<script>
-$(document).ready(function() {
-$('#Sucursales').on('click','#btn_Suc', function() {
-    
-    var accion=2;
-
-    var Mun = $(this).val();
-                   $.ajax({
-                    type:'POST',
-                    url:'ConsultasSucursal.php',
-                    data:{Mun:Mun,accion:accion},
-                    success:function(data){
-                        $('#FotoSuc').html(data); 
-                    }
-                });
-
-                return false;
-});
-});
-</script>
-<script>
+<!-- <script>
  function initMap() {
 
 <?php 
     include('conexion.php');
-    $sql="SELECT * FROM sucursales ORDER BY idSucursales";
+    $sql="SELECT * FROM sucursales WHERE MapaActivo=1 ORDER BY idSucursales";
     $result=$mysqli->query($sql);
     $aux=1;
     while ($fila=$result->fetch_assoc()){
@@ -222,7 +202,7 @@ var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 <?php 
     include('conexion.php');
-    $sql="SELECT * FROM sucursales ORDER BY idSucursales DESC";
+    $sql="SELECT * FROM sucursales WHERE MapaActivo=1 ORDER BY idSucursales DESC";
     $result=$mysqli->query($sql);
     $aux=1;
     while ($fila=$result->fetch_assoc()){
@@ -239,25 +219,20 @@ var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 ?>
 }
 
-</script>
+</script> -->
+
 
 <script>
 $(document).ready(function() {
-$('#Estados').on('click','#btnEstados', function() {
-                
-            var botones = document.getElementsByClassName("active");
-            for (var i = 0; i<botones.length; i++) {
-               botones[i].classList.remove("active");
-            }
-            $(this).toggleClass('active');
-  var accion=1;
-    var Estado = $(this).val();
+$('#Sucursales').on('click','#btn_Suc', function() {
+    var accion=2;
+    var Mun = $(this).val();
                    $.ajax({
                     type:'POST',
                     url:'ConsultasSucursal.php',
-                    data:{Estado:Estado,accion:accion},
+                    data:{Mun:Mun,accion:accion},
                     success:function(data){
-                        $('#Sucursales').html(data); 
+                        $('#FotoSuc').html(data); 
                     }
                 });
 
@@ -265,7 +240,49 @@ $('#Estados').on('click','#btnEstados', function() {
 });
 });
 </script>
-    <script>
+
+<script>
+
+function Mapear(est){    
+    var accion=1;
+       $.ajax({
+                    type:'POST',
+                    url:'mapa.php',
+                    data:{accion:accion},
+                    success:function(data){
+                        $('#mapa').html(data);
+                    }
+                });
+       return false;
+
+}
+</script>
+
+<script>
+$(document).ready(function() {
+$('#Estados').on('click','#btnEstados', function() {
+            var botones = document.getElementsByClassName("active");
+            for (var i = 0; i<botones.length; i++) {
+               botones[i].classList.remove("active");
+            }
+            $(this).toggleClass('active');
+     var accion=1;
+    var Estado = $(this).val();
+    $.ajax({
+                    type:'POST',
+                    url:'ConsultasSucursal.php',
+                    data:{Estado:Estado,accion:accion},
+                    success:function(data){
+                        $('#Sucursales').html(data);
+                        Mapear(Estado);
+                    }
+                });
+
+                return false;
+});
+});
+</script>
+<script>
         function aparecer(){
             var elements = document.getElementsByClassName('barra_lateral_2');
             for(var i = 0, length = elements.length; i < length; i++) {
@@ -280,11 +297,10 @@ $('#Estados').on('click','#btnEstados', function() {
                 elements[i].style.transitionDelay = "2s";
             }
         }
-    </script>
-
-        <script async defer
+</script>
+<script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABeKyIubatLSwh8zRTwaT7agLxPOH0Rdc&callback=initMap">
-    </script>
+</script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lightbox.min.js"></script>
