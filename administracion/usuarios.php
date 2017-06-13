@@ -11,6 +11,33 @@
             $idsol=$mysqli->query($sql2);
             $resultado=$idsol->fetch_assoc();
 */
+  if(isset($_POST['guardar_usuario']) && $_POST['guardar_usuario'] == 1){
+    $nombre = $_POST['nombre1'];
+    $user = $_POST['user1'];
+    $tipo = $_POST['tipo1'];
+    $password = $_POST['password1'];
+
+    $sql = "INSERT INTO usuarios (nombre, user, password, tipo) VALUES ('$nombre', '$user', '$tipo', '$password')";
+    $mysqli->query($sql);
+
+  }
+  if(isset($_POST['eliminar_usuario'])){
+    $idusuario = $_POST['eliminar_usuario'];
+    $sql = "DELETE FROM usuarios WHERE idusuario = $idusuario";
+    $mysqli->query($sql);
+  }
+  if(isset($_POST['editar_usuario'])){
+    $nombre = $_POST['nombre'];
+    $user = $_POST['user'];
+    $tipo = $_POST['tipo'];
+    $password = $_POST['password'];
+
+    $idusuario = $_POST['editar_usuario'];
+    $sql = "UPDATE usuarios SET nombre = '$nombre', user = '$user', tipo = '$tipo', password = '$password' WHERE idusuario = $idusuario";
+    $mysqli->query($sql);
+  }
+
+
 
 
  ?>
@@ -62,82 +89,91 @@
       <!--sidebar end-->
       <!--main content start-->
       <section id="main-content">
-          <section class="wrapper site-min-height">
-              <!-- page start-->
-              <section class="panel">
-                  <header class="panel-heading">
-                      Usuarios Registrados
-                  </header>
-                  <div class="panel-body">
-                      <div class="adv-table editable-table ">
-                          <div class="clearfix">
-                              <div class="btn-group">
-                                  <button id="editable-sample_new" class="btn green">
-                                      Nuevo Registro <i class="fa fa-plus"></i>
-                                  </button>
-                              </div>
-                              <!--10_06_2017<div class="btn-group pull-right">
-                                  <button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-                                  </button>
-                                  <ul class="dropdown-menu pull-right">
-                                      <li><a href="#">Print</a></li>
-                                      <li><a href="#">Save as PDF</a></li>
-                                      <li><a href="#">Export to Excel</a></li>
-                                  </ul>
-                              </div>10_06_2017-->
-                          </div>
-                          <div class="space15"></div>
-
-                          <div class="table-responsive">
-
-                          <table class="table table-striped table-hover table-bordered" id="editable-sample">
-                              <thead>
-                                <tr>
-                                    <th>Nombre completo</th>
-                                    <th>Tipo</th>
-                                    <th>Usuario</th>
-                                    <th>Contraseña</th>
-                                    <th>Editar</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              <?php 
-                                $query = "SELECT * FROM usuarios";
-                                $ejecutar = $mysqli->query($query);
-                                
-                                while($registros = $ejecutar->fetch_assoc()){
-                                ?>
-                                  <tr class="">
-                                      <td><?php echo $registros['nombre']; ?></td>
-                                      <td><?php echo $registros['tipo']; ?></td>
-                                      <td><?php echo $registros['user']; ?></td>
-                                      <td class="center"><?php echo $registros['password']; ?></td>
-                                      <td><a class="edit" href="javascript:;">Editar</a></td>
-                                      <td><a class="delete" href="javascript:;">Eliminar</a></td>
-                                  </tr>
-                                <?php  
-                                }
-
-                              ?>
-                                <tr class="">
-                                    <td>Dulal</td>
-                                    <td>Jonathan Smith</td>
-                                    <td>434</td>
-                                    <td class="center">new user</td>
-                                    <td><a class="edit" href="javascript:;">Editar</a></td>
-                                    <td><a class="delete" href="javascript:;">Eliminar</a></td>
-                                </tr>
-                              </tbody>
-                          </table>
-
-                          </div>
-                      </div>
+        <section class="wrapper site-min-height">
+          <!-- page start-->
+          <section class="panel">
+            <header class="panel-heading">
+              Usuarios Registrados
+            </header>
+            <div class="panel-body">
+              <div class="adv-table editable-table">
+                <div class="clearfix">
+                  <div class="btn-group">
+                    <button id="" class="btn green" onclick="nuevo_registro()">
+                      Nuevo Registro <i class="fa fa-plus"></i>
+                    </button>
                   </div>
-              </section>
-              <!-- page end-->
+                </div>
+
+                <div class="space15"></div>
+
+                <div class="table-responsive">
+                  <form action="" method="POST">
+                    <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                        <thead>
+                          <tr>
+                              <th>Nombre completo</th>
+                              <th>Tipo</th>
+                              <th>Usuario</th>
+                              <th>Contraseña</th>
+                              <th>Editar</th>
+                              <th>Eliminar</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <?php 
+                          $query = "SELECT * FROM usuarios";
+                          $ejecutar = $mysqli->query($query);
+                          
+                          while($registros = $ejecutar->fetch_assoc()){
+                          ?>
+                            <tr id="<?php echo 'row_info'.$registros['idusuario']; ?>" class="">
+                                <td>
+                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="nombre" value="<?php echo $registros['nombre']; ?>" readonly>
+                                  
+                                </td>
+                                <td>
+                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="tipo" value="<?php echo $registros['tipo']; ?>" readonly>
+                                </td>
+                                <td>
+                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="user" value="<?php echo $registros['user']; ?>" readonly>
+                                </td>
+                                <td class="center">
+                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="password" value="<?php echo $registros['password']; ?>" readonly>
+                                </td>
+                                <td id="<?php echo 'td-editar'.$registros['idusuario']; ?>">
+                                  <!--<button type="submit" class="" name="editar_usuario" value="<?php echo $registros['idusuario']; ?>" onclick="editar('<?php echo $registros['idusuario']; ?>')">Editar</button>-->
+                                  <a id="btn-editar" class="" href="#" onclick="editar('<?php echo $registros['idusuario']; ?>')">Editar</a>
+                                </td>
+                                <td id="<?php echo 'td-eliminar'.$registros['idusuario']; ?>">
+                                  <button type="submit" class="" name="eliminar_usuario" value="<?php echo $registros['idusuario'] ?>" onclick="this.form.submit()">Eliminar</button>
+                                  <!--<a id="btn-eliminar" class="delete" href="">Eliminar</a>-->
+                                </td>
+                            </tr>
+                          <?php  
+                          }
+
+                        ?>
+                          <tr class="">
+                              <td>Dulal</td>
+                              <td>Jonathan Smith</td>
+                              <td>434</td>
+                              <td class="center">new user</td>
+                              <td><a class="edit" href="javascript:;">Editar</a></td>
+                              <td><a class="delete" href="javascript:;">Eliminar</a></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </form>
+                </div>
+              </div>
+            </div>
           </section>
+          <!-- page end-->
+        </section>
       </section>
+
+
       <!--main content end-->
       <!-- Right Slidebar start -->
   
@@ -173,6 +209,62 @@
           jQuery(document).ready(function() {
               EditableTable.init();
           });
+
+          function nuevo_registro(){
+            var table = document.getElementById("editable-sample");
+            {
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+
+                cell1.innerHTML = '<input type="text" class="form-control" name="nombre1" id="" placeholder="">';
+                cell2.innerHTML = '<input type="text" class="form-control" name="tipo1" id="" placeholder="">';
+                cell3.innerHTML = '<input type="text" class="form-control" name="user1" id="" placeholder="">';
+                cell4.innerHTML = '<input type="text" class="form-control" name="password1" id="" placeholder="">';
+                cell5.innerHTML = '<button type="submit" id="btn-editar" name="guardar_usuario" class="" value="1" onclick="this.form.submit()">Guardar</button>';
+                //cell5.innerHTML = '<button type="submit" class="" value="1" >Guardar</button><a id="btn-editar" class="" href="#" onclick="editar()">Guardar</a>';
+                cell6.innerHTML = '<a id="btn-eliminar" class="delete" href="#" onclick="quitar_registro()">Cancelar</a>';
+            }
+          }
+          function quitar_registro(){
+            var table = document.getElementById("editable-sample");
+            {
+                var row = table.deleteRow(1);
+            }
+          }
+
+          function editar(id){
+            var x = 'frm-usuario'+id;
+            var td_editar = 'td-editar'+id;
+            var td_eliminar = 'td-eliminar'+id;
+            /*var elements = document.querySelectorAll(x, '.frm-usuario');
+
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].readOnly = false;
+            }*/
+
+            var elements = document.getElementsByClassName(''+x+'');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].readOnly = false;
+            }
+            /*document.getElementById("''").innerHTML = "<a id='btn-eliminar' class='' href='#' onclick='guardar()'>Guardar</a>";
+
+            document.getElementById("td-eliminar").innerHTML = "<a id='btn-eliminar' class='' href='#' onclick='cancelar()'>Cancelar</a>";*/
+          }
+          function cancelar(){
+            var elements = document.getElementsByClassName('frm-usuario');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].readOnly = true;
+            }
+            document.getElementById("td-editar").innerHTML = "<a id='btn-editar' class=' href='#' onclick='editar()'>Editar</a>";
+          }
+          function guardar(){
+            alert('Se han guardado los datos');
+          }
       </script>
 
 
