@@ -1,6 +1,3 @@
-<?php 
-require('../conexion/sesion.php');
- ?>
 <header class="header white-bg">
     <div class="sidebar-toggle-box">
         <i class="fa fa-bars"></i>
