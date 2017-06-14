@@ -17,7 +17,7 @@
     $tipo = $_POST['tipo1'];
     $password = $_POST['password1'];
 
-    $sql = "INSERT INTO usuarios (nombre, user, password, tipo) VALUES ('$nombre', '$user', '$tipo', '$password')";
+    $sql = "INSERT INTO usuarios (nombre, user, password, tipo) VALUES ('$nombre', '$user', '$password', '$tipo')";
     $mysqli->query($sql);
 
   }
@@ -26,16 +26,16 @@
     $sql = "DELETE FROM usuarios WHERE idusuario = $idusuario";
     $mysqli->query($sql);
   }
-  if(isset($_POST['editar_usuario'])){
-    $nombre = $_POST['nombre'];
-    $user = $_POST['user'];
-    $tipo = $_POST['tipo'];
-    $password = $_POST['password'];
-
-    $idusuario = $_POST['editar_usuario'];
+  if(isset($_POST['guardar_cambios'])){
+    $idusuario = $_POST['guardar_cambios'];
+    $nombre = $_POST['nombre'.$idusuario];
+    $user = $_POST['user'.$idusuario];
+    $tipo = $_POST['tipo'.$idusuario];
+    $password = $_POST['password'.$idusuario];
     $sql = "UPDATE usuarios SET nombre = '$nombre', user = '$user', tipo = '$tipo', password = '$password' WHERE idusuario = $idusuario";
     $mysqli->query($sql);
   }
+
 
 
 
@@ -129,24 +129,26 @@
                           ?>
                             <tr id="<?php echo 'row_info'.$registros['idusuario']; ?>" class="">
                                 <td>
-                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="nombre" value="<?php echo $registros['nombre']; ?>" readonly>
+                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="<?php echo 'nombre'.$registros['idusuario']; ?>" value="<?php echo $registros['nombre']; ?>" readonly>
                                   
                                 </td>
                                 <td>
-                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="tipo" value="<?php echo $registros['tipo']; ?>" readonly>
+                                  <select class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="<?php echo 'tipo'.$registros['idusuario']; ?>" id="" readonly>
+                                    <option value="<?php echo $registros['tipo']; ?>">Administrador</option>
+                                  </select>
                                 </td>
                                 <td>
-                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="user" value="<?php echo $registros['user']; ?>" readonly>
+                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="<?php echo 'user'.$registros['idusuario']; ?>" value="<?php echo $registros['user']; ?>" readonly>
                                 </td>
                                 <td class="center">
-                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="password" value="<?php echo $registros['password']; ?>" readonly>
+                                  <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="<?php echo 'password'.$registros['idusuario']; ?>" value="<?php echo $registros['password']; ?>" readonly>
                                 </td>
                                 <td id="<?php echo 'td-editar'.$registros['idusuario']; ?>">
                                   <!--<button type="submit" class="" name="editar_usuario" value="<?php echo $registros['idusuario']; ?>" onclick="editar('<?php echo $registros['idusuario']; ?>')">Editar</button>-->
                                   <a id="btn-editar" class="" href="#" onclick="editar('<?php echo $registros['idusuario']; ?>')">Editar</a>
                                 </td>
                                 <td id="<?php echo 'td-eliminar'.$registros['idusuario']; ?>">
-                                  <button type="submit" class="" name="eliminar_usuario" value="<?php echo $registros['idusuario'] ?>" onclick="this.form.submit()">Eliminar</button>
+                                  <button type="submit" class="" name="eliminar_usuario" value="<?php echo $registros['idusuario'] ?>">Eliminar</button>
                                   <!--<a id="btn-eliminar" class="delete" href="">Eliminar</a>-->
                                 </td>
                             </tr>
@@ -222,10 +224,10 @@
                 var cell6 = row.insertCell(5);
 
                 cell1.innerHTML = '<input type="text" class="form-control" name="nombre1" id="" placeholder="">';
-                cell2.innerHTML = '<input type="text" class="form-control" name="tipo1" id="" placeholder="">';
+                cell2.innerHTML = '<select class="form-control" name="tipo1"><option value="administrador">Administrador</option></select>';
                 cell3.innerHTML = '<input type="text" class="form-control" name="user1" id="" placeholder="">';
                 cell4.innerHTML = '<input type="text" class="form-control" name="password1" id="" placeholder="">';
-                cell5.innerHTML = '<button type="submit" id="btn-editar" name="guardar_usuario" class="" value="1" onclick="this.form.submit()">Guardar</button>';
+                cell5.innerHTML = '<button type="submit" id="btn-editar" name="guardar_usuario" class="" value="1">Guardar</button>';
                 //cell5.innerHTML = '<button type="submit" class="" value="1" >Guardar</button><a id="btn-editar" class="" href="#" onclick="editar()">Guardar</a>';
                 cell6.innerHTML = '<a id="btn-eliminar" class="delete" href="#" onclick="quitar_registro()">Cancelar</a>';
             }
@@ -250,17 +252,37 @@
             var elements = document.getElementsByClassName(''+x+'');
             for(var i = 0, length = elements.length; i < length; i++) {
                 elements[i].readOnly = false;
+
             }
+            //Se guardan los cambios realizados al editar el usuario
+            document.getElementById(""+td_editar+"").innerHTML = "<button type='submit' id='btn-editar' name='guardar_cambios' class='' value='"+id+"'>Guardar</button>";
+            //Se bloquean los campos del formulario
+            document.getElementById(""+td_eliminar+"").innerHTML = "<a id='btn-eliminar' class='' href='#' onclick='cancelar("+id+")'>Cancelar</a>";
             /*document.getElementById("''").innerHTML = "<a id='btn-eliminar' class='' href='#' onclick='guardar()'>Guardar</a>";
 
             document.getElementById("td-eliminar").innerHTML = "<a id='btn-eliminar' class='' href='#' onclick='cancelar()'>Cancelar</a>";*/
           }
-          function cancelar(){
-            var elements = document.getElementsByClassName('frm-usuario');
+          function cancelar(id){
+            /*var x = id;
+            var td_editar = 'td-editar'+id;
+            var elements = document.getElementsByClassName(''+x+'');
             for(var i = 0, length = elements.length; i < length; i++) {
                 elements[i].readOnly = true;
             }
-            document.getElementById("td-editar").innerHTML = "<a id='btn-editar' class=' href='#' onclick='editar()'>Editar</a>";
+            document.getElementById("td-editar").innerHTML = "<a id='btn-editar' class=' href='#' onclick='editar()'>Editar</a>";*/
+            var x = 'frm-usuario'+id;
+            var td_editar = 'td-editar'+id;
+            var td_eliminar = 'td-eliminar'+id;
+
+            var elements = document.getElementsByClassName(''+x+'');
+              for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].readOnly = true;
+            }
+
+            document.getElementById(""+td_editar+"").innerHTML = "<a id='btn-editar"+id+"' class='' href='#' onclick='editar("+id+")'>Editar</a>";
+            document.getElementById(""+td_eliminar+"").innerHTML = "<button type='submit' class=' name='eliminar_usuario' value='"+id+"'>Eliminar</button>";
+
+            
           }
           function guardar(){
             alert('Se han guardado los datos');

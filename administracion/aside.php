@@ -38,8 +38,8 @@
                 </a>
                 <ul class="sub">
                     <li><a  href="usuarios.php">Usuarios</a></li>
-                    <li><a  href="#">Sucursales</a></li>
-                    <li><a  href="#">Vacantes</a></li>
+                    <li><a  href="sucursales_add.php">Sucursales</a></li>
+                    <li><a  href="vacantes.php">Vacantes</a></li>
                 </ul>
             </li>
 
