@@ -39,7 +39,7 @@ if (isset($_POST['accion'])) {
 		$Num = $result2->num_rows;
 		while ($fila=$result2->fetch_assoc()){?>
 			<div class="col-sm-12 ">
-			    <img class="img-responsive" src="img/sucursales/img_sucursal/<?php echo $fila['UrlFoto']?>.jpg" alt="<?php echo "".$fila['UrlFoto'].".jpg"?>"/>
+			    <img class="img-responsive" src="img/sucursales/img_sucursal/<?php echo $fila['UrlFoto']?>" alt="<?php echo "".$fila['UrlFoto']?>"/>
 		        <p>
 					<b><?php echo $fila['NombreSucursal']; ?></b>
 				</p>

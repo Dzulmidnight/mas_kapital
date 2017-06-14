@@ -15,9 +15,28 @@
     $email = $_POST['email'];
     $x = $_POST['x'];
     $y = $_POST['y'];
-    $img = 'IMAGEN';
+    $img = '';
 
-    $sql = "INSERT INTO sucursales (NombreSucursal, Estado, Municipio, Calle, Numero, Referencia, CP, Colonia, Telefono, Email, X, Y, UrlFoto) VALUES ('$nombre', '$estado', '$municipio', '$calle', '$numero', '$referencia', '$cp', '$colonia', '$telefono', '$email', '$x', '$y', '$img')";
+    $rutaImg = "../img/sucursales/img_sucursal/";
+
+    if(!empty($_FILES['img_sucursal']['name'])){
+        $_FILES["img_sucursal"]["name"];
+          move_uploaded_file($_FILES["img_sucursal"]["tmp_name"], $rutaImg.$_FILES["img_sucursal"]["name"]);
+          $img_sucursal = basename($_FILES["img_sucursal"]["name"]);
+    }else{
+      $img_sucursal = NULL;
+    }
+
+    /*$target_path = "../img/sucursales/img_sucursal/";
+    $target_path = $target_path.basename($_FILES['img_sucursal']['name']); 
+    if(move_uploaded_file($_FILES['img_sucursal']['tmp_name'], $target_path)) { 
+      echo "El archivo ". basename( $_FILES['img_sucursal']['name'])." ha sido subido";
+    } else{
+      echo "Ha ocurrido un error, trate de nuevo!";
+    }
+    $img = basename($_FILES['img_sucursal']['name']);*/
+
+    $sql = "INSERT INTO sucursales (NombreSucursal, Estado, Municipio, Calle, Numero, Referencia, CP, Colonia, Telefono, Email, X, Y, UrlFoto) VALUES ('$nombre', '$estado', '$municipio', '$calle', '$numero', '$referencia', '$cp', '$colonia', '$telefono', '$email', '$x', '$y', '$img_sucursal')";
     $mysqli->query($sql);
 
     echo "<script>alert('SE AGREGO LA SUCURSAL');</script>";
@@ -124,7 +143,7 @@
                                   <?php 
                                   if(!empty($registros['UrlFoto'])){
                                   ?>
-                                    <img class="img-responsive" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>.jpg" alt="" width="40px;">
+                                    <img class="img-responsive" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>" alt="" width="40px;">
                                   <?php
                                   }else{
                                   ?>
@@ -135,7 +154,7 @@
                                 </td>
                                 
                                 <td>
-                                  <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                  <button id="btn-editar" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalEditarSucursal"><i class="fa fa-pencil"></i></button>
                                   <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
                                 </td>
                               </tr>
@@ -143,16 +162,6 @@
                             }
                              ?>
                           </tbody>
-                          <tfoot>
-                            <tr>
-                                <th>Rendering engine</th>
-                                <th>Browser</th>
-                                <th>Platform(s)</th>
-                                <th class="hidden-phone">Engine version</th>
-                                <th class="hidden-phone">CSS grade</th>
-                                <th></th>
-                            </tr>
-                          </tfoot>
                         </table>
                       </div>
                     </div>
@@ -171,8 +180,185 @@
       <?php include('footer.php'); ?>
       <!--footer end-->
   </section>
+                                    <!-- Modal Editar Sucursal -->
+                                    <div class="modal fade" id="modalEditarSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                              <?php 
 
-    <!-- Modal -->
+                                               ?>
+                                              <form action="" method="POST" enctype="multipart/form-data">
+                                                  <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                      <h4 class="modal-title"><b>Editar Sucursal <span style="color:red"></span></b></h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <!-- page start-->
+                                                    <div class="row">
+                                                        <!--<aside class="profile-nav col-lg-3">
+                                                            <section class="panel">
+                                                                <div class="user-heading round">
+                                                                    <a href="#">
+                                                                        <img src="img/profile-avatar.jpg" alt="">
+                                                                    </a>
+                                                                    <h1>Jonathan Smith</h1>
+                                                                    <p>jsmith@flatlab.com</p>
+                                                                </div>
+
+                                                                <ul class="nav nav-pills nav-stacked">
+                                                                    <li><a href="profile.html"> <i class="fa fa-user"></i> Profile</a></li>
+                                                                    <li><a href="profile-activity.html"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
+                                                                    <li  class="active"><a href="profile-edit.html"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                                                                </ul>
+
+                                                            </section>
+                                                        </aside>-->
+                                                        <aside class="profile-info col-lg-12">
+                                                            <section class="panel">
+                                                                <div class="panel-body bio-graph-info">
+                                                                  <table class="table table-bordered">
+                                                                    <tr>
+                                                                      <td>Nombre Sucursal</td>
+                                                                      <td colspan="3">
+                                                                        <input type="text" class="form-control" name="nombre" id="f-name" placeholder="Nombre de la Sucursal">
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Estado</td>
+                                                                      <td colspan="3">
+                                                                        <?php 
+                                                                        $query = "SELECT nombre FROM estados";
+                                                                        $consultar = $mysqli->query($query);
+                                                                        ?>
+                                                                          <select class="form-control" name="estado" id="">
+                                                                            <option value="">Selecciona un Estado</option>
+                                                                            <?php 
+                                                                            while($estados = $consultar->fetch_assoc()){
+                                                                              echo "<option values='".$estados['nombre']."'>".$estados['nombre']."</option>";
+                                                                            }
+                                                                            ?>
+                                                                          </select>
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Municipio</td>
+                                                                      <td colspan="3">
+                                                                        <input type="text" class="form-control" name="municipio" id="" placeholder="Municipio">
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Colonia</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="colonia" placeholder="Colonia">
+                                                                      </td>
+                                                                      <td>C.P.</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="cp" placeholder="C.P.">
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Calle</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="calle" id="" placeholder="Calle">
+                                                                      </td>
+                                                                      <td>Num. Ext.</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="numero" id="" placeholder="Num. #">
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Referencias</td>
+                                                                      <td colspan="3">
+                                                                        <textarea class="form-control" name="referencia" id="" rows="2" placeholder="Ej: Planta Interior, Local #"></textarea>
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Teléfono</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="telefono" id="" placeholder="Teléfono">
+                                                                      </td>
+                                                                      <td>Email</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="email" id="" placeholder="Email">
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td class="info text-center" colspan="4"><b>Coordenadas Aproximadas de la Sucursal</b></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Coordenada X</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="x" id="" placeholder="Ej: 16.831622">
+                                                                      </td>
+                                                                      <td>Coordenada Y</td>
+                                                                      <td>
+                                                                        <input type="text" class="form-control" name="y" id="" placeholder="Ej: -96.782573">
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td>Imagen Sucursal</td>
+                                                                      <td colspan="3">
+                                                                        <input type="file" class="form-control" name="img_sucursal" id="">
+                                                                      </td>
+                                                                    </tr>
+                                                                  </table>
+                                                                </div>
+                                                            </section>
+                                                            <!--<section>
+                                                                <div class="panel panel-primary">
+                                                                    <div class="panel-heading"> Sets New Password & Avatar</div>
+                                                                    <div class="panel-body">
+                                                                        <form class="form-horizontal" role="form">
+                                                                            <div class="form-group">
+                                                                                <label  class="col-lg-2 control-label">Current Password</label>
+                                                                                <div class="col-lg-6">
+                                                                                    <input type="password" class="form-control" id="c-pwd" placeholder=" ">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label  class="col-lg-2 control-label">New Password</label>
+                                                                                <div class="col-lg-6">
+                                                                                    <input type="password" class="form-control" id="n-pwd" placeholder=" ">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label  class="col-lg-2 control-label">Re-type New Password</label>
+                                                                                <div class="col-lg-6">
+                                                                                    <input type="password" class="form-control" id="rt-pwd" placeholder=" ">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label  class="col-lg-2 control-label">Change Avatar</label>
+                                                                                <div class="col-lg-6">
+                                                                                    <input type="file" class="file-pos" id="exampleInputFile">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <div class="col-lg-offset-2 col-lg-10">
+                                                                                    <button type="submit" class="btn btn-info">Save</button>
+                                                                                    <button type="button" class="btn btn-default">Cancel</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </section>-->
+                                                        </aside>
+                                                    </div>
+                                                    <!-- page end-->
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                                                      <button class="btn btn-success" type="submit" name="guardar_sucursal" value="1"> Guardar Sucursal</button>
+                                                  </div>              
+                                              </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Termina Modal Editar -->
+    <!-- Modal Agregar Sucursal -->
     <div class="modal fade" id="modalSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -287,7 +473,7 @@
                                     <tr>
                                       <td>Imagen Sucursal</td>
                                       <td colspan="3">
-                                        <input type="file" class="form-control" name="" id="" placeholder="">
+                                        <input type="file" class="form-control" name="img_sucursal" id="">
                                       </td>
                                     </tr>
                                   </table>
