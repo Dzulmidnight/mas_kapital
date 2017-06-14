@@ -2,6 +2,26 @@
   require('../conexion/conexion.php');
   require('../conexion/sesion.php');
 
+  if(isset($_POST['guardar_sucursal']) && $_POST['guardar_sucursal'] == 1){
+    $nombre = $_POST['nombre'];
+    $estado = $_POST['estado'];
+    $municipio = $_POST['municipio'];
+    $calle = $_POST['calle'];
+    $numero = $_POST['numero'];
+    $referencia = $_POST['referencia'];
+    $cp = $_POST['cp'];
+    $colonia = $_POST['colonia'];
+    $telefono = $_POST['telefono'];
+    $email = $_POST['email'];
+    $x = $_POST['x'];
+    $y = $_POST['y'];
+    $img = 'IMAGEN';
+
+    $sql = "INSERT INTO sucursales (NombreSucursal, Estado, Municipio, Calle, Numero, Referencia, CP, Colonia, Telefono, Email, X, Y, UrlFoto) VALUES ('$nombre', '$estado', '$municipio', '$calle', '$numero', '$referencia', '$cp', '$colonia', '$telefono', '$email', '$x', '$y', '$img')";
+    $mysqli->query($sql);
+
+    echo "<script>alert('SE AGREGO LA SUCURSAL');</script>";
+  }
 
 ?>
 <!DOCTYPE html>
@@ -58,13 +78,24 @@
                 <div class="col-sm-12">
                   <section class="panel">
                     <header class="panel-heading">
-                        Dynamic Table
+                        Sucursales Registradas
                          <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
                             <a href="javascript:;" class="fa fa-times"></a>
                          </span>
                     </header>
                     <div class="panel-body">
+                      <div class="clearfix">
+                        <div class="btn-group">
+                          <button id="" class="btn btn-default" data-toggle="modal" href="#modalSucursal">
+                            Nuevo Registro <i class="fa fa-plus"></i>
+                          </button>
+                          <!--<a class="btn btn-warning" data-toggle="modal" href="#modalSucursal">
+                            Large
+                          </a>-->
+                        </div>
+                      </div>
+
                       <div class="adv-table">
                         <table  class="display table table-bordered table-striped" id="dynamic-table">
                           <thead>
@@ -74,6 +105,7 @@
                                 <th class="hidden-phone">Municipio</th>
                                 <th class="hidden-phone">Email</th>
                                 <th class="hidden-phone">Img</th>
+                                <th>Acciones</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -89,49 +121,27 @@
                                 <td><?php echo $registros['Municipio']; ?></td>
                                 <td><?php echo $registros['Email']; ?></td>
                                 <td>
-                                  <img class="img-responsive" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>.jpg" alt="" width="40px;">
+                                  <?php 
+                                  if(!empty($registros['UrlFoto'])){
+                                  ?>
+                                    <img class="img-responsive" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>.jpg" alt="" width="40px;">
+                                  <?php
+                                  }else{
+                                  ?>
+                                     <img class="img-responsive" src="../img/sucursales/sucursal.png" alt="" width="40px;">
+                                  <?php
+                                  }
+                                  ?>
+                                </td>
+                                
+                                <td>
+                                  <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                  <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
                                 </td>
                               </tr>
                             <?php
                             }
                              ?>
-                            <tr class="gradeC">
-                                <td>Trident</td>
-                                <td>Internet
-                                    Explorer 5.0</td>
-                                <td>Win 95+</td>
-                                <td class="center hidden-phone">5</td>
-                                <td class="center hidden-phone">C</td>
-                            </tr>
-                            <tr class="gradeA">
-                                <td>Gecko</td>
-                                <td>Firefox 2.0</td>
-                                <td>Win 98+ / OSX.2+</td>
-                                <td class="center hidden-phone">1.8</td>
-                                <td class="center hidden-phone">A</td>
-                            </tr>
-                            <tr class="gradeA">
-                                <td>Gecko</td>
-                                <td>Firefox 3.0</td>
-                                <td>Win 2k+ / OSX.3+</td>
-                                <td class="center hidden-phone">1.9</td>
-                                <td class="center hidden-phone">A</td>
-                            </tr>
-
-                            <tr class="gradeC">
-                                <td>Misc</td>
-                                <td>PSP browser</td>
-                                <td>PSP</td>
-                                <td class="center hidden-phone">-</td>
-                                <td class="center hidden-phone">C</td>
-                            </tr>
-                            <tr class="gradeU">
-                                <td>Other browsers</td>
-                                <td>All others</td>
-                                <td>-</td>
-                                <td class="center hidden-phone">-</td>
-                                <td class="center hidden-phone">U</td>
-                            </tr>
                           </tbody>
                           <tfoot>
                             <tr>
@@ -140,6 +150,7 @@
                                 <th>Platform(s)</th>
                                 <th class="hidden-phone">Engine version</th>
                                 <th class="hidden-phone">CSS grade</th>
+                                <th></th>
                             </tr>
                           </tfoot>
                         </table>
@@ -152,144 +163,6 @@
           </section>
 
 
-          <section class="wrapper">
-              <!-- page start-->
-              <div class="row">
-                  <aside class="profile-nav col-lg-3">
-                      <section class="panel">
-                          <div class="user-heading round">
-                              <a href="#">
-                                  <img src="img/profile-avatar.jpg" alt="">
-                              </a>
-                              <h1>Jonathan Smith</h1>
-                              <p>jsmith@flatlab.com</p>
-                          </div>
-
-                          <ul class="nav nav-pills nav-stacked">
-                              <li><a href="profile.html"> <i class="fa fa-user"></i> Profile</a></li>
-                              <li><a href="profile-activity.html"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
-                              <li  class="active"><a href="profile-edit.html"> <i class="fa fa-edit"></i> Edit profile</a></li>
-                          </ul>
-
-                      </section>
-                  </aside>
-                  <aside class="profile-info col-lg-9">
-                      <section class="panel">
-                          <div class="bio-graph-heading">
-                              <b>Información Sucursal</b> 
-                          </div>
-                          <div class="panel-body bio-graph-info">
-                              <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">About Me</label>
-                                      <div class="col-lg-10">
-                                          <textarea name="" id="" class="form-control" cols="30" rows="10"></textarea>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">First Name</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="f-name" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">Last Name</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="l-name" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">Country</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="c-name" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">Birthday</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="b-day" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">Occupation</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="occupation" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">Email</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="email" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">Mobile</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="mobile" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label  class="col-lg-2 control-label">Website URL</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" class="form-control" id="url" placeholder="http://www.demowebsite.com ">
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <div class="col-lg-offset-2 col-lg-10">
-                                          <button type="submit" class="btn btn-success">Save</button>
-                                          <button type="button" class="btn btn-default">Cancel</button>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </section>
-                      <section>
-                          <div class="panel panel-primary">
-                              <div class="panel-heading"> Sets New Password & Avatar</div>
-                              <div class="panel-body">
-                                  <form class="form-horizontal" role="form">
-                                      <div class="form-group">
-                                          <label  class="col-lg-2 control-label">Current Password</label>
-                                          <div class="col-lg-6">
-                                              <input type="password" class="form-control" id="c-pwd" placeholder=" ">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label  class="col-lg-2 control-label">New Password</label>
-                                          <div class="col-lg-6">
-                                              <input type="password" class="form-control" id="n-pwd" placeholder=" ">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label  class="col-lg-2 control-label">Re-type New Password</label>
-                                          <div class="col-lg-6">
-                                              <input type="password" class="form-control" id="rt-pwd" placeholder=" ">
-                                          </div>
-                                      </div>
-
-                                      <div class="form-group">
-                                          <label  class="col-lg-2 control-label">Change Avatar</label>
-                                          <div class="col-lg-6">
-                                              <input type="file" class="file-pos" id="exampleInputFile">
-                                          </div>
-                                      </div>
-
-                                      <div class="form-group">
-                                          <div class="col-lg-offset-2 col-lg-10">
-                                              <button type="submit" class="btn btn-info">Save</button>
-                                              <button type="button" class="btn btn-default">Cancel</button>
-                                          </div>
-                                      </div>
-                                  </form>
-                              </div>
-                          </div>
-                      </section>
-                  </aside>
-              </div>
-
-              <!-- page end-->
-          </section>
       </section>
       <!--main content end-->
       <!-- Right Slidebar start -->
@@ -298,6 +171,182 @@
       <?php include('footer.php'); ?>
       <!--footer end-->
   </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <form action="" method="POST" enctype="multipart/form-data">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title"><b>Formulario Sucursal</b></h4>
+                  </div>
+                  <div class="modal-body">
+                    <!-- page start-->
+                    <div class="row">
+                        <!--<aside class="profile-nav col-lg-3">
+                            <section class="panel">
+                                <div class="user-heading round">
+                                    <a href="#">
+                                        <img src="img/profile-avatar.jpg" alt="">
+                                    </a>
+                                    <h1>Jonathan Smith</h1>
+                                    <p>jsmith@flatlab.com</p>
+                                </div>
+
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li><a href="profile.html"> <i class="fa fa-user"></i> Profile</a></li>
+                                    <li><a href="profile-activity.html"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
+                                    <li  class="active"><a href="profile-edit.html"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                                </ul>
+
+                            </section>
+                        </aside>-->
+                        <aside class="profile-info col-lg-12">
+                            <section class="panel">
+                                <div class="panel-body bio-graph-info">
+                                  <table class="table table-bordered">
+                                    <tr>
+                                      <td>Nombre Sucursal</td>
+                                      <td colspan="3">
+                                        <input type="text" class="form-control" name="nombre" id="f-name" placeholder="Nombre de la Sucursal">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Estado</td>
+                                      <td colspan="3">
+                                        <?php 
+                                        $query = "SELECT nombre FROM estados";
+                                        $consultar = $mysqli->query($query);
+                                        ?>
+                                          <select class="form-control" name="estado" id="">
+                                            <option value="">Selecciona un Estado</option>
+                                            <?php 
+                                            while($estados = $consultar->fetch_assoc()){
+                                              echo "<option values='".$estados['nombre']."'>".$estados['nombre']."</option>";
+                                            }
+                                            ?>
+                                          </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Municipio</td>
+                                      <td colspan="3">
+                                        <input type="text" class="form-control" name="municipio" id="" placeholder="Municipio">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Colonia</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="colonia" placeholder="Colonia">
+                                      </td>
+                                      <td>C.P.</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="cp" placeholder="C.P.">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Calle</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="calle" id="" placeholder="Calle">
+                                      </td>
+                                      <td>Num. Ext.</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="numero" id="" placeholder="Num. #">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Referencias</td>
+                                      <td colspan="3">
+                                        <textarea class="form-control" name="referencia" id="" rows="2" placeholder="Ej: Planta Interior, Local #"></textarea>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Teléfono</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="telefono" id="" placeholder="Teléfono">
+                                      </td>
+                                      <td>Email</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="email" id="" placeholder="Email">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="info text-center" colspan="4"><b>Coordenadas Aproximadas de la Sucursal</b></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Coordenada X</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="x" id="" placeholder="Ej: 16.831622">
+                                      </td>
+                                      <td>Coordenada Y</td>
+                                      <td>
+                                        <input type="text" class="form-control" name="y" id="" placeholder="Ej: -96.782573">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Imagen Sucursal</td>
+                                      <td colspan="3">
+                                        <input type="file" class="form-control" name="" id="" placeholder="">
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                            </section>
+                            <!--<section>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"> Sets New Password & Avatar</div>
+                                    <div class="panel-body">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label  class="col-lg-2 control-label">Current Password</label>
+                                                <div class="col-lg-6">
+                                                    <input type="password" class="form-control" id="c-pwd" placeholder=" ">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label  class="col-lg-2 control-label">New Password</label>
+                                                <div class="col-lg-6">
+                                                    <input type="password" class="form-control" id="n-pwd" placeholder=" ">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label  class="col-lg-2 control-label">Re-type New Password</label>
+                                                <div class="col-lg-6">
+                                                    <input type="password" class="form-control" id="rt-pwd" placeholder=" ">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label  class="col-lg-2 control-label">Change Avatar</label>
+                                                <div class="col-lg-6">
+                                                    <input type="file" class="file-pos" id="exampleInputFile">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-lg-offset-2 col-lg-10">
+                                                    <button type="submit" class="btn btn-info">Save</button>
+                                                    <button type="button" class="btn btn-default">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>-->
+                        </aside>
+                    </div>
+                    <!-- page end-->
+                  </div>
+                  <div class="modal-footer">
+                      <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                      <button class="btn btn-success" type="submit" name="guardar_sucursal" value="1"> Guardar Sucursal</button>
+                  </div>              
+              </form>
+            </div>
+        </div>
+    </div>
+    <!-- modal -->
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
