@@ -84,7 +84,7 @@
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Información Sucursales</title>
+    <title>Información Vacantes</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -129,7 +129,7 @@
                 <div class="col-sm-12">
                   <section class="panel">
                     <header class="panel-heading">
-                        Sucursales Registradas
+                        Vacantes Registradas
                          <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
 
