@@ -188,7 +188,7 @@
                                 <td>
                                   <form action="" method="POST">
                                     <button id="" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="<?php echo '#modalEditarSucursal'.$registros['idSucursales']; ?>"><i class="fa fa-pencil"></i></button>
-                                    <button type="submit" name="eliminar_sucursal" class="btn btn-danger btn-xs" value="<?php echo $registros['idSucursales']; ?>"><i class="fa fa-trash-o "></i></button>
+                                    <button type="submit" name="eliminar_sucursal" class="btn btn-danger btn-xs" value="<?php echo $registros['idSucursales']; ?>" onclick="return confirm('¿Desea eliminar la sucursal ?');"><i class="fa fa-trash-o "></i></button>
                                   </form>
                                   
                                 </td>

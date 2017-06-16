@@ -33,15 +33,28 @@
 
             <li class="sub-menu">
                 <a href="javascript:;" >
-                    <i class="fa fa-laptop"></i>
+                    <i class="fa fa-book"></i>
                     <span>Información</span>
                 </a>
                 <ul class="sub">
                     <li><a  href="usuarios.php">Usuarios</a></li>
                     <li><a  href="sucursales_add.php">Sucursales</a></li>
                     <li><a  href="vacantes.php">Vacantes</a></li>
+                    <li><a  href="preguntas_frecuentes.php">Preguntas Frecuentes</a></li>
                 </ul>
             </li>
+            <li class="sub-menu">
+                <a href="javascript:;" >
+                    <i class="fa fa-files-o"></i>
+                    <span>Formularios</span>
+                </a>
+                <ul class="sub">
+                    <li><a  href="usuarios.php">Denuncias</a></li>
+                    <li><a  href="sucursales_add.php">Solicitudes</a></li>
+                    <li><a  href="vacantes.php">Vacantes</a></li>
+                </ul>
+            </li>
+
 
 
             <li class="sub-menu">

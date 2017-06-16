@@ -23,37 +23,22 @@
 
   }
 
-  if(isset($_POST['actualizar_sucursal']) && $_POST['actualizar_sucursal'] == 1){
-    $idsucursal = $_POST['idsucursal'];
-    $nombre = $_POST['nombre'];
+  if(isset($_POST['actualizar_vacante']) && $_POST['actualizar_vacante'] == 1){
+    $idvacante = $_POST['idvacante'];
     $estado = $_POST['estado'];
-    $municipio = $_POST['municipio'];
-    $calle = $_POST['calle'];
-    $numero = $_POST['numero'];
-    $referencia = $_POST['referencia'];
-    $cp = $_POST['cp'];
-    $colonia = $_POST['colonia'];
-    $telefono = $_POST['telefono'];
-    $email = $_POST['email'];
-    $x = $_POST['x'];
-    $y = $_POST['y'];
-    $img = '';
+    $puesto = $_POST['puesto'];
+    $contrato = $_POST['contrato'];
+    $salario = $_POST['salario'];
+    $jornada = $_POST['jornada'];
+    $requisitos = $_POST['requisitos'];
+    $ofrecemos = $_POST['ofrecemos'];
+    $num_vacantes = $_POST['num_vacantes'];
 
-    $rutaImg = "../img/sucursales/img_sucursal/";
-    $imagen = "../img/sucursales/img_sucursal/".$_POST['img_actual'];
-    if(!empty($_FILES['img_sucursal']['name'])){
-        if(file_exists($imagen)){
-          unlink($imagen);
-        }
-        $_FILES["img_sucursal"]["name"];
-          move_uploaded_file($_FILES["img_sucursal"]["tmp_name"], $rutaImg.$_FILES["img_sucursal"]["name"]);
-          $img_sucursal = basename($_FILES["img_sucursal"]["name"]);
-    }else{
-      $img_sucursal = $_POST['img_actual'];
-    }
+    //$sql = "UPDATE sucursales SET NombreSucursal = '$nombre', Estado = '$estado', Municipio = '$municipio', Calle = '$calle', Numero = '$numero', Referencia = '$referencia', CP = '$cp', Colonia = '$colonia', Telefono = '$telefono', Email = '$email', X = '$x', Y = '$y', UrlFoto = '$img_sucursal' WHERE idSucursales = '$idsucursal'";
+    $sql = "UPDATE vacantes SET Puesto = '$puesto', Contrato = '$contrato', Salario = '$salario', Jornada = '$jornada', num_vacantes = '$num_vacantes' WHERE idVacantes = '$idvacante'";
+    $mysqli->query($sql);
 
-    $sql = "UPDATE sucursales SET NombreSucursal = '$nombre', Estado = '$estado', Municipio = '$municipio', Calle = '$calle', Numero = '$numero', Referencia = '$referencia', CP = '$cp', Colonia = '$colonia', Telefono = '$telefono', Email = '$email', X = '$x', Y = '$y', UrlFoto = '$img_sucursal' WHERE idSucursales = '$idsucursal'";
-
+    $sql = "UPDATE requisitos SET Requisito = '$requisitos', Ofrecemos = '$ofrecemos' WHERE idVacantes = '$idvacante'";
     $mysqli->query($sql);
   }
 
@@ -168,12 +153,21 @@
                                 <td><?php echo $vacantes['NombreSucursal']; ?></td>
                                 <td><?php echo $vacantes['Puesto']; ?></td>
                                 <td><?php echo $vacantes['num_vacantes']; ?></td>
-                                <td><?php echo $vacantes['estatus']; ?></td>
+                                <td>
+                                  <?php 
+                                  if($vacantes['estatus'] == 1){
+                                    echo '<span class="label label-success label-mini">Activo</span>';
+                                    echo '<button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Suspender vacante"><i class="fa fa-pause"></i></button>';
+                                  }else{
+                                    echo '<span class="label label-danger label-mini">Inactivo</span>';
+                                  }
+                                   ?>
+                                </td>
                                 
                                 <td>
                                   <form id="frm_acciones" action="" method="POST">
                                     <button id="" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="<?php echo '#modalEditarVacante'.$vacantes['idVacantes']; ?>"><i class="fa fa-pencil"></i></button>
-                                    <button type="submit" id="btn-eliminar" name="eliminar_vacante" class="btn btn-danger btn-xs" value="<?php echo $vacantes['idVacantes']; ?>" ><i class="fa fa-trash-o "></i></button>
+                                    <button type="submit" id="btn-eliminar" name="eliminar_vacante" class="btn btn-danger btn-xs" value="<?php echo $vacantes['idVacantes']; ?>" onclick="return confirm('¿Desea eliminar la vacante?');"><i class="fa fa-trash-o "></i></button>
                                   </form>
                                   
                                 </td>
@@ -194,62 +188,62 @@
                                                   <aside class="profile-info col-lg-12">
                                                       <section class="panel">
                                                           <div class="panel-body bio-graph-info">
-                                                              <form class="form-horizontal" role="form">
+                                                              
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Estado</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="nombre" value="<?php echo $vacantes['Estado']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="estado" value="<?php echo $vacantes['Estado']; ?>" placeholder=" " readonly>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Nombre Sucursal</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="estado" value="<?php echo $vacantes['NombreSucursal']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="nombre" value="<?php echo $vacantes['NombreSucursal']; ?>" placeholder=" " readonly>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Puesto</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="municipio" value="<?php echo $vacantes['Puesto']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="puesto" value="<?php echo $vacantes['Puesto']; ?>" onBlur="ponerMayusculas(this)" placeholder=" ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Contrato</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="colonia" value="<?php echo $vacantes['Contrato']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="contrato" value="<?php echo $vacantes['Contrato']; ?>" placeholder="Contrato">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Salario</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="cp" value="<?php echo $vacantes['Salario']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="salario" value="<?php echo $vacantes['Salario']; ?>" placeholder="Salario">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Jornada</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="calle" value="<?php echo $vacantes['Jornada']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="jornada" value="<?php echo $vacantes['Jornada']; ?>" placeholder="Jornada">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Requisitos</label>
                                                                         <div class="col-lg-6">
-                                                                            <textarea name="referencia" class="form-control" rows="2"><?php echo $vacantes['Requisito']; ?></textarea>
+                                                                            <textarea name="requisitos" class="form-control" rows="2" placeholder="Requisitos"><?php echo $vacantes['Requisito']; ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Ofrecemos</label>
                                                                         <div class="col-lg-6">
-                                                                            <textarea name="referencia" class="form-control" rows="2"><?php echo $vacantes['Ofrecemos']; ?></textarea>
+                                                                            <textarea name="ofrecemos" class="form-control" rows="2" placeholder="Ofrecemos"><?php echo $vacantes['Ofrecemos']; ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Número de Vacantes</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="calle" value="<?php echo $vacantes['num_vacantes']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="num_vacantes" value="<?php echo $vacantes['num_vacantes']; ?>" placeholder="Ej: 2">
                                                                         </div>
                                                                     </div>
-                                                              </form>
+                                                            
                                                           </div>
                                                       </section>
                                                   </aside>
@@ -257,9 +251,9 @@
                                                 <!-- page end-->
                                               </div>
                                               <div class="modal-footer">
-                                                <input type="hidden" name="idsucursal" value="<?php echo $registros['idSucursales']; ?>">
+                                                <input type="hidden" name="idvacante" value="<?php echo $vacantes['idVacantes']; ?>">
                                                   <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                                                  <button class="btn btn-success" type="submit" name="actualizar_sucursal" value="1"> Actualizar Información</button>
+                                                  <button class="btn btn-success" type="submit" name="actualizar_vacante" value="1"> Actualizar Información</button>
                                               </div>              
                                           </form>
                                         </div>
@@ -435,7 +429,9 @@
         });
       });
 
-
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 
     </script>

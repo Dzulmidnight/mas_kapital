@@ -148,7 +148,7 @@
                                   <a id="btn-editar" class="" href="#" onclick="editar('<?php echo $registros['idusuario']; ?>')">Editar</a>
                                 </td>
                                 <td id="<?php echo 'td-eliminar'.$registros['idusuario']; ?>">
-                                  <button type="submit" class="" name="eliminar_usuario" value="<?php echo $registros['idusuario'] ?>">Eliminar</button>
+                                  <button class="btn btn-danger btn-xs" type="submit" class="" name="eliminar_usuario" value="<?php echo $registros['idusuario'] ?>" onclick="return confirm('¿Desea eliminar el usuario?');">Eliminar</button>
                                   <!--<a id="btn-eliminar" class="delete" href="">Eliminar</a>-->
                                 </td>
                             </tr>
@@ -156,14 +156,6 @@
                           }
 
                         ?>
-                          <tr class="">
-                              <td>Dulal</td>
-                              <td>Jonathan Smith</td>
-                              <td>434</td>
-                              <td class="center">new user</td>
-                              <td><a class="edit" href="javascript:;">Editar</a></td>
-                              <td><a class="delete" href="javascript:;">Eliminar</a></td>
-                          </tr>
                         </tbody>
                     </table>
                   </form>
@@ -227,7 +219,7 @@
                 cell2.innerHTML = '<select class="form-control" name="tipo1"><option value="administrador">Administrador</option></select>';
                 cell3.innerHTML = '<input type="text" class="form-control" name="user1" id="" placeholder="">';
                 cell4.innerHTML = '<input type="text" class="form-control" name="password1" id="" placeholder="">';
-                cell5.innerHTML = '<button type="submit" id="btn-editar" name="guardar_usuario" class="" value="1">Guardar</button>';
+                cell5.innerHTML = '<button class="btn btn-success btn-xs" type="submit" id="btn-editar" name="guardar_usuario" class="" value="1">Guardar</button>';
                 //cell5.innerHTML = '<button type="submit" class="" value="1" >Guardar</button><a id="btn-editar" class="" href="#" onclick="editar()">Guardar</a>';
                 cell6.innerHTML = '<a id="btn-eliminar" class="delete" href="#" onclick="quitar_registro()">Cancelar</a>';
             }
@@ -255,7 +247,7 @@
 
             }
             //Se guardan los cambios realizados al editar el usuario
-            document.getElementById(""+td_editar+"").innerHTML = "<button type='submit' id='btn-editar' name='guardar_cambios' class='' value='"+id+"'>Guardar</button>";
+            document.getElementById(""+td_editar+"").innerHTML = "<button class='btn btn-success btn-xs' type='submit' id='btn-editar' name='guardar_cambios' class='' value='"+id+"'>Guardar</button>";
             //Se bloquean los campos del formulario
             document.getElementById(""+td_eliminar+"").innerHTML = "<a id='btn-eliminar' class='' href='#' onclick='cancelar("+id+")'>Cancelar</a>";
             /*document.getElementById("''").innerHTML = "<a id='btn-eliminar' class='' href='#' onclick='guardar()'>Guardar</a>";
@@ -280,7 +272,7 @@
             }
 
             document.getElementById(""+td_editar+"").innerHTML = "<a id='btn-editar"+id+"' class='' href='#' onclick='editar("+id+")'>Editar</a>";
-            document.getElementById(""+td_eliminar+"").innerHTML = "<button type='submit' class=' name='eliminar_usuario' value='"+id+"'>Eliminar</button>";
+            document.getElementById(""+td_eliminar+"").innerHTML = "<button class='btn btn-danger btn-xs' type='submit' class=' name='eliminar_usuario' value='"+id+"'>Eliminar</button>";
 
             
           }
