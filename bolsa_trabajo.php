@@ -164,7 +164,7 @@ require_once "recaptchalib.php";
 </script>
 
 <script language="javascript">  
-    $(document).ready(function(){ //Elimina los registros de solicitudes de trabajo no terminadas (cuando cirra el modal)
+    $(document).ready(function(){ //Elimina los registros de solicitudes de trabajo no terminadas (cuando cierra el modal)
 $('#modal_frm_trabajo').on('hidden.bs.modal', function (e) {
 <? include ('conexion.php');
             $sql="UPDATE SolicitudTrabajo SET Estatus='0' WHERE SolicitudTrabajo.Seccion<10";
@@ -354,7 +354,9 @@ ul {
 <?php
 include ('conexion.php');
 $Aux=0;
-$sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
+//$sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
+$sqlSuc="SELECT Sucursales.Estado FROM vacantes INNER JOIN Sucursales ON vacantes.idSucursales = Sucursales.idSucursales GROUP BY Sucursales.Estado";
+
 $sqlResE=$mysqli->query($sqlSuc);
 while ($fila=$sqlResE->fetch_row()) 
 { 
@@ -365,7 +367,8 @@ while ($fila=$sqlResE->fetch_row())
     <?} ?>
         <ul>
         <?php  
-        $sqlMun="SELECT idSucursales,Municipio FROM Sucursales WHERE Estado='$fila[0]' ";
+        //$sqlMun="SELECT idSucursales,Municipio FROM Sucursales WHERE Estado='$fila[0]' ";
+        $sqlMun="SELECT vacantes.idSucursales, Sucursales.Municipio FROM vacantes INNER JOIN Sucursales ON vacantes.idSucursales = Sucursales.idSucursales WHERE Estado = '$fila[0]' GROUP BY vacantes.idSucursales";
         $ResMun=$mysqli->query($sqlMun); 
 
         while ($Mun=$ResMun->fetch_row())

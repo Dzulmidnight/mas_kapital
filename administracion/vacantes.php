@@ -2,33 +2,24 @@
   require('../conexion/conexion.php');
   require('../conexion/sesion.php');
 
-  if(isset($_POST['guardar_sucursal']) && $_POST['guardar_sucursal'] == 1){
-    $nombre = $_POST['nombre'];
-    $estado = $_POST['estado'];
-    $municipio = $_POST['municipio'];
-    $calle = $_POST['calle'];
-    $numero = $_POST['numero'];
-    $referencia = $_POST['referencia'];
-    $cp = $_POST['cp'];
-    $colonia = $_POST['colonia'];
-    $telefono = $_POST['telefono'];
-    $email = $_POST['email'];
-    $x = $_POST['x'];
-    $y = $_POST['y'];
-    $img = '';
+  if(isset($_POST['guarda_vacante']) && $_POST['guarda_vacante'] == 1){
+    $puesto = $_POST['puesto'];
+    $idsucursal = $_POST['sucursal'];
+    $salario = $_POST['salario'];
+    $jornada = $_POST['jornada'];
+    $contrato = $_POST['contrato'];
+    $estatus = 1; // se activa la vacante
+    $num_vacantes = $_POST['num_vacantes'];
+    $requisitos = $_POST['requisitos'];
+    $ofrecemos = $_POST['ofrecemos'];
 
-    $rutaImg = "../img/sucursales/img_sucursal/";
+    $query = "INSERT INTO vacantes (Puesto, idSucursales, Salario, Jornada, Contrato, num_vacantes, estatus) VALUES ('$puesto', '$idsucursal', '$salario', '$jornada', '$contrato', '$num_vacantes', '$estatus')";
 
-    if(!empty($_FILES['img_sucursal']['name'])){
-        $_FILES["img_sucursal"]["name"];
-          move_uploaded_file($_FILES["img_sucursal"]["tmp_name"], $rutaImg.$_FILES["img_sucursal"]["name"]);
-          $img_sucursal = basename($_FILES["img_sucursal"]["name"]);
-    }else{
-      $img_sucursal = NULL;
-    }
+    $mysqli->query($query);
+    $idvacante = $mysqli->insert_id;
 
-    $sql = "INSERT INTO sucursales (NombreSucursal, Estado, Municipio, Calle, Numero, Referencia, CP, Colonia, Telefono, Email, X, Y, UrlFoto) VALUES ('$nombre', '$estado', '$municipio', '$calle', '$numero', '$referencia', '$cp', '$colonia', '$telefono', '$email', '$x', '$y', '$img_sucursal')";
-    $mysqli->query($sql);
+    $query = "INSERT INTO requisitos (idVacantes, Requisito, Ofrecemos) VALUES ($idvacante, '$requisitos', '$ofrecemos')";
+    $mysqli->query($query);
 
   }
 
@@ -66,11 +57,14 @@
     $mysqli->query($sql);
   }
 
-  if(isset($_POST['eliminar_sucursal'])){
-    $idsucursal = $_POST['eliminar_sucursal'];
-    $sql = "DELETE FROM sucursales WHERE idSucursales = '$idsucursal'";
+  if(isset($_POST['eliminar_vacante'])){
+    $idvacante = $_POST['eliminar_vacante'];
+    //eliminamos primero los requisitos
+  
+    //eliminamos la vacante
+    $sql = "DELETE FROM vacantes WHERE idVacantes = '$idvacante'";
     $mysqli->query($sql);
-    echo "<script>alert('Se ha eliminado la sucursal');</script>";
+    echo "<script>alert('Vacante eliminada');</script>";
   }
 
 ?>
@@ -146,170 +140,119 @@
                           </a>-->
                         </div>
                       </div>
-
+                      <div id="mensaje" class="col-lg-12">
+                      
+                      </div>
                       <div class="adv-table">
+                        
                         <table  class="display table table-bordered table-striped" id="dynamic-table">
                           <thead>
                             <tr>
-                                <th>Sucursal</th>
                                 <th>Estado</th>
-                                <th class="hidden-phone">Municipio</th>
-                                <th class="hidden-phone">Email</th>
-                                <th class="hidden-phone">Img</th>
+                                <th>Sucursal</th>
+                                <th>Puesto</th>
+                                <th>Num. Vacantes</th>
+                                <th>Estatus</th>
                                 <th>Acciones</th>
                             </tr>
                           </thead>
                           <tbody>
                             <?php 
-                            $query = "SELECT * FROM Sucursales";
+                            $query = "SELECT vacantes.*, Sucursales.Estado, Sucursales.NombreSucursal, requisitos.* FROM vacantes INNER JOIN Sucursales ON vacantes.idSucursales = Sucursales.idSucursales INNER JOIN requisitos ON vacantes.idVacantes = requisitos.idVacantes";
                             $consultar = $mysqli->query($query);
 
-                            while($registros = $consultar->fetch_assoc()){
+                            while($vacantes = $consultar->fetch_assoc()){
                             ?>
                               <tr class="gradeX">
-                                <td><?php echo $registros['NombreSucursal']; ?></td>
-                                <td><?php echo $registros['Estado']; ?></td>
-                                <td><?php echo $registros['Municipio']; ?></td>
-                                <td><?php echo $registros['Email']; ?></td>
-                                <td>
-                                  <?php 
-                                  if(!empty($registros['UrlFoto'])){
-                                  ?>
-                                    <img class="img-responsive" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>" alt="" width="40px;">
-                                  <?php
-                                  }else{
-                                  ?>
-                                     <img class="img-responsive" src="../img/sucursales/sucursal.png" alt="" width="40px;">
-                                  <?php
-                                  }
-                                  ?>
-                                </td>
+                                <td><?php echo $vacantes['Estado']; ?></td>
+                                <td><?php echo $vacantes['NombreSucursal']; ?></td>
+                                <td><?php echo $vacantes['Puesto']; ?></td>
+                                <td><?php echo $vacantes['num_vacantes']; ?></td>
+                                <td><?php echo $vacantes['estatus']; ?></td>
                                 
                                 <td>
-                                  <form action="" method="POST">
-                                    <button id="" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="<?php echo '#modalEditarSucursal'.$registros['idSucursales']; ?>"><i class="fa fa-pencil"></i></button>
-                                    <button type="submit" name="eliminar_sucursal" class="btn btn-danger btn-xs" value="<?php echo $registros['idSucursales']; ?>"><i class="fa fa-trash-o "></i></button>
+                                  <form id="frm_acciones" action="" method="POST">
+                                    <button id="" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="<?php echo '#modalEditarVacante'.$vacantes['idVacantes']; ?>"><i class="fa fa-pencil"></i></button>
+                                    <button type="submit" id="btn-eliminar" name="eliminar_vacante" class="btn btn-danger btn-xs" value="<?php echo $vacantes['idVacantes']; ?>" ><i class="fa fa-trash-o "></i></button>
                                   </form>
                                   
                                 </td>
                               </tr>
                                 <!-- Modal Editar Sucursal -->
-                                <div class="modal fade" id="<?php echo 'modalEditarSucursal'.$registros['idSucursales']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="<?php echo 'modalEditarVacante'.$vacantes['idVacantes']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
 
                                           <form action="" method="POST" enctype="multipart/form-data">
                                               <div class="modal-header">
                                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                  <h4 class="modal-title"><b>Editar Sucursal: <span style="color:#2c3e50"><?php echo $registros['NombreSucursal']; ?></span></b></h4>
+                                                  <h4 class="modal-title"><b>Editar Vacante: <span style="color:#2c3e50"><?php echo $vacantes['Puesto']; ?></span></b></h4>
                                               </div>
                                               <div class="modal-body">
                                                 <!-- page start-->
                                                 <div class="row">
-                                                    <aside class="profile-nav col-lg-3">
-                                                        <section class="panel">
-                                                            <div class="user-heading round">
-                                                                <a href="#">
-                                                                    <img src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>" alt="">
-                                                                </a>
-                                                                <!--<h1>Jonathan Smith</h1>
-                                                                <p>jsmith@flatlab.com</p>-->
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                              <label  class="col-lg-12 control-label"><b>Reemplazar Imagen</b></label>
-                                                              <div class="col-lg-12">
-                                                                  <input type="hidden" name="img_actual" value="<?php echo $registros['UrlFoto']; ?>">
-                                                                  <input type="file" class="" name="img_sucursal" value="">
-                                                              </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label  class="col-lg-12 control-label"><b>Coordena X</b></label>
-                                                              <div class="col-lg-12">
-                                                                  <input type="text" class="form-control" name="x" value="<?php echo $registros['X'] ?>" placeholder="16.831622">
-                                                              </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label  class="col-lg-12 control-label"><b>Coordenada Y</b></label>
-                                                              <div class="col-lg-12">
-                                                                  <input type="text" class="form-control" name="y" value="<?php echo $registros['Y'] ?>" placeholder="-96.782573">
-                                                              </div>
-                                                            </div>
-
-
-
-                                                        </section>
-                                                    </aside>
-                                                    <aside class="profile-info col-lg-9">
-                                                        <section class="panel">
-                                                            <div class="panel-body bio-graph-info">
-                                                                <h1> Información de la Sucursal</h1>
-                                                                <form class="form-horizontal" role="form">
-
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Nombre Sucursal</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="nombre" value="<?php echo $registros['NombreSucursal']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
+                                                  <aside class="profile-info col-lg-12">
+                                                      <section class="panel">
+                                                          <div class="panel-body bio-graph-info">
+                                                              <form class="form-horizontal" role="form">
                                                                     <div class="form-group">
                                                                         <label  class="col-lg-6 control-label">Estado</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="estado" value="<?php echo $registros['Estado']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="nombre" value="<?php echo $vacantes['Estado']; ?>" placeholder=" ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Municipio</label>
+                                                                        <label  class="col-lg-6 control-label">Nombre Sucursal</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="municipio" value="<?php echo $registros['Municipio']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="estado" value="<?php echo $vacantes['NombreSucursal']; ?>" placeholder=" ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Colonia</label>
+                                                                        <label  class="col-lg-6 control-label">Puesto</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="colonia" value="<?php echo $registros['Colonia']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="municipio" value="<?php echo $vacantes['Puesto']; ?>" placeholder=" ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">C.P.</label>
+                                                                        <label  class="col-lg-6 control-label">Contrato</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="cp" value="<?php echo $registros['CP']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="colonia" value="<?php echo $vacantes['Contrato']; ?>" placeholder=" ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Calle</label>
+                                                                        <label  class="col-lg-6 control-label">Salario</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="calle" value="<?php echo $registros['Calle']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="cp" value="<?php echo $vacantes['Salario']; ?>" placeholder=" ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Num. Ext.</label>
+                                                                        <label  class="col-lg-6 control-label">Jornada</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="numero" value="<?php echo $registros['Numero']; ?>" placeholder=" ">
+                                                                            <input type="text" class="form-control" name="calle" value="<?php echo $vacantes['Jornada']; ?>" placeholder=" ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Referencias</label>
+                                                                        <label  class="col-lg-6 control-label">Requisitos</label>
                                                                         <div class="col-lg-6">
-                                                                            <textarea name="referencia" class="form-control" rows="2"><?php echo $registros['Referencia']; ?></textarea>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Teléfono</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="telefono" value="<?php echo $registros['Telefono']; ?>" placeholder=" ">
+                                                                            <textarea name="referencia" class="form-control" rows="2"><?php echo $vacantes['Requisito']; ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Email</label>
+                                                                        <label  class="col-lg-6 control-label">Ofrecemos</label>
                                                                         <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="email" value="<?php echo $registros['Email']; ?>" placeholder=" ">
+                                                                            <textarea name="referencia" class="form-control" rows="2"><?php echo $vacantes['Ofrecemos']; ?></textarea>
                                                                         </div>
                                                                     </div>
-                                                            </div>
-                                                        </section>
-                                                    </aside>
+                                                                    <div class="form-group">
+                                                                        <label  class="col-lg-6 control-label">Número de Vacantes</label>
+                                                                        <div class="col-lg-6">
+                                                                            <input type="text" class="form-control" name="calle" value="<?php echo $vacantes['num_vacantes']; ?>" placeholder=" ">
+                                                                        </div>
+                                                                    </div>
+                                                              </form>
+                                                          </div>
+                                                      </section>
+                                                  </aside>
                                                 </div>
                                                 <!-- page end-->
                                               </div>
@@ -351,10 +294,10 @@
     <div class="modal fade" id="modalSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-              <form action="" method="POST" enctype="multipart/form-data">
+              <form action="" id="frm-vacantes" method="POST" enctype="multipart/form-data">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title"><b>Formulario Sucursal </b></h4>
+                      <h4 class="modal-title"><b>Formulario Vacantes </b></h4>
                   </div>
                   <div class="modal-body">
                     <!-- page start-->
@@ -363,91 +306,72 @@
                         <aside class="profile-info col-lg-12">
                             <section class="panel">
                                 <div class="panel-body bio-graph-info">
-                                  <table class="table table-bordered">
-                                    <tr>
+                                  <table class="table table-bordered table-striped">
+                                    <tr class="text-center">
+                                      <td>Estado</td>
                                       <td>Nombre Sucursal</td>
-                                      <td colspan="3">
-                                        <input type="text" class="form-control" name="nombre" id="f-name" placeholder="Nombre de la Sucursal">
-                                      </td>
                                     </tr>
                                     <tr>
-                                      <td>Estado</td>
-                                      <td colspan="3">
+                                      <td>
                                         <?php 
-                                        $query = "SELECT nombre FROM estados";
+                                        $query = "SELECT Estado FROM Sucursales GROUP BY Estado";
                                         $consultar = $mysqli->query($query);
                                         ?>
-                                          <select class="form-control" name="estado" id="">
+                                          <select class="form-control" name="estado" id="sucursal_estado" required>
                                             <option value="">Selecciona un Estado</option>
                                             <?php 
                                             while($estados = $consultar->fetch_assoc()){
-                                              echo "<option values='".$estados['nombre']."'>".$estados['nombre']."</option>";
+                                              echo "<option values='".$estados['Estado']."'>".$estados['Estado']."</option>";
                                             }
                                             ?>
                                           </select>
                                       </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Municipio</td>
-                                      <td colspan="3">
-                                        <input type="text" class="form-control" name="municipio" id="" placeholder="Municipio">
+                                      <td id="respuesta">
                                       </td>
                                     </tr>
-                                    <tr>
-                                      <td>Colonia</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="colonia" placeholder="Colonia">
-                                      </td>
-                                      <td>C.P.</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="cp" placeholder="C.P.">
-                                      </td>
+
+                                    <tr class="text-center">
+                                      <td>Puesto</td>
+                                      <td>Contrato</td>
                                     </tr>
                                     <tr>
-                                      <td>Calle</td>
                                       <td>
-                                        <input type="text" class="form-control" name="calle" id="" placeholder="Calle">
+                                        <input type="text" class="form-control" name="puesto" placeholder="Puesto" onBlur="ponerMayusculas(this)" required>
                                       </td>
-                                      <td>Num. Ext.</td>
                                       <td>
-                                        <input type="text" class="form-control" name="numero" id="" placeholder="Num. #">
+                                        <input type="text" class="form-control" name="contrato" placeholder="Contrato">
                                       </td>
                                     </tr>
-                                    <tr>
-                                      <td>Referencias</td>
-                                      <td colspan="3">
-                                        <textarea class="form-control" name="referencia" id="" rows="2" placeholder="Ej: Planta Interior, Local #"></textarea>
-                                      </td>
+                                    <tr class="text-center">
+                                      <td>Salario</td>
+                                      <td>Jornada</td>
                                     </tr>
                                     <tr>
-                                      <td>Teléfono</td>
                                       <td>
-                                        <input type="text" class="form-control" name="telefono" id="" placeholder="Teléfono">
+                                        <input type="text" class="form-control" name="salario" placeholder="Salario">
                                       </td>
-                                      <td>Email</td>
                                       <td>
-                                        <input type="text" class="form-control" name="email" id="" placeholder="Email">
+                                        <input type="text" class="form-control" name="jornada" placeholder="Jornada">
+                                      </td>
+                                    </tr>
+
+                                    <tr class="text-center">
+                                      <td>Requisitos</td>
+                                      <td>Ofrecemos</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <textarea name="requisitos" id="" class="form-control" rows="2"></textarea>
+                                      </td>
+                                      <td>
+                                        <textarea name="ofrecemos" id="" class="form-control" rows="2"></textarea>
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td class="info text-center" colspan="4"><b>Coordenadas Aproximadas de la Sucursal</b></td>
+                                      <td class="modal-header"><h5>Número de Vacantes</h5></td>
+                                      <td><input type="number" class="form-control" name="num_vacantes" value="1" placeholder="Ej: 5"></td>
                                     </tr>
-                                    <tr>
-                                      <td>Coordenada X</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="x" id="" placeholder="Ej: 16.831622">
-                                      </td>
-                                      <td>Coordenada Y</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="y" id="" placeholder="Ej: -96.782573">
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Imagen Sucursal</td>
-                                      <td colspan="3">
-                                        <input type="file" class="form-control" name="img_sucursal" id="">
-                                      </td>
-                                    </tr>
+
                                   </table>
                                 </div>
                             </section>
@@ -457,7 +381,7 @@
                   </div>
                   <div class="modal-footer">
                       <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                      <button class="btn btn-success" type="submit" name="guardar_sucursal" value="1"> Guardar Sucursal</button>
+                      <button class="btn btn-success" type="submit" name="guarda_vacante" value="1"> Guardar Sucursal</button>
                   </div>              
               </form>
             </div>
@@ -487,7 +411,35 @@
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
 
+                          
+    <script>
+      function ponerMayusculas(nombre) 
+      { 
+          nombre.value=nombre.value.toUpperCase(); 
+      } 
+      //var x = '#btn-editar'+n;
+      $(document).on('ready',function(){
 
+        $('#sucursal_estado').change(function(){
+          var url = 'datos.php';                                   
+
+          $.ajax({                        
+             type: 'POST',                 
+             url: url,                    
+             data: $('#frm-vacantes').serialize(),
+             success: function(data)           
+             {
+               $('#respuesta').html(data);          
+             }
+           });
+        });
+      });
+
+
+
+
+    </script>
+  
 
   </body>
 </html>

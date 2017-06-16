@@ -208,9 +208,9 @@
                                                 <div class="row">
                                                     <aside class="profile-nav col-lg-3">
                                                         <section class="panel">
-                                                            <div class="user-heading round">
+                                                            <div >
                                                                 <a href="#">
-                                                                    <img src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>" alt="">
+                                                                    <img class="img-responsive img-thumbnail" widht="45px;" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>" alt="">
                                                                 </a>
                                                                 <!--<h1>Jonathan Smith</h1>
                                                                 <p>jsmith@flatlab.com</p>-->
