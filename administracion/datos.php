@@ -10,17 +10,14 @@ echo "<select class='form-control' name='sucursal'>";
     echo "<option value='".$sucursales['idSucursales']."'>".$sucursales['NombreSucursal']."</option>";
   }
 echo "</select>";*/
-$seccion = $_POST['seccion'];
+$seccion = $_POST['seccion_actual'];
 $pregunta = $_POST['pregunta'];
 $respuesta = $_POST['respuesta'];
 $idseccion = '';
 
-$query = "INSERT INTO secciones_faq (nombre) VALUES ('$seccion')";
-$insertar = $mysqli->query($query);
 
-$idseccion = $mysqli->insert_id;
 
-$query = "INSERT INTO faq (pregunta, respuesta, seccion) VALUES ('$pregunta', '$respuesta', '$idseccion')";
+$query = "INSERT INTO faq (pregunta, respuesta, seccion) VALUES ('$pregunta', '$respuesta', '$seccion')";
 $insertar = $mysqli->query($query);
 
 ?>
@@ -48,6 +45,7 @@ $insertar = $mysqli->query($query);
                             $sql = "SELECT * FROM faq WHERE seccion = '$secciones[id_seccion]'";
                             //echo '<br>'.$sql;
                             $ejecutar2 = $mysqli->query($sql);
+                            $cont = 1;
                             while($preguntas = $ejecutar2->fetch_assoc()){
                               $sub_accordion = 'accordion'.$secciones['id_seccion'].'_'.$preguntas['idfaq'];
 
@@ -55,16 +53,17 @@ $insertar = $mysqli->query($query);
                                   echo '<div class="panel-heading">';
                                       echo '<h4 class="panel-title">';
                                           echo '<a href="#'.$sub_accordion.'" data-parent="#'.$accordion.'" data-toggle="collapse" class="accordion-toggle">';
-                                              echo $preguntas['pregunta'];
+                                              echo $cont.'.- '.$preguntas['pregunta'];
                                           echo '</a>';
                                       echo '</h4>';
                                   echo '</div>';
-                                  echo '<div class="panel-collapse collapse  in" id="'.$sub_accordion.'">';
+                                  echo '<div class="panel-collapse collapse" id="'.$sub_accordion.'">';
                                       echo '<div class="panel-body">';
                                         echo $preguntas['respuesta'];
                                       echo '</div>';
                                   echo '</div>';
                               echo '</div>';
+                              $cont++;
                             }
 
                           echo '</div>';

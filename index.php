@@ -1,3 +1,6 @@
+<?php 
+include('conexion/conexion.php');
+ ?>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
@@ -314,9 +317,7 @@
     </section>
 
     <!-- INICIA FOOTER -->
-    <?php 
-    include('footer.php');
-     ?>
+    <?php include('footer.php'); ?>
     <!-- TERMINA FOOTER -->
 
     <script>

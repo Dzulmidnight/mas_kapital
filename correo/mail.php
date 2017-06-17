@@ -19,7 +19,7 @@ $mail->AddBCC("yasser.midnight@gmail.com", "correo Oculto");
 
 
 
-$mail = new PHPMailer();
+/*$mail = new PHPMailer();
 $mail->IsSMTP();
 //$mail->SMTPSecure = "ssl";
 $mail->Host = "mail.d-spp.org";
@@ -34,6 +34,5 @@ $mail->From = "soporte@d-spp.org";
 $mail->FromName = utf8_decode("CERTIFICACIÓN-CERTIFICATION SPP");
 $mail->AddBCC("yasser.midnight@gmail.com", "correo Oculto");
 
-$correoCert = "cert@spp.coop";
-
+$correoCert = "cert@spp.coop";*/
  ?>

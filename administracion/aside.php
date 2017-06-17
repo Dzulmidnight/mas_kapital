@@ -49,9 +49,9 @@
                     <span>Formularios</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="usuarios.php">Denuncias</a></li>
-                    <li><a  href="sucursales_add.php">Solicitudes</a></li>
-                    <li><a  href="vacantes.php">Vacantes</a></li>
+                    <li><a  href="denuncias.php">Denuncias</a></li>
+                    <li><a  href="solicitudes.php">Solicitudes</a></li>
+                    <li><a  href="form_vacantes.php">Vacantes</a></li>
                 </ul>
             </li>
 

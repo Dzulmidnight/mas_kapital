@@ -1,3 +1,6 @@
+<?php 
+    include('conexion/conexion.php');
+ ?>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
@@ -153,7 +156,7 @@ ul {
                 </div>
             </div>
         </div>
-        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+        <!--<div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>-->
     </section>
 
     <?php
@@ -387,43 +390,16 @@ ul {
             <div class="col-md-12">
                 <h1>PREGUNTAS FRECUENTES</h1>
             </div>
-            <div class="scroll col-md-12">    
-                    <h3>¿Cuánto tarda el proceso de crédito?</h3>
-                    <p>
-                        El proceso de crédito tarda alrededor de 7 días. Nos interesa que nuestros clientes gocen de todos los beneficios y ventajas que tiene nuestro producto, para ello escogemos quienes son las personas que se integraran a nuestros grupos, pues la base de la confiabilidad es contar con personas comprometidas para respaldar el grupo y eso lleva algo de tiempo.
-                    </p>
-                    <h3>¿Se necesita aval?</h3>
-                    <p>
-                        No, una de las ventajas del producto es que no se basa en solicitar garantías físicas, o avales.
-                    </p>
-                    <h3>¿Qué tengo que hacer para crear un grupo cerca de mi negocio?</h3>
-                    <p>
-                        Simplemente acérquese o llame a nuestras oficinas con gusto le atenderemos (Dejar link al catálogo de contacto.)
-                    </p>
-                    <h3>¿Qué hago si no tengo el dinero para pagar el día de recuperación?</h3>
-                    <p>
-                        Una de las claves del éxito de nuestros grupos es el apoyo que los integrantes se brindan entre sí, si usted presenta dificultades para completar su pago, asista a la reunión normalmente exponga los motivos por los que no pudo completar su pago y el grupo la apoyara a completarlo con un compromiso de devolución no mayor a una semana.
-                    </p>
-                    <h3>¿Puedo solicitar un crédito si tengo otro crédito?</h3>
-                    <p>
-                        Si usted cuenta con créditos de otras entidades financieras si puede solicitar crédito con nosotros, en base a una revisión de su capacidad de pago determinaremos si aun puede adquirir otro compromiso de crédito.
-                    </p>
-                    <h3>¿Cuál es el tiempo mínimo para renovar?</h3>
-                    <p>
-                        El tiempo mínimo en el que le otorgamos su crédito de renovación es a siete días.
-                    </p>
-                    <h3>¿A quién debo acudir si tengo dudas de mi crédito?</h3>
-                    <p>
-                       Acérquese a su asesor de crédito, o a su coordinador en turno. 
-                    </p>
-                    <h3>¿Puedo liquidar mi crédito antes del plazo acordado?</h3>
-                    <p>
-                        Si, una más de las ventajas del crédito que ofrecemos es que usted puede liquidar su crédito antes del plazo acordado y así mismo renovar, sin esperar a todo el grupo.
-                    </p>
-                    <h3>¿Es forzoso tener un negocio para solicitar un crédito?</h3>
-                    <p>
-                        Los créditos que otorgamos son para capital de trabajo, por lo que si solicitamos que usted tenga un negocio o piense en emprender uno con el crédito solicitado. 
-                    </p>
+            <div class="scroll col-md-12">
+            <?php 
+            $query = "SELECT * FROM faq";
+            $consultar = $mysqli->query($query);
+
+            while($preguntas = $consultar->fetch_assoc()){
+                echo '<h3>'.$preguntas['pregunta'].'</h3>';
+                echo '<p class="text-justify">'.$preguntas['respuesta'].'</p>';
+            }
+             ?>
             </div>
         </div>
     </section>

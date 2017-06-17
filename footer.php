@@ -1,3 +1,19 @@
+<?php 
+if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
+    $nombre_denunciante = $_POST['nombre_denunciante'];
+    $estado_denunciante = $_POST['estado_denunciante'];
+    $telefono_denunciante = $_POST['telefono_denunciante'];
+    $nombre_denuncia = $_POST['nombre_denuncia'];
+    $sucursal = $_POST['sucursal'];
+    $otro_departamento = $_POST['otro_departamento'];
+    $motivo = $_POST['motivo'];
+    $descripcion = $_POST['descripcion'];
+    $fecha = time();
+
+    $query = "INSERT INTO frm_denuncia (nombre_denunciante, estado_denunciante, telefono_denunciante, nombre_denuncia, sucursal, otro_departamento, motivo, descripcion, fecha) VALUES ('$nombre_denunciante', '$estado_denunciante', '$telefono_denunciante', '$nombre_denuncia', '$sucursal', '$otro_departamento', '$motivo', '$descripcion', '$fecha')";
+    $insertar = $mysqli->query($query);
+}
+ ?>
 <section id="footer_2">
     <div class="container">
         <div class="row">
@@ -51,75 +67,94 @@
 <!-- MODAL BUZÓN DE DENUNCIAS PLD -->
 <div class="modal fade" id="buzon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center" id="myModalLabel"><b>BUZÓN DE DENUNCIAS PLD</b></h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <form action="">
-                        <div class="col-xs-12">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td class="info" colspan="2"><b>Datos Denunciante:</b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <input type="text" class="form-control" name="" placeholder="Nombre">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" name="" placeholder="Ubicación(Estado):">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" name="" placeholder="Teléfono:">
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-12">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td class="info" colspan="2"><b>Datos Denuncia:</b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <input type="text" class="form-control" name="" placeholder="Nombre:">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" name="" placeholder="Sucursal:">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" name="" placeholder="Otro departamento:">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <input type="text" class="form-control" name="" placeholder="Motivo:">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <textarea class="form-control" rows="5" name="" placeholder="Descripción:"></textarea>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-xs-12">
-                            <p>Debes seleccionar la casilla para poder enviar el correo</p>
-                            <div class="g-recaptcha" data-sitekey="6LfhBiIUAAAAAFgntz5Hso60CCY6uRthO4C7Z0UV"></div>    
-                        </div>
-                    </form>
+        <form action="" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel"><b>BUZÓN DE DENUNCIAS PLD</b></h4>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Enviar Correo</button>
-            </div>
-        </div>
+                <div class="modal-body">
+                    <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td class="info" colspan="2"><b>Datos Denunciante:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" name="nombre_denunciante" placeholder="Nombre">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="form-control" name="estado_denunciante" id="">
+                                                <option value="">Ubicación(Estado):</option>
+                                                <?php 
+                                                $query = "SELECT nombre FROM estados";
+                                                $consultar = $mysqli->query($query);
+                                                while($estado = $consultar->fetch_assoc()){
+                                                    echo '<option value="'.$estado['nombre'].'">'.$estado['nombre'].'</option>';
+                                                }
+                                                 ?>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="telefono_denunciante" placeholder="Teléfono:">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td class="info" colspan="2"><b>Datos Denuncia:</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" name="nombre_denuncia" placeholder="Nombre:">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="form-control" name="sucursal" id="">
+                                                <option value="">Sucursal</option>
+                                                <?php 
+                                                $query = "SELECT idSucursales, NombreSucursal FROM sucursales";
+                                                $consultar = $mysqli->query($query);
+                                                while($sucursales = $consultar->fetch_assoc()){
+                                                    echo '<option value="'.$sucursales['idSucursales'].'">'.$sucursales['NombreSucursal'].'</option>';
+                                                }
+                                                 ?>
+                                            </select>
+                                            
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="otro_departamento" placeholder="Otro departamento:">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" name="motivo" placeholder="Motivo:">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <textarea class="form-control" rows="5" name="descripcion" placeholder="Descripción:"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-12">
+                                <p>Debes seleccionar la casilla para poder enviar el correo</p>
+                                <div class="g-recaptcha" data-sitekey="6LfhBiIUAAAAAFgntz5Hso60CCY6uRthO4C7Z0UV"></div>    
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" name="enviar_denuncia" value="1">Enviar Correo</button>
+                </div>
+            </div>            
+        </form>
     </div>
 </div>
 

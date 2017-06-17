@@ -70,6 +70,7 @@
                             $sql = "SELECT * FROM faq WHERE seccion = '$secciones[id_seccion]'";
                             //echo '<br>'.$sql;
                             $ejecutar2 = $mysqli->query($sql);
+                            $cont = 1;
                             while($preguntas = $ejecutar2->fetch_assoc()){
                               $sub_accordion = 'accordion'.$secciones['id_seccion'].'_'.$preguntas['idfaq'];
 
@@ -77,16 +78,17 @@
                                   echo '<div class="panel-heading">';
                                       echo '<h4 class="panel-title">';
                                           echo '<a href="#'.$sub_accordion.'" data-parent="#'.$accordion.'" data-toggle="collapse" class="accordion-toggle">';
-                                              echo $preguntas['pregunta'];
+                                              echo $cont.'.- '.$preguntas['pregunta'];
                                           echo '</a>';
                                       echo '</h4>';
                                   echo '</div>';
-                                  echo '<div class="panel-collapse collapse  in" id="'.$sub_accordion.'">';
+                                  echo '<div class="panel-collapse collapse" id="'.$sub_accordion.'">';
                                       echo '<div class="panel-body">';
                                         echo $preguntas['respuesta'];
                                       echo '</div>';
                                   echo '</div>';
                               echo '</div>';
+                              $cont++;
                             }
 
                           echo '</div>';
@@ -155,24 +157,41 @@
                     <div class="row">
                       <div id="resp_id">
                       </div>
-                      <div class="form-group">
-                          <label  class="col-lg-6 control-label"><b>Sección Pregunta</b></label>
-                          <div class="col-lg-6">
-                              <input type="text" class="form-control" name="seccion" onBlur="ponerMayusculas(this)" placeholder="SECCIÓN" required>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label  class="col-lg-6 control-label"><b>Título Pregunta</b></label>
-                          <div class="col-lg-6">
+                      <div class="col-lg-12">
+                        <table class="table table-bordered">
+                          <tr>
+                            <td>Sección Existente</td>
+                            <td>
+                              <select class="form-control" name="seccion_actual" id="select_seccion" required>
+                                <?php 
+                                $query = "SELECT * FROM secciones_faq";
+                                $ejecutar4 = $mysqli->query($query);
+                                while($secciones = $ejecutar4->fetch_assoc()){
+                                  echo '<option value="'.$secciones['id_seccion'].'">'.$secciones['nombre'].'</option>';
+                                }
+                                ?>
+                              </select>           
+                            </td>
+                            <td>
+                              <button type="button" id="btn-seccion" class="btn btn-info">Agregar sección</button>
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" name="nueva_seccion" id="" placeholder="Nueva Sección" onblur="ponerMayusculas(this)">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">
+                              <h5><b>Pregunta</b></h5>
                               <input type="text" class="form-control" name="pregunta" placeholder="Pregunta" required>
-                          </div>
+                            </td>
+                            <td colspan="2">
+                              <h5><b>Respuesta</b></h5>
+                              <textarea class="form-control" name="respuesta" id="" rows="3" placeholder="Respuesta" required></textarea>
+                            </td>
+                          </tr>
+                        </table>
                       </div>
-                      <div class="form-group">
-                          <label  class="col-lg-6 control-label"><b>Respuesta</b></label>
-                          <div class="col-lg-6">
-                            <textarea class="form-control" name="respuesta" id="" rows="3" placeholder="Respuesta" required></textarea>
-                          </div>
-                      </div>
+
                     </div>
                     <!-- page end-->
                   </div>
@@ -231,6 +250,24 @@
          });
       });
     });
+
+    $(document).on('ready',function(){
+
+      $('#btn-seccion').click(function(){
+        var url = 'datos2.php';                                   
+
+        $.ajax({                        
+           type: 'POST',                 
+           url: url,                    
+           data: $('#frm-preguntas').serialize(),
+           success: function(data)           
+           {
+             $('#select_seccion').html(data);          
+           }
+         });
+      });
+    });
+
   </script>
 
   </body>
