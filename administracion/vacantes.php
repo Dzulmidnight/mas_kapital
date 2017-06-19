@@ -102,7 +102,7 @@
       <section id="main-content">
 
 
-          <section class="wrapper">
+          <section class="wrapper site-min-height">
 
               <div class="row">
                 <div class="col-sm-12">
@@ -272,10 +272,6 @@
                 </div>
               </div>
               <!-- page end-->
-
-              <form action="">
-                asf
-              </form>
           </section>
 
 
@@ -419,7 +415,7 @@
       $(document).on('ready',function(){
 
         $('#sucursal_estado').change(function(){
-          var url = 'datos.php';                                   
+          var url = 'datos3.php';                                   
 
           $.ajax({                        
              type: 'POST',                 

@@ -27,7 +27,9 @@
                                    <td>     
 
                                        <select class="form-control" name="" id="">
-                                           <option value=""></option>
+                                          <option value="">ELIJA</option>
+                                           <option value="SI">SI</option>
+                                           <option value="NO">NO</option>
                                        </select>
                                    </td>
                                    <td colspan="3">
@@ -41,7 +43,9 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" name="Viajar" id="Viajar">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">
@@ -49,7 +53,9 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="Residencia" id="Residencia">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">

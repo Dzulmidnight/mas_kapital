@@ -9,15 +9,15 @@
                             <h3><b>INGRESA TU SOLICITUD</b></h3>
                         </div>
                         <div class="col-xs-4">
-                            08/12/2016
+                            <p style="background:#3498db;color:#ecf0f1">Fecha: <?php echo date('d/m/Y', time()) ?></p>
                         </div>
                         <div class="col-xs-4">
-                                <select name="Puesto" id="Puesto">
+                                <select class="form-control" name="Puesto" id="Puesto">
                                 <?php include 'conexion.php';
                                 $sql ="SELECT DISTINCT Puesto FROM Vacantes";
                                 $res=$mysqli->query($sql);
                                 while ($fila=$res->fetch_assoc()) {
-                                    ?><option> <? echo $fila['Puesto']; ?></option>
+                                    ?><option> <? echo utf8_encode($fila['Puesto']); ?></option>
                                 <? } ?>
                                 </select>
                         </div>
@@ -64,7 +64,13 @@
                                     <td colspan="3">
                                         <select class="form-control" name="Estado" id="Estado">
                                             <option value="0">ESTADO</option>
-                                            <option value="1">Oaxaca</option>
+                                            <?php 
+                                            $query = "SELECT * FROM estados";
+                                            $ejecutar = $mysqli->query($query);
+                                            while($estados = $ejecutar->fetch_assoc()){
+                                                echo '<option value="'.utf8_encode($estados['nombre']).'">'.utf8_encode($estados['nombre']).'</option>';
+                                            }
+                                             ?>
                                         </select>
                                     </td>
                                     <td colspan="2">
@@ -104,6 +110,10 @@
                                     <td colspan="2">
                                         <select class="form-control" name="EdoCivil" id="EdoCivil">
                                             <option value="">ESTADO CIVIL:</option>
+                                            <option value="SOLTERO/A">SOLTERO/A</option>
+                                            <option value="CASADO/A">CASADO/A</option>
+                                            <option value="DIVORCIADO/A">DIVORCIADO/A</option>
+                                            <option value="OTRO">OTRO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">

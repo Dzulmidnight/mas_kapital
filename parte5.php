@@ -53,9 +53,7 @@
                                         <input type="text" class="form-control" id="Carrera" name="Carrera" placeholder="NOMBRE DE LA CARRERA">
                                     </td>
                                     <td colspan="3">
-                                        <select class="form-control" name="Nivel2" id="Nivel2">
-                                            <option value="">NIVEL ALCANZADO (SOLO PARA ESTUDIOS PROFESIONALES)</option>
-                                        </select>
+                                        <input type="text" class="form-control" name="Nivel2" id="Nivel2" placeholder="NIVEL ALCANZADO (SOLO PARA ESTUDIOS PROFESIONALES)">
                                     </td>
                                 </tr>
                                 <tr>

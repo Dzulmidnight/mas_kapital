@@ -74,8 +74,9 @@ $resultado=$idsol->fetch_assoc();
                                 <tr>
                                     <td>
                                         <select class="form-control" name="Informacion" id="Informacion">
-                                            <option value="Si"></option>
-                                            <option value="No"></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="5">

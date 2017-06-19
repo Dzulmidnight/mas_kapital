@@ -14,11 +14,17 @@
                 <td>
                     <select class="form-control" name="Estado" id="Estado">
                         <option value="">SU ESTADO DE SALUD:</option>
+                        <option value="MUY BUENA">MUY BUENA</option>
+                        <option value="BUENA">BUENA</option>
+                        <option value="REGULAR">REGULAR</option>
+                        <option value="MALA">MALA</option>
                     </select>
                 </td>
                 <td>
                     <select class="form-control" name="Padece" id="Padece">
                         <option value="">¿PADECE DE ALGUNA ENFERMEDAD?</option>
+                        <option value="SI">SI</option>
+                        <option value="NO">NO</option>
                     </select>
                 </td>
                 <td>

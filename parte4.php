@@ -30,8 +30,8 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="ViveP" id="ViveP">
-                                            <option>Vivo</option>
-                                            <option>Muerto</option>
+                                            <option>VIVO</option>
+                                            <option>FINADO</option>
                                         </select>
                                     </td>
                                     <td>
@@ -47,8 +47,8 @@
                                     </td>
                                     <td>
                                         <select class="form-control" id="ViveM" name="ViveM">
-                                            <option>Vivo</option>
-                                            <option>Muerto</option>
+                                            <option>VIVO</option>
+                                            <option>FINADO</option>
                                         </select>
                                     </td>
                                     <td>
@@ -64,8 +64,8 @@
                                     </td>
                                     <td>
                                         <select class="form-control" id="ViveE" name="ViveE">
-                                            <option>Vivo</option>
-                                            <option>Muerto</option>
+                                            <option>VIVO</option>
+                                            <option>FINADO</option>
                                         </select>
                                     </td>
                                     <td>

@@ -21,7 +21,9 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" name="Ingresos" id="Ingresos">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">
@@ -29,11 +31,13 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="Conyuge" id="Conyuge">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">
-                                        <input type="text" class="form-control" id="IngresoConyuge"           name="IngresoConyuge" placeholder="PERCEPCIÓN MENSUAL">
+                                        <input type="text" class="form-control" id="IngresoConyuge" name="IngresoConyuge" placeholder="PERCEPCIÓN MENSUAL">
                                     </td>
                                 </tr>
 
@@ -49,7 +53,9 @@
                                     <td>
 
                                         <select class="form-control" name="CasaPropia" id="CasaPropia">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">
@@ -57,7 +63,9 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="PagaRenta" id="PagaRenta">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">
@@ -76,7 +84,9 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" name="AutoMovil" id="AutoMovil">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td>
@@ -88,7 +98,9 @@
 
                                     <td>
                                         <select class="form-control" name="Adeudo" id="Adeudo">
-                                            <option value=""></option>
+                                            <option value="">ELIJA</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </td>
                                     <td colspan="2">
@@ -111,9 +123,9 @@
                             <input type="checkbox" id="Acepto" name="Acepto" required> HAGO CONSTAR QUE TODOS LOS DATOS ASENTADOS EN LA PRESENTE SOLICITUD SON CIERTOS Y AUTORIZO A KAPITALMUJER, SA DE CV SOFOM ENR A VERIFICARLOS.
                         </div>
                         <div class="col-xs-12">
-                        <p style="color:red">Debes seleccionar la casilla para poder enviar el correo</p>
+                            <p style="color:red">Debes seleccionar la casilla para poder enviar el correo</p>
                         
-                        <div class="g-recaptcha" data-sitekey="6LfhBiIUAAAAAFgntz5Hso60CCY6uRthO4C7Z0UV"></div>
+                            <div class="g-recaptcha" data-sitekey="6LfhBiIUAAAAAFgntz5Hso60CCY6uRthO4C7Z0UV"></div>
 
                         <input type="hidden" id="parte" name="parte" value="10">
                         </div>

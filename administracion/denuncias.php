@@ -66,11 +66,11 @@
     $mysqli->query($sql);
   }
 
-  if(isset($_POST['eliminar_sucursal'])){
-    $idsucursal = $_POST['eliminar_sucursal'];
-    $sql = "DELETE FROM sucursales WHERE idSucursales = '$idsucursal'";
+  if(isset($_POST['eliminar_denuncia'])){
+    $idfrm_denuncia = $_POST['eliminar_denuncia'];
+    $sql = "DELETE FROM frm_denuncia WHERE idfrm_denuncia = '$idfrm_denuncia'";
     $mysqli->query($sql);
-    echo "<script>alert('Se ha eliminado la sucursal');</script>";
+    echo "<script>alert('Se ha eliminado la denuncia');</script>";
   }
 
 ?>
@@ -120,214 +120,108 @@
       <?php include('aside.php'); ?>
       <!--sidebar end-->
       <!--main content start-->
+
       <section id="main-content">
-
-
-          <section class="wrapper">
-
-              <div class="row">
-                <div class="col-sm-12">
-                  <section class="panel">
-                    <header class="panel-heading">
-                        Denuncias Registradas
-                         <span class="tools pull-right">
-                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-
-                         </span>
-                    </header>
-                    <div class="panel-body">
-
-
-                      <div class="adv-table">
-                        <table  class="display table table-bordered table-striped" id="dynamic-table">
-                          <thead>
-                            <tr>
-                                <th>Sucursal</th>
-                                <th>Estado</th>
-                                <th class="hidden-phone">Municipio</th>
-                                <th class="hidden-phone">Email</th>
-                                <th class="hidden-phone">Img</th>
-                                <th>Acciones</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php 
-                            $query = "SELECT * FROM Sucursales";
-                            $consultar = $mysqli->query($query);
-
-                            while($registros = $consultar->fetch_assoc()){
-                            ?>
-                              <tr class="gradeX">
-                                <td><?php echo $registros['NombreSucursal']; ?></td>
-                                <td><?php echo $registros['Estado']; ?></td>
-                                <td><?php echo $registros['Municipio']; ?></td>
-                                <td><?php echo $registros['Email']; ?></td>
-                                <td>
+        <section class="wrapper site-min-height">
+            <section class="panel">
+                <header class="panel-heading">
+                    Denuncias Registradas
+                </header>
+                  <div class="row">
+                    <!-- inicia tabla de denuncias -->
+                    <div class="col-md-8">
+                      <section class="panel">
+                        <div class="panel-body">
+                            <div class="adv-table">
+                              <table  class="display table table-bordered table-striped" id="dynamic-table">
+                                <thead>
+                                  <tr>
+                                      <th>Fecha</th>
+                                      <th>Nombre</th>
+                                      <th class="hidden-phone">Estado</th>
+                                      <th class="hidden-phone">Teléfono</th>
+                                      <th class="hidden-phone">Sucursal</th>
+                                      <th>Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
                                   <?php 
-                                  if(!empty($registros['UrlFoto'])){
+                                  $query = "SELECT frm_denuncia.*, Sucursales.NombreSucursal FROM frm_denuncia LEFT JOIN Sucursales ON frm_denuncia.sucursal = Sucursales.idSucursales";
+                                  $consultar = $mysqli->query($query);
+
+                                  while($denuncias = $consultar->fetch_assoc()){
+                                    $fecha = date('d/m/Y', $denuncias['fecha']);
+                                    $idfila = 'fila'.$denuncias['idfrm_denuncia'];
                                   ?>
-                                    <img class="img-responsive" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>" alt="" width="40px;">
+                                    <tr id="<?php echo $idfila; ?>" class="gradeX">
+                                      <td><?php echo $fecha; ?></td>
+                                      <td><?php echo utf8_decode($denuncias['nombre_denunciante']); ?></td>
+                                      <td><?php echo $denuncias['estado_denunciante']; ?></td>
+                                      <td><?php echo $denuncias['telefono_denunciante']; ?></td>
+                                      <td><?php echo utf8_decode($denuncias['NombreSucursal']); ?></td>
+
+                                      
+                                      <td>
+                                        <form id="<?php echo 'frm_denuncia'.$denuncias['idfrm_denuncia'] ?>" action="" method="POST">
+                                          <input type="hidden" name="idfrm_denuncia" value="<?php echo $denuncias['idfrm_denuncia'] ?>">
+                                          <button id="<?php echo 'btn-consultar_denuncia'.$denuncias['idfrm_denuncia']; ?>" type="button" class="btn btn-info btn-xs" onclick="document.getElementById('<?php echo $idfila; ?>').className = 'success'" data-toggle="tooltip" title="Más información"><i class="fa fa-eye"></i></button>
+
+                                          <button type="submit" name="eliminar_denuncia" class="btn btn-danger btn-xs" value="<?php echo $denuncias['idfrm_denuncia']; ?>" onclick="return confirm('¿Desea eliminar la denuncia ?');"><i class="fa fa-trash-o "></i></button>
+                                        </form>
+                                        
+                                      </td>
+                                    </tr>
+                                      <!-- Modal Editar Sucursal -->
+                                      <!-- Termina Modal Editar -->
+
                                   <?php
-                                  }else{
-                                  ?>
-                                     <img class="img-responsive" src="../img/sucursales/sucursal.png" alt="" width="40px;">
-                                  <?php
+                                      echo "<script>";
+                                        //var x = '#btn-editar'+n;
+                                        echo "$(document).on('ready',function(){";
+
+                                          echo "$('#btn-consultar_denuncia".$denuncias['idfrm_denuncia']."').click(function(){";
+                                            echo "var url = 'datos_denuncia.php';";                                   
+
+                                            echo "$.ajax({";                        
+                                               echo "type: 'POST',";                 
+                                               echo "url: url,";                    
+                                               echo "data: $('#frm_denuncia".$denuncias['idfrm_denuncia']."').serialize(),";
+                                               echo "success: function(data)";           
+                                               echo "{";
+                                                 echo "$('#datos_denuncia').html(data);";          
+                                               echo "}";
+                                             echo "});";
+                                          echo "});";
+                                        echo "});";
+                                      echo "</script>";
+
                                   }
-                                  ?>
-                                </td>
-                                
-                                <td>
-                                  <form action="" method="POST">
-                                    <button id="" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="<?php echo '#modalEditarSucursal'.$registros['idSucursales']; ?>"><i class="fa fa-pencil"></i></button>
-                                    <button type="submit" name="eliminar_sucursal" class="btn btn-danger btn-xs" value="<?php echo $registros['idSucursales']; ?>" onclick="return confirm('¿Desea eliminar la sucursal ?');"><i class="fa fa-trash-o "></i></button>
-                                  </form>
-                                  
-                                </td>
-                              </tr>
-                                <!-- Modal Editar Sucursal -->
-                                <div class="modal fade" id="<?php echo 'modalEditarSucursal'.$registros['idSucursales']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-
-                                          <form action="" method="POST" enctype="multipart/form-data">
-                                              <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                  <h4 class="modal-title"><b>Editar Sucursal: <span style="color:#2c3e50"><?php echo $registros['NombreSucursal']; ?></span></b></h4>
-                                              </div>
-                                              <div class="modal-body">
-                                                <!-- page start-->
-                                                <div class="row">
-                                                    <aside class="profile-nav col-lg-3">
-                                                        <section class="panel">
-                                                            <div >
-                                                                <a href="#">
-                                                                    <img class="img-responsive img-thumbnail" widht="45px;" src="../img/sucursales/img_sucursal/<?php echo $registros['UrlFoto']; ?>" alt="">
-                                                                </a>
-                                                                <!--<h1>Jonathan Smith</h1>
-                                                                <p>jsmith@flatlab.com</p>-->
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                              <label  class="col-lg-12 control-label"><b>Reemplazar Imagen</b></label>
-                                                              <div class="col-lg-12">
-                                                                  <input type="hidden" name="img_actual" value="<?php echo $registros['UrlFoto']; ?>">
-                                                                  <input type="file" class="" name="img_sucursal" value="">
-                                                              </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label  class="col-lg-12 control-label"><b>Coordena X</b></label>
-                                                              <div class="col-lg-12">
-                                                                  <input type="text" class="form-control" name="x" value="<?php echo $registros['X'] ?>" placeholder="16.831622">
-                                                              </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label  class="col-lg-12 control-label"><b>Coordenada Y</b></label>
-                                                              <div class="col-lg-12">
-                                                                  <input type="text" class="form-control" name="y" value="<?php echo $registros['Y'] ?>" placeholder="-96.782573">
-                                                              </div>
-                                                            </div>
-
-
-
-                                                        </section>
-                                                    </aside>
-                                                    <aside class="profile-info col-lg-9">
-                                                        <section class="panel">
-                                                            <div class="panel-body bio-graph-info">
-                                                                <h1> Información de la Sucursal</h1>
-                                                                <form class="form-horizontal" role="form">
-
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Nombre Sucursal</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="nombre" value="<?php echo $registros['NombreSucursal']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Estado</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="estado" value="<?php echo $registros['Estado']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Municipio</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="municipio" value="<?php echo $registros['Municipio']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Colonia</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="colonia" value="<?php echo $registros['Colonia']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">C.P.</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="cp" value="<?php echo $registros['CP']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Calle</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="calle" value="<?php echo $registros['Calle']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Num. Ext.</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="numero" value="<?php echo $registros['Numero']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Referencias</label>
-                                                                        <div class="col-lg-6">
-                                                                            <textarea name="referencia" class="form-control" rows="2"><?php echo $registros['Referencia']; ?></textarea>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Teléfono</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="telefono" value="<?php echo $registros['Telefono']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label  class="col-lg-6 control-label">Email</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input type="text" class="form-control" name="email" value="<?php echo $registros['Email']; ?>" placeholder=" ">
-                                                                        </div>
-                                                                    </div>
-                                                            </div>
-                                                        </section>
-                                                    </aside>
-                                                </div>
-                                                <!-- page end-->
-                                              </div>
-                                              <div class="modal-footer">
-                                                <input type="hidden" name="idsucursal" value="<?php echo $registros['idSucursales']; ?>">
-                                                  <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                                                  <button class="btn btn-success" type="submit" name="actualizar_sucursal" value="1"> Actualizar Información</button>
-                                              </div>              
-                                          </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Termina Modal Editar -->
-
-                            <?php
-                            }
-                             ?>
-                          </tbody>
-                        </table>
-                      </div>
+                                   ?>
+                                </tbody>
+                              </table>
+                            </div>                 
+                        </div>
+               
+                      </section>
                     </div>
-                  </section>
-                </div>
-              </div>
-              <!-- page end-->
-          </section>
+                    <!-- termina tabla de denuncias -->
+                    <div class="col-md-4">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Datos de la Denuncia
+                            </header>
 
+                            <div id="datos_denuncia" class="panel-body">
+                              <h4>No se encontraron registros</h4>
+                            </div>
+
+                        </section>
+                    </div>
+
+                  </div>
+
+            </section>          
+        </section>
 
       </section>
       <!--main content end-->
@@ -478,7 +372,11 @@
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
 
-
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
 
   </body>
 </html>
