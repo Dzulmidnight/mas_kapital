@@ -129,7 +129,7 @@
                 </header>
                   <div class="row">
                     <!-- inicia tabla de denuncias -->
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                       <section class="panel">
                         <div class="panel-body">
                             <div class="adv-table">
@@ -138,43 +138,55 @@
                                   <tr>
                                       <th>Fecha</th>
                                       <th>Nombre</th>
+                                      <th>Puesto</th>
                                       <th class="hidden-phone">Estado</th>
                                       <th class="hidden-phone">Teléfono</th>
-                                      <th class="hidden-phone">Sucursal</th>
                                       <th>Acciones</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <?php 
-                                  $query = "SELECT frm_denuncia.*, Sucursales.NombreSucursal FROM frm_denuncia LEFT JOIN Sucursales ON frm_denuncia.sucursal = Sucursales.idSucursales";
+                                  $query = "SELECT SolicitudTrabajo.idSolicitudTrabajo, SolicitudTrabajo.Puesto, SolicitudTrabajo.fecha_solicitud, Solicitante.*, SolicitudTrabajo.Puesto FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante";
                                   $consultar = $mysqli->query($query);
 
-                                  while($denuncias = $consultar->fetch_assoc()){
-                                    $fecha = date('d/m/Y', $denuncias['fecha']);
-                                    $idfila = 'fila'.$denuncias['idfrm_denuncia'];
-                                  ?>
-                                    <tr id="<?php echo $idfila; ?>" class="gradeX">
-                                      <td><?php echo $fecha; ?></td>
-                                      <td><?php echo utf8_decode($denuncias['nombre_denunciante']); ?></td>
-                                      <td><?php echo $denuncias['estado_denunciante']; ?></td>
-                                      <td><?php echo $denuncias['telefono_denunciante']; ?></td>
-                                      <td><?php echo utf8_decode($denuncias['NombreSucursal']); ?></td>
+                                  while($solicitud = $consultar->fetch_assoc()){
+                                  	if(!empty($solicitud['fecha_solicitud'])){
+                                    	$fecha = date('d/m/Y', $solicitud['fecha_solicitud']);
+                                  	}
+                                    $nombre = $solicitud['Nombre'].' '.$solicitud['ApPaterno'].' '.$solicitud['ApMaterno'];
+                                    //inicia if
+                                    if(!empty($fecha)){
+                                    ?>
+	                                    <tr id="<?php echo $idfila; ?>" class="gradeX">
+	                                      <td><?php echo $fecha; ?></td>
+	                                      <td><?php echo utf8_decode($nombre); ?></td>
+	                                      <td><?php echo $solicitud['Puesto']; ?></td>
+	                                      <td><?php echo 'TELEFONO'; ?></td>
+	                                      <td>
+	                                      	<?php 
+	                                      	if(!empty($solicitud['TelClular'])){
+	                                      		echo 'Cel: '.$solicitud['TelCelular'];
+	                                      	}else if(!empty($solicitud['TelCasa'])){
+	                                      		echo 'Casa: '.$solicitud['TelCasa'];
+	                                      	}
+	                                      	 ?>
+	                                      </td>
 
-                                      
-                                      <td>
-                                        <form id="<?php echo 'frm_denuncia'.$denuncias['idfrm_denuncia'] ?>" action="" method="POST">
-                                          <input type="hidden" name="idfrm_denuncia" value="<?php echo $denuncias['idfrm_denuncia'] ?>">
-                                          <button id="<?php echo 'btn-consultar_denuncia'.$denuncias['idfrm_denuncia']; ?>" type="button" class="btn btn-info btn-xs" onclick="document.getElementById('<?php echo $idfila; ?>').className = 'success'" data-toggle="tooltip" title="Más información"><i class="fa fa-eye"></i></button>
+	                                      
+	                                      <td>
+	                                        <form id="<?php echo 'frm_denuncia'.$denuncias['idfrm_denuncia'] ?>" action="" method="POST">
+	                                          <input type="hidden" name="idfrm_denuncia" value="<?php echo $denuncias['idfrm_denuncia'] ?>">
+	                                          <a class="btn btn-xs btn-info" href="detalle_solicitud.php?solicitud=<?php echo $solicitud['idSolicitudTrabajo']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
 
-                                          <button type="submit" name="eliminar_denuncia" class="btn btn-danger btn-xs" value="<?php echo $denuncias['idfrm_denuncia']; ?>" onclick="return confirm('¿Desea eliminar la denuncia ?');"><i class="fa fa-trash-o "></i></button>
-                                        </form>
-                                        
-                                      </td>
-                                    </tr>
-                                      <!-- Modal Editar Sucursal -->
-                                      <!-- Termina Modal Editar -->
-
-                                  <?php
+	                                          <button type="submit" name="eliminar_denuncia" class="btn btn-danger btn-xs" value="<?php echo $denuncias['idfrm_denuncia']; ?>" onclick="return confirm('¿Desea eliminar la denuncia ?');"><i class="fa fa-trash-o "></i></button>
+	                                        </form>
+	                                        
+	                                      </td>
+	                                    </tr>
+                                    <?php
+                                    }
+                                    //termina if
+                                  
                                       echo "<script>";
                                         //var x = '#btn-editar'+n;
                                         echo "$(document).on('ready',function(){";
@@ -205,7 +217,7 @@
                       </section>
                     </div>
                     <!-- termina tabla de denuncias -->
-                    <div class="col-md-4">
+                    <!--<div class="col-md-4">
                         <section class="panel">
                             <header class="panel-heading">
                                 Datos de la Denuncia
@@ -216,7 +228,7 @@
                             </div>
 
                         </section>
-                    </div>
+                    </div>-->
 
                   </div>
 

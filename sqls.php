@@ -216,6 +216,7 @@ if(isset($_POST['parte']))
 			$Dependientes = $_POST['Dependientes'];
 			$EdoCivil = $_POST['EdoCivil'];
 			$EspEdoCivil = $_POST['EspEC'];
+			
 
 			$Estatus = 1;
 			$Puesto = $_POST['Puesto'];
@@ -228,6 +229,7 @@ if(isset($_POST['parte']))
 			$Municipio = $_POST['Municipio'];
 			$Estado = $_POST['Estado'];
 			$CP = $_POST['Cp'];
+			$fecha_solicitud = time();
 
 
 			$sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
@@ -238,7 +240,7 @@ if(isset($_POST['parte']))
 			$sql="UPDATE Solicitante SET ApMaterno='$ApMaterno', ApPaterno='$ApPaterno', Nombre='$Nombre', Edad='$Edad', TelCasa='$TelCasa', TelCelular='$TelCelular', Correo='$Correo', TiempoRes='$TiempoRes', ViveCon='$ViveCon', EspViveCon='$EspViveCon', Dependientes='$Dependientes', EdoCivil='$EdoCivil', EspEdoCivil='$EspEdoCivil' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
-			$sql="UPDATE SolicitudTrabajo SET Puesto='$Puesto', SueldoDeseado='$Sueldo', Seccion='$_POST[parte]', Estatus='$Estatus' WHERE idSolicitante=$resultado[idSolicitante]";
+			$sql="UPDATE SolicitudTrabajo SET Puesto='$Puesto', SueldoDeseado='$Sueldo', Seccion='$_POST[parte]', Estatus='$Estatus', fecha_solicitud = '$fecha_solicitud' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
 
