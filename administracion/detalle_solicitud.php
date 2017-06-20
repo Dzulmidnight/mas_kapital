@@ -75,7 +75,9 @@
 
   $idSolicitudTrabajo = $_GET['solicitud'];
 
-  $query_solicitud = "SELECT SolicitudTrabajo.*, Solicitante.* FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante WHERE SolicitudTrabajo.idSolicitudTrabajo = '$idSolicitudTrabajo'";
+  //$query_solicitud = "SELECT SolicitudTrabajo.*, Solicitante.* FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante WHERE SolicitudTrabajo.idSolicitudTrabajo = '$idSolicitudTrabajo'";
+
+  $query_solicitud = "SELECT SolicitudTrabajo.*, Solicitante.*, DomSolicitante.*, EdoSalud.Estado AS 'Estado_salud', EdoSalud.Padece, EdoSalud.Enfermedad, EdoSalud.Meta, Documentacion.*, Madre.Nombre AS 'Nombre_madre', Madre.Vive AS 'Vive_madre', Madre.Domicilio AS 'Domicilio_madre', Madre.Ocupacion AS 'Ocupacion_madre', PadreSol.Nombre AS 'Nombre_padre', PadreSol.Vive AS 'Vive_padre', PadreSol.Domicilio AS 'Domicilio_padre', PadreSol.Ocupacion AS 'Ocupacion_padre', Esposa.Nombre AS 'Nombre_esp', Esposa.Vive AS 'Vive_esp', Esposa.Domicilio AS 'Domicilio_esp', Esposa.Ocupacion AS 'Ocupacion_esp', Escolaridad.*, Conocimientos.*, DatosEconomicos.*, DatosGenerales.* FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante LEFT JOIN DomSolicitante ON SolicitudTrabajo.idSolicitante = DomSolicitante.idSolicitante LEFT JOIN EdoSalud ON SolicitudTrabajo.idSolicitante = EdoSalud.idSolicitante LEFT JOIN Documentacion ON SolicitudTrabajo.idSolicitante = Documentacion.idSolicitante LEFT JOIN Escolaridad ON SolicitudTrabajo.idSolicitante = Escolaridad.idSolicitante LEFT JOIN Conocimientos ON SolicitudTrabajo.idSolicitante = Conocimientos.idSolicitante LEFT JOIN Madre ON SolicitudTrabajo.idSolicitante = Madre.idSolicitante LEFT JOIN PadreSol ON SolicitudTrabajo.idSolicitante = PadreSol.idSolicitante LEFT JOIN Esposa ON SolicitudTrabajo.idSolicitante = Esposa.idSolicitante LEFT JOIN DatosEconomicos ON SolicitudTrabajo.idSolicitante = DatosEconomicos.idSolicitante LEFT JOIN DatosGenerales ON SolicitudTrabajo.idSolicitante = DatosGenerales.idSolicitante WHERE SolicitudTrabajo.idSolicitudTrabajo = '$idSolicitudTrabajo'";
   $consultar = $mysqli->query($query_solicitud);
 
   $detalle_solicitud = $consultar->fetch_assoc();
@@ -135,13 +137,13 @@
                   <header class="panel-heading">
                       Detalle de la Solicitud
                       <span class="pull-right">
-                          <button type="button" id="loading-btn" class="btn btn-warning btn-xs"><i class="fa fa-refresh"></i> Refresh</button>
+                        <a href="solicitudes.php" class="btn btn-warning btn-xs"><i class="fa fa-reply"></i> Regresar </a>
                       </span>
                   </header>
 
               </section>
               <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-md-12">
                       <section class="panel">
                           <!--<div class="bio-graph-heading project-heading">
                               <strong> [ New Dashboard BS3 ] </strong>
@@ -150,18 +152,18 @@
                               <!--<h1>New Dashboard BS3 </h1>-->
                               <div class="row p-details">
                                   <div class="bio-row">
-                                      <p><span class="bold">Enviada por </span>: <?php echo $detalle_solicitud['Nombre'].' '.utf8_decode($detalle_solicitud['ApPaterno']).' '.utf8_decode($detalle_solicitud['ApMaterno']); ?></p>
+                                      <p><span class="bold">Enviada por </span>: <?php echo utf8_decode($detalle_solicitud['Nombre']).' '.utf8_decode($detalle_solicitud['ApPaterno']).' '.utf8_decode($detalle_solicitud['ApMaterno']); ?></p>
                                   </div>
                                   <div class="bio-row">
                                       <p><span class="bold">Creada </span>: <span class="label label-primary"><?php echo date('d/m/Y', $detalle_solicitud['fecha_solicitud']); ?></span></p>
                                   </div>
                                   <div class="bio-row">
-                                      <p><span class="bold">Vacante </span>: <?php echo $detalle_solicitud['Puesto']; ?></p>
+                                      <p><span class="bold">Vacante </span>: <span class="label label-primary"><?php echo utf8_decode($detalle_solicitud['Puesto']); ?></span></p>
                                   </div>
                                   <div class="bio-row">
-                                      <p><span class="bold">Email</span>: <?php echo $detalle_solicitud['Correo']; ?></p>
+                                      <p><span class="bold">Email</span>: <?php echo utf8_decode($detalle_solicitud['Correo']); ?></p>
                                   </div>
-                                  <div class="bio-row">
+                                  <!--<div class="bio-row">
                                       <p><span class="bold">Client </span>: <a href="#">Themeforest</a></p>
                                   </div>
                                   <div class="bio-row">
@@ -187,7 +189,7 @@
                                               <small>Project completed in <strong>80%</strong>. Remaining close the project, sign a contract and invoice.</small>
                                           </dd>
                                       </dl>
-                                  </div>
+                                  </div>-->
                               </div>
 
                           </div>
@@ -196,146 +198,638 @@
 
                       <section class="panel">
                         <header class="panel-heading">
-                          Last Activity
+                          Información Solicitud
                         </header>
                         <div class="panel-body">
                             <table class="table table-hover p-table">
-                          <thead>
-                          <tr>
-                              <th>Title</th>
-                              <th>Start Time</th>
-                              <th>End Time</th>
-                              <th>Commnets</th>
-                              <th>Status</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                              <td>
-                                  Project analysis
-                              </td>
-                              <td>
-                                 18/11/2014 9:28:23
-                              </td>
-                              <td>
-                                  28/11/2014 12:23:03
-                              </td>
-                              <td>
-                                   Ipsum is that it has a as opposed to using Lorem Ipsum is that it has a as opposed to using
-                              </td>
-                              <td>
-                                  <span class="label label-info">Completed</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  Requirement Collection
-                              </td>
-                              <td>
-                                  10/11/2014 9:28:23
-                              </td>
-                              <td>
-                                  22/11/2014 12:23:03
-                              </td>
-                              <td>
-                                  Tawseef Ipsum is that it has a as opposed to using Lorem Ipsum is that it has a as opposed to using
-                              </td>
-                              <td>
-                                  <span class="label label-info">Reported</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  Design Implement
-                              </td>
-                              <td>
-                                  18/11/2014 9:28:23
-                              </td>
-                              <td>
-                                  28/11/2014 12:23:03
-                              </td>
-                              <td>
-                                  Dism Ipsum is that it has a as opposed to using Lorem Ipsum is that it has a as opposed to using
-                              </td>
-                              <td>
-                                  <span class="label label-info">Accepted</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  Widget Management
-                              </td>
-                              <td>
-                                  18/11/2014 9:28:23
-                              </td>
-                              <td>
-                                  28/11/2014 12:23:03
-                              </td>
-                              <td>
-                                  Cosm Ipsum is that it has a as opposed to using Lorem Ipsum is that it has a as opposed to using
-                              </td>
-                              <td>
-                                  <span class="label label-info">Completed</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  Contact Info
-                              </td>
-                              <td>
-                                  18/11/2014 9:28:23
-                              </td>
-                              <td>
-                                  28/11/2014 12:23:03
-                              </td>
-                              <td>
-                                  Hello that it has a as opposed to using Lorem Ipsum is that it has a as opposed to using
-                              </td>
-                              <td>
-                                  <span class="label label-info">Sent</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  Project analysis
-                              </td>
-                              <td>
-                                  18/11/2014 9:28:23
-                              </td>
-                              <td>
-                                  28/11/2014 12:23:03
-                              </td>
-                              <td>
-                                   Ipsum is that it has a as opposed to using Lorem Ipsum is that it has a as opposed to using
-                              </td>
-                              <td>
-                                  <span class="label label-info">Completed</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  Project analysis
-                              </td>
-                              <td>
-                                  18/11/2014 9:28:23
-                              </td>
-                              <td>
-                                  28/11/2014 12:23:03
-                              </td>
-                              <td>
-                                  Orem psum is that it has a as opposed to using Lorem Ipsum is that it has a as opposed to using
-                              </td>
-                              <td>
-                                  <span class="label label-info">Completed</span>
-                              </td>
-                          </tr>
-                          </tbody>
+                              <thead>
+                                <tr>
+                                  <th class="info text-center" colspan="4">DATOS PERSONALES</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <p>Apellido Paterno</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['ApPaterno']); ?></p>
+                                  </td>
+                                  <td>
+                                    <p>Apellido Materno</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['ApMaterno']); ?></p>
+                                    
+                                    
+                                  </td>
+                                  <td>
+                                    <p>Nombre(s)</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Nombre']); ?></p>
+                                    
+                                    
+                                  </td>
+                                  <td>
+                                    <p>Edad</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Edad']); ?></p>
+                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <p>Domicilio (Tipo Vialidad y Nombre)</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Calle']); ?></p>
+                                    
+                                  </td>
+                                  <td>
+                                    <p>No. Ext</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['NumExt']); ?></p>
+                                    
+                                  </td>
+                                  <td>
+                                    <p>No. Int.</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['NumInt']); ?></p>
+                                    
+                                  </td>
+                                  <td>
+                                    <p>Colonia</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Colonia']); ?></p>
+                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2">
+                                    <p>Delegación o Municipio</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Municipio']); ?></p>
+                                    
+                                  </td>
+                                  <td>
+                                    <p>Estado</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Estado']); ?></p>
+                                    
+                                  </td>
+                                  <td>
+                                    <p>Código Postal</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['CP']); ?></p>
+                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <p>Teléfono Casa</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['TelCasa']); ?></p>
+                                  </td>
+                                  <td>
+                                    <p>Teléfono Celuar</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['TelCelular']); ?></p>
+                                    
+                                  </td>
+                                  <td colspan="2">
+                                    <p>Correo Electronico</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Correo']); ?></p>
+                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <p>TIEMPO DE RESIDIR EN DOMICILIO ACTUAL</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['TiempoRes']); ?></p>
+                                    
+                                  </td>
+                                  <td>
+                                    <p>VIVE CON</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['ViveCon']); ?></p>
+                                    
+                                  </td>
+                                  <td colspan="2">
+                                    <p>ESPECIFICA</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['EspViveCon']); ?></p>
+                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <p>PERSONAS QUE DEPENDEN DE USTED</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['Dependientes']); ?></p>
+                                    
+                                  </td>
+                                  <td>
+                                    <p>ESTADO CIVIL:</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['EdoCivil']); ?></p>
+                                    
+                                  </td>
+                                  <td colspan="2">
+                                    <p>ESPECIFICA</p>
+                                    <p class="bold"><?php echo utf8_decode($detalle_solicitud['EspEdoCivil']); ?></p>
+                                    
+                                  </td>
+                                </tr>
+                              </tbody>
                           </table>
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="5">DOCUMENTACIÓN</th>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>CURP</p>
+                                </td>
+                                <td>
+                                  <p>RFC</p>
+                                </td>
+                                <td>
+                                  <p>NÚMERO DE SEGURO SOCIAL</p>
+                                </td>
+                                <td>
+                                  <p>LICENCIA DE CONDUCIR</p>
+                                </td>
+                                <td>
+                                  <p>CLASE Y Nº. LICENCIA</p>
+                                </td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Curp']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Rfc']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Imms']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Licencia']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['NumLicencia']); ?></p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="4">ESTADO DE SALUD Y HÁBITOS PERSONALES</th>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>SU ESTADO DE SALUD:</p> 
+                                </td>
+                                <td>
+                                  <p>¿PADECE ALGUNA ENFERMEDAD?</p> 
+                                </td>
+                                <td>
+                                  <p>ESPECIFIQUE ENFERMEDAD</p> 
+                                </td>
+                                <td>
+                                  <p>¿CUAL ES SU META EN LA VIDA?</p> 
+                                </td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Estado_salud']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Padece']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Enfermedad']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Meta']); ?></p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="4">DATOS FAMILIARES</th>
+                              </tr>
+                              <tr>
+                                <th>NOMBRE</th>
+                                <th>VIVE/FINADO</th>
+                                <th>DOMICILIO</th>
+                                <th>OCUPACIÓN</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p>PADRE</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Nombre_padre']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Vive_padre']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Domicilio_padre']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Ocupacion_padre']); ?></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>MADRE</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Nombre_madre']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Vive_madre']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Domicilio_madre']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Ocupacion_madre']); ?></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>ESPOSA(O)</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Nombre_esp']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Vive_esp']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Domicilio_esp']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Ocupacion_esp']); ?></p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="5">ESCOLARIDAD (Solamente último nivel académico)</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p>NOMBRE DE LA ESCUELA</p>
+                                </td>
+                                <td colspan="2">
+                                  <p>DIRECCIÓN</p>
+                                </td>
+                                <td>
+                                  <p>FECHAS</p>
+                                </td>
+                                <td>
+                                  <p>DOCUMENTO RECIBIDO</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Escuela']); ?></p>
+                                </td>
+                                <td colspan="2">
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Direccion']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['FechaI'].' A '.$detalle_solicitud['FechaF']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Documento']); ?></p>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td class="warning" colspan="5">EN CASO DE ESTUDIO PROFESIONALES</td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">
+                                  <p>NOMBRE DE LA CARRERA</p>
+                                </td>
+                                <td colspan="2">
+                                  <p>NIVEL ALCANZADO (SOLO PARA ESTUDIOS PROFESIONALES)</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Carrera']); ?></p>
+                                </td>
+                                <td colspan="2">
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Nivel']); ?></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="warning" colspan="5">EN CASO DE ESTAR ESTUDIANDO ACTUALMENTE</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>NOMBRE DE LA ESCUELA</p>
+                                </td>
+                                <td>
+                                  <p>CURSO O CARRERA</p>
+                                </td>
+                                <td>
+                                  <p>DIAS EN LOS QUE ASISTE</p>
+                                </td>
+                                <td>
+                                  <p>HORARIO</p>
+                                </td>
+                                <td>
+                                  <p>NIVEL/GRADO ACTUAL</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['EscuelaAct']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Curso']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Dias']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Horario']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['NivelAct']); ?></p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="4">CONOCIMIENTOS GENERALES</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p>FUNCIONES DE OFICINA QUE DOMINA</p>
+                                </td>
+                                <td>
+                                  <p>PROGRAMAS DE CÓMPUTO (SOFTWARE) QUE DOMINA</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <p class="bold"><?php echo utf8_decode($detalle_solicitud['Funciones']); ?></p>
+                              </tr>
+                              <tr>
+                                <p class="bold"><?php echo utf8_decode($detalle_solicitud['Software']); ?></p>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="12">EMPLEO ACTUA Y ANTERIORES</th>
+                              </tr>
+                              <tr>
+                                <th>COMPAÑIA</th>
+                                <th>DIRECCIÓN</th>
+                                <th>TELÉFONO</th>
+                                <th>PUESTO DESEMPEÑADO</th>
+                                <th>INICIO</th>
+                                <th>TÉRMINO</th>
+                                <th>MOTIVO</th>
+                                <th>SALARIO</th>
+                                <th>JEFE</th>
+                                <th>PUESTO DE SU JEFE</th>
+                                <th colspan="2">¿SOLICITAR INFORMACIÓN?</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+                              $query_empleo = "SELECT * FROM Empleos WHERE idSolicitante = '$detalle_solicitud[idSolicitante]'";
+                              $consultar = $mysqli->query($query_empleo);
+                              while($empleos = $consultar->fetch_assoc()){
+                              ?>
+                                <tr>
+                                  <td><?php echo utf8_decode($empleos['Compania']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['Direccion']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['Telefono']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['Puesto']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['FechaInicio']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['FechaTermino']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['Motivo']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['Salario']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['NombreJefe']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['PuestoJefe']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['Informacion']); ?></td>
+                                  <td><?php echo utf8_decode($empleos['Porque']); ?></td>
+                                </tr>
+                              <?php
+                              }
+                               ?>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="5">REFERENCIAS FAMILIARES O PERSONALES (Que no vivan en el mismo domicilio)</th>
+                              </tr>
+                              <tr>
+                                <th>NOMBRE</th>
+                                <th>DOMICILIO</th>
+                                <th>TELÉFONO</th>
+                                <th>OCUPACIÓN</th>
+                                <th>TIEMPO DE CONOCERLO</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                              $query_referencias = "SELECT * FROM RefFamiliar WHERE idSolicitante = '$detalle_solicitud[idSolicitante]'";
+                              $consultar = $mysqli->query($query_referencias);
+                              while($referencias = $consultar->fetch_assoc()){
+                              ?>
+                                <tr>
+                                  <td><?php echo utf8_decode($referencias['Nombre']); ?></td>
+                                  <td><?php echo utf8_decode($referencias['Domicilio']); ?></td>
+                                  <td><?php echo utf8_decode($referencias['Telefono']); ?></td>
+                                  <td><?php echo utf8_decode($referencias['Ocupacion']); ?></td>
+                                  <td><?php echo utf8_decode($referencias['Tiempo']); ?></td>
+                                </tr>
+                              <?php
+                              }
+                             ?>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="4">DATOS GENERALES</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p>¿COMO SUPO DE ESTE EMPLEO?</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['ComoSupo']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p>¿TIENE PARIENTES EN ESTA EMPRESA?</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Pariente']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p>¿QUIEN ES SU PARIENTE?</p>
+                                  <p class="bold"><?php echo 'FALTA RESPUESTA'; ?></p>
+                                  
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>¿PUEDE VIAJAR?</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Viajar']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p>EXPLIQUE</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['ExpViajar']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p>¿ESTA DISPUESTO A CAMBIAR SU LUGAR DE RESIDENCIA?</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Residencia']); ?></p>
+                                  
+                                </td>
+                                <td>
+                                  <p>EXPLIQUE</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['ExpResidencia']); ?></p>
+                                  
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>FECHA EN LA QUE PODRIA PRESENTARSE A TRABAJAR</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['FechaTrabajar']); ?></p>
+                                  
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-hover p-table">
+                            <thead>
+                              <tr>
+                                <th class="info text-center" colspan="4">DATOS ECONÓMICOS</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p>¿TIENE USTED OTROS INGRESOS?</p>
+                                </td>
+                                <td>
+                                  <p>IMPORTE MENSUAL</p>
+                                </td>
+                                <td>
+                                  <p>¿SU CÓNYUGE TRABAJA?</p>
+                                </td>
+                                <td>
+                                  <p>PERCEPCIÓN MENSUAL</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Ingresos']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Importe']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Conyuge']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['IngresoConyuge']); ?></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>¿VIVE EN CASA PROPIA?</p>
+                                </td>
+                                <td>
+                                  <p>VALOR APROXIMADO</p>
+                                </td>
+                                <td>
+                                  <p>¿PAGA RENTA?</p>
+                                </td>
+                                <td>
+                                  <p>RENTA MENSUAL</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['CasaPropia']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['ValorCasa']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['PagaRenta']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['ValorRenta']); ?></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>¿TIENE AUTOMOVIL PROPIO?</p>
+                                </td>
+                                <td>
+                                  <p>MARCA, MODELO</p>
+                                </td>
+                                <td>
+                                  <p>¿TIENE DEUDAS?</p>
+                                </td>
+                                <td>
+                                  <p>IMPORTE DEL ADEUDO</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['AutoMovil']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['MarcaAuto'].' '.$detalle_solicitud['ModeloAuto']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['Adeudo']); ?></p>
+                                </td>
+                                <td>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['ImporteAdeudo']); ?></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>¿CUANTO ABONA MENSUALMENTE?</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['AbonoAdeudo']); ?></p>
+                                </td>
+                                <td>
+                                  <p>¿A CUANTO ASCIENDEN SUS GASTOS MENSUALES?</p>
+                                  <p class="bold"><?php echo utf8_decode($detalle_solicitud['GastosMensuales']); ?></p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+
                         </div>
                       </section>
 
                   </div>
-                  <div class="col-md-4">
+                  <!--<div class="col-md-4">
                       <section class="panel">
                           <header class="panel-heading">
                               Projects Description
@@ -379,7 +873,7 @@
                                   <a href="#" class="btn btn-sm btn-primary">Add files</a>
                                   <a href="#" class="btn btn-sm btn-warning">Report contact</a>
                               </div>
-                          </div>
+                          </div>-->
 
                       </section>
                   </div>

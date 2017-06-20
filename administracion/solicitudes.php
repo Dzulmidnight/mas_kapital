@@ -138,7 +138,8 @@
                                   <tr>
                                       <th>Fecha</th>
                                       <th>Nombre</th>
-                                      <th>Puesto</th>
+                                      <th>Carrera</th>
+                                      <th>Vacante</th>
                                       <th class="hidden-phone">Estado</th>
                                       <th class="hidden-phone">Teléfono</th>
                                       <th>Acciones</th>
@@ -146,7 +147,7 @@
                                 </thead>
                                 <tbody>
                                   <?php 
-                                  $query = "SELECT SolicitudTrabajo.idSolicitudTrabajo, SolicitudTrabajo.Puesto, SolicitudTrabajo.fecha_solicitud, Solicitante.*, SolicitudTrabajo.Puesto FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante";
+                                  $query = "SELECT SolicitudTrabajo.idSolicitudTrabajo, SolicitudTrabajo.Puesto, SolicitudTrabajo.fecha_solicitud, Solicitante.*, SolicitudTrabajo.Puesto, DomSolicitante.Estado, Escolaridad.Carrera FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante INNER JOIN DomSolicitante ON SolicitudTrabajo.idSolicitante = DomSolicitante.idSolicitante INNER JOIN Escolaridad ON SolicitudTrabajo.idSolicitante = Escolaridad.idSolicitante";
                                   $consultar = $mysqli->query($query);
 
                                   while($solicitud = $consultar->fetch_assoc()){
@@ -160,8 +161,9 @@
 	                                    <tr id="<?php echo $idfila; ?>" class="gradeX">
 	                                      <td><?php echo $fecha; ?></td>
 	                                      <td><?php echo utf8_decode($nombre); ?></td>
+                                        <td><?php echo $solicitud['Carrera']; ?></td>
 	                                      <td><?php echo $solicitud['Puesto']; ?></td>
-	                                      <td><?php echo 'TELEFONO'; ?></td>
+	                                      <td><?php echo $solicitud['Estado']; ?></td>
 	                                      <td>
 	                                      	<?php 
 	                                      	if(!empty($solicitud['TelClular'])){

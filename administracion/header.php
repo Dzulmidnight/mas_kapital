@@ -19,7 +19,7 @@
                 <li>
                     <p class="green">Tienes 6 tareas pendientes</p>
                 </li>
-                <li>
+                <!--<li>
                     <a href="#">
                         <div class="task-info">
                             <div class="desc">Menu v1.3</div>
@@ -84,7 +84,7 @@
                         </div>
 
                     </a>
-                </li>
+                </li>-->
                 <li class="external">
                     <a href="#">Ver todas</a>
                 </li>
@@ -102,7 +102,7 @@
                 <li>
                     <p class="red">Tienes 5 mensajes</p>
                 </li>
-                <li>
+                <!--<li>
                     <a href="#">
                         <span class="photo"><img alt="avatar" src="./img/avatar-mini.jpg"></span>
                               <span class="subject">
@@ -149,7 +149,7 @@
                                   Hello, this is metrolab
                               </span>
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <a href="#">Ver todos</a>
                 </li>
@@ -168,7 +168,7 @@
                 <li>
                     <p class="yellow">Tienes 7 notificaciones</p>
                 </li>
-                <li>
+                <!--<li>
                     <a href="#">
                         <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                         Server #3 overloaded.
@@ -202,7 +202,7 @@
                         Application error.
                         <span class="small italic">10 mins</span>
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <a href="#">Ver todas</a>
                 </li>
