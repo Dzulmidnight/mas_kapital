@@ -1,11 +1,56 @@
 <?php 
   require('../conexion/conexion.php');
-  $menu = 'quienes';
+  require('../conexion/sesion.php');
+  
+  if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
+    /*$sec1_img1 = $_POST['sec1_img1'];
+    $sec1_img2 = $_POST['sec1_img2'];
+    $sec1_img3 = $_POST['sec1_img3'];
+    $sec1_img4 = $_POST['sec1_img4'];*/
 
+    $sec1_img1 = 1;
+    $sec1_img2 = 2;
+    $sec1_img3 = 3;
+    $sec1_img4 = 4;
+
+
+    $sec1_titulo1 = $_POST['sec1_titulo1'];
+    $sec1_cont1 = $_POST['sec1_cont1'];
+    $sec1_titulo2 = $_POST['sec1_titulo2'];
+    $sec1_cont2 = $_POST['sec1_cont2'];
+    $sec1_titulo3 = $_POST['sec1_titulo3'];
+    $sec1_cont3 = $_POST['sec1_cont3'];
+    $sec1_titulo4 = $_POST['sec1_titulo4'];
+    $sec1_cont4 = $_POST['sec1_cont4'];
+
+    $sec2_titulo1 = $_POST['sec2_titulo1'];
+    $sec2_cont1 = $_POST['sec2_cont1'];
+    $sec2_cont2 = $_POST['sec2_cont2'];
+    $sec2_cont3 = $_POST['sec2_cont3'];
+
+    $sec3_titulo1 = $_POST['sec3_titulo1'];
+    $sec3_cont1 = $_POST['sec3_cont1'];
+    $sec3_titulo2 = $_POST['sec3_titulo2'];
+    $sec3_cont2 = $_POST['sec3_cont2'];
+
+    $sec4_titulo1 = $_POST['sec4_titulo1'];
+    $sec4_sub1 = $_POST['sec4_sub1'];
+    $sec4_cont1 = $_POST['sec4_cont1'];
+    /*$sec4_img1 = $_POST['sec4_img1'];*/
+
+    $query = "UPDATE pagina1  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1' WHERE idpagina1 = 1";
+
+    //$query = "UPDATE pagina1  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3' WHERE idpagina1 = 1";
+
+    //$query = "UPDATE pagina1 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1', sec4_img1 = '$sec4_img1' WHERE idpagina1 = 1 ";
+    $insertar = $mysqli->query($query);
+  }
+
+  $seccion = 'secciones';
+  $menu = 'quienes';
   $sql = "SELECT * FROM pagina1 WHERE idpagina1 = 1";
   $ejecutar = $mysqli->query($sql);
   $contenido = $ejecutar->fetch_assoc();
-
  ?>
 
 <!DOCTYPE html>
@@ -39,7 +84,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body >
 
   <section id="container" class="">
       <!--header start-->
@@ -54,20 +99,19 @@
       <!--sidebar end-->
       <!--main content start-->
       <section id="main-content">
-          <section class="wrapper">
+          <section class="">
               <div class="row">
                   <div class="col-lg-12">
                       <!--Pulstate start-->
-                      <section class="panel">
+                      <section class="">
                           <header class="panel-heading">
                             Sección: <span style="color:red">¿Quiénes Somos?</span>
                           </header>
                           <div class="panel-body">
-
-    <div id="div_lateral_guardar">
-      <div class="barra_lateral_1">
-        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-        <a style="color:#ffffff;" href="index.php"><b>Guardar Cambios</b></a>          
+<form action="" method="POST">
+    <div id="" style="position:fixed;z-index: 1;">
+      <div class="">
+        <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
       </div>
     </div>
 
@@ -89,19 +133,19 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <div class="item active ">
-                                <img src="../img/slider/principal/principal_1.jpg"  alt="imagen1">
+                                <img class="img-responsive" src="../img/slider/principal/principal_1.jpg"  alt="imagen1">
                             </div>
                             <div class="item">
-                                <img src="../img/slider/principal/principal_2.jpg" alt="imagen2">
+                                <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
                             </div>
                             <div class="item">
-                                <img src="../img/slider/principal/principal_3.jpg" alt="imagen3">
+                                <img class="img-responsive" src="../img/slider/principal/principal_3.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="../img/slider/principal/principal_4.jpg" alt="imagen3">
+                                <img class="img-responsive" src="../img/slider/principal/principal_4.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="../img/slider/principal/principal_5.jpg" alt="imagen3">
+                                <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
                             </div>
                         </div>
 
@@ -130,6 +174,7 @@
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
                             <img src="../img/index/oportuno.png" alt="oportuno">
+                            <input type="text" name="sec1_img1" value="<?php echo $contenido['sec1_img1']; ?>">
                         </div>
                         <h2 style="color:#29327e"><input type="text" id="sec1_titulo1" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>"></h2>
                         <p>
@@ -141,8 +186,9 @@
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
                             <img src="../img/index/accesible.png" alt="accesible">
+                            <input type="text" name="sec1_img2" value="<?php echo $contenido['sec1_img2']; ?>">
                         </div>
-                        <h2 style="color:#35bddf"><input type="text" value="<?php echo $contenido['sec1_titulo2']; ?>"></h2>
+                        <h2 style="color:#35bddf"><input type="text" name="sec1_titulo2" value="<?php echo $contenido['sec1_titulo2']; ?>"></h2>
                         <p>
                           <textarea name="sec1_cont2" id="sec1_cont2"><?php echo $contenido['sec1_cont2']; ?></textarea>
                         </p>
@@ -152,8 +198,9 @@
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
                             <img src="../img/index/rentable.png" alt="rentable">
+                            <input type="text" name="sec1_img3" value="<?php echo $contenido['sec1_img3']; ?>">
                         </div>
-                        <h2 style="color:#29327e"><input type="text" value="<?php echo $contenido['sec1_titulo3']; ?>"></h2>
+                        <h2 style="color:#29327e"><input type="text" name="sec1_titulo3" value="<?php echo $contenido['sec1_titulo3']; ?>"></h2>
                         <p><textarea name="sec1_cont3" id="sec1_cont3"><?php echo $contenido['sec1_cont3']; ?></textarea></p>
                     </div>
                 </div>
@@ -161,8 +208,9 @@
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
                             <img src="../img/index/seguro.png" alt="seguro">
+                            <input type="text" name="sec1_img4" value="<?php echo $contenido['sec1_img4']; ?>">
                         </div>
-                        <h2 style="color:#35bddf"><input type="text" value="<?php echo $contenido['sec1_titulo4'] ?>"></h2>
+                        <h2 style="color:#35bddf"><input type="text" name="sec1_titulo4" value="<?php echo $contenido['sec1_titulo4'] ?>"></h2>
                         <p><textarea name="sec1_cont4" id="sec1_cont4"><?php echo $contenido['sec1_cont4']; ?></textarea></p>
                     </div>
                 </div>
@@ -262,7 +310,6 @@
     <section style="margin-top:10em;">
         <div class="container" style="height:500px;background-image: url('../img/nuestros_valores/nuestros_valores.jpg');background-size:cover;background-position:center;padding-top:5em;">
             <div class="row">
-
             </div>
         </div>
     </section>
@@ -273,7 +320,7 @@
                     <div class="col-sm-12">
                         <h1 class="title text-center"><input name="sec3_titulo1" id="sec3_titulo1" type="text" value="<?php echo $contenido['sec3_titulo1']; ?>"></h1>
                         <p style="text-align:justify;font-size:16px;">
-                          <textarea class="form-control" name="sec3_cont2" id="sec3_cont2" rows="5"><?php echo $contenido['sec3_cont1']; ?></textarea>
+                          <textarea class="form-control" name="sec3_cont1" id="sec3_cont1" rows="5"><?php echo $contenido['sec3_cont1']; ?></textarea>
                         </p>
                     </div>
                     <div class="col-sm-12">
@@ -298,8 +345,9 @@
                     <a href="https://www.facebook.com/mas.kapital"><img src="../img/index/tablet.png" alt=""></a>
                 </div>
                 <div class="hidden-sm hidden-xs col-md-6" style="text-align:justify;">
-                    <a href="https://www.facebook.com/mas.kapital"><h1><b><input style="color:black" type="text" value="<?php echo $contenido['sec4_titulo1']; ?>"></b></h1></a>
-                    <h2 style="font-size:30px;"><b><input type="text" value="<?php echo $contenido['sec4_sub1'] ?>"></b></h2>
+                    <h1><b><input style="color:black" type="text" name="sec4_titulo1" value="<?php echo $contenido['sec4_titulo1']; ?>"></b></h1>
+                    <!--<a href="https://www.facebook.com/mas.kapital"><h1><b></b></h1></a>-->
+                    <h2 style="font-size:30px;"><b><input type="text" name="sec4_sub1" value="<?php echo $contenido['sec4_sub1'] ?>"></b></h2>
                     <p style="font-size:20px;"><textarea class="form-control" name="sec4_cont1" id="sec4_cont1" rows="5"><?php echo $contenido['sec4_cont1']; ?></textarea></p>
                 </div>
                 
@@ -318,6 +366,9 @@
         </div>
     </section>
 
+
+</form>
+      
                           </div>
                       </section>
                       <!--Pulstate  end-->

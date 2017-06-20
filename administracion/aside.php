@@ -10,48 +10,48 @@
             </li>
 
             <li class="sub-menu">
-                <a class="active" href="javascript:;" >
+                <a <?php if(isset($seccion) && $seccion == 'secciones'){echo 'class="active"'; } ?> href="javascript:;" >
                     <i class="fa fa-laptop"></i>
                     <span>Secciones</span>
                 </a>
                 <ul class="sub">
-                    <!--<li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="quienes_somos.php">¿Quiénes Somos?</a></li>
+                    <li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="quienes_somos.php">¿Quiénes Somos?</a></li>
                     <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="normatividad.php">Normatividad</a></li>
                     <li <?php if(isset($menu) && $menu == 'sucursales'){echo 'class="active"'; } ?>><a href="sucursales.php">Sucursales</a></li>
                     <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="mas_flexible.php">Más Flexible</a></li>
                     <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="universidad_mk.php">Universidad Mk</a></li>
-                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="bolsa_trabajo.php">Bolsa de Trabajo</a></li>-->
-                    <li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="#">¿Quiénes Somos?</a></li>
+                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="bolsa_trabajo.php">Bolsa de Trabajo</a></li>
+
+                    <!--<li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="#">¿Quiénes Somos?</a></li>
                     <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="#">Normatividad</a></li>
                     <li <?php if(isset($menu) && $menu == 'sucursales'){echo 'class="active"'; } ?>><a href="#">Sucursales</a></li>
                     <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="#">Más Flexible</a></li>
                     <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="#">Universidad Mk</a></li>
-                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="#">Bolsa de Trabajo</a></li>
+                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="#">Bolsa de Trabajo</a></li>-->
 
                 </ul>
             </li>
 
             <li class="sub-menu">
-                <a href="javascript:;" >
+                <a <?php if(isset($seccion) && $seccion == 'informacion'){echo 'class="active"'; } ?> href="javascript:;" >
                     <i class="fa fa-book"></i>
                     <span>Información</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="usuarios.php">Usuarios</a></li>
-                    <li><a  href="sucursales_add.php">Sucursales</a></li>
-                    <li><a  href="vacantes.php">Vacantes</a></li>
-                    <li><a  href="preguntas_frecuentes.php">Preguntas Frecuentes</a></li>
+                    <li <?php if(isset($menu) && $menu == 'usuarios'){echo 'class="active"'; } ?>><a  href="usuarios.php">Usuarios</a></li>
+                    <li <?php if(isset($menu) && $menu == 'sucursales_add'){echo 'class="active"'; } ?>><a  href="sucursales_add.php">Sucursales</a></li>
+                    <li <?php if(isset($menu) && $menu == 'vacantes'){echo 'class="active"'; } ?>><a  href="vacantes.php">Vacantes</a></li>
+                    <li <?php if(isset($menu) && $menu == 'faq'){echo 'class="active"'; } ?>><a  href="preguntas_frecuentes.php">Preguntas Frecuentes</a></li>
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="javascript:;" >
+                <a <?php if(isset($seccion) && $seccion == 'formularios'){echo 'class="active"'; } ?> href="javascript:;" >
                     <i class="fa fa-files-o"></i>
                     <span>Formularios</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="denuncias.php">Denuncias</a></li>
-                    <li><a  href="solicitudes.php">Solicitudes</a></li>
-                    <li><a  href="form_vacantes.php">Vacantes</a></li>
+                    <li <?php if(isset($menu) && $menu == 'denuncias'){echo 'class="active"'; } ?>><a  href="denuncias.php">Denuncias</a></li>
+                    <li <?php if(isset($menu) && $menu == 'solicitudes'){echo 'class="active"'; } ?>><a  href="solicitudes.php">Solicitudes</a></li>
                 </ul>
             </li>
 

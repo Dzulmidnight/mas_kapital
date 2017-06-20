@@ -72,7 +72,8 @@
     $mysqli->query($sql);
     echo "<script>alert('Se ha eliminado la denuncia');</script>";
   }
-
+  $seccion = 'formularios';
+  $menu = 'solicitudes';
 ?>
 <!DOCTYPE html>
 <html lang="esp">

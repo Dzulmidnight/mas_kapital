@@ -73,6 +73,10 @@
     echo "<script>alert('Se ha eliminado la denuncia');</script>";
   }
 
+  $seccion = 'formularios';
+  $menu = 'denuncias';
+
+
 ?>
 <!DOCTYPE html>
 <html lang="esp">

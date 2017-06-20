@@ -36,7 +36,8 @@
     $mysqli->query($sql);
   }
 
-
+  $seccion = 'informacion';
+  $menu = 'usuarios';
 
 
 

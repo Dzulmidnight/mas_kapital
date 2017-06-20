@@ -72,6 +72,8 @@
     $mysqli->query($sql);
     echo "<script>alert('Se ha eliminado la sucursal');</script>";
   }
+  $seccion = 'informacion';
+  $menu = 'sucursales_add';
 
 ?>
 <!DOCTYPE html>

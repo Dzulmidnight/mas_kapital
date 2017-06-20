@@ -51,7 +51,8 @@
     $mysqli->query($sql);
     echo "<script>alert('Vacante eliminada');</script>";
   }
-
+  $seccion = 'informacion';
+  $menu = 'vacantes';
 ?>
 <!DOCTYPE html>
 <html lang="esp">

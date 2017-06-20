@@ -7,6 +7,9 @@
             header('Location: conexion/salir.php');
         }
     }
+  $seccion = 'informacion';
+  $menu = 'faq';
+
  ?>
 <!DOCTYPE html>
 <html lang="esp">
