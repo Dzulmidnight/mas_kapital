@@ -160,7 +160,7 @@
                                     <tr id="<?php echo $idfila; ?>" class="gradeX">
                                       <td><?php echo $fecha; ?></td>
                                       <td><?php echo utf8_decode($denuncias['nombre_denunciante']); ?></td>
-                                      <td><?php echo $denuncias['estado_denunciante']; ?></td>
+                                      <td><?php echo utf8_decode($denuncias['estado_denunciante']); ?></td>
                                       <td><?php echo $denuncias['telefono_denunciante']; ?></td>
                                       <td><?php echo utf8_decode($denuncias['NombreSucursal']); ?></td>
 

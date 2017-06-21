@@ -14,7 +14,7 @@ $datos = $consultar->fetch_assoc();
     <?php echo utf8_decode($datos['descripcion']); ?>
 </p>
 <br/>
-<h5 class="bold">Motivo de la Denuncia</h5>
+<h5 class="bold">Motivo de la Denuncida</h5>
 <ul class="nav nav-pills nav-stacked labels-info ">
     <li><i class=" fa fa-circle text-danger"></i> <?php echo utf8_decode($datos['motivo']); ?></p></li>
 </ul>

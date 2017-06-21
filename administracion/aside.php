@@ -17,10 +17,11 @@
                 <ul class="sub">
                     <li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="quienes_somos.php">¿Quiénes Somos?</a></li>
                     <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="normatividad.php">Normatividad</a></li>
-                    <li <?php if(isset($menu) && $menu == 'sucursales'){echo 'class="active"'; } ?>><a href="sucursales.php">Sucursales</a></li>
+                    <!--<li <?php if(isset($menu) && $menu == 'sucursales'){echo 'class="active"'; } ?>><a href="sucursales.php">Sucursales</a></li>-->
                     <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="mas_flexible.php">Más Flexible</a></li>
                     <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="universidad_mk.php">Universidad Mk</a></li>
-                    <li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="bolsa_trabajo.php">Bolsa de Trabajo</a></li>
+                    <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a href="atencion_clientes.php">Atención a Clientes</a></li>
+                    <!--<li <?php if(isset($menu) && $menu == 'trabajo'){echo 'class="active"'; } ?>><a href="bolsa_trabajo.php">Bolsa de Trabajo</a></li>-->
 
                     <!--<li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="#">¿Quiénes Somos?</a></li>
                     <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="#">Normatividad</a></li>
@@ -57,7 +58,7 @@
 
 
 
-            <li class="sub-menu">
+            <!--20_06_2017<li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-book"></i>
                     <span>UI Elements</span>
@@ -195,7 +196,7 @@
             </li>
 
             <!--multi level menu start-->
-            <li class="sub-menu">
+            <!--20_06_2017<li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-sitemap"></i>
                     <span>Multi level Menu</span>
@@ -216,7 +217,7 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li>20_06_2017-->
             <!--multi level menu end-->
 
         </ul>

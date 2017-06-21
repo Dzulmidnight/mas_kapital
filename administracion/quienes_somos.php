@@ -3,16 +3,90 @@
   require('../conexion/sesion.php');
   
   if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
-    /*$sec1_img1 = $_POST['sec1_img1'];
-    $sec1_img2 = $_POST['sec1_img2'];
-    $sec1_img3 = $_POST['sec1_img3'];
-    $sec1_img4 = $_POST['sec1_img4'];*/
+    /*$sec1_img1 = "../img/index/".$_POST['sec1_img1'];
+    $sec1_img2 = "../img/index/".$_POST['sec1_img2'];
+    $sec1_img3 = "../img/index/".$_POST['sec1_img3'];
+    $sec1_img4 = "../img/index/".$_POST['sec1_img4'];*/
 
-    $sec1_img1 = 1;
+    //CONSULTAMOS EL NUMERO DE IMAGENES DENTRO DEL SLIDE PARA PODER REEMPLAZAR O MANTENER CAMBIOS
+    $ruta_slide = '../img/slider/principal/';
+    $query = "SELECT * FROM slide WHERE pagina = 1";
+    $consultar_slide = $mysqli->query($query);
+    while($slide = $consultar_slide->fetch_assoc()){
+      $slide_actual = $_POST['img_slide_actual'.$slide['idslide']];
+
+      if(!empty($_FILES['img_slide'.$slide['idslide']]['name'])){
+          unlink($slide_actual);
+
+          $_FILES['img_slide'.$slide['idslide']]['name'];
+          move_uploaded_file($_FILES['img_slide'.$slide['idslide']]['tmp_name'], $ruta_slide.$_FILES['img_slide'.$slide['idslide']]['name']);
+          $img_slide = $ruta_slide.basename($_FILES['img_slide'.$slide['idslide']]['name']);
+            //$archivo = $rutaArchivo.basename($fecha."_".$_FILES["nueva_cotizacion"]["name"]);
+      
+            $query = "UPDATE slide SET img = '$img_slide' WHERE idslide = '$slide[idslide]'";
+            $actualizar = $mysqli->query($query);
+      }  
+
+    }
+
+    if(!empty($_FILES['nuevo_slide']['name'])){
+      $_FILES['nuevo_slide']['name'];
+      move_uploaded_file($_FILES['nuevo_slide']['tmp_name'], $ruta_slide.$_FILES['nuevo_slide']['name']);
+      $img_slide = $ruta_slide.basename($_FILES['nuevo_slide']['name']);
+
+      $query = "INSERT INTO slide (pagina, img) VALUES ('1', '$img_slide')";
+      $insertar = $mysqli->query($query);
+
+    }
+
+    $ruta_img = '../img/index/';
+    $ruta_norma = 'img/index/';
+    $img1_actual = $_POST['img1_actual'];
+    $img2_actual = $_POST['img2_actual'];
+    $img3_actual = $_POST['img3_actual'];
+    $img4_actual = $_POST['img4_actual'];
+
+    if(!empty($_FILES['sec1_img1']['name'])){
+        unlink($img1_actual);
+        $_FILES["sec1_img1"]["name"];
+          move_uploaded_file($_FILES["sec1_img1"]["tmp_name"], $ruta_img.$_FILES["sec1_img1"]["name"]);
+          $sec1_img1 = $ruta_img.basename($_FILES["sec1_img1"]["name"]);
+          //$archivo = $rutaArchivo.basename($fecha."_".$_FILES["nueva_cotizacion"]["name"]);
+    }else{
+      $sec1_img1 = $img1_actual;
+    }
+    if(!empty($_FILES['sec1_img2']['name'])){
+      unlink($img2_actual);
+        $_FILES["sec1_img2"]["name"];
+          move_uploaded_file($_FILES["sec1_img2"]["tmp_name"], $ruta_img.$_FILES["sec1_img2"]["name"]);
+          $sec1_img2 = $ruta_img.basename($_FILES["sec1_img2"]["name"]);
+    }else{
+      $sec1_img2 = $img2_actual;
+    }
+    if(!empty($_FILES['sec1_img3']['name'])){
+      unlink($img3_actual);
+        $_FILES["sec1_img3"]["name"];
+          move_uploaded_file($_FILES["sec1_img3"]["tmp_name"], $ruta_img.$_FILES["sec1_img3"]["name"]);
+          $sec1_img3 = $ruta_img.basename($_FILES["sec1_img3"]["name"]);
+    }else{
+      $sec1_img3 = $img3_actual;
+    }
+    if(!empty($_FILES['sec1_img4']['name'])){
+      unlink($img4_actual);
+        $_FILES["sec1_img4"]["name"];
+          move_uploaded_file($_FILES["sec1_img4"]["tmp_name"], $ruta_img.$_FILES["sec1_img4"]["name"]);
+          $sec1_img4 = $ruta_img.basename($_FILES["sec1_img4"]["name"]);
+    }else{
+      $sec1_img4 = $img4_actual;
+    }
+
+
+
+    /*$sec1_img1 = 1;
     $sec1_img2 = 2;
     $sec1_img3 = 3;
     $sec1_img4 = 4;
-
+*/
 
     $sec1_titulo1 = $_POST['sec1_titulo1'];
     $sec1_cont1 = $_POST['sec1_cont1'];
@@ -46,6 +120,15 @@
     $insertar = $mysqli->query($query);
   }
 
+  if(isset($_POST['eliminar_slide'])){
+    $idslide = $_POST['eliminar_slide'];
+    $img_slide = $_POST['img_slide_actual'.$idslide.''];
+    unlink($img_slide);
+
+    $query = "DELETE FROM slide WHERE idslide = $idslide";
+    $eliminar = $mysqli->query($query);
+  }
+
   $seccion = 'secciones';
   $menu = 'quienes';
   $sql = "SELECT * FROM pagina1 WHERE idpagina1 = 1";
@@ -55,6 +138,8 @@
 
 <!DOCTYPE html>
 <html lang="esp">
+
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,17 +147,30 @@
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="img/favicon.png">
-      <link href="../css/main.css" rel="stylesheet">
-    <title>¿Quiénes Somos?</title>
 
+    <title>Sección: ¿Quienes Somos?</title>
+<link href="../css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-reset.css" rel="stylesheet">
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
-      <!--right slidebar-->
-      <link href="css/slidebars.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker/css/datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-timepicker/compiled/timepicker.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-colorpicker/css/colorpicker.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="assets/jquery-multi-select/css/multi-select.css" />
+
+    <!--right slidebar-->
+    <link href="css/slidebars.css" rel="stylesheet">
+
+    <!--  summernote -->
+    <link href="assets/summernote/dist/summernote.css" rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
@@ -108,7 +206,7 @@
                             Sección: <span style="color:red">¿Quiénes Somos?</span>
                           </header>
                           <div class="panel-body">
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     <div id="" style="position:fixed;z-index: 1;">
       <div class="">
         <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
@@ -122,20 +220,101 @@
                 <div style="padding:0px;">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
+                        <?php 
+                        $query_slide = "SELECT * FROM slide WHERE pagina = 1";
+                        $consultar = $mysqli->query($query_slide);
+                        $query_slide2 = "SELECT * FROM slide WHERE pagina = 1 ORDER BY idslide DESC";
+                        $consultar2 = $mysqli->query($query_slide2);
+                         ?>
                         <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <?php
+                          $cont = 0;
+                          while($slide = $consultar->fetch_assoc()){
+                            echo '<li data-target="#carousel-example-generic" data-slide-to="'.$cont.'" class=""></li>';
+                            $cont++;
+                          }
+                         ?>
+                            <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
                         </ol>
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item active ">
-                                <img class="img-responsive" src="../img/slider/principal/principal_1.jpg"  alt="imagen1">
-                            </div>
+                            <?php
+                            $cont = 0;
+                            while($img_slide = $consultar2->fetch_assoc()){
+                            ?>
+                              <div class="item <?php if($cont == 0){echo 'active'; } ?>">
+                                  <img class="img-responsive" src="<?php echo $img_slide['img']; ?>"  alt="imagen1">
+                                        <div class="form-group last">
+                                            <div class="col-md-3">
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                    <div class="fileupload-new thumbnail" style="width: 200px; height: 90px;">
+                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                    <div>
+                                                     <span class="btn btn-white btn-file">
+                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                     <input type="file" name="<?php echo 'img_slide'.$img_slide['idslide']; ?>" class="default" />
+
+                                                     </span>
+
+                                                    </div>
+                                                </div>
+                                                     <input type="hidden" name="<?php echo 'img_slide_actual'.$img_slide['idslide']; ?>" value="<?php echo $img_slide['img']; ?>">
+                                                <!--<span class="label label-danger">NOTE!</span>
+                                               <span>
+                                               Attached image thumbnail is
+                                               supported in Latest Firefox, Chrome, Opera,
+                                               Safari and Internet Explorer 10 only
+                                               </span>-->
+                                            </div>
+                                            <div class="col-md-3" style='margin-top:2em;'>
+                                              <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
+                                              
+                                            </div>
+
+                                        </div>
+                              </div>
+
+                            <?php
+                            $cont++;
+                            }
+                             ?>
                             <div class="item">
+                                        <div class="form-group last" style="margin:10em;">
+                                            <div class="col-md-12 text-center">
+                                                <h3 class="alert alert-info">Agregar nueva imagen</h3>
+                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                    <div>
+                                                     <span class="btn btn-white btn-file">
+                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
+                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                     <input type="file" name="nuevo_slide" class="default" />
+                                                     </span>
+                                                    </div>
+                                                </div>
+                                                <!--<span class="label label-danger">NOTE!</span>
+                                               <span>
+                                               Attached image thumbnail is
+                                               supported in Latest Firefox, Chrome, Opera,
+                                               Safari and Internet Explorer 10 only
+                                               </span>-->
+                                            </div>
+
+
+                                        </div>
+                            </div>
+                            <!--<div class="item">
                                 <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
                             </div>
                             <div class="item">
@@ -146,7 +325,7 @@
                             </div>
                             <div class="item">
                                 <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
-                            </div>
+                            </div>-->
                         </div>
 
                         <!-- Controls -->
@@ -173,9 +352,23 @@
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="../img/index/oportuno.png" alt="oportuno">
-                            <input type="text" name="sec1_img1" value="<?php echo $contenido['sec1_img1']; ?>">
+                            <img src="<?php echo $contenido['sec1_img1']; ?>" alt="oportuno">
+                            <input type="hidden" name="img1_actual" value="<?php echo $contenido['sec1_img1']; ?>">
                         </div>
+                        <div class="form-group">
+                            <div class="controls col-md-12">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                  <span class="btn btn-white btn-file">
+                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                  <input type="file" name="sec1_img1" class="default" />
+                                  </span>
+                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                </div>
+                            </div>
+                        </div>
+
                         <h2 style="color:#29327e"><input type="text" id="sec1_titulo1" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>"></h2>
                         <p>
                           <textarea name="sec1_cont1" id="sec1_cont1"><?php echo $contenido['sec1_cont1']; ?></textarea>
@@ -185,9 +378,23 @@
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="../img/index/accesible.png" alt="accesible">
-                            <input type="text" name="sec1_img2" value="<?php echo $contenido['sec1_img2']; ?>">
+                            <img src="<?php echo $contenido['sec1_img2']; ?>" alt="accesible">
+                            <input type="hidden" name="img2_actual" value="<?php echo $contenido['sec1_img2']; ?>">
                         </div>
+                        <div class="form-group">
+                            <div class="controls col-md-12">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                  <span class="btn btn-white btn-file">
+                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                  <input type="file" name="sec1_img2" class="default" />
+                                  </span>
+                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                </div>
+                            </div>
+                        </div>
+
                         <h2 style="color:#35bddf"><input type="text" name="sec1_titulo2" value="<?php echo $contenido['sec1_titulo2']; ?>"></h2>
                         <p>
                           <textarea name="sec1_cont2" id="sec1_cont2"><?php echo $contenido['sec1_cont2']; ?></textarea>
@@ -197,9 +404,23 @@
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="../img/index/rentable.png" alt="rentable">
-                            <input type="text" name="sec1_img3" value="<?php echo $contenido['sec1_img3']; ?>">
+                            <img src="<?php echo $contenido['sec1_img3']; ?>" alt="rentable">
+                            <input type="hidden" name="img3_actual" value="<?php echo $contenido['sec1_img3']; ?>">
                         </div>
+                        <div class="form-group">
+                            <div class="controls col-md-12">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                  <span class="btn btn-white btn-file">
+                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                  <input type="file" name="sec1_img3" class="default" />
+                                  </span>
+                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                </div>
+                            </div>
+                        </div>
+
                         <h2 style="color:#29327e"><input type="text" name="sec1_titulo3" value="<?php echo $contenido['sec1_titulo3']; ?>"></h2>
                         <p><textarea name="sec1_cont3" id="sec1_cont3"><?php echo $contenido['sec1_cont3']; ?></textarea></p>
                     </div>
@@ -207,9 +428,23 @@
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                            <img src="../img/index/seguro.png" alt="seguro">
-                            <input type="text" name="sec1_img4" value="<?php echo $contenido['sec1_img4']; ?>">
+                            <img src="<?php echo $contenido['sec1_img4']; ?>" alt="seguro">
+                            <input type="hidden" name="img4_actual" value="<?php echo $contenido['sec1_img4']; ?>">
                         </div>
+                        <div class="form-group">
+                            <div class="controls col-md-12">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                  <span class="btn btn-white btn-file">
+                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                  <input type="file" name="sec1_img4" class="default" />
+                                  </span>
+                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                </div>
+                            </div>
+                        </div>
+
                         <h2 style="color:#35bddf"><input type="text" name="sec1_titulo4" value="<?php echo $contenido['sec1_titulo4'] ?>"></h2>
                         <p><textarea name="sec1_cont4" id="sec1_cont4"><?php echo $contenido['sec1_cont4']; ?></textarea></p>
                     </div>
@@ -237,9 +472,8 @@
        <div class="container" style="background-color:#323534;padding-top:1em;padding-bottom:1em">
            <div class="row">
                <div class="col-md-12">
-                   <h2 class="visible-lg" style="padding-left:2em;color:#ffffff;font-size:28px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></h2>
-                   <p class="visible-md" style="padding-left:1em;color:#ffffff;font-size:24px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></p>
-                   <p class="visible-sm visible-xs text-center" style="color:#ffffff;font-size:25px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></p>
+                   <p class="" style="padding-left:1em;color:#ffffff;font-size:24px;"><i><b>Innovando las microfinanzas para tu desarrollo</b></i></p>
+
                </div>
            </div>
        </div>
@@ -253,7 +487,7 @@
                     <!-- 15_05_2017 <div class="col-sm-6 col-md-offset-1 fadeInLeft text-center" style="padding-left:20em;margin-top:3em;"> -->
                 
                     <!--- SECCIÓN LG-MD -->
-                    <div class="hidden-sm hidden-xs col-md-6 fadeInLeft text-center" style="margin-top:3em;">
+                    <div class="col-md-6 fadeInLeft text-center" style="margin-top:3em;">
                         <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b><input name="sec2_titulo1" id="sec2_titulo1" type="text" value="<?php echo $contenido['sec2_titulo1']; ?>"></b></h1>
                         <p style="font-size:16px;text-align:justify;">
                           <textarea class="form-control" name="sec2_cont1" id="sec2_cont1" rows="5"><?php echo $contenido['sec2_cont1']; ?></textarea>
@@ -269,39 +503,6 @@
                         <img class="img-responsive" src="../img/quienes_somos/quienes_somos.png" alt="" style="float:right;margin-top:-100px;">
                     </div>
                 
-                    <!-- SECCIÓN SM -->
-                    <div class="visible-sm col-sm-6 fadeInLeft text-center" style="margin-top:3em;">
-                        <h2 style="color:#323534;font-size:3em;margin-bottom:1em;"><b>QUIENES SOMOS</b></h2>
-                        <p style="font-size:16px;text-align:justify;">
-                            Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento. 
-                        </p>
-                        <p style="font-size:16px;text-align:justify;">
-                            Nuestra experiencia en el área de las microfinanzas nos ha posicionado como una empresa sólida, moderna, e innovadora, que en forma eficiente y funcional otorga servicios financieros para el sector de la población de bajos ingresos sin acceso a fuentes bancarias de financiamiento.
-                        </p>
-                        <p style="font-size:16px;text-align:justify;">
-                            Nuestra función consiste básicamente en ser el vehículo que lleve hasta las comunidades los recursos económicos y herramientas para su gestión. Y encaminamos nuestros servicios financieros a potenciar y hacer más eficientes las actividades productivas que se desarrollan en sus comunidades.
-                        </p>
-                    </div>
-                    <div class="visible-sm col-sm-6">
-                        <img class="img-responsive" src="../img/quienes_somos/quienes_somos.png" alt="" style="float:right;">
-                    </div>
-
-                    <!-- SECCIÓN XS -->
-                    <div class="visible-xs col-xs-12 fadeInLeft text-center" style="margin-top:3em;">
-                        <h1 style="color:#323534;font-size:2.5em;margin-bottom:1em;"><b>QUIENES SOMOS</b></h1>
-                        <p style="font-size:16px;text-align:justify;">
-                            Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento. 
-                        </p>
-                        <p style="font-size:16px;text-align:justify;">
-                            Nuestra experiencia en el área de las microfinanzas nos ha posicionado como una empresa sólida, moderna, e innovadora, que en forma eficiente y funcional otorga servicios financieros para el sector de la población de bajos ingresos sin acceso a fuentes bancarias de financiamiento.
-                        </p>
-                        <p style="font-size:16px;text-align:justify;">
-                            Nuestra función consiste básicamente en ser el vehículo que lleve hasta las comunidades los recursos económicos y herramientas para su gestión. Y encaminamos nuestros servicios financieros a potenciar y hacer más eficientes las actividades productivas que se desarrollan en sus comunidades.
-                        </p>
-                    </div>
-                    <div class="visible-xs col-xs-12">
-                        <img class="img-responsive" style="height:500px;float:right" src="../img/quienes_somos/quienes_somos.png" alt="" >
-                    </div>
                 
             </div>
         </div>
@@ -341,27 +542,16 @@
         <div class="container" style="background-image: url('../img/index/banner_azul.png');background-size:cover; padding-top:5em;border-top: 10px solid #263c89; border-bottom: 10px solid #263c89">
             <div class="row">
                 <!-- visible en lg-md -->
-                <div class="hidden-sm hidden-xs col-md-6">
+                <div class="col-md-6">
                     <a href="https://www.facebook.com/mas.kapital"><img src="../img/index/tablet.png" alt=""></a>
                 </div>
-                <div class="hidden-sm hidden-xs col-md-6" style="text-align:justify;">
+                <div class="col-md-6" style="text-align:justify;">
                     <h1><b><input style="color:black" type="text" name="sec4_titulo1" value="<?php echo $contenido['sec4_titulo1']; ?>"></b></h1>
                     <!--<a href="https://www.facebook.com/mas.kapital"><h1><b></b></h1></a>-->
                     <h2 style="font-size:30px;"><b><input type="text" name="sec4_sub1" value="<?php echo $contenido['sec4_sub1'] ?>"></b></h2>
                     <p style="font-size:20px;"><textarea class="form-control" name="sec4_cont1" id="sec4_cont1" rows="5"><?php echo $contenido['sec4_cont1']; ?></textarea></p>
                 </div>
-                
-                <!-- visible en sm -->
-                <div class="visible-sm visible-xs col-sm-12" style="text-align:justify;color:#ffffff">
-                    <a href="https://www.facebook.com/mas.kapital"><h1 class="text-center" style="font-size:2.5em;"><b>SÍGUENOS EN FACEBOOK</b></h1></a>
-                    <h2 class="text-center" style="color:#ffffff;font-size:30px;"><b>Más Kapital</b></h2>
-                    <p style="font-size:20px;">Entérate de todo lo que acontece en nuestra familia MásKapital en nuestra página de Facebook, donde podrás conocer a todos los integrantes de esta gran familia, así como las últimas noticias y todo lo que sea importante para tu crédito.</p>
-                </div>
-                <div class="visible-sm visible-xs col-sm-12 text-center">
-                    <a href="https://www.facebook.com/mas.kapital"><img src="../img/index/tablet.png" alt=""></a>
-                </div>
-
-                
+              
             </div>
         </div>
     </section>
@@ -385,26 +575,55 @@
       <!--footer end-->
   </section>
 
-    <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="js/jquery.scrollTo.min.js"></script>
     <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script type="text/javascript" src="assets/gritter/js/jquery.gritter.js"></script>
     <script src="js/respond.min.js" ></script>
-    <script type="text/javascript" src="js/jquery.pulsate.min.js"></script>
+  
+    <!--this page plugins-->
 
-    <!--right slidebar-->
-    <script src="js/slidebars.min.js"></script>
+  <script type="text/javascript" src="assets/fuelux/js/spinner.min.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-daterangepicker/moment.min.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.multi-select.js"></script>
+  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.quicksearch.js"></script>
 
-    <!--common script for all pages-->
+
+  <!--summernote-->
+  <script src="assets/summernote/dist/summernote.min.js"></script>
+
+  <!--right slidebar-->
+  <script src="js/slidebars.min.js"></script>
+
+  <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
+    <!--this page  script only-->
+    <script src="js/advanced-form-components.js"></script>
 
-    <!--script for this page only-->
-    <script src="js/gritter.js" type="text/javascript"></script>
-    <script src="js/pulstate.js" type="text/javascript"></script>
+  <script>
 
+      jQuery(document).ready(function(){
+
+          $('.summernote').summernote({
+              height: 200,                 // set editor height
+
+              minHeight: null,             // set minimum height of editor
+              maxHeight: null,             // set maximum height of editor
+
+              focus: true                 // set focus to editable area after initializing summernote
+          });
+      });
+
+  </script>
 
   </body>
 </html>
