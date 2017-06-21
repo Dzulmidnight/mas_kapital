@@ -1,3 +1,7 @@
+<?php 
+    include ('conexion/conexion.php');
+ ?>
+
 <!DOCTYPE html>
 <html lang="esp">
 <head>
@@ -125,9 +129,9 @@
                         <h2>Selecciona el Estado</h2>
                         <div class="row" id="Estados">
                         <?php
-                        include ('conexion.php');
+
                         mysql_set_charset('utf8');
-                        $sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
+                        $sqlSuc="SELECT DISTINCT Estado FROM sucursales";
                         $sqlResE=$mysqli->query($sqlSuc);
                         $clase="";
                         $num=1;

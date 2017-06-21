@@ -195,7 +195,7 @@
                         <a class="btn btn-default" href="<?php echo $contenido['archivo']; ?>" target="_new" style="width:200px;margin-bottom:3em;">
                             <img src="../img/atencion_clientes/btn.png">
                         </a>
-                            <input type="text" name="archivo_actual" value="<?php echo $contenido['archivo']; ?>">
+                            <input type="hidden" name="archivo_actual" value="<?php echo $contenido['archivo']; ?>">
                             <div class="controls col-md-12">
                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                   <span class="btn btn-white btn-file">

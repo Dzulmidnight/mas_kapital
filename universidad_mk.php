@@ -53,11 +53,20 @@
 </head><!--/head-->
 
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.9";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 	<?php
     $menu = 'universidad';
     include('header.php');
      ?>
-    <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+
     <!--/#header-->
     <div class="container">
         <div class="row">
@@ -128,11 +137,13 @@
                         <h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1>
                     </div>
                     <div class="col-sm-12">
-                        <h2>Universidad MásKapital</h2>
+                        <h2><a href="https://www.facebook.com/mas.kapital?hc_ref=NEWSFEED">Universidad MásKapital</a></h2>
                     </div>
                     <div class="col-sm-12">
                         <h2>CONTACTO</h2>
-                        <img style="width:100%" src="img/universidad_mk/fb_universidad.png" alt="">
+                        <div class="fb-page" data-href="https://www.facebook.com/Universidad-M&#xe1;skapital-148934088773593/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Universidad-M&#xe1;skapital-148934088773593/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Universidad-M&#xe1;skapital-148934088773593/">Universidad Máskapital</a></blockquote></div>
+
+                        <!--<img style="width:100%" src="img/universidad_mk/fb_universidad.png" alt="">-->
                     </div>
                     <div class="col-sm-12" style="font-size:16px;color: #858789">
                         <p>

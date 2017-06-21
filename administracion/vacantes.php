@@ -144,7 +144,7 @@
                           </thead>
                           <tbody>
                             <?php 
-                            $query = "SELECT vacantes.*, Sucursales.Estado, Sucursales.NombreSucursal, requisitos.* FROM vacantes INNER JOIN Sucursales ON vacantes.idSucursales = Sucursales.idSucursales INNER JOIN requisitos ON vacantes.idVacantes = requisitos.idVacantes";
+                            $query = "SELECT vacantes.*, sucursales.Estado, sucursales.NombreSucursal, requisitos.* FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales INNER JOIN requisitos ON vacantes.idVacantes = requisitos.idVacantes";
                             $consultar = $mysqli->query($query);
 
                             while($vacantes = $consultar->fetch_assoc()){
@@ -309,7 +309,7 @@
                                     <tr>
                                       <td>
                                         <?php 
-                                        $query = "SELECT Estado FROM Sucursales GROUP BY Estado";
+                                        $query = "SELECT Estado FROM sucursales GROUP BY Estado";
                                         $consultar = $mysqli->query($query);
                                         ?>
                                           <select class="form-control" name="estado" id="sucursal_estado" required>

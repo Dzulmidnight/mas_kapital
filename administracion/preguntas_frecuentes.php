@@ -7,6 +7,13 @@
             header('Location: conexion/salir.php');
         }
     }
+    if(isset($_POST['eliminar_pregunta'])){
+      $idpregunta = $_POST['eliminar_pregunta'];
+      $query = "DELETE FROM faq WHERE idfaq = $idpregunta";
+      $eliminar = $mysqli->query($query);
+
+      echo '<script>alert("Se ha eliminado la pregunta.");</script>';
+    }
   $seccion = 'informacion';
   $menu = 'faq';
 
@@ -75,22 +82,34 @@
                             $ejecutar2 = $mysqli->query($sql);
                             $cont = 1;
                             while($preguntas = $ejecutar2->fetch_assoc()){
-                              $sub_accordion = 'accordion'.$secciones['id_seccion'].'_'.$preguntas['idfaq'];
 
-                              echo '<div class="panel panel-success">';
-                                  echo '<div class="panel-heading">';
-                                      echo '<h4 class="panel-title">';
-                                          echo '<a href="#'.$sub_accordion.'" data-parent="#'.$accordion.'" data-toggle="collapse" class="accordion-toggle">';
-                                              echo $cont.'.- '.$preguntas['pregunta'];
-                                          echo '</a>';
-                                      echo '</h4>';
-                                  echo '</div>';
-                                  echo '<div class="panel-collapse collapse" id="'.$sub_accordion.'">';
-                                      echo '<div class="panel-body">';
-                                        echo $preguntas['respuesta'];
-                                      echo '</div>';
-                                  echo '</div>';
-                              echo '</div>';
+                              $sub_accordion = 'accordion'.$secciones['id_seccion'].'_'.$preguntas['idfaq'];
+                              
+                                echo '<div class="panel panel-success">';
+                                    echo '<div class="panel-heading">';
+                                        echo '<form action="" method="POST">';
+                                          echo '<h4 class="panel-title">';
+                                          ?>
+
+                                    <button type="submit" name="eliminar_pregunta" class="btn btn-danger btn-xs" value="<?php echo $preguntas['idfaq']; ?>" onclick="return confirm('¿Desea eliminar la pregunta ?');"><i class="fa fa-trash-o "></i></button>
+                                  
+                                          <?php
+                                              echo '<a href="#'.$sub_accordion.'" data-parent="#'.$accordion.'" data-toggle="collapse" class="accordion-toggle">';
+                                                  echo $cont.'.- '.$preguntas['pregunta'];
+                                              echo '</a>';
+                                          echo '</h4>';
+                                        echo '</form>';
+                                    echo '</div>';
+                                    echo '<div class="panel-collapse collapse" id="'.$sub_accordion.'">';
+                                        echo '<div class="panel-body">';
+                                          echo $preguntas['respuesta'];
+                                        echo '</div>';
+                                    echo '</div>';
+                                echo '</div>';
+                              ?>
+                                
+                              <?php
+                            
                               $cont++;
                             }
 

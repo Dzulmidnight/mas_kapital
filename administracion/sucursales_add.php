@@ -163,7 +163,7 @@
                           </thead>
                           <tbody>
                             <?php 
-                            $query = "SELECT * FROM Sucursales";
+                            $query = "SELECT * FROM sucursales";
                             $consultar = $mysqli->query($query);
 
                             while($registros = $consultar->fetch_assoc()){

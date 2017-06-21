@@ -66,11 +66,18 @@
     $mysqli->query($sql);
   }
 
-  if(isset($_POST['eliminar_denuncia'])){
-    $idfrm_denuncia = $_POST['eliminar_denuncia'];
-    $sql = "DELETE FROM frm_denuncia WHERE idfrm_denuncia = '$idfrm_denuncia'";
+  if(isset($_POST['eliminar_solicitud'])){
+    $idsolicitud = $_POST['eliminar_solicitud'];
+    $idSolicitante = $_POST['idSolicitante'];
+
+    $sql = "DELETE FROM SolicitudTrabajo WHERE idSolicitudTrabajo = $idsolicitud";
     $mysqli->query($sql);
-    echo "<script>alert('Se ha eliminado la denuncia');</script>";
+
+    $sql = "DELETE FROM Solicitante WHERE idSolicitante = $idSolicitante";
+    $mysqli->query($sql);
+
+
+    echo "<script>alert('Se ha eliminado la solicitud');</script>";
   }
   $seccion = 'formularios';
   $menu = 'solicitudes';
@@ -129,7 +136,7 @@
                     Solicitudes Registradas
                 </header>
                   <div class="row">
-                    <!-- inicia tabla de denuncias -->
+                    <!-- inicia tabla de solicitud -->
                     <div class="col-md-12">
                       <section class="panel">
                         <div class="panel-body">
@@ -163,7 +170,7 @@
 	                                      <td><?php echo $fecha; ?></td>
 	                                      <td><?php echo utf8_decode($nombre); ?></td>
                                         <td><?php echo $solicitud['Carrera']; ?></td>
-	                                      <td><?php echo $solicitud['Puesto']; ?></td>
+	                                      <td><?php echo utf8_decode($solicitud['Puesto']); ?></td>
 	                                      <td><?php echo $solicitud['Estado']; ?></td>
 	                                      <td>
 	                                      	<?php 
@@ -177,11 +184,12 @@
 
 	                                      
 	                                      <td>
-	                                        <form id="<?php echo 'frm_denuncia'.$denuncias['idfrm_denuncia'] ?>" action="" method="POST">
-	                                          <input type="hidden" name="idfrm_denuncia" value="<?php echo $denuncias['idfrm_denuncia'] ?>">
+	                                        <form id="<?php echo 'frm_solicitud'.$solicitud['idSolicitudTrabajo'] ?>" action="" method="POST">
+	                                          <input type="hidden" name="idSolicitudTrabajo" value="<?php echo $solicitud['idSolicitudTrabajo'] ?>">
 	                                          <a class="btn btn-xs btn-info" href="detalle_solicitud.php?solicitud=<?php echo $solicitud['idSolicitudTrabajo']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
+	                                          <input type="hidden" name="idSolicitante" value="<?php echo $solicitud['idSolicitante']; ?>">
 
-	                                          <button type="submit" name="eliminar_denuncia" class="btn btn-danger btn-xs" value="<?php echo $denuncias['idfrm_denuncia']; ?>" onclick="return confirm('¿Desea eliminar la denuncia ?');"><i class="fa fa-trash-o "></i></button>
+	                                          <button type="submit" name="eliminar_solicitud" class="btn btn-danger btn-xs" value="<?php echo $solicitud['idSolicitudTrabajo']; ?>" onclick="return confirm('¿Desea eliminar la solicitud ?');"><i class="fa fa-trash-o "></i></button>
 	                                        </form>
 	                                        
 	                                      </td>
@@ -194,13 +202,13 @@
                                         //var x = '#btn-editar'+n;
                                         echo "$(document).on('ready',function(){";
 
-                                          echo "$('#btn-consultar_denuncia".$denuncias['idfrm_denuncia']."').click(function(){";
+                                          echo "$('#btn-consultar_denuncia".$solicitud['idSolicitudTrabajo']."').click(function(){";
                                             echo "var url = 'datos_denuncia.php';";                                   
 
                                             echo "$.ajax({";                        
                                                echo "type: 'POST',";                 
                                                echo "url: url,";                    
-                                               echo "data: $('#frm_denuncia".$denuncias['idfrm_denuncia']."').serialize(),";
+                                               echo "data: $('#frm_solicitud".$solicitud['idSolicitudTrabajo']."').serialize(),";
                                                echo "success: function(data)";           
                                                echo "{";
                                                  echo "$('#datos_denuncia').html(data);";          
@@ -219,7 +227,7 @@
                
                       </section>
                     </div>
-                    <!-- termina tabla de denuncias -->
+                    <!-- termina tabla de solicitud -->
                     <!--<div class="col-md-4">
                         <section class="panel">
                             <header class="panel-heading">

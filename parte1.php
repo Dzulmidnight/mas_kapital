@@ -14,7 +14,7 @@
                         <div class="col-xs-4">
                                 <select class="form-control" name="Puesto" id="Puesto">
                                 <?php include 'conexion.php';
-                                $sql ="SELECT DISTINCT Puesto FROM Vacantes";
+                                $sql ="SELECT DISTINCT Puesto FROM vacantes";
                                 $res=$mysqli->query($sql);
                                 while ($fila=$res->fetch_assoc()) {
                                     ?><option> <? echo utf8_encode($fila['Puesto']); ?></option>

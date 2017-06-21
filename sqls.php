@@ -59,17 +59,17 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 
 	if($_POST['Ax']==3){ 
 		$emp = $_POST['combo'];
-		$sql="SELECT * FROM Sucursales WHERE Estado='$emp[0]' OR Municipio='$emp[0]'";
+		$sql="SELECT * FROM sucursales WHERE Estado='$emp[0]' OR Municipio='$emp[0]'";
 		$result=$mysqli->query($sql);
 
 		while ($fila=$result->fetch_row()){
 
-			$sql2="SELECT * FROM Vacantes WHERE idSucursales='$fila[0]'";
+			$sql2="SELECT * FROM vacantes WHERE idSucursales='$fila[0]'";
 			$result2=$mysqli->query($sql2); 
 			while ($fila2=$result2->fetch_row()){
 				?>
 			<? 
-			$sql3="UPDATE Vacantes SET Activo='1' WHERE idVacantes=$fila2[0]";
+			$sql3="UPDATE vacantes SET Activo='1' WHERE idVacantes=$fila2[0]";
 			$mysqli->query($sql3);
 			 $espacio = " ";
 				$clase1 = str_replace($espacio, "",$emp[0]);
@@ -105,11 +105,11 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 	if($_POST['Ax']==4) { //Marcar Vacante como inactiva
 		$emp = $_POST['combo'];
 		foreach ($emp as $valor){
-		$sql="SELECT * FROM Sucursales WHERE Estado='$valor' OR Municipio='$valor'";
+		$sql="SELECT * FROM sucursales WHERE Estado='$valor' OR Municipio='$valor'";
 		$result=$mysqli->query($sql);
 		while ($fila=$result->fetch_row()){
 
-			$sql2="SELECT * FROM Vacantes WHERE idSucursales='$fila[0]'";
+			$sql2="SELECT * FROM vacantes WHERE idSucursales='$fila[0]'";
 			$result2=$mysqli->query($sql2); 
 			while ($fila2=$result2->fetch_row()){
 				?>
@@ -125,7 +125,7 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 	if ($_POST['Ax']==5) {
 		$idVacante=$_POST['idVacante'];
 
-		$sql2="SELECT * FROM Vacantes WHERE idVacantes=$idVacante";
+		$sql2="SELECT * FROM vacantes WHERE idVacantes=$idVacante";
 		$res2=$mysqli->query($sql2);
 		$fila2=$res2->fetch_assoc();
 		?>
@@ -135,13 +135,13 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 		<div class="col-md-12">
 			<p style="margin: 0em">Requisitos</p>
 		<?php
-		$sql="SELECT Requisito FROM Requisitos WHERE idVacantes=$idVacante";
+		$sql="SELECT Requisito FROM requisitos WHERE idVacantes=$idVacante";
 		$res=$mysqli->query($sql);
 		 while ($fila=$res->fetch_assoc()) {?>
 			<p style="margin: 0em">-<?	echo utf8_encode($fila['Requisito']);?></p><?
 			}
 		?><p style="margin: 1em 0em 0em">Ofrecemos</p> <?php
-		$sql3="SELECT Ofrecemos FROM Requisitos WHERE idVacantes=$idVacante";
+		$sql3="SELECT Ofrecemos FROM requisitos WHERE idVacantes=$idVacante";
 		$res3=$mysqli->query($sql3);
 		 while ($fila3=$res3->fetch_assoc()) {
 		 	if ($fila3['Ofrecemos']!="") {

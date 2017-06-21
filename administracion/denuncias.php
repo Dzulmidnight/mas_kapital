@@ -150,7 +150,7 @@
                                 </thead>
                                 <tbody>
                                   <?php 
-                                  $query = "SELECT frm_denuncia.*, Sucursales.NombreSucursal FROM frm_denuncia LEFT JOIN Sucursales ON frm_denuncia.sucursal = Sucursales.idSucursales";
+                                  $query = "SELECT frm_denuncia.*, sucursales.NombreSucursal FROM frm_denuncia LEFT JOIN sucursales ON frm_denuncia.sucursal = sucursales.idSucursales";
                                   $consultar = $mysqli->query($query);
 
                                   while($denuncias = $consultar->fetch_assoc()){
@@ -159,16 +159,17 @@
                                   ?>
                                     <tr id="<?php echo $idfila; ?>" class="gradeX">
                                       <td><?php echo $fecha; ?></td>
-                                      <td><?php echo utf8_decode($denuncias['nombre_denunciante']); ?></td>
-                                      <td><?php echo utf8_decode($denuncias['estado_denunciante']); ?></td>
+                                      <td><?php echo $denuncias['nombre_denunciante']; ?></td>
+                                      <td><?php echo $denuncias['estado_denunciante']; ?></td>
                                       <td><?php echo $denuncias['telefono_denunciante']; ?></td>
-                                      <td><?php echo utf8_decode($denuncias['NombreSucursal']); ?></td>
+                                      <td><?php echo $denuncias['NombreSucursal']; ?></td>
 
                                       
                                       <td>
                                         <form id="<?php echo 'frm_denuncia'.$denuncias['idfrm_denuncia'] ?>" action="" method="POST">
                                           <input type="hidden" name="idfrm_denuncia" value="<?php echo $denuncias['idfrm_denuncia'] ?>">
-                                          <button id="<?php echo 'btn-consultar_denuncia'.$denuncias['idfrm_denuncia']; ?>" type="button" class="btn btn-info btn-xs" onclick="document.getElementById('<?php echo $idfila; ?>').className = 'success'" data-toggle="tooltip" title="Más información"><i class="fa fa-eye"></i></button>
+                                          <!--<button id="<?php echo 'btn-consultar_denuncia'.$denuncias['idfrm_denuncia']; ?>" type="button" class="btn btn-info btn-xs" onclick="document.getElementById('<?php echo $idfila; ?>').className = 'success'" data-toggle="tooltip" title="Más información"><i class="fa fa-eye"></i></button>-->
+                                          <button id="<?php echo 'btn-consultar_denuncia'.$denuncias['idfrm_denuncia']; ?>" type="button" class="btn btn-info btn-xs" data-toggle="tooltip" title="Más información"><i class="fa fa-eye"></i></button>
 
                                           <button type="submit" name="eliminar_denuncia" class="btn btn-danger btn-xs" value="<?php echo $denuncias['idfrm_denuncia']; ?>" onclick="return confirm('¿Desea eliminar la denuncia ?');"><i class="fa fa-trash-o "></i></button>
                                         </form>

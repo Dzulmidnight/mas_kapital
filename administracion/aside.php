@@ -53,6 +53,7 @@
                 <ul class="sub">
                     <li <?php if(isset($menu) && $menu == 'denuncias'){echo 'class="active"'; } ?>><a  href="denuncias.php">Denuncias</a></li>
                     <li <?php if(isset($menu) && $menu == 'solicitudes'){echo 'class="active"'; } ?>><a  href="solicitudes.php">Solicitudes</a></li>
+                    <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a  href="frm_atencion.php">Atención a Clientes</a></li>
                 </ul>
             </li>
 

@@ -368,7 +368,7 @@ ul {
 include ('conexion.php');
 $Aux=0;
 //$sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
-$sqlSuc="SELECT Sucursales.Estado FROM vacantes INNER JOIN Sucursales ON vacantes.idSucursales = Sucursales.idSucursales GROUP BY Sucursales.Estado";
+$sqlSuc="SELECT sucursales.Estado FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales GROUP BY sucursales.Estado";
 
 $sqlResE=$mysqli->query($sqlSuc);
 while ($fila=$sqlResE->fetch_row()) 
@@ -381,7 +381,7 @@ while ($fila=$sqlResE->fetch_row())
         <ul>
         <?php  
         //$sqlMun="SELECT idSucursales,Municipio FROM Sucursales WHERE Estado='$fila[0]' ";
-        $sqlMun="SELECT vacantes.idSucursales, Sucursales.Municipio FROM vacantes INNER JOIN Sucursales ON vacantes.idSucursales = Sucursales.idSucursales WHERE Estado = '$fila[0]' GROUP BY vacantes.idSucursales";
+        $sqlMun="SELECT vacantes.idSucursales, sucursales.Municipio FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales WHERE Estado = '$fila[0]' GROUP BY vacantes.idSucursales";
         $ResMun=$mysqli->query($sqlMun); 
 
         while ($Mun=$ResMun->fetch_row())

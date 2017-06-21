@@ -284,7 +284,7 @@
 
             ?>
 
-            <div class="row">
+            <div id="idcontenido" class="row">
                 <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">
                     <?php 
                     while($titulo = $consultar_titulo->fetch_assoc()){
