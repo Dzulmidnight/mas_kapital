@@ -226,7 +226,7 @@
                     <li><a href="#"><i class=" fa fa-suitcase"></i>Perfil</a></li>
                     <li><a href="#"><i class="fa fa-cog"></i> Configuración</a></li>
                     <li><a href="#"><i class="fa fa-bell-o"></i> Notificaciones</a></li>
-                    <li><a href="login.php"><i class="fa fa-key"></i> Cerrar Sesión</a></li>
+                    <li><a href="../conexion/salir.php"><i class="fa fa-key"></i> Cerrar Sesión</a></li>
                 </ul>
             </li>
             <!-- user login dropdown end -->

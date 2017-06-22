@@ -13,7 +13,7 @@ if (isset($_POST['accion'])) {
 		$mysqli->query($sqlM);
 
 
-		$sql ="SELECT * FROM Sucursales WHERE Estado ='$Estado'";
+		$sql ="SELECT * FROM sucursales WHERE Estado ='$Estado'";
 
 		$result=$mysqli->query($sql);
 		?><div class="col-md-12 h2"><?php echo $Estado ?></div><?php
@@ -34,7 +34,7 @@ if (isset($_POST['accion'])) {
 
 	if ($_POST['accion']==2) {
 		$Mun = $_POST['Mun'];
-		$sql2 ="SELECT * FROM Sucursales WHERE Municipio ='$Mun'";
+		$sql2 ="SELECT * FROM sucursales WHERE Municipio ='$Mun'";
 		$result2=$mysqli->query($sql2);
 		$Num = $result2->num_rows;
 		while ($fila=$result2->fetch_assoc()){?>

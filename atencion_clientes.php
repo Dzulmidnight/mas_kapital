@@ -41,7 +41,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                 <thead>
                     <tr>
                         <th style="padding: 15px;border: 1px solid #ddd" align="center">
-                            <img class="img-responsive" src="https://www.maskapital.com.mx/img/logos/logo_mas_kapital.png" alt="logo">
+                            <img class="img-responsive" src="http://iotechdata1.xyz/mas_kapital/img/logos/logo_mas_kapital.png" alt="logo">
                         </th>
                         <th style="padding: 15px;border: 1px solid #ddd" align="left">
                             <h3>TEMA O MOTIVO: <span style="color:red">'.$tema_motivo.'</span></h3>
@@ -112,7 +112,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
         </body>
         </html>
     ';
-    if(isset($correos_oc['email1'])){
+    /*if(isset($correos_oc['email1'])){
         $token = strtok($correos_oc['email1'], "\/\,\;");
         while ($token !== false)
         {
@@ -127,8 +127,9 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
             $mail->AddCC($token);
             $token = strtok('\/\,\;');
         }
-    }
+    }*/
 
+    $mail->AddCC('soporteinforganic@gmail.com');
     $mail->Subject = utf8_decode($asunto);
     $mail->Body = utf8_decode($cuerpo_mensaje);
     $mail->MsgHTML(utf8_decode($cuerpo_mensaje));

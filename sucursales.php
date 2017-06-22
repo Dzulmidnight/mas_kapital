@@ -130,7 +130,6 @@
                         <div class="row" id="Estados">
                         <?php
 
-                        mysql_set_charset('utf8');
                         $sqlSuc="SELECT DISTINCT Estado FROM sucursales";
                         $sqlResE=$mysqli->query($sqlSuc);
                         $clase="";

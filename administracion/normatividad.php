@@ -53,6 +53,11 @@
     $query = "DELETE FROM slide WHERE idslide = $idslide";
     $eliminar = $mysqli->query($query);
   }
+  if(isset($_POST['eliminar_contenido'])){
+    $idcontenido = $_POST['eliminar_contenido'];
+    $query = "DELETE FROM contenido WHERE idcontenido = $idcontenido";
+    $eliminar = $mysqli->query($query);
+  }
 
   $seccion = 'secciones';
   $menu = 'normatividad';
@@ -289,10 +294,15 @@
                     <?php 
                     while($titulo = $consultar_titulo->fetch_assoc()){
                     ?>
-                        <div class="div-normatividad col-sm-12">
-                            <h2 style="color:black"><input type="text" class="form-control" name="" value="<?php echo $titulo['titulo']; ?>"></h2>
-                            <a href="<?php echo '#'.$titulo['idcontenido']; ?>"><span class="label label-primary">Consultar</span></a>
-                        </div>
+                      <form action="" method="POST">
+                          <div class="div-normatividad col-sm-12">
+                              <h2 style="color:black"><input type="text" class="form-control" name="" value="<?php echo $titulo['titulo']; ?>"></h2>
+                              <a href="<?php echo '#'.$titulo['idcontenido']; ?>"><span class="label label-primary">Consultar</span></a>
+<button class="btn btn-danger btn-xs" type="submit" class="" name="eliminar_contenido" value="<?php echo $titulo['idcontenido']; ?>" onclick="return confirm('¿Desea eliminar el contenido?');">Eliminar</button>
+
+                          </div>                        
+                      </form>
+
                     <?php
                     }
                      ?>

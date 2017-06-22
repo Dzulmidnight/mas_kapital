@@ -74,33 +74,57 @@ include('conexion/conexion.php');
             <div class="row">
         
                 <div style="padding:0px;">
+
+
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
+                        <?php 
+                        $query_slide = "SELECT * FROM slide WHERE pagina = 1";
+                        $consultar = $mysqli->query($query_slide);
+                        $query_slide2 = "SELECT * FROM slide WHERE pagina = 1 ORDER BY idslide DESC";
+                        $consultar2 = $mysqli->query($query_slide2);
+                         ?>
                         <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <?php
+                          $cont = 0;
+                          while($slide = $consultar->fetch_assoc()){
+                            echo '<li data-target="#carousel-example-generic" data-slide-to="'.$cont.'" class=""></li>';
+                            $cont++;
+                          }
+                         ?>
+                            <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
                         </ol>
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item active ">
-                                <img src="img/slider/principal/principal_1.jpg"  alt="imagen1">
+                            <?php
+                            $cont = 0;
+                            while($img_slide = $consultar2->fetch_assoc()){
+                            ?>
+                              <div class="item <?php if($cont == 0){echo 'active'; } ?>">
+                                  <img class="img-responsive" src="<?php echo 'administracion/'.$img_slide['img']; ?>"  alt="imagen1">
+                              </div>
+
+                            <?php
+                            $cont++;
+                            }
+                             ?>
+                            <!--<div class="item">
+                                <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
                             </div>
                             <div class="item">
-                                <img src="img/slider/principal/principal_2.jpg" alt="imagen2">
+                                <img class="img-responsive" src="../img/slider/principal/principal_3.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="img/slider/principal/principal_3.jpg" alt="imagen3">
+                                <img class="img-responsive" src="../img/slider/principal/principal_4.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="img/slider/principal/principal_4.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img src="img/slider/principal/principal_5.jpg" alt="imagen3">
-                            </div>
+                                <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
+                            </div>-->
                         </div>
 
                         <!-- Controls -->
@@ -112,7 +136,7 @@ include('conexion/conexion.php');
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
-                    </div>                  
+                    </div>                   
                 </div>
             </div>
         </div>
@@ -124,44 +148,49 @@ include('conexion/conexion.php');
     include('menu_lateral.php');
      ?>	
     <!--/#home-slider-->
-
+    
+    <?php 
+    $query_pagina = "SELECT * FROM pagina1 WHERE idpagina1 = 1";
+    $consultar = $mysqli->query($query_pagina);
+    $detalle = $consultar->fetch_assoc();
+     ?>
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="img/index/oportuno.png" alt="oportuno">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img1']; ?>" alt="oportuno">
                         </div>
-                        <h2 style="color:#29327e">OPORTUNO</h2>
-                        <p>Te otorgamos el crédito cuando lo necesitas.</p>
+                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo1']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont1']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="img/index/accesible.png" alt="accesible">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img2']; ?>" alt="accesible">
                         </div>
-                        <h2 style="color:#35bddf">ACCESIBLE</h2>
-                        <p>Nuestros requisitos son sencillos de obtener</p>
+                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo2']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont2']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="img/index/rentable.png" alt="rentable">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img3']; ?>" alt="rentable">
                         </div>
-                        <h2 style="color:#29327e">RENTABLE</h2>
-                        <p>Nuestro crédito te apoya para hacer crecer tu negocio</p>
+                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo3']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont3']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                            <img src="img/index/seguro.png" alt="seguro">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img4']; ?>" alt="seguro">
                         </div>
-                        <h2 style="color:#35bddf">SEGURO</h2>
-                        <p>Con nosotros tu dinero no está en riesgo</p>
+                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo4']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont4']; ?></p>
                     </div>
                 </div>
 
@@ -204,15 +233,18 @@ include('conexion/conexion.php');
                 
                     <!--- SECCIÓN LG-MD -->
                     <div class="hidden-sm hidden-xs col-md-6 fadeInLeft text-center" style="margin-top:3em;">
-                        <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b>QUIENES SOMOS</b></h1>
+                        <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b><?php echo $detalle['sec2_titulo1']; ?></b></h1>
                         <p style="font-size:16px;text-align:justify;">
-                            Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento. 
+                            <?php echo $detalle['sec2_cont1']; ?>
+                            <!--Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento.-->
                         </p>
                         <p style="font-size:16px;text-align:justify;">
-                            Nuestra experiencia en el área de las microfinanzas nos ha posicionado como una empresa sólida, moderna, e innovadora, que en forma eficiente y funcional otorga servicios financieros para el sector de la población de bajos ingresos sin acceso a fuentes bancarias de financiamiento.
+                            <?php echo $detalle['sec2_cont2']; ?>
+                            <!--Nuestra experiencia en el área de las microfinanzas nos ha posicionado como una empresa sólida, moderna, e innovadora, que en forma eficiente y funcional otorga servicios financieros para el sector de la población de bajos ingresos sin acceso a fuentes bancarias de financiamiento.-->
                         </p>
                         <p style="font-size:16px;text-align:justify;">
-                            Nuestra función consiste básicamente en ser el vehículo que lleve hasta las comunidades los recursos económicos y herramientas para su gestión. Y encaminamos nuestros servicios financieros a potenciar y hacer más eficientes las actividades productivas que se desarrollan en sus comunidades.
+                            <?php echo $detalle['sec2_cont3']; ?>
+                            <!--Nuestra función consiste básicamente en ser el vehículo que lleve hasta las comunidades los recursos económicos y herramientas para su gestión. Y encaminamos nuestros servicios financieros a potenciar y hacer más eficientes las actividades productivas que se desarrollan en sus comunidades.-->
                         </p>
                     </div>
                     <div class="hidden-sm hidden-xs col-md-6">
@@ -221,7 +253,7 @@ include('conexion/conexion.php');
                 
                     <!-- SECCIÓN SM -->
                     <div class="visible-sm col-sm-6 fadeInLeft text-center" style="margin-top:3em;">
-                        <h2 style="color:#323534;font-size:3em;margin-bottom:1em;"><b>QUIENES SOMOS</b></h2>
+                        <h2 style="color:#323534;font-size:3em;margin-bottom:1em;"><b><?php echo $detalle['sec2_titulo1']; ?></b></h2>
                         <p style="font-size:16px;text-align:justify;">
                             Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento. 
                         </p>
@@ -238,7 +270,7 @@ include('conexion/conexion.php');
 
                     <!-- SECCIÓN XS -->
                     <div class="visible-xs col-xs-12 fadeInLeft text-center" style="margin-top:3em;">
-                        <h1 style="color:#323534;font-size:2.5em;margin-bottom:1em;"><b>QUIENES SOMOS</b></h1>
+                        <h1 style="color:#323534;font-size:2.5em;margin-bottom:1em;"><b><?php echo $detalle['sec2_titulo1']; ?></b></h1>
                         <p style="font-size:16px;text-align:justify;">
                             Como institución intentamos trascender a los servicios financieros tradicionales de crédito, nuestro enfoque esta en resolver las necesidades reales de mujeres emprendedoras. Creando un proceso de crédito fácil y accesible, cuyos montos y plazos se adecuan a las necesidades de cada particular, manteniendo la confiabilidad y beneficios de un grupo de financiamiento. 
                         </p>
@@ -269,15 +301,15 @@ include('conexion/conexion.php');
         <div class="container" >
             <div class="row">
                     <div class="col-sm-12">
-                        <h1 class="title text-center">NUESTRA MISIÓN</h1>
+                        <h1 class="title text-center"><?php echo $detalle['sec3_titulo1']; ?></h1>
                         <p style="text-align:justify;font-size:16px;">
-                            Somos una entidad financiera sostenible, que genera oportunidades de desarrollo para nuestros colaboradores, las familias de los microempresarios y accionistas, actuando con honestidad, transparencia y socialmente responsables.
+                            <?php echo $detalle['sec3_cont1']; ?>
                         </p>
                     </div>
                     <div class="col-sm-12">
-                        <h1 class="title text-center">NUESTRA VISIÓN</h1>
+                        <h1 class="title text-center"><?php echo $detalle['sec3_titulo2']; ?></h1>
                         <p style="text-align:justify;font-size:16px;">
-                            Ser un verdadero agente de cambio que contribuya a mejorar las condiciones de vida de nuestros clientes.
+                            <?php echo $detalle['sec3_cont2']; ?>
                         </p> 
                     </div>
             </div>

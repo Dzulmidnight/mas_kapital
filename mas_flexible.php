@@ -116,31 +116,56 @@ ul {
                 <div style="padding:0px;">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
+                        <?php 
+                        $query_slide = "SELECT * FROM slide WHERE pagina = 3";
+                        $consultar = $mysqli->query($query_slide);
+                        $query_slide2 = "SELECT * FROM slide WHERE pagina = 3 ORDER BY idslide DESC";
+                        $consultar2 = $mysqli->query($query_slide2);
+                        $rows_slide = $consultar2->num_rows;
+                         ?>
                         <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <?php
+                          $cont = 0;
+                          while($slide = $consultar->fetch_assoc()){
+                            echo '<li data-target="#carousel-example-generic" data-slide-to="'.$cont.'" class=""></li>';
+                            $cont++;
+                          }
+                         ?>
+                            <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
                         </ol>
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item active ">
-                                <img src="img/slider/mas_flexible/mas_flexible_1.jpg"  alt="imagen1">
+                            <?php
+                            $cont = 0;
+                            while($img_slide = $consultar2->fetch_assoc()){
+                            ?>
+                              <div class="item <?php if($cont == 0){echo 'active'; } ?>">
+                                  <img class="img-responsive" src="<?php echo 'administracion/'.$img_slide['img']; ?>"  alt="imagen1">
+  
+                              </div>
+
+                            <?php
+                            $cont++;
+                            }
+                             ?>
+
+                            <!--<div class="item">
+                                <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
                             </div>
                             <div class="item">
-                                <img src="img/slider/mas_flexible/mas_flexible_2.jpg" alt="imagen2">
+                                <img class="img-responsive" src="../img/slider/principal/principal_3.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="img/slider/mas_flexible/mas_flexible_3.jpg" alt="imagen3">
+                                <img class="img-responsive" src="../img/slider/principal/principal_4.jpg" alt="imagen3">
                             </div>
                             <div class="item">
-                                <img src="img/slider/mas_flexible/mas_flexible_4.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img src="img/slider/mas_flexible/mas_flexible_5.jpg" alt="imagen3">
-                            </div>
+                                <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
+                            </div>-->
                         </div>
 
                         <!-- Controls -->
