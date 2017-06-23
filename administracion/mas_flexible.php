@@ -1,7 +1,10 @@
 <?php 
   require('../conexion/conexion.php');
   require('../conexion/sesion.php');
-  $pagina = 3;
+  include('funciones.php');
+
+  $pagina = 3; // 3 = MásFlexible
+
   if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
     /*$sec1_img1 = "../img/index/".$_POST['sec1_img1'];
     $sec1_img2 = "../img/index/".$_POST['sec1_img2'];
@@ -228,7 +231,7 @@
     <link rel="shortcut icon" href="img/favicon.png">
 
     <title>Sección: MasFlexible</title>
-<link href="../css/main.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-reset.css" rel="stylesheet">
@@ -282,553 +285,538 @@
                       <!--Pulstate start-->
                       <section class="">
                           <header class="panel-heading">
-                            Sección: <span style="color:red">¿Quiénes Somos?</span>
+                            Sección: <span style="color:red">MásFlexible</span>
                           </header>
                           <div class="panel-body">
-<form action="" method="POST" enctype="multipart/form-data">
-    <div id="" style="position:fixed;z-index: 1;">
-      <div class="">
-        <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
-      </div>
-    </div>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <div id="" style="position:fixed;z-index: 1;">
+                                  <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
+                                </div>
+                                <!-- INICIA TITULO PRINCIPAL -->
+                                <section>
+                                  <div class="col-md-12 text-center" style="background-color: #f0f0f6;padding-top:3em;margin-bottom:1em;">
+                                      <h1 style="color: #2a3031;font-size:50px"><b>MÁSFLEXIBLE</b></h1>
+                                      <h2 style="font-size:30px;"><i><input type="text" name="subtitulo" value="<?php echo $contenido['subtitulo']; ?>"></i></h2>
+                                  </div>
+                                </section>
+                                <!-- TERMINA TITULO PRINCIPAL -->
+                                
+                                <!-- INICIA SECCIÓN SLIDER -->
+                                <section id="" >
+                                  <div class="container">
+                                      <div class="row">
+                                          <div style="">
+                                              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                  <!-- Indicators -->
+                                                  <?php 
+                                                  $query_slide = "SELECT * FROM slide WHERE pagina = $pagina";
+                                                  $consultar = $mysqli->query($query_slide);
+                                                  $query_slide2 = "SELECT * FROM slide WHERE pagina = $pagina ORDER BY idslide DESC";
+                                                  $consultar2 = $mysqli->query($query_slide2);
+                                                  $rows_slide = $consultar2->num_rows;
+                                                   ?>
+                                                  <ol class="carousel-indicators">
+                                                  <?php
+                                                    $contador = 0;
+                                                    while($slide = $consultar->fetch_assoc()){
+                                                      echo '<li data-target="#carousel-example-generic" data-slide-to="'.$contador.'" class=""></li>';
+                                                      $contador++;
+                                                    }
+                                                   ?>
+                                                  </ol>
 
-    <section id="home-slider" >
-        <div class="container">
-            <div class="row">
-                <div style="padding:0px;">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <?php 
-                        $query_slide = "SELECT * FROM slide WHERE pagina = $pagina";
-                        $consultar = $mysqli->query($query_slide);
-                        $query_slide2 = "SELECT * FROM slide WHERE pagina = $pagina ORDER BY idslide DESC";
-                        $consultar2 = $mysqli->query($query_slide2);
-                        $rows_slide = $consultar2->num_rows;
-                         ?>
-                        <ol class="carousel-indicators">
-                        <?php
-                          $cont = 0;
-                          while($slide = $consultar->fetch_assoc()){
-                            echo '<li data-target="#carousel-example-generic" data-slide-to="'.$cont.'" class=""></li>';
-                            $cont++;
-                          }
-                         ?>
-                            <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
-                        </ol>
+                                                  <!-- Wrapper for slides -->
+                                                  <div class="carousel-inner" role="listbox">
+                                                      <?php
+                                                      $contador = 0;
+                                                      while($img_slide = $consultar2->fetch_assoc()){
+                                                      ?>
+                                                        <div class="item <?php if($contador == 0){echo 'active'; } ?>">
+                                                          <img class="img-responsive" src="<?php echo $img_slide['img']; ?>"  alt="imagen1">
+                                                          <!-- inicia moficar imagen -->
+                                                          <div class="form-group last">
+                                                              <div class="col-md-3">
+                                                                  <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                                      <div class="fileupload-new thumbnail" style="width: 200px; height: 90px;">
+                                                                          <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                      </div>
+                                                                      <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                                      <div>
+                                                                         <span class="btn btn-white btn-file">
+                                                                           <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                                           <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                           <input type="file" name="<?php echo 'img_slide'.$img_slide['idslide']; ?>" class="default" />
+                                                                         </span>
+                                                                      </div>
+                                                                  </div>
+                                                                  <input type="hidden" name="<?php echo 'img_slide_actual'.$img_slide['idslide']; ?>" value="<?php echo $img_slide['img']; ?>">
+                                                                  <span class="label label-danger">NOTA</span>
+                                                                  <span>
+                                                                    La imagen debe tener un ancho y alto recomendado de 1800px X 700px
+                                                                  </span>
+                                                              </div>
+                                                              <div class="col-md-3" style='margin-top:2em;'>
+                                                                <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
+                                                              </div>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <?php
-                            $cont = 0;
-                            while($img_slide = $consultar2->fetch_assoc()){
-                            ?>
-                              <div class="item <?php if($cont == 0){echo 'active'; } ?>">
-                                  <img class="img-responsive" src="<?php echo $img_slide['img']; ?>"  alt="imagen1">
-                                        <div class="form-group last">
+
+                                                          </div>
+                                                          <!-- termina modificar imagen -->
+                                                        </div>
+                                                      <?php
+                                                      $contador++;
+                                                      }
+                                                       ?>
+                                                      <!-- inicia agregar nueva imagen -->
+                                                      <div class="item <?php if($rows_slide == 0){echo 'active'; } ?>">
+                                                        <div class="form-group last" style="margin:10em;">
+                                                            <div class="col-md-12 text-center">
+                                                                <h3 class="alert alert-info">Agregar nueva imagen</h3>
+                                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                    </div>
+                                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                                    <div>
+                                                                       <span class="btn btn-white btn-file">
+                                                                         <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
+                                                                         <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                         <input type="file" name="nuevo_slide" class="default" />
+                                                                       </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="label label-danger">NOTA</span>
+                                                                <span>
+                                                                  La imagen debe tener un ancho y alto recomendado de 1800px X 700px
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                      <!-- termina agregar nueva imagen -->
+                                                  </div>
+
+                                                  <!-- Controls -->
+                                                  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                                      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                      <span class="sr-only">Anterior</span>
+                                                  </a>
+                                                  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                                      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                      <span class="sr-only">Siguiente</span>
+                                                  </a>
+                                              </div>                  
+                                          </div>
+                                      </div>
+                                  </div>
+                                </section>
+                                <!-- TERMINA SECCIÓN SLIDER -->
+
+                                <!-- INICIA SECCIÓN 1 ()
+
+                                <section id="services">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                                <div class="single-service">
+                                                    <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
+                                                        <img src="<?php echo $contenido['sec1_img1']; ?>" alt="oportuno">
+                                                        <input type="hidden" name="img1_actual" value="<?php echo $contenido['sec1_img1']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="sec1_img1" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <h2 style="color:#29327e"><input type="text" id="sec1_titulo1" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>"></h2>
+                                                    <p>
+                                                      <textarea name="sec1_cont1" id="sec1_cont1"><?php echo $contenido['sec1_cont1']; ?></textarea>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                                <div class="single-service">
+                                                    <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
+                                                        <img src="<?php echo $contenido['sec1_img2']; ?>" alt="accesible">
+                                                        <input type="hidden" name="img2_actual" value="<?php echo $contenido['sec1_img2']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="sec1_img2" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <h2 style="color:#35bddf"><input type="text" name="sec1_titulo2" value="<?php echo $contenido['sec1_titulo2']; ?>"></h2>
+                                                    <p>
+                                                      <textarea name="sec1_cont2" id="sec1_cont2"><?php echo $contenido['sec1_cont2']; ?></textarea>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
+                                                <div class="single-service">
+                                                    <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
+                                                        <img src="<?php echo $contenido['sec1_img3']; ?>" alt="rentable">
+                                                        <input type="hidden" name="img3_actual" value="<?php echo $contenido['sec1_img3']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="sec1_img3" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <h2 style="color:#29327e"><input type="text" name="sec1_titulo3" value="<?php echo $contenido['sec1_titulo3']; ?>"></h2>
+                                                    <p><textarea name="sec1_cont3" id="sec1_cont3"><?php echo $contenido['sec1_cont3']; ?></textarea></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
+                                                <div class="single-service">
+                                                    <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
+                                                        <img src="<?php echo $contenido['sec1_img4']; ?>" alt="seguro">
+                                                        <input type="hidden" name="img4_actual" value="<?php echo $contenido['sec1_img4']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="sec1_img4" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <h2 style="color:#35bddf"><input type="text" name="sec1_titulo4" value="<?php echo $contenido['sec1_titulo4'] ?>"></h2>
+                                                    <p><textarea name="sec1_cont4" id="sec1_cont4"><?php echo $contenido['sec1_cont4']; ?></textarea></p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </section>
+                                <!--/#services-->
+
+                                <!-- QUIENES SOMOS -->
+                                <section id="features">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><input type="text" name="sec2_titulo1" value="<?php echo $contenido['sec2_titulo1']; ?>"></h1>
+                                                <textarea class="wysihtml5 form-control" name="sec2_cont1" rows="10"><?php echo $contenido['sec2_cont1']; ?></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                 <!--/#features-->
+                                <section id="beneficios_masflexible" style="margin-top:4em;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="divs col-md-2">
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>  
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec3_cont2" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont2']; ?></textarea>  
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec3_cont3" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont3']; ?></textarea>   
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec3_cont4" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont4'] ?></textarea>
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec3_cont5" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont5']; ?></textarea>   
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec3_cont6" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont6']; ?></textarea>    
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section id="caracteristicas" style="margin-top:4em;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12 ">
+                                                <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><input type="text" name="sec4_titulo1" value="<?php echo $contenido['sec4_titulo1']; ?>"></h1>
+                                                <h2 class="text-center"><input type="text" name="sec4_sub1" value="<?php echo $contenido['sec4_sub1']; ?>"></h2>
+                                            </div>
+                                            <div class="col-md-8 col-md-offset-2">
+                                                <p class="text-center">
+                                                    <textarea class="form-control" name="sec4_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec4_cont1']; ?></textarea>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section id="clients">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-12 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms" >
+                                                <img class="img-responsive" src="<?php echo $contenido['sec4_img1']; ?>" alt="">
+
+                                                                    <div class="form-group last" style="">
+                                                                        <div class="col-md-12 text-center">
+                                                                            
+                                                                            <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                                                <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                                                    <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                                </div>
+                                                                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                                                <div>
+                                                                                 <span class="btn btn-white btn-file">
+                                                                                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                                                 <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                                 <input type="file" name="sec4_img1" class="default" />
+                                                                                 </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--<span class="label label-danger">NOTE!</span>
+                                                                           <span>
+                                                                           Attached image thumbnail is
+                                                                           supported in Latest Firefox, Chrome, Opera,
+                                                                           Safari and Internet Explorer 10 only
+                                                                           </span>-->
+                                                                        </div>
+                                                                        <input type="hidden" name="sec4_img1_actual" value="<?php echo $contenido['sec4_img1']; ?>">
+
+
+                                                                    </div>
+
+                                            </div>              
+                                        </div>
+                                    </div>
+                                 </section>
+                                <!--/#clients-->
+                                <section id="requisitos" style="margin-bottom:4em;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12" style="padding:0">
+                                                <img class="img-responsive" style="width:100%;"src="<?php echo $contenido['sec4_img2'] ?>" alt="">
+                                                                    <div class="form-group last" >
+                                                                        <div class="col-md-12 text-center">
+                                                                            
+                                                                            <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                                                <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                                                    <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                                </div>
+                                                                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                                                <div>
+                                                                                 <span class="btn btn-white btn-file">
+                                                                                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                                                 <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                                 <input type="file" name="sec4_img2" class="default" />
+                                                                                 </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--<span class="label label-danger">NOTE!</span>
+                                                                           <span>
+                                                                           Attached image thumbnail is
+                                                                           supported in Latest Firefox, Chrome, Opera,
+                                                                           Safari and Internet Explorer 10 only
+                                                                           </span>-->
+                                                                        </div>
+                                                                        <input type="hidden" name="sec4_img2_actual" value="<?php echo $contenido['sec4_img2']; ?>">
+
+
+                                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+
+
+                                <section>
+                                    <div class="container" style="background-image: url('../img/index/banner_azul.png');background-size:cover; padding-top:2em;border-top: 10px solid #fac099; border-bottom: 10px solid #fac099">
+                                        <div class="col-md-12 text-center">
+                                            <h1 style=""><input type="text" name="sec4_titulo2" value="<?php echo $contenido['sec4_titulo2']; ?>"></h1>
+                                        </div>
+                                        
+                                        <!-- visible lg-md -->
+                                        <div class="col-md-7">
+                                            <img style="margin-top:6em;" src="../img/mas_flexible/compromisos.png" alt="">
+                                        </div>
+                                        <div class="col-md-5" style="text-align:justify;">
+                                            <ul>
+                                                <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub2" value="<?php echo $contenido['sec4_sub2']; ?>"></h3></li>
+                                                <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub3" value="<?php echo $contenido['sec4_sub3']; ?>"></h3></li>
+                                                <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub4" value="<?php echo $contenido['sec4_sub4']; ?>"></h3></li>
+                                                <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub5" value="<?php echo $contenido['sec4_sub5']; ?>"></h3></li>
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </section>
+
+
+                                
+                                <section>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <img class="img-responsive" src="<?php echo $contenido['sec4_img3'];  ?>" alt="">
+                                                                    <div class="form-group last" >
+                                                                        <div class="col-md-12 text-center">
+                                                                            <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                                                <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                                                    <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                                </div>
+                                                                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                                                <div>
+                                                                                 <span class="btn btn-white btn-file">
+                                                                                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                                                 <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                                 <input type="file" name="sec4_img3" class="default" />
+                                                                                 </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--<span class="label label-danger">NOTE!</span>
+                                                                           <span>
+                                                                           Attached image thumbnail is
+                                                                           supported in Latest Firefox, Chrome, Opera,
+                                                                           Safari and Internet Explorer 10 only
+                                                                           </span>-->
+                                                                        </div>
+                                                                        <input type="hidden" name="sec4_img3_actual" value="<?php echo $contenido['sec4_img3']; ?>">
+
+
+                                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                
+                                <section id="donde-pagar" style="margin-top:5em;margin-bottom:6em;">
+                                    <div class="container" style="border-bottom: 10px solid #263c89">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h1 class="text-center" style="font-size:40px;color:#2a3031"><input type="text" name="sec5_titulo1" value="<?php echo $contenido['sec4_titulo2']; ?>"></h1>
+                                            </div>
+
+                                            <!-- VISIBLE LG-MD -->
                                             <div class="col-md-3">
-                                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                    <div class="fileupload-new thumbnail" style="width: 200px; height: 90px;">
-                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                    </div>
-                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                                                    <div>
-                                                     <span class="btn btn-white btn-file">
-                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                     <input type="file" name="<?php echo 'img_slide'.$img_slide['idslide']; ?>" class="default" />
+                                                <img src="../img/mas_flexible/donde_pagar.png" alt="">
 
-                                                     </span>
+                                            </div>
 
-                                                    </div>
+                                            <div class="col-md-9 text-center" style="margin-top:4em;">
+                                                <div class="col-sm-4">
+                                                    <img class="img-responsive" src="<?php echo $contenido['sec5_img1']; ?>" alt="">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="sec5_img1" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="sec5_img1_actual" value="<?php echo $contenido['sec5_img1']; ?>">
                                                 </div>
-                                                     <input type="hidden" name="<?php echo 'img_slide_actual'.$img_slide['idslide']; ?>" value="<?php echo $img_slide['img']; ?>">
-                                                <!--<span class="label label-danger">NOTE!</span>
-                                               <span>
-                                               Attached image thumbnail is
-                                               supported in Latest Firefox, Chrome, Opera,
-                                               Safari and Internet Explorer 10 only
-                                               </span>-->
-                                            </div>
-                                            <div class="col-md-3" style='margin-top:2em;'>
-                                              <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
-                                              
-                                            </div>
-
-                                        </div>
-                              </div>
-
-                            <?php
-                            $cont++;
-                            }
-                             ?>
-                            <div class="item <?php if($rows_slide == 0){echo 'active'; } ?>">
-                                        <div class="form-group last" style="margin:10em;">
-                                            <div class="col-md-12 text-center">
-                                                <h3 class="alert alert-info">Agregar nueva imagen</h3>
-                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                    </div>
-                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                    <div>
-                                                     <span class="btn btn-white btn-file">
-                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
-                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                     <input type="file" name="nuevo_slide" class="default" />
-                                                     </span>
-                                                    </div>
+                                                <div class="col-sm-4">
+                                                    <img class="img-responsive" src="<?php echo $contenido['sec5_img2']; ?>" alt="">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="sec5_img2" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="sec5_img2_actual" value="<?php echo $contenido['sec5_img2']; ?>">
                                                 </div>
-                                                <!--<span class="label label-danger">NOTE!</span>
-                                               <span>
-                                               Attached image thumbnail is
-                                               supported in Latest Firefox, Chrome, Opera,
-                                               Safari and Internet Explorer 10 only
-                                               </span>-->
-                                            </div>
-
-
-                                        </div>
-                            </div>
-                            <!--<div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_3.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_4.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
-                            </div>-->
-                        </div>
-
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>                  
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <!--/#home-slider-->
-
-    <section id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="<?php echo $contenido['sec1_img1']; ?>" alt="oportuno">
-                            <input type="hidden" name="img1_actual" value="<?php echo $contenido['sec1_img1']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="sec1_img1" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h2 style="color:#29327e"><input type="text" id="sec1_titulo1" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>"></h2>
-                        <p>
-                          <textarea name="sec1_cont1" id="sec1_cont1"><?php echo $contenido['sec1_cont1']; ?></textarea>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="<?php echo $contenido['sec1_img2']; ?>" alt="accesible">
-                            <input type="hidden" name="img2_actual" value="<?php echo $contenido['sec1_img2']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="sec1_img2" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h2 style="color:#35bddf"><input type="text" name="sec1_titulo2" value="<?php echo $contenido['sec1_titulo2']; ?>"></h2>
-                        <p>
-                          <textarea name="sec1_cont2" id="sec1_cont2"><?php echo $contenido['sec1_cont2']; ?></textarea>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
-                    <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="<?php echo $contenido['sec1_img3']; ?>" alt="rentable">
-                            <input type="hidden" name="img3_actual" value="<?php echo $contenido['sec1_img3']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="sec1_img3" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h2 style="color:#29327e"><input type="text" name="sec1_titulo3" value="<?php echo $contenido['sec1_titulo3']; ?>"></h2>
-                        <p><textarea name="sec1_cont3" id="sec1_cont3"><?php echo $contenido['sec1_cont3']; ?></textarea></p>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
-                    <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                            <img src="<?php echo $contenido['sec1_img4']; ?>" alt="seguro">
-                            <input type="hidden" name="img4_actual" value="<?php echo $contenido['sec1_img4']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="sec1_img4" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h2 style="color:#35bddf"><input type="text" name="sec1_titulo4" value="<?php echo $contenido['sec1_titulo4'] ?>"></h2>
-                        <p><textarea name="sec1_cont4" id="sec1_cont4"><?php echo $contenido['sec1_cont4']; ?></textarea></p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!--/#services-->
-
-    <!-- QUIENES SOMOS -->
-    <section id="features">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><input type="text" name="sec2_titulo1" value="<?php echo $contenido['sec2_titulo1']; ?>"></h1>
-                    <textarea class="wysihtml5 form-control" name="sec2_cont1" rows="10"><?php echo $contenido['sec2_cont1']; ?></textarea>
-
-                </div>
-            </div>
-        </div>
-    </section>
-     <!--/#features-->
-    <section id="beneficios_masflexible" style="margin-top:4em;">
-        <div class="container">
-            <div class="row">
-                <div class="divs col-md-2">
-                    <img src="../img/mas_flexible/icono_beneficios.png" alt="">
-                    <p>
-                      <textarea class="form-control" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>  
-                    </p>
-                </div>
-                <div class="divs col-md-2" >
-                    <img src="../img/mas_flexible/icono_beneficios.png" alt="">
-                    <p>
-                      <textarea class="form-control" name="sec3_cont2" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont2']; ?></textarea>  
-                    </p>
-                </div>
-                <div class="divs col-md-2" >
-                    <img src="../img/mas_flexible/icono_beneficios.png" alt="">
-                    <p>
-                      <textarea class="form-control" name="sec3_cont3" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont3']; ?></textarea>   
-                    </p>
-                </div>
-                <div class="divs col-md-2" >
-                    <img src="../img/mas_flexible/icono_beneficios.png" alt="">
-                    <p>
-                      <textarea class="form-control" name="sec3_cont4" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont4'] ?></textarea>
-                    </p>
-                </div>
-                <div class="divs col-md-2" >
-                    <img src="../img/mas_flexible/icono_beneficios.png" alt="">
-                    <p>
-                      <textarea class="form-control" name="sec3_cont5" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont5']; ?></textarea>   
-                    </p>
-                </div>
-                <div class="divs col-md-2" >
-                    <img src="../img/mas_flexible/icono_beneficios.png" alt="">
-                    <p>
-                      <textarea class="form-control" name="sec3_cont6" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont6']; ?></textarea>    
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="caracteristicas" style="margin-top:4em;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 ">
-                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><input type="text" name="sec4_titulo1" value="<?php echo $contenido['sec4_titulo1']; ?>"></h1>
-                    <h2 class="text-center"><input type="text" name="sec4_sub1" value="<?php echo $contenido['sec4_sub1']; ?>"></h2>
-                </div>
-                <div class="col-md-8 col-md-offset-2">
-                    <p class="text-center">
-                        <textarea class="form-control" name="sec4_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec4_cont1']; ?></textarea>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="clients">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms" >
-                    <img class="img-responsive" src="<?php echo $contenido['sec4_img1']; ?>" alt="">
-
-                                        <div class="form-group last" style="">
-                                            <div class="col-md-12 text-center">
-                                                
-                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                    </div>
-                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                    <div>
-                                                     <span class="btn btn-white btn-file">
-                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                     <input type="file" name="sec4_img1" class="default" />
-                                                     </span>
-                                                    </div>
+                                                <div class="col-sm-4">
+                                                    <img class="img-responsive" src="<?php echo $contenido['sec5_img3']; ?>" alt="">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="sec5_img3" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="sec5_img3_actual" value="<?php echo $contenido['sec5_img3']; ?>">
                                                 </div>
-                                                <!--<span class="label label-danger">NOTE!</span>
-                                               <span>
-                                               Attached image thumbnail is
-                                               supported in Latest Firefox, Chrome, Opera,
-                                               Safari and Internet Explorer 10 only
-                                               </span>-->
+                                                <div class="col-sm-8 col-xs-12">
+                                                    <h3 class="text-center"><input type="text" name="sec5_sub1" value="<?php echo $contenido['sec5_sub1']; ?>"></h3>
+                                                </div>
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <h3 class="text-center"><input type="text" name="sec5_sub2" value="<?php echo $contenido['sec5_sub2']; ?>"></h3>
+                                                </div>
+                                                <div class="col-sm-9 col-xs-12 col-sm-offset-3">
+                                                    <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;">
+                                                      <textarea class="form-control" name="sec5_cont1" id="" rows="3"><?php echo $contenido['sec5_cont1']; ?></textarea>
+                                                    </h2>
+                                                    <h4 class="text-left" style="color:#858789"><input class="form-control" type="text" name="sec5_titulo2" value="<?php echo $contenido['sec5_titulo2']; ?>"></h4>
+                                                    <textarea class="form-control" name="sec5_cont2" id="" rows="3"><?php echo $contenido['sec5_cont2']; ?></textarea>
+                                                </div>
                                             </div>
-                                            <input type="hidden" name="sec4_img1_actual" value="<?php echo $contenido['sec4_img1']; ?>">
+
+
 
 
                                         </div>
-
-                </div>              
-            </div>
-        </div>
-     </section>
-    <!--/#clients-->
-    <section id="requisitos" style="margin-bottom:4em;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="padding:0">
-                    <img class="img-responsive" style="width:100%;"src="<?php echo $contenido['sec4_img2'] ?>" alt="">
-                                        <div class="form-group last" >
-                                            <div class="col-md-12 text-center">
-                                                
-                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                    </div>
-                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                    <div>
-                                                     <span class="btn btn-white btn-file">
-                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                     <input type="file" name="sec4_img2" class="default" />
-                                                     </span>
-                                                    </div>
-                                                </div>
-                                                <!--<span class="label label-danger">NOTE!</span>
-                                               <span>
-                                               Attached image thumbnail is
-                                               supported in Latest Firefox, Chrome, Opera,
-                                               Safari and Internet Explorer 10 only
-                                               </span>-->
-                                            </div>
-                                            <input type="hidden" name="sec4_img2_actual" value="<?php echo $contenido['sec4_img2']; ?>">
+                                    </div>
+                                </section>
 
 
-                                        </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section>
-        <div class="container" style="background-image: url('../img/index/banner_azul.png');background-size:cover; padding-top:2em;border-top: 10px solid #fac099; border-bottom: 10px solid #fac099">
-            <div class="col-md-12 text-center">
-                <h1 style=""><input type="text" name="sec4_titulo2" value="<?php echo $contenido['sec4_titulo2']; ?>"></h1>
-            </div>
-            
-            <!-- visible lg-md -->
-            <div class="col-md-7">
-                <img style="margin-top:6em;" src="../img/mas_flexible/compromisos.png" alt="">
-            </div>
-            <div class="col-md-5" style="text-align:justify;">
-                <ul>
-                    <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub2" value="<?php echo $contenido['sec4_sub2']; ?>"></h3></li>
-                    <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub3" value="<?php echo $contenido['sec4_sub3']; ?>"></h3></li>
-                    <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub4" value="<?php echo $contenido['sec4_sub4']; ?>"></h3></li>
-                    <li><h3 style="font-size:30px;"><input type="text" name="sec4_sub5" value="<?php echo $contenido['sec4_sub5']; ?>"></h3></li>
-                </ul>
-            </div>
-
-
-        </div>
-    </section>
-
-
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <img class="img-responsive" src="<?php echo $contenido['sec4_img3'];  ?>" alt="">
-                                        <div class="form-group last" >
-                                            <div class="col-md-12 text-center">
-                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                    </div>
-                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                    <div>
-                                                     <span class="btn btn-white btn-file">
-                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                     <input type="file" name="sec4_img3" class="default" />
-                                                     </span>
-                                                    </div>
-                                                </div>
-                                                <!--<span class="label label-danger">NOTE!</span>
-                                               <span>
-                                               Attached image thumbnail is
-                                               supported in Latest Firefox, Chrome, Opera,
-                                               Safari and Internet Explorer 10 only
-                                               </span>-->
-                                            </div>
-                                            <input type="hidden" name="sec4_img3_actual" value="<?php echo $contenido['sec4_img3']; ?>">
-
-
-                                        </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="donde-pagar" style="margin-top:5em;margin-bottom:6em;">
-        <div class="container" style="border-bottom: 10px solid #263c89">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center" style="font-size:40px;color:#2a3031"><input type="text" name="sec5_titulo1" value="<?php echo $contenido['sec4_titulo2']; ?>"></h1>
-                </div>
-
-                <!-- VISIBLE LG-MD -->
-                <div class="col-md-3">
-                    <img src="../img/mas_flexible/donde_pagar.png" alt="">
-
-                </div>
-
-                <div class="col-md-9 text-center" style="margin-top:4em;">
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="<?php echo $contenido['sec5_img1']; ?>" alt="">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="sec5_img1" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                </div>
-                            </div>
-                            <input type="hidden" name="sec5_img1_actual" value="<?php echo $contenido['sec5_img1']; ?>">
-                    </div>
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="<?php echo $contenido['sec5_img2']; ?>" alt="">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="sec5_img2" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                </div>
-                            </div>
-                            <input type="hidden" name="sec5_img2_actual" value="<?php echo $contenido['sec5_img2']; ?>">
-                    </div>
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="<?php echo $contenido['sec5_img3']; ?>" alt="">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="sec5_img3" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                </div>
-                            </div>
-                            <input type="hidden" name="sec5_img3_actual" value="<?php echo $contenido['sec5_img3']; ?>">
-                    </div>
-                    <div class="col-sm-8 col-xs-12">
-                        <h3 class="text-center"><input type="text" name="sec5_sub1" value="<?php echo $contenido['sec5_sub1']; ?>"></h3>
-                    </div>
-                    <div class="col-sm-4 col-xs-12">
-                        <h3 class="text-center"><input type="text" name="sec5_sub2" value="<?php echo $contenido['sec5_sub2']; ?>"></h3>
-                    </div>
-                    <div class="col-sm-9 col-xs-12 col-sm-offset-3">
-                        <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;">
-                          <textarea class="form-control" name="sec5_cont1" id="" rows="3"><?php echo $contenido['sec5_cont1']; ?></textarea>
-                        </h2>
-                        <h4 class="text-left" style="color:#858789"><input class="form-control" type="text" name="sec5_titulo2" value="<?php echo $contenido['sec5_titulo2']; ?>"></h4>
-                        <textarea class="form-control" name="sec5_cont2" id="" rows="3"><?php echo $contenido['sec5_cont2']; ?></textarea>
-                    </div>
-                </div>
-
-
-
-
-            </div>
-        </div>
-    </section>
-
-
-</form>
-      
+                            </form>
                           </div>
                       </section>
                       <!--Pulstate  end-->

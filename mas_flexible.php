@@ -1,5 +1,10 @@
 <?php 
     include('conexion/conexion.php');
+    $idpagina = 3; //id de la pagina mas flexible
+    //consultamos la pagina3 = masflexible
+    $query = "SELECT * FROM pagina3 WHERE idpagina = $idpagina";
+    $consultar = $mysqli->query($query);
+    $detalle = $consultar->fetch_assoc();
  ?>
 <html lang="esp">
 <head>
@@ -153,19 +158,6 @@ ul {
                             $cont++;
                             }
                              ?>
-
-                            <!--<div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_3.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_4.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
-                            </div>-->
                         </div>
 
                         <!-- Controls -->
@@ -197,19 +189,19 @@ ul {
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="img/index/oportuno.png" alt="oportuno">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img1']; ?>" alt="oportuno">
                         </div>
-                        <h2 style="color:#29327e">OPORTUNO</h2>
-                        <p>Te otorgamos el crédito cuando lo necesitas.</p>
+                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo1']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont1']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="img/index/accesible.png" alt="accesible">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img2']; ?>" alt="accesible">
                         </div>
-                        <h2 style="color:#35bddf">ACCESIBLE</h2>
-                        <p>Nuestros requisitos son sencillos de obtener</p>
+                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo2']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont2']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
@@ -217,17 +209,17 @@ ul {
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
                             <img src="img/index/rentable.png" alt="rentable">
                         </div>
-                        <h2 style="color:#29327e">RENTABLE</h2>
-                        <p>Nuestro crédito te apoya para hacer crecer tu negocio</p>
+                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo3']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont3']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                            <img src="img/index/seguro.png" alt="seguro">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img4']; ?>" alt="seguro">
                         </div>
-                        <h2 style="color:#35bddf">SEGURO</h2>
-                        <p>Con nosotros tu dinero no está en riesgo</p>
+                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo4']; ?></h2>
+                        <p><?php echo $detalle['sec1_cont4']; ?></p>
                     </div>
                 </div>
 
@@ -241,12 +233,9 @@ ul {
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><b>BENEFICIOS MASFLEXIBLE</b></h1>
+                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec2_titulo1']; ?></b></h1>
                     <p class="text-justify">
-                        Por que MásKapital es una institución que piensa en las necesidades reales de nuestras clientas, nuestro crédito, fue diseñado especialmente para ti, una mujer emprendedora con necesidades reales, que aprovecha las oportunidades y se sabe de la flexibilidad con la que se mueve su mercado.
-                    </p>
-                    <p class="text-justify">
-                        Nuestro crédito es único en el mercado, el cuál conjunta la oportunidades de un crédito grupal fortalecidas con características personalizadas que no encontrarás en otra empresa. 
+                        <?php echo $detalle['cont1']; ?>
                     </p>
                 </div>
             </div>
@@ -259,37 +248,37 @@ ul {
                 <div class="divs col-md-2">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        No necesita formar un grupo nosotros la incorporamos a uno en cualquier momento.    
+                        <?php echo $detalle['sec3_cont1']; ?>  
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        No se cobran multas de ningún tipo.    
+                        <?php echo $detalle['sec3_cont2']; ?>   
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        Cada clienta es responsable de su crédito, no pagas las deudas de tus compañeras.    
+                        <?php echo $detalle['sec3_cont3']; ?>
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        Renueva tu crédito cuando lo necesites.
+                        <?php echo $detalle['sec3_cont4']; ?>
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        Puede concluir su pago antes  y se le descuentan intereses de las siguientes semanas.    
+                        <?php echo $detalle['sec3_cont5']; ?>   
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        El monto es de acuerdo a sus necesidades y su capacidad de pago no al tiempo en la empresa.    
+                        <?php echo $detalle['sec3_cont6']; ?>   
                     </p>
                 </div>
             </div>
@@ -298,37 +287,37 @@ ul {
                 <div class="divs-sm col-sm-4 col-xs-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        No necesita formar un grupo nosotros la incorporamos a uno en cualquier momento.    
+                        <?php echo $detalle['sec3_cont1']; ?>  
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        No se cobran multas de ningún tipo.    
+                        <?php echo $detalle['sec3_cont2']; ?>   
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        Cada clienta es responsable de su crédito, no pagas las deudas de tus compañeras.    
+                        <?php echo $detalle['sec3_cont3']; ?>
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        Renueva tu crédito cuando lo necesites.
+                        <?php echo $detalle['sec3_cont4']; ?>
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        Puede concluir su pago antes  y se le descuentan intereses de las siguientes semanas.    
+                        <?php echo $detalle['sec3_cont5']; ?>   
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        El monto es de acuerdo a sus necesidades y su capacidad de pago no al tiempo en la empresa.    
+                        <?php echo $detalle['sec3_cont6']; ?>   
                     </p>
                 </div>
             </div>
@@ -339,12 +328,12 @@ ul {
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ">
-                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><b>CARACTERÍSTICAS DEL CRÉDITO</b></h1>
-                    <h2 class="text-center">MásFlexible, la personalización hace diferencia.</h2>
+                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec4_titulo1'], ?></b></h1>
+                    <h2 class="text-center"><?php echo $detalle['sec4_sub1']; ?></h2>
                 </div>
                 <div class="col-md-8 col-md-offset-2">
                     <p class="text-center">
-                        Cuando se piensa en créditos grupales, existen conceptos a los que relacionamos a este tipo de préstamos. En MásFlexible rompimos con los defectos de los créditos grupales y moldeamos un producto único para ofrecerte, conócelo y atrévete a notar sus grandes diferencias.
+                        <?php $detalle['sec4_cont1']; ?>
                     </p>
                 </div>
             </div>
@@ -355,7 +344,7 @@ ul {
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms" >
-                    <img class="img-responsive" src="img/mas_flexible/caracteristicas_credito.jpg" alt="">    
+                    <img class="img-responsive" src="<?php echo 'administracion/'.$detalle['sec4_img1']; ?>" alt="">    
                 </div>              
             </div>
         </div>
@@ -365,7 +354,7 @@ ul {
         <div class="container">
             <div class="row">
                 <div class="col-md-12" style="padding:0">
-                    <img class="img-responsive" style="width:100%;"src="img/mas_flexible/requisitos.jpg" alt="">
+                    <img class="img-responsive" style="width:100%;"src="<?php echo 'administracion/'.$detalle['sec4_img2']; ?>" alt="">
                 </div>
             </div>
         </div>
@@ -376,7 +365,7 @@ ul {
     <section>
         <div class="container" style="background-image: url('img/index/banner_azul.png');background-size:cover; padding-top:2em;border-top: 10px solid #fac099; border-bottom: 10px solid #fac099">
             <div class="col-md-12 text-center">
-                <h1 style="color:#ffffff"><b>COMPROMISOS DEL GRUPO</b></h1>
+                <h1 style="color:#ffffff"><b><?php echo $detalle['sec4_titulo2']; ?></b></h1>
             </div>
             
             <!-- visible lg-md -->
