@@ -2,7 +2,7 @@
     include('conexion/conexion.php');
     $idpagina = 3; //id de la pagina mas flexible
     //consultamos la pagina3 = masflexible
-    $query = "SELECT * FROM pagina3 WHERE idpagina = $idpagina";
+    $query = "SELECT * FROM pagina3 WHERE idpagina3 = $idpagina";
     $consultar = $mysqli->query($query);
     $detalle = $consultar->fetch_assoc();
  ?>
@@ -59,34 +59,30 @@
     </style>
 
     <style>
-.carousel-indicators {
+    .carousel-indicators {
 
-  position: absolute;
-  bottom: 40%;
-  z-index: 15;
-  width: 30px;
-  margin-left: 20px;
-  list-style: none;
-  text-align: center;
-  right: 5%;
-  left:95%
-}
-.carousel-indicators li{
-  display: block;
-  width: 20px;
-  height: 20px;
-  margin-bottom: 20px;
-}
-.carousel-indicators .active {
- width: 22px;
- height: 22px;
- margin-bottom: 20px;
- background-color: #fff;
-}
-ul {
-    list-style-image: url('img/mas_flexible/circulo.png');
-
-}       
+      position: absolute;
+      bottom: 40%;
+      z-index: 15;
+      width: 30px;
+      margin-left: 20px;
+      list-style: none;
+      text-align: center;
+      right: 5%;
+      left:95%
+    }
+    .carousel-indicators li{
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin-bottom: 20px;
+    }
+    .carousel-indicators .active {
+     width: 22px;
+     height: 22px;
+     margin-bottom: 20px;
+     background-color: #fff;
+    }      
         
     </style>
 </head><!--/head-->
@@ -103,7 +99,7 @@ ul {
         </div>
     </div>
     <!--/#header-->
-
+    <!-- INICIA TITULO -->
     <section id="">
         <div class="container">
             <div class="row">
@@ -114,7 +110,8 @@ ul {
             </div>
         </div>
     </section>
-    
+    <!-- TERMINA TITULO -->
+    <!-- INICIA SLIDER -->
     <section id="home-slider">
         <div class="container">
             <div class="row">
@@ -136,13 +133,7 @@ ul {
                             $cont++;
                           }
                          ?>
-                            <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
                         </ol>
-
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <?php
@@ -151,7 +142,7 @@ ul {
                             ?>
                               <div class="item <?php if($cont == 0){echo 'active'; } ?>">
                                   <img class="img-responsive" src="<?php echo 'administracion/'.$img_slide['img']; ?>"  alt="imagen1">
-  
+
                               </div>
 
                             <?php
@@ -163,11 +154,11 @@ ul {
                         <!-- Controls -->
                         <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
+                            <span class="sr-only">Anterior</span>
                         </a>
                         <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
+                            <span class="sr-only">Siguiente</span>
                         </a>
                     </div>                  
                 </div>
@@ -175,21 +166,22 @@ ul {
         </div>
         <!--<div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>-->
     </section>
+    <!-- TERMINA SLIDER -->
+
 
     <?php
     //SE INCLUYE EL MENÚ LATERAL
     include('menu_lateral.php');
      ?> 
 
-    <!--/#home-slider-->
-
+    <!-- INICIA SECCIÓN 1 (sec1) -->
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img1']; ?>" alt="oportuno">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img1']; ?>" alt="<?php echo $detalle['sec1_titulo1']; ?>">
                         </div>
                         <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo1']; ?></h2>
                         <p><?php echo $detalle['sec1_cont1']; ?></p>
@@ -198,7 +190,7 @@ ul {
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img2']; ?>" alt="accesible">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img2']; ?>" alt="<?php echo $detalle['sec1_titulo2']; ?>">
                         </div>
                         <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo2']; ?></h2>
                         <p><?php echo $detalle['sec1_cont2']; ?></p>
@@ -207,7 +199,7 @@ ul {
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="img/index/rentable.png" alt="rentable">
+                            <img src="img/index/rentable.png" alt="<?php echo $detalle['sec1_titulo3']; ?>">
                         </div>
                         <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo3']; ?></h2>
                         <p><?php echo $detalle['sec1_cont3']; ?></p>
@@ -216,7 +208,7 @@ ul {
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img4']; ?>" alt="seguro">
+                            <img src="<?php echo 'administracion/'.$detalle['sec1_img4']; ?>" alt="<?php echo $detalle['sec1_titulo4']; ?>">
                         </div>
                         <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo4']; ?></h2>
                         <p><?php echo $detalle['sec1_cont4']; ?></p>
@@ -226,59 +218,59 @@ ul {
             </div>
         </div>
     </section>
-    <!--/#services-->
 
-    <!-- QUIENES SOMOS -->
     <section id="features">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec2_titulo1']; ?></b></h1>
+                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec1_titulo5']; ?></b></h1>
                     <p class="text-justify">
-                        <?php echo $detalle['cont1']; ?>
+                        <?php echo $detalle['sec1_cont5']; ?>
                     </p>
                 </div>
             </div>
         </div>
     </section>
-     <!--/#features-->
+    <!-- TERMINA SECCIÓN 1 (sec1) -->
+
+    <!-- INICIA SECCIÓN 2 (sec2) -->
     <section id="beneficios_masflexible" style="margin-top:4em;">
         <div class="container">
             <div class="row hidden-sm hidden-xs">
                 <div class="divs col-md-2">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont1']; ?>  
+                        <?php echo $detalle['sec2_cont1']; ?>  
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont2']; ?>   
+                        <?php echo $detalle['sec2_cont2']; ?>   
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont3']; ?>
+                        <?php echo $detalle['sec2_cont3']; ?>
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont4']; ?>
+                        <?php echo $detalle['sec2_cont4']; ?>
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont5']; ?>   
+                        <?php echo $detalle['sec2_cont5']; ?>   
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont6']; ?>   
+                        <?php echo $detalle['sec2_cont6']; ?>   
                     </p>
                 </div>
             </div>
@@ -287,58 +279,62 @@ ul {
                 <div class="divs-sm col-sm-4 col-xs-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont1']; ?>  
+                        <?php echo $detalle['sec2_cont1']; ?>  
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont2']; ?>   
+                        <?php echo $detalle['sec2_cont2']; ?>   
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont3']; ?>
+                        <?php echo $detalle['sec2_cont3']; ?>
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont4']; ?>
+                        <?php echo $detalle['sec2_cont4']; ?>
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont5']; ?>   
+                        <?php echo $detalle['sec2_cont5']; ?>   
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec3_cont6']; ?>   
+                        <?php echo $detalle['sec2_cont6']; ?>   
                     </p>
                 </div>
             </div>
 
         </div>
     </section>
+    <!-- TERMINA SECCIÓN 2 (sec2) -->
+
+    <!-- INICIA SECCIÓN 3 (sec3) -->
     <section id="caracteristicas" style="margin-top:4em;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ">
-                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec4_titulo1'], ?></b></h1>
-                    <h2 class="text-center"><?php echo $detalle['sec4_sub1']; ?></h2>
+                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec3_titulo1']; ?></b></h1>
+                    <h2 class="text-center"><?php echo $detalle['sec3_sub1']; ?></h2>
                 </div>
-                <div class="col-md-8 col-md-offset-2">
-                    <p class="text-center">
-                        <?php $detalle['sec4_cont1']; ?>
+                <div class="col-md-12">
+                    <p style="padding-left:6em;padding-right:6em;" class="text-center">
+                        <?php echo $detalle['sec3_cont1']; ?>
                     </p>
                 </div>
             </div>
         </div>
     </section>
+    <!-- TERMINA SECCIÓN 3 (sec3) -->
 
     <section id="clients">
         <div class="container">

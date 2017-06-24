@@ -3,17 +3,14 @@
   require('../conexion/sesion.php');
   include('funciones.php');
 
-  $pagina = 3; // 3 = MásFlexible
+  $idpagina = 3; // 3 = MásFlexible
 
   if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
-    /*$sec1_img1 = "../img/index/".$_POST['sec1_img1'];
-    $sec1_img2 = "../img/index/".$_POST['sec1_img2'];
-    $sec1_img3 = "../img/index/".$_POST['sec1_img3'];
-    $sec1_img4 = "../img/index/".$_POST['sec1_img4'];*/
+
 
     //CONSULTAMOS EL NUMERO DE IMAGENES DENTRO DEL SLIDE PARA PODER REEMPLAZAR O MANTENER CAMBIOS
     $ruta_slide = '../img/slider/mas_flexible/';
-    $query = "SELECT * FROM slide WHERE pagina = $pagina";
+    $query = "SELECT * FROM slide WHERE pagina = $idpagina";
     $consultar_slide = $mysqli->query($query);
     while($slide = $consultar_slide->fetch_assoc()){
       $slide_actual = $_POST['img_slide_actual'.$slide['idslide']];
@@ -37,59 +34,52 @@
       move_uploaded_file($_FILES['nuevo_slide']['tmp_name'], $ruta_slide.$_FILES['nuevo_slide']['name']);
       $img_slide = $ruta_slide.basename($_FILES['nuevo_slide']['name']);
 
-      $query = "INSERT INTO slide (pagina, img) VALUES ('$pagina', '$img_slide')";
+      $query = "INSERT INTO slide (pagina, img) VALUES ('$idpagina', '$img_slide')";
       $insertar = $mysqli->query($query);
 
     }
 
+    // SECCIÓN 1
     $ruta_img = '../img/mas_flexible/';
     $ruta_norma = 'img/mas_flexible/';
-    $img1_actual = $_POST['img1_actual'];
-    $img2_actual = $_POST['img2_actual'];
-    $img3_actual = $_POST['img3_actual'];
-    $img4_actual = $_POST['img4_actual'];
+    $sec1_img1_actual = $_POST['sec1_img1_actual'];
+    $sec1_img2_actual = $_POST['sec1_img2_actual'];
+    $sec1_img3_actual = $_POST['sec1_img3_actual'];
+    $sec1_img4_actual = $_POST['sec1_img4_actual'];
 
     if(!empty($_FILES['sec1_img1']['name'])){
-        unlink($img1_actual);
+        unlink($sec1_img1_actual);
         $_FILES["sec1_img1"]["name"];
           move_uploaded_file($_FILES["sec1_img1"]["tmp_name"], $ruta_img.$_FILES["sec1_img1"]["name"]);
           $sec1_img1 = $ruta_img.basename($_FILES["sec1_img1"]["name"]);
           //$archivo = $rutaArchivo.basename($fecha."_".$_FILES["nueva_cotizacion"]["name"]);
     }else{
-      $sec1_img1 = $img1_actual;
+      $sec1_img1 = $sec1_img1_actual;
     }
     if(!empty($_FILES['sec1_img2']['name'])){
-      unlink($img2_actual);
+      unlink($sec1_img2_actual);
         $_FILES["sec1_img2"]["name"];
           move_uploaded_file($_FILES["sec1_img2"]["tmp_name"], $ruta_img.$_FILES["sec1_img2"]["name"]);
           $sec1_img2 = $ruta_img.basename($_FILES["sec1_img2"]["name"]);
     }else{
-      $sec1_img2 = $img2_actual;
+      $sec1_img2 = $sec1_img2_actual;
     }
     if(!empty($_FILES['sec1_img3']['name'])){
-      unlink($img3_actual);
+      unlink($sec1_img3_actual);
         $_FILES["sec1_img3"]["name"];
           move_uploaded_file($_FILES["sec1_img3"]["tmp_name"], $ruta_img.$_FILES["sec1_img3"]["name"]);
           $sec1_img3 = $ruta_img.basename($_FILES["sec1_img3"]["name"]);
     }else{
-      $sec1_img3 = $img3_actual;
+      $sec1_img3 = $sec1_img3_actual;
     }
     if(!empty($_FILES['sec1_img4']['name'])){
-      unlink($img4_actual);
+      unlink($sec1_img4_actual);
         $_FILES["sec1_img4"]["name"];
           move_uploaded_file($_FILES["sec1_img4"]["tmp_name"], $ruta_img.$_FILES["sec1_img4"]["name"]);
           $sec1_img4 = $ruta_img.basename($_FILES["sec1_img4"]["name"]);
     }else{
-      $sec1_img4 = $img4_actual;
+      $sec1_img4 = $sec1_img4_actual;
     }
-
-
-
-    /*$sec1_img1 = 1;
-    $sec1_img2 = 2;
-    $sec1_img3 = 3;
-    $sec1_img4 = 4;
-*/
 
     $sec1_titulo1 = $_POST['sec1_titulo1'];
     $sec1_cont1 = $_POST['sec1_cont1'];
@@ -99,106 +89,51 @@
     $sec1_cont3 = $_POST['sec1_cont3'];
     $sec1_titulo4 = $_POST['sec1_titulo4'];
     $sec1_cont4 = $_POST['sec1_cont4'];
+    $sec1_titulo5 = $_POST['sec1_titulo5'];
+    $sec1_cont5 = $_POST['sec1_cont5'];
 
-    $sec2_titulo1 = $_POST['sec2_titulo1'];
+    // SECCIÓN 2
     $sec2_cont1 = $_POST['sec2_cont1'];
+    $sec2_cont2 = $_POST['sec2_cont2'];
+    $sec2_cont3 = $_POST['sec2_cont3'];
+    $sec2_cont4 = $_POST['sec2_cont4'];
+    $sec2_cont5 = $_POST['sec2_cont5'];
+    $sec2_cont6 = $_POST['sec2_cont6'];
 
+    // SECCIÓN 3
+    $sec3_titulo1 = $_POST['sec3_titulo1'];
+    $sec3_sub1 = $_POST['sec3_sub1'];
     $sec3_cont1 = $_POST['sec3_cont1'];
-    $sec3_cont2 = $_POST['sec3_cont2'];
-    $sec3_cont3 = $_POST['sec3_cont3'];
-    $sec3_cont4 = $_POST['sec3_cont4'];
-    $sec3_cont5 = $_POST['sec3_cont5'];
-    $sec3_cont6 = $_POST['sec3_cont6'];
 
-    $sec4_titulo1 = $_POST['sec4_titulo1'];
-    $sec4_sub1 = $_POST['sec4_sub1'];
-    $sec4_cont1 = $_POST['sec4_cont1'];
     
-    $sec4_img1_actual = $_POST['sec4_img1_actual'];
-    if(!empty($_FILES['sec4_img1']['name'])){
-      unlink($sec4_img1_actual);
-        $_FILES["sec4_img1"]["name"];
-          move_uploaded_file($_FILES["sec4_img1"]["tmp_name"], $ruta_img.$_FILES["sec4_img1"]["name"]);
-          $sec4_img1 = $ruta_img.basename($_FILES["sec4_img1"]["name"]);
-    }else{
-      $sec4_img1 = $sec4_img1_actual;
-    }
+    $updateSQL = sprintf("UPDATE pagina3 SET sec1_img1 = %s, sec1_titulo1 = %s, sec1_cont1 = %s, sec1_img2 = %s, sec1_titulo2 = %s, sec1_cont2 = %s, sec1_img3 = %s, sec1_titulo3 = %s, sec1_cont3 = %s, sec1_img4 = %s, sec1_titulo4 = %s, sec1_cont4 = %s, sec1_titulo5 = %s, sec1_cont5 = %s, sec2_cont1 = %s, sec2_cont2 = %s, sec2_cont3 = %s, sec2_cont4 = %s, sec2_cont5 = %s, sec2_cont6 = %s, sec3_titulo1 = %s, sec3_sub1 = %s, sec3_cont1 = %s WHERE idpagina3 = %s",
+      GetSQLValueString($sec1_img1, "text"),
+      GetSQLValueString($sec1_titulo1, "text"),
+      GetSQLValueString($sec1_cont1, "text"),
+      GetSQLValueString($sec1_img2, "text"),
+      GetSQLValueString($sec1_titulo2, "text"),
+      GetSQLValueString($sec1_cont2, "text"),
+      GetSQLValueString($sec1_img3, "text"),
+      GetSQLValueString($sec1_titulo3, "text"),
+      GetSQLValueString($sec1_cont3, "text"),
+      GetSQLValueString($sec1_img4, "text"),
+      GetSQLValueString($sec1_titulo4, "text"),
+      GetSQLValueString($sec1_cont4, "text"),
+      GetSQLValueString($sec1_titulo5, "text"),
+      GetSQLValueString($sec1_cont5, "text"),
+      GetSQLValueString($sec2_cont1, "text"),
+      GetSQLValueString($sec2_cont2, "text"),
+      GetSQLValueString($sec2_cont3, "text"),
+      GetSQLValueString($sec2_cont4, "text"),
+      GetSQLValueString($sec2_cont5, "text"),
+      GetSQLValueString($sec2_cont6, "text"),
+      GetSQLValueString($sec3_titulo1, "text"),
+      GetSQLValueString($sec3_sub1, "text"),
+      GetSQLValueString($sec3_cont1, "text"),
+      GetSQLValueString($idpagina, "int"));
 
+    $actualizar = $mysqli->query($updateSQL);
 
-    $sec4_img2_actual = $_POST['sec4_img2_actual'];
-    if(!empty($_FILES['sec4_img2']['name'])){
-      unlink($sec4_img2_actual);
-        $_FILES["sec4_img2"]["name"];
-          move_uploaded_file($_FILES["sec4_img2"]["tmp_name"], $ruta_img.$_FILES["sec4_img2"]["name"]);
-          $sec4_img2 = $ruta_img.basename($_FILES["sec4_img2"]["name"]);
-    }else{
-      $sec4_img2 = $sec4_img2_actual;
-    }
-
-
-    $sec4_titulo2 = $_POST['sec4_titulo2'];
-    $sec4_sub2 = $_POST['sec4_sub2'];
-    $sec4_sub3 = $_POST['sec4_sub3'];
-    $sec4_sub4 = $_POST['sec4_sub4'];
-    $sec4_sub5 = $_POST['sec4_sub5'];
-
-    $sec4_img3_actual = $_POST['sec4_img3_actual'];
-    if(!empty($_FILES['sec4_img3']['name'])){
-      unlink($sec4_img3_actual);
-        $_FILES["sec4_img3"]["name"];
-          move_uploaded_file($_FILES["sec4_img3"]["tmp_name"], $ruta_img.$_FILES["sec4_img3"]["name"]);
-          $sec4_img3 = $ruta_img.basename($_FILES["sec4_img3"]["name"]);
-    }else{
-      $sec4_img3 = $sec4_img3_actual;
-    }
-
-
-    $sec5_titulo1 = $_POST['sec5_titulo1'];
-
-    $sec5_img1_actual = $_POST['sec5_img1_actual'];
-    if(!empty($_FILES['sec5_img1']['name'])){
-      unlink($sec5_img1_actual);
-        $_FILES["sec5_img1"]["name"];
-          move_uploaded_file($_FILES["sec5_img1"]["tmp_name"], $ruta_img.$_FILES["sec5_img1"]["name"]);
-          $sec5_img1 = $ruta_img.basename($_FILES["sec5_img1"]["name"]);
-    }else{
-      $sec5_img1 = $sec5_img1_actual;
-    }
-
-    $sec5_img2_actual = $_POST['sec5_img2_actual'];
-    if(!empty($_FILES['sec5_img2']['name'])){
-      unlink($sec5_img2_actual);
-        $_FILES["sec5_img2"]["name"];
-          move_uploaded_file($_FILES["sec5_img2"]["tmp_name"], $ruta_img.$_FILES["sec5_img2"]["name"]);
-          $sec5_img2 = $ruta_img.basename($_FILES["sec5_img2"]["name"]);
-    }else{
-      $sec5_img2 = $sec5_img2_actual;
-    }
-
-    $sec5_img3_actual = $_POST['sec5_img3_actual'];
-    if(!empty($_FILES['sec5_img3']['name'])){
-      unlink($sec5_img3_actual);
-        $_FILES["sec5_img3"]["name"];
-          move_uploaded_file($_FILES["sec5_img3"]["tmp_name"], $ruta_img.$_FILES["sec5_img3"]["name"]);
-          $sec5_img3 = $ruta_img.basename($_FILES["sec5_img3"]["name"]);
-    }else{
-      $sec5_img3 = $sec5_img3_actual;
-    }
-
-    $sec5_sub1 = $_POST['sec5_sub1'];
-    $sec5_sub2 = $_POST['sec5_sub2'];
-    $sec5_cont1 = $_POST['sec5_cont1'];
-    $sec5_titulo2 = $_POST['sec5_titulo2'];
-    $sec5_cont2 = $_POST['sec5_cont2'];
-
-    /*$sec4_img1 = $_POST['sec4_img1'];*/
-    $query = "UPDATE pagina3 SET sec1_img1 = '$sec1_img1',sec1_titulo1 = '$sec1_titulo1',sec1_cont1 = '$sec1_cont1',sec1_img2 = '$sec1_img2',sec1_titulo2 = '$sec1_titulo2',sec1_cont2 = '$sec1_cont2',sec1_img3 = '$sec1_img3',sec1_titulo3 = '$sec1_titulo3',sec1_cont3 = '$sec1_cont3',sec1_img4 = '$sec1_img4',sec1_titulo4 = '$sec1_titulo4',sec1_cont4 = '$sec1_cont4',sec2_titulo1 = '$sec2_titulo1',sec2_cont1 = '$sec2_cont1',sec3_cont1 = '$sec3_cont1',sec3_cont2 = '$sec3_cont2',sec3_cont3 = '$sec3_cont3',sec3_cont4 = '$sec3_cont4',sec3_cont5 = '$sec3_cont5',sec3_cont6 = '$sec3_cont6',sec4_titulo1 = '$sec4_titulo1',sec4_sub1 = '$sec4_sub1',sec4_cont1 = '$sec4_cont1',sec4_img1 = '$sec4_img1',sec4_img2 = '$sec4_img2',sec4_titulo2 = '$sec4_titulo2',sec4_sub2 = '$sec4_sub2',sec4_sub3 = '$sec4_sub3',sec4_sub4 = '$sec4_sub4',sec4_sub5 = '$sec4_sub5',sec4_img3 = '$sec4_img3',sec5_titulo1 = '$sec5_titulo1',sec5_img1 = '$sec5_img1',sec5_img2 = '$sec5_img2',sec5_img3 = '$sec5_img3',sec5_sub1 = '$sec5_sub1',sec5_sub2 = '$sec5_sub2',sec5_cont1 = '$sec5_cont1',sec5_titulo2 = '$sec5_titulo2',sec5_cont2 = '$sec5_cont2' WHERE idpagina3 = $pagina";
-
-    //$query = "UPDATE pagina5  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1' WHERE idpagina5 = $pagina";
-
-    //$query = "UPDATE pagina5  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3' WHERE idpagina5 = 1";
-
-    //$query = "UPDATE pagina5 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1', sec4_img1 = '$sec4_img1' WHERE idpagina5 = 1 ";
     $insertar = $mysqli->query($query);
   }
 
@@ -213,7 +148,7 @@
 
   $seccion = 'secciones';
   $menu = 'flexible';
-  $sql = "SELECT * FROM pagina3 WHERE idpagina3 = $pagina";
+  $sql = "SELECT * FROM pagina3 WHERE idpagina3 = $idpagina";
   $ejecutar = $mysqli->query($sql);
   $contenido = $ejecutar->fetch_assoc();
  ?>
@@ -293,25 +228,25 @@
                                   <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
                                 </div>
                                 <!-- INICIA TITULO PRINCIPAL -->
-                                <section>
+                                <!--<section>
                                   <div class="col-md-12 text-center" style="background-color: #f0f0f6;padding-top:3em;margin-bottom:1em;">
                                       <h1 style="color: #2a3031;font-size:50px"><b>MÁSFLEXIBLE</b></h1>
                                       <h2 style="font-size:30px;"><i><input type="text" name="subtitulo" value="<?php echo $contenido['subtitulo']; ?>"></i></h2>
                                   </div>
-                                </section>
+                                </section>-->
                                 <!-- TERMINA TITULO PRINCIPAL -->
                                 
                                 <!-- INICIA SECCIÓN SLIDER -->
-                                <section id="" >
+                                <section id="">
                                   <div class="container">
                                       <div class="row">
                                           <div style="">
                                               <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                                   <!-- Indicators -->
                                                   <?php 
-                                                  $query_slide = "SELECT * FROM slide WHERE pagina = $pagina";
+                                                  $query_slide = "SELECT * FROM slide WHERE pagina = $idpagina";
                                                   $consultar = $mysqli->query($query_slide);
-                                                  $query_slide2 = "SELECT * FROM slide WHERE pagina = $pagina ORDER BY idslide DESC";
+                                                  $query_slide2 = "SELECT * FROM slide WHERE pagina = $idpagina ORDER BY idslide DESC";
                                                   $consultar2 = $mysqli->query($query_slide2);
                                                   $rows_slide = $consultar2->num_rows;
                                                    ?>
@@ -411,16 +346,15 @@
                                 </section>
                                 <!-- TERMINA SECCIÓN SLIDER -->
 
-                                <!-- INICIA SECCIÓN 1 ()
-
+                                <!-- INICIA SECCIÓN 1 (sec1) -->
                                 <section id="services">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                                                 <div class="single-service">
                                                     <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                                                        <img src="<?php echo $contenido['sec1_img1']; ?>" alt="oportuno">
-                                                        <input type="hidden" name="img1_actual" value="<?php echo $contenido['sec1_img1']; ?>">
+                                                        <img src="<?php echo $contenido['sec1_img1']; ?>" alt="<?php echo $contenido['sec1_titulo1']; ?>">
+                                                        <input type="hidden" name="sec1_img1_actual" value="<?php echo $contenido['sec1_img1']; ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="controls col-md-12">
@@ -445,8 +379,8 @@
                                             <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                                                 <div class="single-service">
                                                     <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                                                        <img src="<?php echo $contenido['sec1_img2']; ?>" alt="accesible">
-                                                        <input type="hidden" name="img2_actual" value="<?php echo $contenido['sec1_img2']; ?>">
+                                                        <img src="<?php echo $contenido['sec1_img2']; ?>" alt="<?php echo $contenido['sec1_titulo2']; ?>">
+                                                        <input type="hidden" name="sec1_img2_actual" value="<?php echo $contenido['sec1_img2']; ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="controls col-md-12">
@@ -471,8 +405,8 @@
                                             <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                                                 <div class="single-service">
                                                     <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                                                        <img src="<?php echo $contenido['sec1_img3']; ?>" alt="rentable">
-                                                        <input type="hidden" name="img3_actual" value="<?php echo $contenido['sec1_img3']; ?>">
+                                                        <img src="<?php echo $contenido['sec1_img3']; ?>" alt="<?php echo $contenido['sec1_titulo3']; ?>">
+                                                        <input type="hidden" name="sec1_img3_actual" value="<?php echo $contenido['sec1_img3']; ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="controls col-md-12">
@@ -495,8 +429,8 @@
                                             <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
                                                 <div class="single-service">
                                                     <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                                                        <img src="<?php echo $contenido['sec1_img4']; ?>" alt="seguro">
-                                                        <input type="hidden" name="img4_actual" value="<?php echo $contenido['sec1_img4']; ?>">
+                                                        <img src="<?php echo $contenido['sec1_img4']; ?>" alt="<?php echo $contenido['sec1_titulo4']; ?>">
+                                                        <input type="hidden" name="sec1_img4_actual" value="<?php echo $contenido['sec1_img4']; ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="controls col-md-12">
@@ -522,111 +456,112 @@
                                 </section>
                                 <!--/#services-->
 
-                                <!-- QUIENES SOMOS -->
                                 <section id="features">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><input type="text" name="sec2_titulo1" value="<?php echo $contenido['sec2_titulo1']; ?>"></h1>
-                                                <textarea class="wysihtml5 form-control" name="sec2_cont1" rows="10"><?php echo $contenido['sec2_cont1']; ?></textarea>
+                                                <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><input type="text" name="sec1_titulo5" value="<?php echo $contenido['sec1_titulo5']; ?>"></h1>
+                                                <textarea class="wysihtml5 form-control" name="sec1_cont5" rows="10"><?php echo $contenido['sec1_cont5']; ?></textarea>
 
                                             </div>
                                         </div>
                                     </div>
                                 </section>
-                                 <!--/#features-->
+                                <!-- TERMINA SECCIÓN 1 (sec1) -->
+
+                                <!-- INCIA SECCIÓN 2 (sec2) -->
                                 <section id="beneficios_masflexible" style="margin-top:4em;">
                                     <div class="container">
                                         <div class="row">
                                             <div class="divs col-md-2">
                                                 <img src="../img/mas_flexible/icono_beneficios.png" alt="">
                                                 <p>
-                                                  <textarea class="form-control" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>  
+                                                  <textarea class="form-control" name="sec2_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont1']; ?></textarea>  
                                                 </p>
                                             </div>
                                             <div class="divs col-md-2" >
                                                 <img src="../img/mas_flexible/icono_beneficios.png" alt="">
                                                 <p>
-                                                  <textarea class="form-control" name="sec3_cont2" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont2']; ?></textarea>  
+                                                  <textarea class="form-control" name="sec2_cont2" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont2']; ?></textarea>  
                                                 </p>
                                             </div>
                                             <div class="divs col-md-2" >
                                                 <img src="../img/mas_flexible/icono_beneficios.png" alt="">
                                                 <p>
-                                                  <textarea class="form-control" name="sec3_cont3" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont3']; ?></textarea>   
+                                                  <textarea class="form-control" name="sec2_cont3" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont3']; ?></textarea>   
                                                 </p>
                                             </div>
                                             <div class="divs col-md-2" >
                                                 <img src="../img/mas_flexible/icono_beneficios.png" alt="">
                                                 <p>
-                                                  <textarea class="form-control" name="sec3_cont4" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont4'] ?></textarea>
+                                                  <textarea class="form-control" name="sec2_cont4" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont4'] ?></textarea>
                                                 </p>
                                             </div>
                                             <div class="divs col-md-2" >
                                                 <img src="../img/mas_flexible/icono_beneficios.png" alt="">
                                                 <p>
-                                                  <textarea class="form-control" name="sec3_cont5" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont5']; ?></textarea>   
+                                                  <textarea class="form-control" name="sec2_cont5" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont5']; ?></textarea>   
                                                 </p>
                                             </div>
                                             <div class="divs col-md-2" >
                                                 <img src="../img/mas_flexible/icono_beneficios.png" alt="">
                                                 <p>
-                                                  <textarea class="form-control" name="sec3_cont6" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont6']; ?></textarea>    
+                                                  <textarea class="form-control" name="sec2_cont6" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont6']; ?></textarea>    
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </section>
+                                <!-- TERMINA SECCIÓN 2 (sec2) -->
+
+                                <!-- INICIA SECCIÓN 3 (sec3) -->
                                 <section id="caracteristicas" style="margin-top:4em;">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-md-12 ">
-                                                <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><input type="text" name="sec4_titulo1" value="<?php echo $contenido['sec4_titulo1']; ?>"></h1>
-                                                <h2 class="text-center"><input type="text" name="sec4_sub1" value="<?php echo $contenido['sec4_sub1']; ?>"></h2>
-                                            </div>
-                                            <div class="col-md-8 col-md-offset-2">
-                                                <p class="text-center">
-                                                    <textarea class="form-control" name="sec4_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec4_cont1']; ?></textarea>
-                                                </p>
-                                            </div>
+                                          <div class="col-md-12">
+                                            <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><input type="text" name="sec3_titulo1" value="<?php echo $contenido['sec3_titulo1']; ?>"></h1>
+                                            <h2 class="text-center"><input type="text" name="sec3_sub1" value="<?php echo $contenido['sec3_sub1']; ?>"></h2>
+                                          </div>
+                                          <div class="col-md-8 col-md-offset-2">
+                                            <p class="text-center">
+                                                <textarea class="form-control" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>
+                                            </p>
+                                          </div>
                                         </div>
                                     </div>
                                 </section>
+                                <!-- TERMINA SECCIÓN 3 (sec3) -->
 
                                 <section id="clients">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm-12 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms" >
                                                 <img class="img-responsive" src="<?php echo $contenido['sec4_img1']; ?>" alt="">
-
-                                                                    <div class="form-group last" style="">
-                                                                        <div class="col-md-12 text-center">
-                                                                            
-                                                                            <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                                                <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                                                    <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                                                </div>
-                                                                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                                                <div>
-                                                                                 <span class="btn btn-white btn-file">
-                                                                                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                                                 <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                                                 <input type="file" name="sec4_img1" class="default" />
-                                                                                 </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--<span class="label label-danger">NOTE!</span>
-                                                                           <span>
-                                                                           Attached image thumbnail is
-                                                                           supported in Latest Firefox, Chrome, Opera,
-                                                                           Safari and Internet Explorer 10 only
-                                                                           </span>-->
-                                                                        </div>
-                                                                        <input type="hidden" name="sec4_img1_actual" value="<?php echo $contenido['sec4_img1']; ?>">
-
-
-                                                                    </div>
-
+                                                  <div class="form-group last" style="">
+                                                      <div class="col-md-12 text-center">
+                                                          
+                                                          <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                              <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                                  <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                              </div>
+                                                              <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                              <div>
+                                                               <span class="btn btn-white btn-file">
+                                                               <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                               <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                               <input type="file" name="sec4_img1" class="default" />
+                                                               </span>
+                                                              </div>
+                                                          </div>
+                                                          <!--<span class="label label-danger">NOTE!</span>
+                                                         <span>
+                                                         Attached image thumbnail is
+                                                         supported in Latest Firefox, Chrome, Opera,
+                                                         Safari and Internet Explorer 10 only
+                                                         </span>-->
+                                                      </div>
+                                                      <input type="hidden" name="sec4_img1_actual" value="<?php echo $contenido['sec4_img1']; ?>">
+                                                  </div>
                                             </div>              
                                         </div>
                                     </div>
