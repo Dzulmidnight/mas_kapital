@@ -127,11 +127,7 @@ ul {
                             $cont++;
                           }
                          ?>
-                            <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
+
                         </ol>
 
                         <!-- Wrapper for slides -->
@@ -149,19 +145,6 @@ ul {
                             $cont++;
                             }
                              ?>
-
-                            <!--<div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_3.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_4.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
-                            </div>-->
                         </div>
 
                         <!-- Controls -->

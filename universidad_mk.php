@@ -1,3 +1,11 @@
+<?php 
+    include('conexion/conexion.php');
+    $idpagina = 4; //id de la pagina mas flexible
+    //consultamos la pagina4 = masflexible
+    $query = "SELECT * FROM pagina4 WHERE idpagina4 = $idpagina";
+    $consultar = $mysqli->query($query);
+    $contenido = $consultar->fetch_assoc();
+ ?>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
@@ -94,41 +102,30 @@
     include('menu_lateral.php');
      ?> 
     <!--/#home-slider-->
-
+    <!-- INICIA TITULO -->
     <section>
         <div class="container">
             <div class="row" id="descripcion_universidad" style="padding-bottom:2em;">
                 <div class="col-md-12" style="left:25%">
-                    <h1 style="color:#fff;font-size:40px;margin-bottom:1em;"><b>¿QUÉ ES LA U+?</b></h1>
+                    <h1 style="color:#fff;font-size:40px;margin-bottom:1em;"><b><?php echo $contenido['titulo1']; ?></b></h1>
                 </div>
                 <div class="hidden-xs col-md-8 text-justify" style="left:25%;color:#ffffff;font-size:18px;">
                     <p style="margin-bottom:1.5em;">
-                        Universidad MásKapital es una plataforma formativa desarrollada por MásKapital para promover la formación de habilidades necesarias para ocupar los puestos que MásKapital oferta en sus diferentes sucursales en el centro y sur de México.
-                    </p>
-                    <p style="margin-bottom:1.5em;">
-                        A través de la Universidad MásKapital, los colaboradores pueden mejorar sus habilidades en el puesto que desempeñan, así como ir formándose para ocupar diferentes puestos que sean de su interés. De esta manera MásKapital promueve el desarrollo de habilidades administrativas en sus colaboradores constantemente.
-                    </p>
-                    <p>
-                        Sabemos que la teoría no lo es todo, es por eso que los programas de la Universidad MásKapital incluyen un entrenamiento en el puesto, a través del cual el colaborador es llevado de la mano para que los conocimientos teóricos que ha adquirido en la plataforma se transformen en una realidad que mejore su ejecución diaria. 
+                        <?php echo nl2br($contenido['contenido1']); ?>
                     </p>
                 </div>
                 <div class="visible-xs col-xs-12 text-justify" style="color:#ffffff;font-size:18px;">
                     <p >
-                        Universidad MásKapital es una plataforma formativa desarrollada por MásKapital para promover la formación de habilidades necesarias para ocupar los puestos que MásKapital oferta en sus diferentes sucursales en el centro y sur de México.
-                    </p>
-                    <p >
-                        A través de la Universidad MásKapital, los colaboradores pueden mejorar sus habilidades en el puesto que desempeñan, así como ir formándose para ocupar diferentes puestos que sean de su interés. De esta manera MásKapital promueve el desarrollo de habilidades administrativas en sus colaboradores constantemente.
-                    </p>
-                    <p>
-                        Sabemos que la teoría no lo es todo, es por eso que los programas de la Universidad MásKapital incluyen un entrenamiento en el puesto, a través del cual el colaborador es llevado de la mano para que los conocimientos teóricos que ha adquirido en la plataforma se transformen en una realidad que mejore su ejecución diaria. 
+                        <?php echo nl2br($contenido['contenido1']); ?>
                     </p>
                 </div>
-
             </div>
         </div>
     </section>
+    <!-- TERMINA TITULO -->
     <!--/#services-->
 
+    <!-- INICIA SECCION 2 (sec2) -->
     <section id="portal_mk">
         <div class="container">
             <div class="row">

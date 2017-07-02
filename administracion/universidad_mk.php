@@ -5,13 +5,14 @@
   $pagina = 4;
   if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
     
+    $titulo1 = $_POST['titulo1'];
+    $contenido1 = $_POST['contenido1'];
     $sec1_titulo1 = $_POST['sec1_titulo1'];
     $sec1_cont1 = $_POST['sec1_cont1'];
-    $sec2_titulo1 = $_POST['sec2_titulo1'];
     $sec2_cont1 = $_POST['sec2_cont1'];
-    $sec3_cont1 = $_POST['sec3_cont1'];
+    $url_video = $_POST['url_video'];
 
-    $query = "UPDATE pagina4 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec3_cont1 = '$sec3_cont1' WHERE idpagina4 = '$pagina'";
+    $query = "UPDATE pagina4 SET titulo1 = '$titulo1', contenido1 = '$contenido1', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec2_cont1 = '$sec2_cont1', url_video = '$url_video' WHERE idpagina4 = '$pagina'";
 
 
     //$query = "UPDATE pagina1  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3' WHERE idpagina1 = 1";
@@ -87,88 +88,84 @@
               <div class="row">
                   <div class="col-lg-12">
                       <!--Pulstate start-->
-                      <section class="">
                           <header class="panel-heading">
                             Sección: <span style="color:red">Universidad MK</span>
                           </header>
                           <div class="panel-body">
-<form action="" method="POST">
-    <div id="" style="position:fixed;z-index: 1;">
-      <div class="">
-        <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
-      </div>
-    </div>
+                            <form action="" method="POST">
+                                <div id="" style="position:fixed;z-index: 1;">
+                                  <div class="">
+                                    <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
+                                  </div>
+                                </div>
 
-    <section>
-        <div class="container">
-            <div class="row" id="descripcion_universidad" style="padding-bottom:2em;">
-                <div class="col-md-12" style="left:25%">
-                    <h1 style="font-size:40px;margin-bottom:1em;">
-                      <input type="text" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>">
-                    </h1>
-                </div>
-                <div class="col-md-8 text-justify" style="left:25%;font-size:18px;">
-                    <textarea class="form-control" name="sec1_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec1_cont1']; ?></textarea>
-                </div>
+                                <!-- INICIA TITULO -->
+                                <section>
+                                    <div class="container">
+                                        <div class="row" id="descripcion_universidad" style="padding-bottom:2em;">
+                                            <div class="col-md-12" style="left:25%">
+                                                <h1 style="font-size:40px;margin-bottom:1em;">
+                                                  <input type="text" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>">
+                                                </h1>
+                                            </div>
+                                            <div class="col-md-8 text-justify" style="left:25%;font-size:18px;">
+                                                <textarea class="form-control" name="sec1_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec1_cont1']; ?></textarea>
+                                            </div>
 
-            </div>
-        </div>
-    </section>
-    <!--/#services-->
-
-    <section id="portal_mk">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4" style="padding-left:1em;padding-right:1em">
-                    <div class="col-sm-12" style="background:#f26e23">
-                        <h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1>
-                    </div>
-                    <div class="col-sm-12">
-                        <h2>Universidad MásKapital</h2>
-                    </div>
-                    <div class="col-sm-12">
-                        <h2>CONTACTO</h2>
-                        <img style="width:100%" src="../img/universidad_mk/fb_universidad.png" alt="">
-                    </div>
-                    <div class="col-sm-12" style="font-size:16px;color: #858789">
-                          <textarea class="form-control editorTextarea" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <!--<div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/v4Z0qYXmtUw" frameborder="0" allowfullscreen></iframe>
-                    </div>-->
-                    <div class="col-md-10 text-justify">
-                        <h1 style="color:#2a3031">
-                          <input type="text" name="sec2_titulo1" value="<?php echo $contenido['sec2_titulo1']; ?>">
-                        </h1>
-                        <textarea class="form-control editorTextarea" name="sec2_cont1" id="" rows="20"><?php echo $contenido['sec2_cont1']; ?></textarea>
-                    </div>
-                    <div class="col-md-2">
-                        <img class="img-responsive" src="../img/universidad_mk/logo_universidadmk.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-</form>
-      
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- TERMINA TITULO -->
+                                
+                                <!-- INICIA SECCIÓN 1 -->
+                                <section id="portal_mk">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4" style="padding-left:1em;padding-right:1em">
+                                                <div class="col-sm-12" style="background:#f26e23">
+                                                    <h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h2>Universidad MásKapital</h2>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h2>CONTACTO</h2>
+                                                    <img style="width:100%" src="../img/universidad_mk/fb_universidad.png" alt="">
+                                                </div>
+                                                <div class="col-sm-12" style="font-size:16px;color: #858789">
+                                                      <textarea class="form-control editorTextarea" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <div class="form-group">
+                                                <label for="url_video">Reemplazar URL del video actual</label>
+                                                <input type="text" class="form-control" name="url_video" id="url_video" value="<?php echo $contenido['url_video']; ?>" placeholder="">
+                                              </div>
+                                                <div class="embed-responsive embed-responsive-16by9"> 
+                                                    <iframe class="embed-responsive-item" src="<?php echo $contenido['url_video']; ?>" frameborder="0" allowfullscreen></iframe>
+                                                </div>
+                                                <div class="col-md-10 text-justify">
+                                                    <h1 style="color:#2a3031">
+                                                      <input type="text" name="sec2_titulo1" value="<?php echo $contenido['sec2_titulo1']; ?>">
+                                                    </h1>
+                                                    <textarea class="form-control editorTextarea" name="sec2_cont1" id="" rows="20"><?php echo $contenido['sec2_cont1']; ?></textarea>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <img class="img-responsive" src="../img/universidad_mk/logo_universidadmk.png" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- TERMINA SECCIÓN 1 -->
+                            </form>
                           </div>
-                      </section>
                       <!--Pulstate  end-->
                   </div>
               </div>
           </section>
       </section>
-      <!--main content end-->
-      <!-- Right Slidebar start -->
 
-      <!-- Right Slidebar end -->
-      <!--footer start-->
-
-      <!--footer end-->
   </section>
 
     <script src="js/jquery.js"></script>
