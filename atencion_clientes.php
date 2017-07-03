@@ -139,6 +139,12 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
 
     echo "<script>alert('SE HA ENVIADO LA NOTIFICACIÓN');</script>";
 }
+
+    $idpagina = 5; //id de la pagina mas flexible
+    //consultamos la pagina5 = masflexible
+    $query = "SELECT * FROM pagina5 WHERE idpagina5 = $idpagina";
+    $consultar = $mysqli->query($query);
+    $contenido = $consultar->fetch_assoc();
  ?>
 
 <html lang="esp">
@@ -233,36 +239,33 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                 <div class="col-md-4 col-xs-12 text-center" style="background-color: #f58947;border:10px solid #ffffff;">
                     
                     <div class="text-center col-xs-12">
-                        <h1 class="text-center" style="color:#ffffff;padding-top:1em;"><b>UNE</b></h1>
+                        <h1 class="text-center" style="color:#ffffff;padding-top:1em;"><b><?php echo $contenido['sec2_cont1']; ?></b></h1>
                     </div>
                     <div class="col-xs-12">
                         <div class="text-center" style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <h2 style="color: #ffffff;"><b>Unidad Especializada de Atención a Clientes</b></h2>
+                        <h2 style="color: #ffffff;"><b><?php echo $contenido['sec2_cont2']; ?></b></h2>
                     </div>
                     <div class="col-xs-12">
                         <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <h2 style="color:#ffffff;margin:1em;">Denuncia</h2>
+                        <h2 style="color:#ffffff;margin:1em;"><?php echo $contenido['sec2_cont3']; ?></h2>
                     </div>
                     <div class="col-xs-12" style="padding-bottom:2em;">
                         <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <p style="color:#ffffff;margin-top:1em;">UNE_ACLARACIONESMK@maskapital.com.mx</p>
+                        <p style="color:#ffffff;margin-top:1em;"><?php echo $contenido['sec2_cont4']; ?></p>
                     </div>  
                 </div>
                 <div id="ayuda" class="col-md-8 col-xs-12 text-justify">
                     <div class="col-sm-8">
-                        <h2><b>ESTAMOS PARA AYUDARLE</b></h2>
+                        <h2><b><?php echo $contenido['sec1_titulo1']; ?></b></h2>
                         <p>
-                            Para brindarle un contacto directo y seguro con su financiera MásKapital, permitiéndole a clientes y externos aclarar dudas, quejas y sugerencias, ponemos a su disposición un buzón, el cual llegará al departamento correspondiente, iniciando en el momento en que envía su información un proceso de revisión y seguimiento, que asegura una respuesta oportuna y confiable.
-                        </p>
-                        <p>
-                            Rellene el siguiente formulario para poder ayudarle.
-                        </p>           
+                            <?php echo $contenido['sec1_cont1']; ?>
+                        </p>          
                     </div>
                     <div class="hidden-xs col-sm-4">
-                        <img src="img/atencion_clientes/img_atencion.png" alt="">
+                        <img src="<?php echo 'administracion/'.$contenido['img']; ?>" alt="">
                     </div>
                     <div class="visible-xs col-xs-12">
-                        <img style="height:200px;" src="img/atencion_clientes/img_atencion.png" alt="">
+                        <img style="height:200px;" src="<?php echo 'administracion/'.$contenido['img']; ?>" alt="">
                     </div>
                 </div>
                 
@@ -290,7 +293,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                         <h2 style="color:#ffffff;margin:0px;">es tu derecho</h2>
                     </div>
                     <div class="col-xs-12">
-                        <a class="btn btn-default" href="documentos/AVISO DE PRIVACIDAD KAPITALMUJER.pdf" target="_new" style="width:200px;margin-bottom:3em;">
+                        <a class="btn btn-default" href="<?php echo 'administracion/'.$contenido['archivo']; ?>" target="_new" style="width:200px;margin-bottom:3em;">
                             <img src="img/atencion_clientes/btn.png">
                         </a>
                     </div>

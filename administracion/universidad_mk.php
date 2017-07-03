@@ -15,9 +15,9 @@
     $query = "UPDATE pagina4 SET titulo1 = '$titulo1', contenido1 = '$contenido1', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec2_cont1 = '$sec2_cont1', url_video = '$url_video' WHERE idpagina4 = '$pagina'";
 
 
-    //$query = "UPDATE pagina1  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3' WHERE idpagina1 = 1";
+    //$query = "UPDATE pagina1  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec1_titulo1 = '$sec1_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3' WHERE idpagina1 = 1";
 
-    //$query = "UPDATE pagina1 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1', sec4_img1 = '$sec4_img1' WHERE idpagina1 = 1 ";
+    //$query = "UPDATE pagina1 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_titulo1 = '$sec1_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec3_titulo1 = '$sec3_titulo1', sec2_cont1 = '$sec2_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1', sec4_img1 = '$sec4_img1' WHERE idpagina1 = 1 ";
     $actualizar = $mysqli->query($query);
   }
 
@@ -105,11 +105,11 @@
                                         <div class="row" id="descripcion_universidad" style="padding-bottom:2em;">
                                             <div class="col-md-12" style="left:25%">
                                                 <h1 style="font-size:40px;margin-bottom:1em;">
-                                                  <input type="text" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>">
+                                                  <input type="text" name="titulo1" value="<?php echo $contenido['titulo1']; ?>">
                                                 </h1>
                                             </div>
                                             <div class="col-md-8 text-justify" style="left:25%;font-size:18px;">
-                                                <textarea class="form-control" name="sec1_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec1_cont1']; ?></textarea>
+                                                <textarea class="form-control" name="contenido1" id="" cols="30" rows="10"><?php echo $contenido['contenido1']; ?></textarea>
                                             </div>
 
                                         </div>
@@ -133,7 +133,7 @@
                                                     <img style="width:100%" src="../img/universidad_mk/fb_universidad.png" alt="">
                                                 </div>
                                                 <div class="col-sm-12" style="font-size:16px;color: #858789">
-                                                      <textarea class="form-control editorTextarea" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>
+                                                      <textarea class="form-control editorTextarea" name="sec2_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont1']; ?></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
@@ -146,9 +146,9 @@
                                                 </div>
                                                 <div class="col-md-10 text-justify">
                                                     <h1 style="color:#2a3031">
-                                                      <input type="text" name="sec2_titulo1" value="<?php echo $contenido['sec2_titulo1']; ?>">
+                                                      <input type="text" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>">
                                                     </h1>
-                                                    <textarea class="form-control editorTextarea" name="sec2_cont1" id="" rows="20"><?php echo $contenido['sec2_cont1']; ?></textarea>
+                                                    <textarea class="form-control editorTextarea" name="sec1_cont1" id="" rows="20"><?php echo $contenido['sec1_cont1']; ?></textarea>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <img class="img-responsive" src="../img/universidad_mk/logo_universidadmk.png" alt="">

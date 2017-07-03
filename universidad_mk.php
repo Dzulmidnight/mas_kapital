@@ -144,11 +144,7 @@
                     </div>
                     <div class="col-sm-12" style="font-size:16px;color: #858789">
                         <p>
-                            Tel: (01 951)50 2 25 00 ext 3005
-                            <br>
-                            capacitacion@maskapital.com.mx
-                            <br>
-                            Facebook: <a href="https://www.facebook.com/Universidad-M%C3%A1skapital-148934088773593/" target="_new">Universidad Máskapital</a>
+                            <?php echo nl2br($contenido['sec2_cont1']); ?>
                         </p>
                     </div>
                 </div>
@@ -157,36 +153,14 @@
                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/v4Z0qYXmtUw" frameborder="0" allowfullscreen></iframe>
                     </div>-->
                     <div class="col-md-12">
-                        <img style="width:100%" src="img/universidad_mk/video_universidad.png" alt="">
+                        <div class="embed-responsive embed-responsive-16by9"> 
+                            <iframe class="embed-responsive-item" src="<?php echo $contenido['url_video']; ?>" frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>  
                     <div class="col-md-10 text-justify">
-                        <h1 style="color:#2a3031"><b>LOGOTIPO U+</b></h1>
+                        <h1 style="color:#2a3031"><b><?php echo $contenido['sec1_titulo1']; ?></b></h1>
                         <p style="color:#858789;font-size:16px;">
-                            La U en U+ obviamente es por el carácter Universitario que planteamos. Lejos de buscar impresionar o adjudicarnos un título en apariencia importante.
-                        </p>
-                        <p style="color:#858789;font-size:16px;">
-                            La U simboliza la búsqueda de lo Universal. Un proyecto en donde quepan todos los que de una u otra manera construimos día a día a MásKapital. 
-                        </p>
-                        <p style="color:#858789;font-size:16px;">
-                            Un proyecto que permita aprender de nosotros mismos. Unidos desarrollamos y mejoramos continuamente nuestros métodos y formas. 
-                        </p>
-                        <p style="color:#858789;font-size:16px;">
-                            El + en U+  reconoce la inconfundible filosofía de MásKapital. La incansable búsqueda del punto de toque. 
-                        </p>
-                        <p style="color:#858789;font-size:16px;">
-                            El + en U+ evidencia nuestro origen como parte de MásKapital. Asimismo ensalta la intención de irradiar positivamente con nuestras acciones, a todos los colaboradores de MásKapital. Sabemos que hay errores, la misma cultura de MásKapital reconoce la existencia de la incertidumbre en todos los procesos, sin embargo, pensar y actuar en positivo también implica reconocer los errores como primer paso para la mejora.
-                        </p>
-                        <p style="color:#858789;font-size:16px;">
-                            La posición del + como un superíndice de la U simboliza el empuje que cualquier nuevo conocimiento tiene en aquella persona que se atreve a adquirirlo. Esto le llamamos potenciar el talento. Para potenciar el talento es obligado entender las capacidades de cada uno. No por indicación de otros sino por iniciativa propia. 
-                        </p>
-                        <p style="color:#858789;font-size:16px;">
-                            El superíndice refleja que nuestros esfuerzos buscan fomentar el espíritu investigador, el autoaprendizaje en cada uno como medio para la mejora individual que detona el enriquecimiento colectivo.
-                        </p>
-                        <p style="color:#858789;font-size:16px;">
-                            Estamos convencidos que todos tienen todo el conocimiento que requieren en sus actividades diarias, incluso de las tareas que nunca han ejecutado, solo hace falta ponerles las condiciones adecuadas para que cada colaborador redescubra lo que ya sabe. Para que detonen exponencialmente su talento. Esas condiciones son las que U+ persigue y promueve en el actuar diario.
-                        </p>
-                        <p style="color:#858789;font-size:16px;margin-top:2em;">
-                            Bienvenidos a la Universidad MásKapital.
+                            <?php echo nl2br($contenido['sec1_cont1']); ?>
                         </p>
                     </div>
                     <div class="col-md-2">

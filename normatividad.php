@@ -1,5 +1,6 @@
 <?php 
 include('conexion/conexion.php');
+$idpagina = 2; // 2 = NORMATIVIDAD
  ?>
 <html lang="esp">
 <head>
@@ -113,9 +114,9 @@ ul {
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <?php 
-                        $query_slide = "SELECT * FROM slide WHERE pagina = 2";
+                        $query_slide = "SELECT * FROM slide WHERE pagina = $idpagina";
                         $consultar = $mysqli->query($query_slide);
-                        $query_slide2 = "SELECT * FROM slide WHERE pagina = 2 ORDER BY idslide DESC";
+                        $query_slide2 = "SELECT * FROM slide WHERE pagina = $idpagina ORDER BY idslide DESC";
                         $consultar2 = $mysqli->query($query_slide2);
                         $rows_slide = $consultar2->num_rows;
                          ?>
@@ -174,7 +175,7 @@ ul {
             <div class="row">
                 <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em; color: white;">
                     <?php 
-                    $query = "SELECT * FROM contenido WHERE pagina = 2";
+                    $query = "SELECT * FROM contenido WHERE pagina = $idpagina";
                     $consultar = $mysqli->query($query);
 
                     while($contenido = $consultar->fetch_assoc()){
@@ -201,7 +202,7 @@ ul {
                 <div class="col-md-8 col-xs-12">
                     <div class="text-justify scroll col-md-12">
                         <?php 
-                        $query_2 = "SELECT * FROM contenido WHERE pagina = 2";
+                        $query_2 = "SELECT * FROM contenido WHERE pagina = $idpagina";
                         $consultar_2 = $mysqli->query($query_2);
 
                         while($detalle = $consultar_2->fetch_assoc()){
@@ -222,6 +223,69 @@ ul {
             </div>
         </div>
     </section>
+
+    <!-- INICIA SECCIONES DINAMICAS -->
+    <?php 
+    $query = "SELECT * FROM seccion_dinamica WHERE idpagina = $idpagina";
+    $consultar = $mysqli->query($query);
+    $num_filas = $consultar->num_rows;
+
+    if($num_filas>0){
+      while($contenido_dinamico = $consultar->fetch_assoc()){
+        if($contenido_dinamico['tipo_seccion'] == 1){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                    </div>
+                    <div class="col-md-6">
+                      <p style="text-align:justify;font-size:16px;">
+                        <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <img class="img-responsive" src="<?php echo 'administracion/'.$contenido_dinamico['img']; ?>" alt="">
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }else if($contenido_dinamico['tipo_seccion'] == 2){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                    </div>
+                    <div class="col-md-12">
+                      <p style="text-align:justify;font-size:16px;">
+                        <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                      </p>
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }else if($contenido_dinamico['tipo_seccion'] == 3){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <img class="img-responsive" src="<?php echo 'administracion/'.$contenido_dinamico['img']; ?>" alt="">
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }
+      }
+    }
+    ?>
+    <!-- TERMINAN LAS SECCIONES DINAMICAS -->
 
     <!-- INICIA FOOTER -->
     <?php 

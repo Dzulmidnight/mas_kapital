@@ -1,11 +1,13 @@
 <?php 
   require('../conexion/conexion.php');
   require('../conexion/sesion.php');
-  $pagina = 2; //NUMERO DE LA PAGINA DE NORMATIVIDAD
+  require('funciones.php');
+
+  $idpagina = 2; //NUMERO DE LA PAGINA DE NORMATIVIDAD
   if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
     //CONSULTAMOS EL NUMERO DE IMAGENES DENTRO DEL SLIDE PARA PODER REEMPLAZAR O MANTENER CAMBIOS
     $ruta_slide = '../img//normatividad/';
-    $query = "SELECT * FROM slide WHERE pagina = $pagina";
+    $query = "SELECT * FROM slide WHERE pagina = $idpagina";
     $consultar_slide = $mysqli->query($query);
 
     while($slide = $consultar_slide->fetch_assoc()){
@@ -30,18 +32,49 @@
       move_uploaded_file($_FILES['nuevo_slide']['tmp_name'], $ruta_slide.$_FILES['nuevo_slide']['name']);
       $img_slide = $ruta_slide.basename($_FILES['nuevo_slide']['name']);
 
-      $query = "INSERT INTO slide (pagina, img) VALUES ('$pagina', '$img_slide')";
+      $query = "INSERT INTO slide (pagina, img) VALUES ('$idpagina', '$img_slide')";
       $insertar = $mysqli->query($query);
 
     }
 
+    /// EN CASO DE QUE SE AGREGUE UNA SECCIÓN DINAMICA
+    $tipo_seccion = $_POST['tipo_seccion'];
+    $ruta_img = '../img/seccion_dinamica/';
 
-    /*$sec1_img1 = 1;
-    $sec1_img2 = 2;
-    $sec1_img3 = 3;
-    $sec1_img4 = 4;
-*/
+    if(!empty($tipo_seccion)){
+      $titulo_dinamico = '';
+      $contenido_dinamico = '';
+      $img_dinamica = '';
+      $orden = '';
 
+      if($tipo_seccion == 1){
+        $titulo_dinamico = $_POST['titulo_dinamico1'];
+        $contenido_dinamico = $_POST['contenido_dinamico1'];
+        if(!empty($_FILES['img_dinamica1']['name'])){
+              $_FILES["img_dinamica1"]["name"];
+              move_uploaded_file($_FILES["img_dinamica1"]["tmp_name"], $ruta_img.$_FILES["img_dinamica1"]["name"]);
+              $img_dinamica = $ruta_img.basename($_FILES["img_dinamica1"]["name"]);
+        }
+      }else if($tipo_seccion == 2){
+        $titulo_dinamico = $_POST['titulo_dinamico2'];
+        $contenido_dinamico = $_POST['contenido_dinamico2'];
+      }else if($tipo_seccion == 3){
+        if(!empty($_FILES['img_dinamica3']['name'])){
+              $_FILES["img_dinamica3"]["name"];
+              move_uploaded_file($_FILES["img_dinamica3"]["tmp_name"], $ruta_img.$_FILES["img_dinamica3"]["name"]);
+              $img_dinamica = $ruta_img.basename($_FILES["img_dinamica3"]["name"]);
+        }
+      }
+
+      $insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
+        GetSQLValueString($idpagina, "int"),
+        GetSQLValueString($titulo_dinamico, "text"),
+        GetSQLValueString($contenido_dinamico, "text"),
+        GetSQLValueString($img_dinamica, "text"),
+        GetSQLValueString($tipo_seccion, "int"),
+        GetSQLValueString($orden, "int"));
+      $insertar = $mysqli->query($insertSQL);
+    }
   }
 
 
@@ -61,7 +94,7 @@
 
   $seccion = 'secciones';
   $menu = 'normatividad';
-  $sql = "SELECT * FROM pagina2 WHERE idpagina2 = $pagina";
+  $sql = "SELECT * FROM pagina2 WHERE idpagina2 = $idpagina";
   $ejecutar = $mysqli->query($sql);
   $contenido = $ejecutar->fetch_assoc();
  ?>
@@ -134,340 +167,332 @@
                             Sección: <span style="color:red">Normatividad</span>
                           </header>
                           <div class="panel-body">
-<form action="" method="POST" enctype="multipart/form-data">
-    <div id="" style="position:fixed;z-index: 1;">
-      <div class="">
-        <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
-      </div>
-    </div>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <div id="" style="position:fixed;z-index: 1;">
+                                  <div class="">
+                                    <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
+                                  </div>
+                                </div>
 
 
-    <section id="home-slider" >
-        <div class="container">
-            <div class="row">
-                <div style="padding:0px;">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <?php 
-                        $query_slide = "SELECT * FROM slide WHERE pagina = $pagina";
-                        $consultar = $mysqli->query($query_slide);
-                        $query_slide2 = "SELECT * FROM slide WHERE pagina = $pagina ORDER BY idslide DESC";
-                        $consultar2 = $mysqli->query($query_slide2);
-                        $rows_slide = $consultar2->num_rows;
-                         ?>
-                        <ol class="carousel-indicators">
-                        <?php
-                          $cont = 0;
-                          while($slide = $consultar->fetch_assoc()){
-                            echo '<li data-target="#carousel-example-generic" data-slide-to="'.$cont.'" class=""></li>';
-                            $cont++;
-                          }
-                         ?>
-                            <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
-                        </ol>
+                                <section id="home-slider" >
+                                    <div class="container">
+                                        <div class="row">
+                                            <div style="padding:0px;">
+                                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                    <!-- Indicators -->
+                                                    <?php 
+                                                    $query_slide = "SELECT * FROM slide WHERE pagina = $idpagina";
+                                                    $consultar = $mysqli->query($query_slide);
+                                                    $query_slide2 = "SELECT * FROM slide WHERE pagina = $idpagina ORDER BY idslide DESC";
+                                                    $consultar2 = $mysqli->query($query_slide2);
+                                                    $rows_slide = $consultar2->num_rows;
+                                                     ?>
+                                                    <ol class="carousel-indicators">
+                                                    <?php
+                                                      $cont = 0;
+                                                      while($slide = $consultar->fetch_assoc()){
+                                                        echo '<li data-target="#carousel-example-generic" data-slide-to="'.$cont.'" class=""></li>';
+                                                        $cont++;
+                                                      }
+                                                     ?>
+                                                    </ol>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <?php
-                            $cont = 0;
-                            while($img_slide = $consultar2->fetch_assoc()){
-                            ?>
-                              <div class="item <?php if($cont == 0){echo 'active'; } ?>">
-                                  <img class="img-responsive" src="<?php echo $img_slide['img']; ?>"  alt="imagen1">
-                                        <div class="form-group last">
-                                            <div class="col-md-3">
-                                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                    <div class="fileupload-new thumbnail" style="width: 200px; height: 90px;">
-                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                    <!-- Wrapper for slides -->
+                                                    <div class="carousel-inner" role="listbox">
+                                                        <?php
+                                                        $cont = 0;
+                                                        while($img_slide = $consultar2->fetch_assoc()){
+                                                        ?>
+                                                          <div class="item <?php if($cont == 0){echo 'active'; } ?>">
+                                                              <img class="img-responsive" src="<?php echo $img_slide['img']; ?>"  alt="imagen1">
+                                                              <div class="form-group last">
+                                                                  <div class="col-md-3">
+                                                                      <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                                          <div class="fileupload-new thumbnail" style="width: 200px; height: 90px;">
+                                                                              <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                          </div>
+                                                                          <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                                          <div>
+                                                                           <span class="btn btn-white btn-file">
+                                                                           <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                                           <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                           <input type="file" name="<?php echo 'img_slide'.$img_slide['idslide']; ?>" class="default" />
+
+                                                                           </span>
+
+                                                                          </div>
+                                                                      </div>
+                                                                           <input type="hidden" name="<?php echo 'img_slide_actual'.$img_slide['idslide']; ?>" value="<?php echo $img_slide['img']; ?>">
+                                                                  </div>
+                                                                  <div class="col-md-3" style='margin-top:2em;'>
+                                                                    <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+
+                                                        <?php
+                                                        $cont++;
+                                                        }
+                                                         ?>
+                                                        <div class="item <?php if($rows_slide == 0){echo 'active'; } ?>">
+                                                          <div class="form-group last" style="margin:10em;">
+                                                              <div class="col-md-12 text-center">
+                                                                  <h3 class="alert alert-info">Agregar nueva imagen</h3>
+                                                                  <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                                      <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                                          <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                      </div>
+                                                                      <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                                      <div>
+                                                                       <span class="btn btn-white btn-file">
+                                                                       <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
+                                                                       <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                       <input type="file" name="nuevo_slide" class="default" />
+                                                                       </span>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        </div>
+
                                                     </div>
-                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                                                    <div>
-                                                     <span class="btn btn-white btn-file">
-                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                     <input type="file" name="<?php echo 'img_slide'.$img_slide['idslide']; ?>" class="default" />
 
-                                                     </span>
-
-                                                    </div>
-                                                </div>
-                                                     <input type="hidden" name="<?php echo 'img_slide_actual'.$img_slide['idslide']; ?>" value="<?php echo $img_slide['img']; ?>">
-                                                <!--<span class="label label-danger">NOTE!</span>
-                                               <span>
-                                               Attached image thumbnail is
-                                               supported in Latest Firefox, Chrome, Opera,
-                                               Safari and Internet Explorer 10 only
-                                               </span>-->
+                                                    <!-- Controls -->
+                                                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </div>                  
                                             </div>
-                                            <div class="col-md-3" style='margin-top:2em;'>
-                                              <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
-                                              
-                                            </div>
-
                                         </div>
+                                    </div>
+
+                                </section>
+
+                            <!-- INICIA SECCIONES DINAMICAS -->
+                            <section>
+                              <h3 style="background: #e74c3c;color:#ecf0f1;">Sección Dinamica</h3>
+                              <select class="form-control" name="tipo_seccion" id="tipo_seccion" onchange="seccion()">
+                                <option value="">Selecciona un tipo de sección</option>
+                                <option value="1">Tipo 1</option>
+                                <option value="2">Tipo 2</option>
+                                <option value="3">Tipo 3</option>
+                              </select>
+
+                              <div id="tipo_1" class="col-md-12 well" style="display: none">
+                                <div class="row">
+                                  <h4>Tipo 1</h4>
+                                  <div class="form-group">
+                                    <div class="col-md-12">
+                                      <label for="exampleInputEmail1">Titulo</label>
+                                      <input type="text" class="form-control" name="titulo_dinamico1" id="titulo_dinamico1" placeholder="Titulo">
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="exampleInputEmail1">Contenido</label>
+                                      <textarea class="form-control" name="contenido_dinamico1" id="contenido_dinamico1" rows="6" placeholder="Contenido"></textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label for="exampleInputEmail1">Imagen</label>
+                                      <input type="file" class="form-control" name="img_dinamica1" id="img_dinamica1" placeholder="Email">
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-
-                            <?php
-                            $cont++;
-                            }
-                             ?>
-                            <div class="item <?php if($rows_slide == 0){echo 'active'; } ?>">
-                                        <div class="form-group last" style="margin:10em;">
-                                            <div class="col-md-12 text-center">
-                                                <h3 class="alert alert-info">Agregar nueva imagen</h3>
-                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                    </div>
-                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                    <div>
-                                                     <span class="btn btn-white btn-file">
-                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
-                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                     <input type="file" name="nuevo_slide" class="default" />
-                                                     </span>
-                                                    </div>
-                                                </div>
-                                                <!--<span class="label label-danger">NOTE!</span>
-                                               <span>
-                                               Attached image thumbnail is
-                                               supported in Latest Firefox, Chrome, Opera,
-                                               Safari and Internet Explorer 10 only
-                                               </span>-->
+                              <div id="tipo_2" class="col-md-12 well" style="display: none">
+                                <div class="row">
+                                  <h4>Tipo 2</h4>
+                                  <div class="form-group">
+                                    <div class="col-md-12">
+                                      <label for="exampleInputEmail1">Titulo</label>
+                                      <input type="text" class="form-control" name="titulo_dinamico2" id="titulo_dinamico2" placeholder="Titulo">
+                                    </div>
+                                    <div class="col-md-12">
+                                      <label for="exampleInputEmail1">Contenido</label>
+                                      <textarea class="form-control" name="contenido_dinamico2" id="contenido_dinamico2" rows="6" placeholder="Contenido"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div id="tipo_3" class="col-md-12 well" style="display: none">
+                                <div class="row">
+                                  <h4>Tipo 3</h4>
+                                    <div class="col-md-12 text-center">
+                                        
+                                        <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                            <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                <img src="http://via.placeholder.com/1800x700" alt="" />
                                             </div>
-
-
+                                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                            <div>
+                                              <span class="btn btn-white btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                <input type="file" name="img_dinamica3" class="default" />
+                                              </span>
+                                            </div>
                                         </div>
-                            </div>
-                            <!--<div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_2.jpg" alt="imagen2">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_3.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_4.jpg" alt="imagen3">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="../img/slider/principal/principal_5.jpg" alt="imagen3">
-                            </div>-->
-                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </section>
 
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>                  
-                </div>
-            </div>
-        </div>
+                            <?php 
+                            $query = "SELECT * FROM seccion_dinamica WHERE idpagina = $idpagina";
+                            $consultar = $mysqli->query($query);
+                            $num_filas = $consultar->num_rows;
 
-    </section>
-
-
-    <!--/#home-slider-->
-
-    <section id="" style="margin-top:4em;">
-        <div class="container">
-            <h3 class="alert alert-info text-center">CONTENIDO ACTUAL</h3>
-
-            <?php
-            $query_titulo = "SELECT idcontenido, titulo FROM contenido WHERE pagina = $pagina";
-            $consultar_titulo = $mysqli->query($query_titulo);
-
-            $query_contenido = "SELECT * FROM contenido WHERE pagina = $pagina";
-            $consultar_contenido = $mysqli->query($query_contenido);
-
-            ?>
-
-            <div id="idcontenido" class="row">
-                <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">
-                    <?php 
-                    while($titulo = $consultar_titulo->fetch_assoc()){
-                    ?>
-                      <form action="" method="POST">
-                          <div class="div-normatividad col-sm-12">
-                              <h2 style="color:black"><input type="text" class="form-control" name="" value="<?php echo $titulo['titulo']; ?>"></h2>
-                              <a href="<?php echo '#'.$titulo['idcontenido']; ?>"><span class="label label-primary">Consultar</span></a>
-<button class="btn btn-danger btn-xs" type="submit" class="" name="eliminar_contenido" value="<?php echo $titulo['idcontenido']; ?>" onclick="return confirm('¿Desea eliminar el contenido?');">Eliminar</button>
-
-                          </div>                        
-                      </form>
-
-                    <?php
-                    }
-                     ?>
-                </div>
-                <div class="col-md-8 col-xs-12">
-                    <div class="text-justify scroll col-md-12">
-                        <?php 
-                        while($contenido = $consultar_contenido->fetch_assoc()){
-                        ?>
-                            <div id="<?php echo $contenido['idcontenido']; ?>">
-                                <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b><?php echo $contenido['titulo']; ?></b></h2>
-                                <p style="font-size:18px;">
-                                    <?php echo nl2br($contenido['contenido']); ?>
-                                </p>
-                            </div>
-                        <?php
-                        }
-                         ?>
-                    </div>
-                </div>
-            </div>
-
-            <!--20_06_2017 <div id="idcontenido" class="row">
-                <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">                
-                    <div class="div-normatividad col-sm-12">
-                        <h2 style="color:black"><input type="text" class="form-control" name="" value="CNVB"></h2>
-                        <a href="#cnvb"><span class="label label-primary">Consultar</span></a>
-                    </div>
-
-                    <div class="div-normatividad col-sm-12">
-                        <h2 style="color:black"><input type="text" class="form-control" name="" value="CONDUSEF"></h2>
-                        <a href="#condusef"><span class="label label-primary">Consultar</span></a>
-                    </div>
-
-                    <div class="div-normatividad col-sm-12">
-                        <h2 style="color:black"><input type="text" class="form-control" name="" value="BURO DE ENTIDADES FINANCIERAS"></h2>
-                        <a href="#buro"><span class="label label-primary">Consultar</span></a>
-                    </div>
-
-                    <div class="div-normatividad col-sm-12">
-                        <h2 style="color:black"><input type="text" class="form-control" name="" value="RENOVACIÓN DEL REGISTRO"></h2>
-                        <a href="#cnvb"><span class="label label-primary">Consultar</span></a>
-                    </div>
-
-                    <div class="div-normatividad col-sm-12">
-                        <h2 style="color:black"><input type="text" class="form-control" name="" value="OBTENCIÓN DEL DICTAMEN TÉCNICO"></h2>
-                        <a href="#cnvb"><span class="label label-primary">Consultar</span></a>
-                    </div>
+                            if($num_filas>0){
+                              while($contenido_dinamico = $consultar->fetch_assoc()){
+                                if($contenido_dinamico['tipo_seccion'] == 1){
+                                ?>
+                                  <section class="well" style="margin-top:10em;">
+                                      <div class="container">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <p style="text-align:justify;font-size:16px;">
+                                                <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                                              </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <img class="img-responsive" src="<?php echo $contenido_dinamico['img']; ?>" alt="">
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </section>
+                                <?php
+                                }else if($contenido_dinamico['tipo_seccion'] == 2){
+                                ?>
+                                  <section class="well" style="margin-top:10em;">
+                                      <div class="container">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                                            </div>
+                                            <div class="col-md-12">
+                                              <p style="text-align:justify;font-size:16px;">
+                                                <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                                              </p>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </section>
+                                <?php
+                                }else if($contenido_dinamico['tipo_seccion'] == 3){
+                                ?>
+                                  <section class="well" style="margin-top:10em;">
+                                      <div class="container">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <img class="img-responsive" src="<?php echo $contenido_dinamico['img']; ?>" alt="">
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </section>
+                                <?php
+                                }
+                              }
+                            }
+                            ?>
+                            <!-- TERMINAN LAS SECCIONES DINAMICAS -->
 
 
-                </div>
-                <div class="col-md-8 col-xs-12">
-                    <div class="text-justify scroll col-md-12">
-                        <div id="cnvb">
-                            <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b>CNVB</b></h2>
-                            <p style="font-size:18px;">
-                                La Comisión Nacional Bancaria y de Valores (CNBV), es un órgano desconcentrado de la Secretaría de Hacienda y Crédito Público (SHCP), con facultades en materia de autorización, regulación, supervisión y sanción sobre los diversos <a href="http://www.gob.mx/cnbv/acciones-y-programas/sectores-supervisados?idiom=es" target="_new">sectores</a> y <a href="http://www.gob.mx/cnbv/acciones-y-programas/padron-de-entidades-supervisadas-y-autorizadas-para-captar?idiom=es" target="_new">entidades</a> que integran el Sistema Financiero Mexicano, así como sobre aquellas personas físicas y morales que realicen actividades previstas en las leyes relativas al sistema financiero. La Comisión se rige por <a href="http://www.cnbv.gob.mx/Normatividad/Ley%20de%20la%20Comisión%20Nacional%20Bancaria%20y%20de%20Valores.pdf" target="_new">la Ley de la CNBV</a>.
-                            </p>
-                        </div>
-                        <div id="condusef">
-                            <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b>CONDUSEF</b></h2>
-                            <p style="font-size:18px;">
-                                Es una institución pública especializada en materia financiera, encargada de promover y difundir la educación y la transparencia financiera para que los usuarios tomen decisiones informadas sobre los beneficios, costos y riesgos de los productos y servicios ofertados en el sistema financiero mexicano; así como proteger sus intereses mediante la supervisión y regulación a las instituciones financieras y proporcionarles servicios que los asesoren y apoyen en la defensa de sus derechos.
-                            </p>
-                            <p style="font-size:18px;">
-                                Contacto:
-                                <br>
-                                Insurgentes Sur 762, Colonia del Valle, Ciudad de México. C.P. 03100
-                                <br>
-                                Página de Internet: www.condusef.gob.mx 
-                            </p>
-                            <p style="font-size:18px;">
-                                Teléfono: (55) 5340 0999 y (01 800) 999 8080
-                                <br>
-                                Correo electrónico: 
-                                <br>
-                                asesoria@condusef.gob.mx
-                                <br>
-                                <img src="img/normatividad/logo_condusef.png" alt="">
-                            </p>
-                        </div> 
-                        <div id="buro">
-                            <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b>BURO DE ENTIDADES FINANCIERAS</b></h2>
-                            <p style="font-size:18px">
-                                Es una herramienta de consulta y difusión con la que podrás conocer los productos que ofrecen las entidades financieras, sus comisiones y tasas, las reclamaciones de los usuarios, las prácticas no sanas en que incurren, las sanciones administrativas que les han impuesto, las cláusulas abusivas de sus contratos y otra información que resulte relevante para informarte sobre su desempeño. 
-                            </p>
-                            <p style="font-size:18px">
-                                Con el Buró de Entidades Financieras, se logrará saber quién es quién en bancos, seguros, sociedades financieras de objeto múltiple, cajas de ahorro, afores, entre otras entidades.
-                            </p>
-                            <p style="font-size:18px">
-                                Con ello, podrás comparar y evaluar a las entidades financieras, sus productos y servicios y tendrás mayores elementos para elegir lo que más te convenga. 
-                            </p>
-                            <p style="font-size:18px">
-                                Esta información te será útil para elegir un producto financiero y también para conocer y usar mejor los que ya tienes.
-                            </p>
-                            <p style="font-size:18px">
-                                Este Buró de Entidades Financieras, es una herramienta que puede contribuir al crecimiento económico del país, al promover la competencia entre las instituciones financieras; que impulsará la transparencia al revelar información a los usuarios sobre el desempeño de éstas y los productos que ofrecen y que va a facilitar un manejo responsable de los productos y servicios financieros al conocer a detalle sus características. 
-                            </p>
-                            <p style="font-size:18px">
-                                Lo anterior, podrá derivar en un mayor bienestar social, porque al conjuntar en un solo espacio tan diversa información del sistema financiero, el usuario tendrá más elementos para optimizar su presupuesto, para mejorar sus finanzas personales, para utilizar correctamente los créditos que fortalecerán su economía y obtener los seguros que la protejan, entre otros aspectos. 
-                            </p>
-                        </div>
+                                <section id="" style="margin-top:4em;">
+                                    <div class="container">
+                                        <h3 class="alert alert-info text-center">CONTENIDO ACTUAL</h3>
+                                        <?php
+                                        $query_titulo = "SELECT idcontenido, titulo FROM contenido WHERE pagina = $idpagina";
+                                        $consultar_titulo = $mysqli->query($query_titulo);
 
-                    </div>
-                </div>
-            </div>20_06_2017-->
-        </div>
-    </section>
+                                        $query_contenido = "SELECT * FROM contenido WHERE pagina = $idpagina";
+                                        $consultar_contenido = $mysqli->query($query_contenido);
+                                        ?>
+                                        <div id="idcontenido" class="row">
+                                            <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">
+                                                <?php 
+                                                while($titulo = $consultar_titulo->fetch_assoc()){
+                                                ?>
+                                                  <form action="" method="POST">
+                                                      <div class="div-normatividad col-sm-12">
+                                                          <h2 style="color:black"><input type="text" class="form-control" name="" value="<?php echo $titulo['titulo']; ?>"></h2>
+                                                          <a href="<?php echo '#'.$titulo['idcontenido']; ?>"><span class="label label-primary">Consultar</span></a>
+                                                          <button class="btn btn-danger btn-xs" type="submit" class="" name="eliminar_contenido" value="<?php echo $titulo['idcontenido']; ?>" onclick="return confirm('¿Desea eliminar el contenido?');">Eliminar</button>
+                                                      </div>                        
+                                                  </form>
+                                                <?php
+                                                }
+                                                 ?>
+                                            </div>
+                                            <div class="col-md-8 col-xs-12">
+                                                <div class="text-justify scroll col-md-12">
+                                                    <?php 
+                                                    while($contenido = $consultar_contenido->fetch_assoc()){
+                                                    ?>
+                                                        <div id="<?php echo $contenido['idcontenido']; ?>">
+                                                            <h2 style="margin-top:3em;margin-bottom:2em;color:#2a3031;"><b><?php echo $contenido['titulo']; ?></b></h2>
+                                                            <p style="font-size:18px;">
+                                                                <?php echo nl2br($contenido['contenido']); ?>
+                                                            </p>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                     ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </form>
 
-</form>
+                            <form id="frm-nuevo-contenido" action="" method="POST">
+                                <section id="" style="margin-top:4em;">
+                                    <div class="container">
+                                        <h3 class="alert alert-success text-center">
+                                          <button type="button" id="btn-nuevo-contenido" class="btn btn-info"><i class="fa fa-plus-circle"></i> AGREGAR NUEVO CONTENIDO</button>
+                                        </h3>
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">                
+                                                <div class="div-normatividad col-sm-12">
+                                                  <span class="label label-primary">Titulo</span>
+                                                  <h2 style="color:black"><input type="text" class="form-control" name="titulo" value="" onBlur="ponerMayusculas(this)" required></h2>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-xs-12">
+                                                <div class="text-justify col-md-12">
+                                                    <div id="cnvb">
+                                                        <h2><b>Contenido</b></h2>
 
-<form id="frm-nuevo-contenido" action="" method="POST">
-    <section id="" style="margin-top:4em;">
-        <div class="container">
-            <h3 class="alert alert-success text-center">
-              <button type="button" id="btn-nuevo-contenido" class="btn btn-info"><i class="fa fa-plus-circle"></i> AGREGAR NUEVO CONTENIDO</button>
-            </h3>
-            <div class="row">
-                <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">                
-                    <div class="div-normatividad col-sm-12">
-                        <span class="label label-primary">Titulo</span>
-                        <h2 style="color:black"><input type="text" class="form-control" name="titulo" value="" onBlur="ponerMayusculas(this)" required></h2>
-                        
-                    </div>
-
-
-                </div>
-                <div class="col-md-8 col-xs-12">
-                    <div class="text-justify col-md-12">
-                        <div id="cnvb">
-                            <h2><b>Contenido</b></h2>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <section class="panel">
-                                        <div class="panel-body">
-                                            <form action="#" class="form-horizontal tasi-form">
-                                                <div class="form-group">
-                                                        <div class="col-md-12">
-                                                          <p style="font-size:18px;">
-                                                            <textarea class="wysihtml5 form-control" name="contenido" rows="10"></textarea>
-                                                          </p>
-                                                            
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <section class="panel">
+                                                                    <div class="panel-body">
+                                                                      <div class="form-group">
+                                                                        <div class="col-md-12">
+                                                                          <p style="font-size:18px;">
+                                                                            <textarea class="wysihtml5 form-control" name="contenido" rows="10"></textarea>
+                                                                          </p>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                            </form>
+
+                                                </div>
+                                            </div>
                                         </div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
+                                    </div>
+                                </section>
+                            </form>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-  
-</form>
-
-
-
-
-
-      
                           </div>
                       </section>
                       <!--Pulstate  end-->
@@ -475,13 +500,7 @@
               </div>
           </section>
       </section>
-      <!--main content end-->
-      <!-- Right Slidebar start -->
 
-      <!-- Right Slidebar end -->
-      <!--footer start-->
-
-      <!--footer end-->
   </section>
 
     <script src="js/jquery.js"></script>
@@ -519,6 +538,24 @@
     <script src="js/advanced-form-components.js"></script>
 
   <script>
+    function seccion(){
+      tipo = document.getElementById("tipo_seccion").value;
+      if(tipo == 1){
+        document.getElementById("tipo_1").style.display = "block";
+        document.getElementById("tipo_2").style.display = "none";
+        document.getElementById("tipo_3").style.display = "none";
+      }else if(tipo == 2){
+        document.getElementById("tipo_1").style.display = "none";
+        document.getElementById("tipo_2").style.display = "block";
+        document.getElementById("tipo_3").style.display = "none";
+      }else if(tipo == 3){
+        document.getElementById("tipo_1").style.display =  "none";
+        document.getElementById("tipo_2").style.display = "none";
+        document.getElementById("tipo_3").style.display = "block";
+      }
+      
+    }
+
       function ponerMayusculas(nombre) 
       { 
           nombre.value=nombre.value.toUpperCase(); 

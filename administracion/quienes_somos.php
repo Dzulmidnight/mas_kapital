@@ -178,6 +178,46 @@ if (!isset($_SESSION)) {
 
     $actualizar = $mysqli->query($updateSQL);
 
+    /// EN CASO DE QUE SE AGREGUE UNA SECCIÓN DINAMICA
+    $tipo_seccion = $_POST['tipo_seccion'];
+    $ruta_img = '../img/seccion_dinamica/';
+
+    if(!empty($tipo_seccion)){
+      $titulo_dinamico = '';
+      $contenido_dinamico = '';
+      $img_dinamica = '';
+      $orden = '';
+
+      if($tipo_seccion == 1){
+        $titulo_dinamico = $_POST['titulo_dinamico1'];
+        $contenido_dinamico = $_POST['contenido_dinamico1'];
+        if(!empty($_FILES['img_dinamica1']['name'])){
+              $_FILES["img_dinamica1"]["name"];
+              move_uploaded_file($_FILES["img_dinamica1"]["tmp_name"], $ruta_img.$_FILES["img_dinamica1"]["name"]);
+              $img_dinamica = $ruta_img.basename($_FILES["img_dinamica1"]["name"]);
+        }
+      }else if($tipo_seccion == 2){
+        $titulo_dinamico = $_POST['titulo_dinamico2'];
+        $contenido_dinamico = $_POST['contenido_dinamico2'];
+      }else if($tipo_seccion == 3){
+        if(!empty($_FILES['img_dinamica3']['name'])){
+              $_FILES["img_dinamica3"]["name"];
+              move_uploaded_file($_FILES["img_dinamica3"]["tmp_name"], $ruta_img.$_FILES["img_dinamica3"]["name"]);
+              $img_dinamica = $ruta_img.basename($_FILES["img_dinamica3"]["name"]);
+        }
+      }
+
+      $insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
+        GetSQLValueString($idpagina, "int"),
+        GetSQLValueString($titulo_dinamico, "text"),
+        GetSQLValueString($contenido_dinamico, "text"),
+        GetSQLValueString($img_dinamica, "text"),
+        GetSQLValueString($tipo_seccion, "int"),
+        GetSQLValueString($orden, "int"));
+      $insertar = $mysqli->query($insertSQL);
+    }
+
+
   }
 
   if(isset($_POST['eliminar_slide'])){
@@ -527,38 +567,133 @@ if (!isset($_SESSION)) {
                                 <!-- TERMINA SECCIÓN 2 (sec2) -->
                                 
                                 <!-- INICIA SECCIONES DINAMICAS -->
-                                <!-- TERMINAN LAS SECCIONES DINAMICAS -->
+                                <section>
+                                  <h3 style="background: #e74c3c;color:#ecf0f1;">Sección Dinamica</h3>
+                                  <select class="form-control" name="tipo_seccion" id="tipo_seccion" onchange="seccion()">
+                                    <option value="">Selecciona un tipo de sección</option>
+                                    <option value="1">Tipo 1</option>
+                                    <option value="2">Tipo 2</option>
+                                    <option value="3">Tipo 3</option>
+                                  </select>
 
-                                <section style="margin-top:10em;">
-                                    <div class="container" style="height:500px;background-image: url('../img/nuestros_valores/nuestros_valores.jpg');background-size:cover;background-position:center;padding-top:5em;">
-                                        <div class="row">
+                                  <div id="tipo_1" class="col-md-12 well" style="display: none">
+                                    <div class="row">
+                                      <h4>Tipo 1</h4>
+                                      <div class="form-group">
+                                        <div class="col-md-12">
+                                          <label for="exampleInputEmail1">Titulo</label>
+                                          <input type="text" class="form-control" name="titulo_dinamico1" id="titulo_dinamico1" placeholder="Titulo">
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label for="exampleInputEmail1">Contenido</label>
+                                          <textarea class="form-control" name="contenido_dinamico1" id="contenido_dinamico1" rows="6" placeholder="Contenido"></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label for="exampleInputEmail1">Imagen</label>
+                                          <input type="file" class="form-control" name="img_dinamica1" id="img_dinamica1" placeholder="Email">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div id="tipo_2" class="col-md-12 well" style="display: none">
+                                    <div class="row">
+                                      <h4>Tipo 2</h4>
+                                      <div class="form-group">
+                                        <div class="col-md-12">
+                                          <label for="exampleInputEmail1">Titulo</label>
+                                          <input type="text" class="form-control" name="titulo_dinamico2" id="titulo_dinamico2" placeholder="Titulo">
+                                        </div>
+                                        <div class="col-md-12">
+                                          <label for="exampleInputEmail1">Contenido</label>
+                                          <textarea class="form-control" name="contenido_dinamico2" id="contenido_dinamico2" rows="6" placeholder="Contenido"></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div id="tipo_3" class="col-md-12 well" style="display: none">
+                                    <div class="row">
+                                      <h4>Tipo 3</h4>
+                                        <div class="col-md-12 text-center">
+                                            
+                                            <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                    <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                </div>
+                                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                <div>
+                                                  <span class="btn btn-white btn-file">
+                                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
+                                                    <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                    <input type="file" name="img_dinamica3" class="default" />
+                                                  </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                      <div class="form-group last" style="">
-                                          <div class="col-md-12 text-center">
-                                              
-                                              <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                  <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                      <img src="http://via.placeholder.com/1800x700" alt="" />
-                                                  </div>
-                                                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                  <div>
-                                                   <span class="btn btn-white btn-file">
-                                                   <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                   <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                   <input type="file" name="" class="default" />
-                                                   </span>
-                                                  </div>
-                                              </div>
-                                              <!--<span class="label label-danger">NOTE!</span>
-                                             <span>
-                                             Attached image thumbnail is
-                                             supported in Latest Firefox, Chrome, Opera,
-                                             Safari and Internet Explorer 10 only
-                                             </span>-->
-                                          </div>
-                                      </div>
+                                  </div>
                                 </section>
+
+                                <?php 
+                                $query = "SELECT * FROM seccion_dinamica WHERE idpagina = $idpagina";
+                                $consultar = $mysqli->query($query);
+                                $num_filas = $consultar->num_rows;
+
+                                if($num_filas>0){
+                                  while($contenido_dinamico = $consultar->fetch_assoc()){
+                                    if($contenido_dinamico['tipo_seccion'] == 1){
+                                    ?>
+                                      <section class="well" style="margin-top:10em;">
+                                          <div class="container">
+                                              <div class="row">
+                                                <div class="col-md-12">
+                                                  <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                                                </div>
+                                                <div class="col-md-6">
+                                                  <p style="text-align:justify;font-size:16px;">
+                                                    <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                                                  </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                  <img class="img-responsive" src="<?php echo $contenido_dinamico['img']; ?>" alt="">
+                                                </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                    <?php
+                                    }else if($contenido_dinamico['tipo_seccion'] == 2){
+                                    ?>
+                                      <section class="well" style="margin-top:10em;">
+                                          <div class="container">
+                                              <div class="row">
+                                                <div class="col-md-12">
+                                                  <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <p style="text-align:justify;font-size:16px;">
+                                                    <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                                                  </p>
+                                                </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                    <?php
+                                    }else if($contenido_dinamico['tipo_seccion'] == 3){
+                                    ?>
+                                      <section class="well" style="margin-top:10em;">
+                                          <div class="container">
+                                              <div class="row">
+                                                <div class="col-md-12">
+                                                  <img class="img-responsive" src="<?php echo $contenido_dinamico['img']; ?>" alt="">
+                                                </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                    <?php
+                                    }
+                                  }
+                                }
+                                ?>
+                                <!-- TERMINAN LAS SECCIONES DINAMICAS -->
 
 
                                 <!-- INICIA SECCIÓN 3 (sec3) -->
@@ -665,11 +800,28 @@ if (!isset($_SESSION)) {
   <script src="js/slidebars.min.js"></script>
 
   <!--common script for all pages-->
-    <script src="js/common-scripts.js"></script>
-    <!--this page  script only-->
-    <script src="js/advanced-form-components.js"></script>
+  <script src="js/common-scripts.js"></script>
+  <!--this page  script only-->
+  <script src="js/advanced-form-components.js"></script>
 
   <script>
+    function seccion(){
+      tipo = document.getElementById("tipo_seccion").value;
+      if(tipo == 1){
+        document.getElementById("tipo_1").style.display = "block";
+        document.getElementById("tipo_2").style.display = "none";
+        document.getElementById("tipo_3").style.display = "none";
+      }else if(tipo == 2){
+        document.getElementById("tipo_1").style.display = "none";
+        document.getElementById("tipo_2").style.display = "block";
+        document.getElementById("tipo_3").style.display = "none";
+      }else if(tipo == 3){
+        document.getElementById("tipo_1").style.display =  "none";
+        document.getElementById("tipo_2").style.display = "none";
+        document.getElementById("tipo_3").style.display = "block";
+      }
+      
+    }
 
       jQuery(document).ready(function(){
 

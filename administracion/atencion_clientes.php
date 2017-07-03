@@ -13,6 +13,9 @@
     $sec2_cont4 = $_POST['sec2_cont4'];
 
     $ruta_archivo = '../documentos/';
+    $ruta_img = '../img/atencion_clientes/';
+
+    $img_actual = $_POST['img_actual'];
     $archivo_actual = $_POST['archivo_actual'];
 
     if(!empty($_FILES['nuevo_archivo']['name'])){
@@ -25,12 +28,19 @@
       $archivo = $archivo_actual;
     }
 
-    $query = "UPDATE pagina5 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec2_cont4 = '$sec2_cont4', archivo = '$archivo' WHERE idpagina5 = $pagina";
+    if(!empty($_FILES['img']['name'])){
+        unlink($img_actual);
+        $_FILES["img"]["name"];
+          move_uploaded_file($_FILES["img"]["tmp_name"], $ruta_img.$_FILES["img"]["name"]);
+          $img = $ruta_img.basename($_FILES["img"]["name"]);
+          //$archivo = $rutaArchivo.basename($fecha."_".$_FILES["nueva_cotizacion"]["name"]);
+    }else{
+      $img = $img_actual;
+    }
 
 
-    //$query = "UPDATE pagina1  SET sec1_img1 = '$sec1_img1', sec1_img2 = '$sec1_img2', sec1_img3 = '$sec1_img3', sec1_img4 = '$sec1_img4', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3' WHERE idpagina1 = 1";
+    $query = "UPDATE pagina5 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec2_cont4 = '$sec2_cont4', archivo = '$archivo', img = '$img' WHERE idpagina5 = $pagina";
 
-    //$query = "UPDATE pagina1 SET sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_titulo4 = '$sec1_titulo4', sec2_titulo1 = '$sec2_titulo1', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1', sec4_img1 = '$sec4_img1' WHERE idpagina1 = 1 ";
     $actualizar = $mysqli->query($query);
   }
 
@@ -62,7 +72,7 @@
     <link rel="shortcut icon" href="img/favicon.png">
 
     <title>Sección: Atención a Clientes</title>
-<link href="../css/main.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-reset.css" rel="stylesheet">
@@ -119,106 +129,119 @@
                             Sección: <span style="color:red">Universidad MK</span>
                           </header>
                           <div class="panel-body">
-<form action="" method="POST" enctype="multipart/form-data">
-    <div id="" style="position:fixed;z-index: 1;">
-      <div class="">
-        <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
-      </div>
-    </div>
-
-    <section id="">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-xs-12 text-center" style="background-color: #f58947;border:10px solid #ffffff;">
-                    
-                    <div class="text-center col-xs-12">
-                        <h1 class="text-center" style="padding-top:1em;">
-                          <input type="text" style="width:300px;" name="sec2_cont1" value="<?php echo $contenido['sec2_cont1']; ?>">
-                        </h1>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="text-center" style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <h2>
-                          <input type="text" style="width:300px;" name="sec2_cont2" value="<?php echo $contenido['sec2_cont2']; ?>">
-                        </h2>
-                    </div>
-
-                    <div class="col-xs-12">
-                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <h2 style="">
-                          <input type="text" style="width:300px;" name="sec2_cont3" value="<?php echo $contenido['sec2_cont3']; ?>">
-                        </h2>
-                    </div>
-                    <div class="col-xs-12" style="padding-bottom:2em;">
-                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <p style="margin-top:1em;">
-                          <input type="text" style="width:300px;" name="sec2_cont4" value="<?php echo $contenido['sec2_cont4']; ?>">
-                        </p>
-                    </div>  
-                </div>
-                <div id="ayuda" class="col-md-8 col-xs-12 text-justify">
-                    <div class="col-sm-8">
-                        <h2>
-                          <input type="text" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>">
-                        </h2>
-                        <textarea class="form-control editorTextarea" name="sec1_cont1" id="" rows="10"><?php echo $contenido['sec1_cont1']; ?></textarea>          
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="../img/atencion_clientes/img_atencion.png" alt="">
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-xs-12 text-center" style="background-color: #4f5898;border:10px solid #ffffff;">
-
-                    <div class="text-center col-xs-12">
-                        <h2 class="text-center" style="color:#ffffff;padding-top:1em;margin-bottom:0px;"><b>Conoce el</b></h2>
-                    </div>
-                    <div class="col-xs-12">
-                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <h2 style="color: #ffffff;margin:0px;"><b>Aviso de</b></h2>
-                    </div>
-                    <div class="col-xs-12">
-                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <h2 style="color:#ffffff;margin:0px;">Privacidad</h2>
-                    </div>
-                    <div class="col-xs-12" style="padding-bottom:2em;">
-                        <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
-                        <h2 style="color:#ffffff;margin:0px;">es tu derecho</h2>
-                    </div>
-                    <div class="col-xs-12">
-                        <a class="btn btn-default" href="<?php echo $contenido['archivo']; ?>" target="_new" style="width:200px;margin-bottom:3em;">
-                            <img src="../img/atencion_clientes/btn.png">
-                        </a>
-                            <input type="hidden" name="archivo_actual" value="<?php echo $contenido['archivo']; ?>">
-                            <div class="controls col-md-12">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                  <span class="btn btn-white btn-file">
-                                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar Aviso</span>
-                                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                  <input type="file" name="nuevo_archivo" class="default" />
-                                  </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <div id="" style="position:fixed;z-index: 1;">
+                                  <div class="">
+                                    <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
+                                  </div>
                                 </div>
-                            </div>
 
-                    </div>
-                </div>
+                                <section id="">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-12 text-center" style="background-color: #f58947;border:10px solid #ffffff;">
+                                                
+                                                <div class="text-center col-xs-12">
+                                                    <h1 class="text-center" style="padding-top:1em;">
+                                                      <input type="text" style="width:300px;" name="sec2_cont1" value="<?php echo $contenido['sec2_cont1']; ?>">
+                                                    </h1>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="text-center" style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                                                    <h2>
+                                                      <input type="text" style="width:300px;" name="sec2_cont2" value="<?php echo $contenido['sec2_cont2']; ?>">
+                                                    </h2>
+                                                </div>
+
+                                                <div class="col-xs-12">
+                                                    <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                                                    <h2 style="">
+                                                      <input type="text" style="width:300px;" name="sec2_cont3" value="<?php echo $contenido['sec2_cont3']; ?>">
+                                                    </h2>
+                                                </div>
+                                                <div class="col-xs-12" style="padding-bottom:2em;">
+                                                    <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                                                    <p style="margin-top:1em;">
+                                                      <input type="text" style="width:300px;" name="sec2_cont4" value="<?php echo $contenido['sec2_cont4']; ?>">
+                                                    </p>
+                                                </div>  
+                                            </div>
+                                            <div id="ayuda" class="col-md-8 col-xs-12 text-justify">
+                                                <div class="col-sm-8">
+                                                    <h2>
+                                                      <input type="text" name="sec1_titulo1" value="<?php echo $contenido['sec1_titulo1']; ?>">
+                                                    </h2>
+                                                    <textarea class="form-control editorTextarea" name="sec1_cont1" id="" rows="10"><?php echo $contenido['sec1_cont1']; ?></textarea>          
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="<?php echo $contenido['img']; ?>" alt="">
+                                                    <input type="hidden" name="img_actual" value="<?php echo $contenido['img']; ?>">
+                                                    <div class="form-group">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="img" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-12 text-center" style="background-color: #4f5898;border:10px solid #ffffff;">
+
+                                                <div class="text-center col-xs-12">
+                                                    <h2 class="text-center" style="color:#ffffff;padding-top:1em;margin-bottom:0px;"><b>Conoce el</b></h2>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                                                    <h2 style="color: #ffffff;margin:0px;"><b>Aviso de</b></h2>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                                                    <h2 style="color:#ffffff;margin:0px;">Privacidad</h2>
+                                                </div>
+                                                <div class="col-xs-12" style="padding-bottom:2em;">
+                                                    <div style="border-top:3px solid #ffffff;width:200px;margin: 0 auto;"></div>
+                                                    <h2 style="color:#ffffff;margin:0px;">es tu derecho</h2>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <a class="btn btn-default" href="<?php echo $contenido['archivo']; ?>" target="_new" style="width:200px;margin-bottom:3em;">
+                                                        <img src="../img/atencion_clientes/btn.png">
+                                                    </a>
+                                                        <input type="hidden" name="archivo_actual" value="<?php echo $contenido['archivo']; ?>">
+                                                        <div class="controls col-md-12">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                              <span class="btn btn-white btn-file">
+                                                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar Aviso</span>
+                                                              <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                              <input type="file" name="nuevo_archivo" class="default" />
+                                                              </span>
+                                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                            </div>
+                                                        </div>
+
+                                                </div>
+                                            </div>
 
 
-            </div>
-        </div>
-    </section>
+                                        </div>
+                                    </div>
+                                </section>
 
 
-</form>
-      
+                            </form>
                           </div>
                       </section>
                       <!--Pulstate  end-->

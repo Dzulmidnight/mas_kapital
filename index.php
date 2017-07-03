@@ -126,9 +126,9 @@
     <!--/#home-slider-->
     
     <?php 
-    $query_pagina = "SELECT * FROM pagina1 WHERE idpagina1 = 1";
+    $query_pagina = "SELECT * FROM pagina1 WHERE idpagina1 = $idpagina";
     $consultar = $mysqli->query($query_pagina);
-    $detalle = $consultar->fetch_assoc();
+    $contenido = $consultar->fetch_assoc();
      ?>
     <section id="services">
         <div class="container">
@@ -136,37 +136,37 @@
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img1']; ?>" alt="<?php echo $detalle['sec1_titulo1']; ?>">
+                            <img src="<?php echo 'administracion/'.$contenido['sec1_img1']; ?>" alt="<?php echo $contenido['sec1_titulo1']; ?>">
                         </div>
-                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo1']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont1']; ?></p>
+                        <h2 style="color:#29327e"><?php echo $contenido['sec1_titulo1']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont1']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img2']; ?>" alt="<?php echo $detalle['sec1_titulo2']; ?>">
+                            <img src="<?php echo 'administracion/'.$contenido['sec1_img2']; ?>" alt="<?php echo $contenido['sec1_titulo2']; ?>">
                         </div>
-                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo2']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont2']; ?></p>
+                        <h2 style="color:#35bddf"><?php echo $contenido['sec1_titulo2']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont2']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img3']; ?>" alt="<?php echo $detalle['sec1_titulo3']; ?>">
+                            <img src="<?php echo 'administracion/'.$contenido['sec1_img3']; ?>" alt="<?php echo $contenido['sec1_titulo3']; ?>">
                         </div>
-                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo3']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont3']; ?></p>
+                        <h2 style="color:#29327e"><?php echo $contenido['sec1_titulo3']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont3']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img4']; ?>" alt="<?php echo $detalle['sec1_titulo4']; ?>">
+                            <img src="<?php echo 'administracion/'.$contenido['sec1_img4']; ?>" alt="<?php echo $contenido['sec1_titulo4']; ?>">
                         </div>
-                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo4']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont4']; ?></p>
+                        <h2 style="color:#35bddf"><?php echo $contenido['sec1_titulo4']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont4']; ?></p>
                     </div>
                 </div>
 
@@ -179,9 +179,9 @@
        <div class="container" style="background-color:#323534;padding-top:1em;padding-bottom:1em">
            <div class="row">
                <div class="col-md-12">
-                   <h2 class="visible-lg" style="padding-left:2em;color:#ffffff;font-size:28px;"><i><b><?php echo $detalle['sec2_titulo1']; ?></b></i></h2>
-                   <p class="visible-md" style="padding-left:1em;color:#ffffff;font-size:24px;"><i><b><?php echo $detalle['sec2_titulo1']; ?></b></i></p>
-                   <p class="visible-sm visible-xs text-center" style="color:#ffffff;font-size:25px;"><i><b><?php echo $detalle['sec2_titulo1']; ?></b></i></p>
+                   <h2 class="visible-lg" style="padding-left:2em;color:#ffffff;font-size:28px;"><i><b><?php echo $contenido['sec2_titulo1']; ?></b></i></h2>
+                   <p class="visible-md" style="padding-left:1em;color:#ffffff;font-size:24px;"><i><b><?php echo $contenido['sec2_titulo1']; ?></b></i></p>
+                   <p class="visible-sm visible-xs text-center" style="color:#ffffff;font-size:25px;"><i><b><?php echo $contenido['sec2_titulo1']; ?></b></i></p>
                </div>
            </div>
        </div>
@@ -196,62 +196,117 @@
                 
                 <!--- SECCIÓN LG-MD -->
                 <div class="hidden-sm hidden-xs col-md-6 fadeInLeft text-center" style="margin-top:3em;">
-                    <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b><?php echo $detalle['sec2_sub1']; ?></b></h1>
+                    <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b><?php echo $contenido['sec2_sub1']; ?></b></h1>
                     <p style="font-size:16px;text-align:justify;">
-                        <?php echo nl2br($detalle['sec2_cont1']); ?>
+                        <?php echo nl2br($contenido['sec2_cont1']); ?>
                     </p>
                 </div>
                 <div class="hidden-sm hidden-xs col-md-6">
-                    <img class="img-responsive" src="<?php echo 'administracion/'.$detalle['sec2_img1']; ?>" alt="" style="float:right;margin-top:-100px;">
+                    <img class="img-responsive" src="<?php echo 'administracion/'.$contenido['sec2_img1']; ?>" alt="" style="float:right;margin-top:-100px;">
                 </div>
             
                 <!-- SECCIÓN SM -->
                 <div class="visible-sm col-sm-6 fadeInLeft text-center" style="margin-top:3em;">
-                    <h2 style="color:#323534;font-size:3em;margin-bottom:1em;"><b><?php echo $detalle['sec2_sub1']; ?></b></h2>
+                    <h2 style="color:#323534;font-size:3em;margin-bottom:1em;"><b><?php echo $contenido['sec2_sub1']; ?></b></h2>
                     <p style="font-size:16px;text-align:justify;">
-                        <?php echo nl2br($detalle['sec2_cont1']); ?> 
+                        <?php echo nl2br($contenido['sec2_cont1']); ?> 
                     </p>
                 </div>
                 <div class="visible-sm col-sm-6">
-                    <img class="img-responsive" src="<?php echo 'administracion/'.$detalle['sec2_img1']; ?>" alt="" style="float:right;">
+                    <img class="img-responsive" src="<?php echo 'administracion/'.$contenido['sec2_img1']; ?>" alt="" style="float:right;">
                 </div>
 
                 <!-- SECCIÓN XS -->
                 <div class="visible-xs col-xs-12 fadeInLeft text-center" style="margin-top:3em;">
-                    <h1 style="color:#323534;font-size:2.5em;margin-bottom:1em;"><b><?php echo $detalle['sec2_sub1']; ?></b></h1>
+                    <h1 style="color:#323534;font-size:2.5em;margin-bottom:1em;"><b><?php echo $contenido['sec2_sub1']; ?></b></h1>
                     <p style="font-size:16px;text-align:justify;">
-                        <?php echo nl2br($detalle['sec2_cont1']); ?>
+                        <?php echo nl2br($contenido['sec2_cont1']); ?>
                     </p>
                 </div>
                 <div class="visible-xs col-xs-12">
-                    <img class="img-responsive" style="height:500px;float:right" src="<?php echo 'administracion'.$detalle['sec2_img1']; ?>" alt="" >
+                    <img class="img-responsive" style="height:500px;float:right" src="<?php echo 'administracion'.$contenido['sec2_img1']; ?>" alt="" >
                 </div>
                 
             </div>
         </div>
     </section>
-     <!--/#features-->
-    <section style="margin-top:10em;">
-        <div class="container" style="height:500px;background-image: url('img/nuestros_valores/nuestros_valores.jpg');background-size:cover;background-position:center;padding-top:5em;">
-            <div class="row">
+    
+    <!-- INICIA SECCIONES DINAMICAS -->
+    <?php 
+    $query = "SELECT * FROM seccion_dinamica WHERE idpagina = $idpagina";
+    $consultar = $mysqli->query($query);
+    $num_filas = $consultar->num_rows;
 
-            </div>
-        </div>
-    </section>
+    if($num_filas>0){
+      while($contenido_dinamico = $consultar->fetch_assoc()){
+        if($contenido_dinamico['tipo_seccion'] == 1){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                    </div>
+                    <div class="col-md-6">
+                      <p style="text-align:justify;font-size:16px;">
+                        <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <img class="img-responsive" src="<?php echo 'administracion/'.$contenido_dinamico['img']; ?>" alt="">
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }else if($contenido_dinamico['tipo_seccion'] == 2){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                    </div>
+                    <div class="col-md-12">
+                      <p style="text-align:justify;font-size:16px;">
+                        <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                      </p>
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }else if($contenido_dinamico['tipo_seccion'] == 3){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <img class="img-responsive" src="<?php echo 'administracion/'.$contenido_dinamico['img']; ?>" alt="">
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }
+      }
+    }
+    ?>
+    <!-- TERMINAN LAS SECCIONES DINAMICAS -->
 
     <section id="mision-vision">
         <div class="container" >
             <div class="row">
                     <div class="col-sm-12">
-                        <h1 class="title text-center"><?php echo $detalle['sec3_titulo1']; ?></h1>
+                        <h1 class="title text-center"><?php echo $contenido['sec3_titulo1']; ?></h1>
                         <p style="text-align:justify;font-size:16px;">
-                            <?php echo $detalle['sec3_cont1']; ?>
+                            <?php echo $contenido['sec3_cont1']; ?>
                         </p>
                     </div>
                     <div class="col-sm-12">
-                        <h1 class="title text-center"><?php echo $detalle['sec3_titulo2']; ?></h1>
+                        <h1 class="title text-center"><?php echo $contenido['sec3_titulo2']; ?></h1>
                         <p style="text-align:justify;font-size:16px;">
-                            <?php echo $detalle['sec3_cont2']; ?>
+                            <?php echo $contenido['sec3_cont2']; ?>
                         </p> 
                     </div>
             </div>
@@ -267,22 +322,22 @@
             <div class="row">
                 <!-- visible en lg-md -->
                 <div class="hidden-sm hidden-xs col-md-6">
-                    <a href="https://www.facebook.com/mas.kapital"><img src="<?php echo 'administracion/'.$detalle['sec4_img1']; ?>" alt=""></a>
+                    <a href="https://www.facebook.com/mas.kapital"><img src="<?php echo 'administracion/'.$contenido['sec4_img1']; ?>" alt=""></a>
                 </div>
                 <div class="hidden-sm hidden-xs col-md-6" style="text-align:justify;color:#ffffff">
-                    <a href="https://www.facebook.com/mas.kapital"><h1><b><?php echo $detalle['sec4_titulo1']; ?></b></h1></a>
-                    <h2 style="color:#ffffff;font-size:30px;"><b><?php echo $detalle['sec4_sub1']; ?></b></h2>
-                    <p style="font-size:20px;"><?php echo $detalle['sec4_cont1']; ?></p>
+                    <a href="https://www.facebook.com/mas.kapital"><h1><b><?php echo $contenido['sec4_titulo1']; ?></b></h1></a>
+                    <h2 style="color:#ffffff;font-size:30px;"><b><?php echo $contenido['sec4_sub1']; ?></b></h2>
+                    <p style="font-size:20px;"><?php echo $contenido['sec4_cont1']; ?></p>
                 </div>
                 
                 <!-- visible en sm -->
                 <div class="visible-sm visible-xs col-sm-12" style="text-align:justify;color:#ffffff">
-                    <a href="https://www.facebook.com/mas.kapital"><h1 class="text-center" style="font-size:2.5em;"><b><?php echo $detalle['sec4_titulo1']; ?></b></h1></a>
-                    <h2 class="text-center" style="color:#ffffff;font-size:30px;"><b><?php echo $detalle['sec4_sub1']; ?></b></h2>
-                    <p style="font-size:20px;"><?php echo $detalle['sec4_cont1']; ?></p>
+                    <a href="https://www.facebook.com/mas.kapital"><h1 class="text-center" style="font-size:2.5em;"><b><?php echo $contenido['sec4_titulo1']; ?></b></h1></a>
+                    <h2 class="text-center" style="color:#ffffff;font-size:30px;"><b><?php echo $contenido['sec4_sub1']; ?></b></h2>
+                    <p style="font-size:20px;"><?php echo $contenido['sec4_cont1']; ?></p>
                 </div>
                 <div class="visible-sm visible-xs col-sm-12 text-center">
-                    <a href="https://www.facebook.com/mas.kapital"><img src="<?php echo 'administracion/'.$detalle['sec4_img1']; ?>" alt=""></a>
+                    <a href="https://www.facebook.com/mas.kapital"><img src="<?php echo 'administracion/'.$contenido['sec4_img1']; ?>" alt=""></a>
                 </div>
 
                 
