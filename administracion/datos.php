@@ -1,15 +1,31 @@
 <?php
 require('../conexion/conexion.php');
-/*$estado = $_POST['estado'];
+require_once('funciones.php');
 
-$query = "SELECT * FROM Sucursales WHERE Estado = '$estado'";
-$consultar = $mysqli->query($query);
+if(isset($_SESSION['usuario'])){
+    if($_SESSION['usuario']['tipo'] != 'administrador'){
+        header('Location: conexion/salir.php');
+    }
+}
+if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
+  $idfaq = $_POST['idfaq'];
+  $pregunta = $_POST['pregunta'];
+  $respuesta = $_POST['respuesta'];
 
-echo "<select class='form-control' name='sucursal'>";
-  while($sucursales = $consultar->fetch_assoc()){
-    echo "<option value='".$sucursales['idSucursales']."'>".$sucursales['NombreSucursal']."</option>";
-  }
-echo "</select>";*/
+  $updateSQL = sprintf("UPDATE faq SET pregunta = %s, respuesta = %s WHERE idfaq = %s",
+    GetSQLValueString($pregunta, "text"),
+    GetSQLValueString($respuesta, "text"),
+    GetSQLValueString($idfaq, "int"));
+  $actualizar = $mysqli->query($updateSQL);
+}
+if(isset($_POST['eliminar_pregunta'])){
+  $idpregunta = $_POST['eliminar_pregunta'];
+  $query = "DELETE FROM faq WHERE idfaq = $idpregunta";
+  $eliminar = $mysqli->query($query);
+
+  //echo '<script>alert("Se ha eliminado la pregunta.");</script>';
+}
+    
 $seccion = $_POST['seccion_actual'];
 $pregunta = $_POST['pregunta'];
 $respuesta = $_POST['respuesta'];
@@ -47,22 +63,63 @@ $insertar = $mysqli->query($query);
                             $ejecutar2 = $mysqli->query($sql);
                             $cont = 1;
                             while($preguntas = $ejecutar2->fetch_assoc()){
-                              $sub_accordion = 'accordion'.$secciones['id_seccion'].'_'.$preguntas['idfaq'];
 
-                              echo '<div class="panel panel-success">';
-                                  echo '<div class="panel-heading">';
-                                      echo '<h4 class="panel-title">';
-                                          echo '<a href="#'.$sub_accordion.'" data-parent="#'.$accordion.'" data-toggle="collapse" class="accordion-toggle">';
-                                              echo $cont.'.- '.$preguntas['pregunta'];
-                                          echo '</a>';
-                                      echo '</h4>';
-                                  echo '</div>';
-                                  echo '<div class="panel-collapse collapse" id="'.$sub_accordion.'">';
-                                      echo '<div class="panel-body">';
-                                        echo $preguntas['respuesta'];
-                                      echo '</div>';
-                                  echo '</div>';
-                              echo '</div>';
+                              $sub_accordion = 'accordion'.$secciones['id_seccion'].'_'.$preguntas['idfaq'];
+                              
+                                echo '<div class="panel panel-success">';
+                                    echo '<div class="panel-heading">';
+                                        echo '<form action="" method="POST">';
+                                          echo '<h4 class="panel-title">';
+                                          ?>
+
+                                    <button type="submit" name="eliminar_pregunta" class="btn btn-danger btn-xs" value="<?php echo $preguntas['idfaq']; ?>" onclick="return confirm('¿Desea eliminar la pregunta ?');"><i class="fa fa-trash-o "></i></button>
+
+                                    <button type="button" name="editar_pregunta" class="btn btn-info btn-xs" data-toggle="modal" href="<?php echo '#modalEditar'.$preguntas['idfaq']; ?>"><i class="fa fa-pencil-square-o"></i></button>
+                                  
+                                          <?php
+                                              echo '<a href="#'.$sub_accordion.'" data-parent="#'.$accordion.'" data-toggle="collapse" class="accordion-toggle">';
+                                                  echo $cont.'.- '.$preguntas['pregunta'];
+                                              echo '</a>';
+                                          echo '</h4>';
+                                        echo '</form>';
+                                    echo '</div>';
+                                    echo '<div class="panel-collapse collapse" id="'.$sub_accordion.'">';
+                                        echo '<div class="panel-body">';
+                                          echo $preguntas['respuesta'];
+                                        echo '</div>';
+                                    echo '</div>';
+                                echo '</div>';
+                              ?>
+                              <!-- Modal Editar pregunta -->
+                              <div class="modal fade" id="<?php echo 'modalEditar'.$preguntas['idfaq']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+                                        <form action="" id="editar_pregunta" method="POST" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title"><b>Editar Pregunta</b></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <!-- page start-->
+                                              <div class="row">
+                                                <input type="text" name="idfaq" value="<?php echo $preguntas['idfaq']; ?>">
+                                                <input type="text" class="form-control" name="pregunta" value="<?php echo $preguntas['pregunta']; ?>">
+                                                <br>
+                                                <textarea class="form-control" name="respuesta" id="" rows="5" ><?php echo $preguntas['respuesta']; ?></textarea>
+                                              </div>
+                                              <!-- page end-->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                                                <button class="btn btn-success" type="submit" id="" name="guardar_cambios" value="1"> Guardar Cambios</button>
+                                            </div>              
+                                        </form>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- modal -->
+                              <?php
+                            
                               $cont++;
                             }
 

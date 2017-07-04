@@ -336,64 +336,68 @@
     </section>
     <!-- TERMINA SECCIÓN 3 (sec3) -->
 
-    <section id="clients">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms" >
-                    <img class="img-responsive" src="<?php echo 'administracion/'.$detalle['sec4_img1']; ?>" alt="">    
-                </div>              
-            </div>
-        </div>
-     </section>
-    <!--/#clients-->
-    <section id="requisitos" style="margin-bottom:4em;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="padding:0">
-                    <img class="img-responsive" style="width:100%;"src="<?php echo 'administracion/'.$detalle['sec4_img2']; ?>" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- INICIA SECCIONES DINAMICAS -->
+    <?php 
+    $query = "SELECT * FROM seccion_dinamica WHERE idpagina = $idpagina";
+    $consultar = $mysqli->query($query);
+    $num_filas = $consultar->num_rows;
 
-
-
-    <section>
-        <div class="container" style="background-image: url('img/index/banner_azul.png');background-size:cover; padding-top:2em;border-top: 10px solid #fac099; border-bottom: 10px solid #fac099">
-            <div class="col-md-12 text-center">
-                <h1 style="color:#ffffff"><b><?php echo $detalle['sec4_titulo2']; ?></b></h1>
-            </div>
-            
-            <!-- visible lg-md -->
-            <div class="hidden-sm hidden-xs col-md-7">
-                <img style="margin-top:6em;" src="img/mas_flexible/compromisos.png" alt="">
-            </div>
-            <div class="hidden-sm hidden-xs col-md-5" style="text-align:justify;color:#ffffff;">
-                <ul>
-                    <li><h3 style="font-size:30px;">Aceptar nuevas clientas.</h3></li>
-                    <li><h3 style="font-size:30px;">Hacer apoyo mutuo cuando haga falta.</h3></li>
-                    <li><h3 style="font-size:30px;">Devolver el apoyo mutuo en tiempo.</h3></li>
-                    <li><h3 style="font-size:30px;">Aceptar las reglas del grupo.</h3></li>
-                </ul>
-            </div>
-
-            <!-- visible sm y xs -->
-            <div class="visible-sm visible-xs col-sm-12 col-xs-12" style="text-align:justify;color:#ffffff;">
-                <ul>
-                    <li><h3 style="font-size:30px;">Aceptar nuevas clientas.</h3></li>
-                    <li><h3 style="font-size:30px;">Hacer apoyo mutuo cuando haga falta.</h3></li>
-                    <li><h3 style="font-size:30px;">Devolver el apoyo mutuo en tiempo.</h3></li>
-                    <li><h3 style="font-size:30px;">Aceptar las reglas del grupo.</h3></li>
-                </ul>
-            </div>
-            <div class="visible-sm visible-xs col-sm-12 col-xs-12">
-                <img src="img/mas_flexible/compromisos.png" alt="">
-            </div>
-
-
-
-        </div>
-    </section>
+    if($num_filas>0){
+      while($contenido_dinamico = $consultar->fetch_assoc()){
+        if($contenido_dinamico['tipo_seccion'] == 1){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                    </div>
+                    <div class="col-md-6">
+                      <p style="text-align:justify;font-size:16px;">
+                        <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <img class="img-responsive" src="<?php echo 'administracion/'.$contenido_dinamico['img']; ?>" alt="">
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }else if($contenido_dinamico['tipo_seccion'] == 2){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h1 class="title text-center"><?php echo $contenido_dinamico['titulo']; ?></h1>
+                    </div>
+                    <div class="col-md-12">
+                      <p style="text-align:justify;font-size:16px;">
+                        <?php echo nl2br($contenido_dinamico['contenido']); ?>  
+                      </p>
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }else if($contenido_dinamico['tipo_seccion'] == 3){
+        ?>
+          <section style="margin-top:10em;">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <img class="img-responsive" src="<?php echo 'administracion/'.$contenido_dinamico['img']; ?>" alt="">
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <?php
+        }
+      }
+    }
+    ?>
+    <!-- TERMINAN LAS SECCIONES DINAMICAS -->
 
     <section style="margin-top:5em;">
         <div class="container" style="padding-left:6em;padding-right:6em;">
@@ -413,123 +417,8 @@
             </div>
         </div>
     </section>
-    
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <img class="img-responsive" src="img/mas_flexible/mas_regalos.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="donde-pagar" style="margin-top:5em;margin-bottom:6em;">
-        <div class="container" style="border-bottom: 10px solid #263c89">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center" style="font-size:40px;color:#2a3031"><b>¿DONDE PAGAR?</b></h1>
-                </div>
-
-                <!-- VISIBLE LG-MD -->
-                <div class="hidden-sm hidden-xs col-md-3">
-                    <img src="img/mas_flexible/donde_pagar.png" alt="">
-                </div>
-
-                <div class="hidden-sm hidden-xs col-md-9 text-center" style="margin-top:4em;">
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="img/mas_flexible/logo_banorte.jpg" alt="">
-                    </div>
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="img/mas_flexible/logo_scotiabank.jpg" alt="">
-                    </div>
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="img/mas_flexible/logo_telecomm.jpg" alt="">
-                    </div>
-                    <div class="col-sm-8 col-xs-12">
-                        <h3 class="text-center"><b>Para cobrar su crédito o realizar sus pagos</b></h3>
-                    </div>
-                    <div class="col-sm-4 col-xs-12">
-                        <h3 class="text-center">Para realizar únicamente pagos</h3>
-                    </div>
-                    <div class="col-sm-9 col-xs-12 col-sm-offset-3">
-                        <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;"><b>Además podrás realizar tus pagos y desembolsos en las sucursales que cuentan con caja.</b></h2>
-                        <h4 class="text-left" style="color:#858789"><b>RECOMENDACIONES para poder realizar pagos de recuperación del crédito.</b></h4>
-                        <p class="text-left" style="color:#858789">- Presentarse en Ventanilla a realizar el pago (Recuperación). De preferencia antes de las 3:30 pm.</p>
-                        <p class="text-left" style="color:#858789">- Llevar consigo número de referencia, cuenta y monto a depositar.</p>
-                        <p class="text-left" style="color:#858789">- Antes de salir del Banco, revisar la ficha de depósito que tenga los datos correctos como son: NOMBRE DE LA EMPRESA, NÚMERO DE REFERENCIA Y MONTO.</p>
-                        <p class="text-left" style="color:#858789">- Verificar en el tiket de deposito que se haya registrado correctamente No. DE REFERENCIA Y MONTO.</p>
-                    </div>
-                </div>
-                
-                <!-- VISIBLE SM -->
-                <div class="visible-sm col-sm-12 col-xs-12 text-center" style="margin-top:4em;">
-                    <div class="col-xs-4">
-                        <img class="img-responsive" src="img/mas_flexible/logo_banorte.jpg" alt="">
-                    </div>
-                    <div class="col-xs-4">
-                        <img class="img-responsive" src="img/mas_flexible/logo_scotiabank.jpg" alt="">
-                    </div>
-                    <div class="col-xs-4">
-                        <img class="img-responsive" src="img/mas_flexible/logo_telecomm.jpg" alt="">
-                    </div>
-                    <div class="col-sm-8 col-xs-12">
-                        <h3 class="text-center"><b>Para cobrar su crédito o realizar sus pagos</b></h3>
-                    </div>
-                    <div class="col-sm-4 col-xs-12">
-                        <h3 class="text-center">Para realizar únicamente pagos</h3>
-                    </div>
-
-                </div>
-                <div class="visible-sm col-sm-3 col-xs-3">
-                    <img style="height:300px;margin-top:8em;" src="img/mas_flexible/donde_pagar.png" alt="">
-                </div>
-                <div class="visible-sm col-sm-9 col-xs-9">
-
-                    <div class="col-sm-9 col-xs-12 col-sm-offset-3">
-                        <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;"><b>Además podrás realizar tus pagos y desembolsos en las sucursales que cuentan con caja.</b></h2>
-                        <h4 class="text-left" style="color:#858789"><b>RECOMENDACIONES para poder realizar pagos de recuperación del crédito.</b></h4>
-                        <p class="text-left" style="color:#858789">- Presentarse en Ventanilla a realizar el pago (Recuperación). De preferencia antes de las 3:30 pm.</p>
-                        <p class="text-left" style="color:#858789">- Llevar consigo número de referencia, cuenta y monto a depositar.</p>
-                        <p class="text-left" style="color:#858789">- Antes de salir del Banco, revisar la ficha de depósito que tenga los datos correctos como son: NOMBRE DE LA EMPRESA, NÚMERO DE REFERENCIA Y MONTO.</p>
-                        <p class="text-left" style="color:#858789">- Verificar en el tiket de deposito que se haya registrado correctamente No. DE REFERENCIA Y MONTO.</p>
-                    </div>
-                </div>
-
-                <!-- VISIBLE XS -->
-                <div class="visible-xs col-xs-12 col-xs-12 text-center" style="margin-top:4em;">
-                    <div class="col-xs-6">
-                        <img class="img-responsive" src="img/mas_flexible/logo_banorte.jpg" alt="">
-                    </div>
-                    <div class="col-xs-6">
-                        <img class="img-responsive" src="img/mas_flexible/logo_scotiabank.jpg" alt="">
-                    </div>
-                    <div class="col-xs-12">
-                        <h3 class="text-center"><b>Para cobrar su crédito o realizar sus pagos</b></h3>
-                    </div>
-                    <div class="col-xs-12">
-                        <img class="" src="img/mas_flexible/logo_telecomm.jpg" alt="">
-                    </div>
-                    <div class="col-xs-12">
-                        <h3 class="text-center">Para realizar únicamente pagos</h3>
-                    </div>
-
-                </div>
-                <div class="visible-xs col-xs-12 text-justify">
-                    <div class="col-xs-12">
-                        <h2 class="text-left" style="color:#f26e23;margin-bottom:1em;"><b>Además podrás realizar tus pagos y desembolsos en las sucursales que cuentan con caja.</b></h2>
-                        <h4 class="text-left" style="color:#858789"><b>RECOMENDACIONES para poder realizar pagos de recuperación del crédito.</b></h4>
-                        <p class="text-left" style="color:#858789">- Presentarse en Ventanilla a realizar el pago (Recuperación). De preferencia antes de las 3:30 pm.</p>
-                        <p class="text-left" style="color:#858789">- Llevar consigo número de referencia, cuenta y monto a depositar.</p>
-                        <p class="text-left" style="color:#858789">- Antes de salir del Banco, revisar la ficha de depósito que tenga los datos correctos como son: NOMBRE DE LA EMPRESA, NÚMERO DE REFERENCIA Y MONTO.</p>
-                        <p class="text-left" style="color:#858789">- Verificar en el tiket de deposito que se haya registrado correctamente No. DE REFERENCIA Y MONTO.</p>
-                    </div>
-                </div>
 
 
-            </div>
-        </div>
-    </section>
 
     <!-- INICIA FOOTER -->
     <?php 

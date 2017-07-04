@@ -131,10 +131,10 @@
             <div class="row">
                 <div class="col-md-4" style="padding-left:1em;padding-right:1em">
                     <div class="col-sm-12" style="background:#f26e23">
-                        <h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1>
+                        <a href="http://www.universidadmaskapital.com.mx/"><h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1></a>
                     </div>
                     <div class="col-sm-12">
-                        <h2><a href="https://www.facebook.com/mas.kapital?hc_ref=NEWSFEED">Universidad MásKapital</a></h2>
+                        <h2><a href="http://www.universidadmaskapital.com.mx/">Universidad MásKapital</a></h2>
                     </div>
                     <div class="col-sm-12">
                         <h2>CONTACTO</h2>

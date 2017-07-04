@@ -369,7 +369,7 @@
                                     <tr>
                                       <td>Nombre Sucursal</td>
                                       <td colspan="3">
-                                        <input type="text" class="form-control" name="nombre" id="f-name" placeholder="Nombre de la Sucursal">
+                                        <input type="text" class="form-control" name="nombre" id="f-name" placeholder="Nombre de la Sucursal" required>
                                       </td>
                                     </tr>
                                     <tr>
@@ -379,7 +379,7 @@
                                         $query = "SELECT nombre FROM estados";
                                         $consultar = $mysqli->query($query);
                                         ?>
-                                          <select class="form-control" name="estado" id="">
+                                          <select class="form-control" name="estado" id="" required>
                                             <option value="">Selecciona un Estado</option>
                                             <?php 
                                             while($estados = $consultar->fetch_assoc()){
@@ -392,27 +392,27 @@
                                     <tr>
                                       <td>Municipio</td>
                                       <td colspan="3">
-                                        <input type="text" class="form-control" name="municipio" id="" placeholder="Municipio">
+                                        <input type="text" class="form-control" name="municipio" id="" placeholder="Municipio" required>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Colonia</td>
                                       <td>
-                                        <input type="text" class="form-control" name="colonia" placeholder="Colonia">
+                                        <input type="text" class="form-control" name="colonia" placeholder="Colonia" required>
                                       </td>
                                       <td>C.P.</td>
                                       <td>
-                                        <input type="text" class="form-control" name="cp" placeholder="C.P.">
+                                        <input type="text" class="form-control" name="cp" placeholder="C.P." required>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Calle</td>
                                       <td>
-                                        <input type="text" class="form-control" name="calle" id="" placeholder="Calle">
+                                        <input type="text" class="form-control" name="calle" id="" placeholder="Calle" required>
                                       </td>
                                       <td>Num. Ext.</td>
                                       <td>
-                                        <input type="text" class="form-control" name="numero" id="" placeholder="Num. #">
+                                        <input type="text" class="form-control" name="numero" id="" placeholder="Num. #" required>
                                       </td>
                                     </tr>
                                     <tr>
@@ -424,11 +424,11 @@
                                     <tr>
                                       <td>Teléfono</td>
                                       <td>
-                                        <input type="text" class="form-control" name="telefono" id="" placeholder="Teléfono">
+                                        <input type="text" class="form-control" name="telefono" id="" placeholder="Teléfono" required>
                                       </td>
                                       <td>Email</td>
                                       <td>
-                                        <input type="text" class="form-control" name="email" id="" placeholder="Email">
+                                        <input type="text" class="form-control" name="email" id="" placeholder="Email" required>
                                       </td>
                                     </tr>
                                     <tr>
