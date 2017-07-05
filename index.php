@@ -351,10 +351,6 @@
 
     <script>
         function aparecer(){
-            //document.getElementsByClassName('barra_lateral_2').style.display = 'inline';
-            /*var x = document.getElementsByClassName("barra_lateral_2");
-            x[0].style.display = "inline";
-            */
             var elements = document.getElementsByClassName('barra_lateral_2');
 
             for(var i = 0, length = elements.length; i < length; i++) {
@@ -365,10 +361,6 @@
       
         }
         function desaparecer(){
-            //document.getElementsByClassName('barra_lateral_2').style.display = 'none';
-            /*var x = document.getElementsByClassName("barra_lateral_2");
-            x[0].style.display = "inline";
-            */
             var elements = document.getElementsByClassName('barra_lateral_2');
             for(var i = 0, length = elements.length; i < length; i++) {
                 elements[i].style.display = 'none';

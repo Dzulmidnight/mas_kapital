@@ -26,14 +26,14 @@
                                    </td>
                                    <td>     
 
-                                       <select class="form-control" name="" id="">
+                                       <select class="form-control" name="Pariente" id="Pariente">
                                           <option value="">ELIJA</option>
                                            <option value="SI">SI</option>
                                            <option value="NO">NO</option>
                                        </select>
                                    </td>
                                    <td colspan="3">
-                                       <input type="text" class="form-control" id="Pariente" name="Pariente" placeholder="¿QUIEN ES SU PARIENTE?">
+                                       <input type="text" class="form-control" id="NombrePariente" name="NombrePariente" placeholder="¿QUIEN ES SU PARIENTE?">
                                    </td>
                                 </tr>
                                 <tr>

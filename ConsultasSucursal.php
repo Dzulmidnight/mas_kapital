@@ -1,5 +1,5 @@
 <?php
-include ('conexion.php');
+include ('conexion/conexion.php');
 if (isset($_POST['accion'])) {
 	if ($_POST['accion']==1) {
 		# code...

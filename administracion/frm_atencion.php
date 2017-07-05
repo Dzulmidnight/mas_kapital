@@ -171,6 +171,7 @@
                                         <td>
                                           <form id="" action="" method="POST">
                                             <input type="hidden" name="idfrm_atencion" value="<?php echo $buzon['idfrm_atencion'] ?>">
+                                            <a data-toggle="tooltip" title="Descargar denuncia" target="_new" href="<?php echo '../'.$buzon['archivo_atencion']; ?>"><img src="../img/logos/logo_pdf.png" alt=""></a>
                                             <a class="btn btn-xs btn-info" href="detalle_buzon.php?solicitud=<?php echo $buzon['idfrm_atencion']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
 
                                             <button type="submit" name="eliminar_solicitud" class="btn btn-danger btn-xs" value="<?php echo $solicitud['idSolicitudTrabajo']; ?>" onclick="return confirm('¿Desea eliminar el mensaje ?');"><i class="fa fa-trash-o "></i></button>

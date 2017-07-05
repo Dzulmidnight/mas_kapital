@@ -17,7 +17,7 @@
                                 $sql ="SELECT DISTINCT Puesto FROM vacantes";
                                 $res=$mysqli->query($sql);
                                 while ($fila=$res->fetch_assoc()) {
-                                    ?><option> <? echo utf8_encode($fila['Puesto']); ?></option>
+                                    ?><option> <? echo $fila['Puesto']; ?></option>
                                 <? } ?>
                                 </select>
                         </div>

@@ -1,5 +1,5 @@
 <?php                         
-include ('conexion.php');
+include ('conexion/conexion.php');
 $sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
 $idsol=$mysqli->query($sql2);
 $resultado=$idsol->fetch_assoc(); 

@@ -2,6 +2,7 @@
 require_once('conexion/conexion.php');
 require_once('correo/mail.php');
 require_once('funciones/funciones.php');
+require_once('administracion/mpdf/mpdf.php');
 
 if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     $tema_motivo = $_POST['tema_motivo'];
@@ -18,8 +19,14 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     $descripcion = $_POST['descripcion'];
     $fecha = time();
 
+    ///inician variables del PDF
+    $ruta_pdf = 'administracion/reportes/atencion_clientes/';
+    $nombre_pdf = 'atencion_clientes_'.time().'.pdf';
+    $reporte = $ruta_pdf.$nombre_pdf;
+    /// fin
+
     //Insertamos la informacion del formulario en BD
-    $insertSQL = "INSERT INTO frm_atencion(tema_motivo, sucursal, grupo, nombre, ap_paterno, ap_materno, direccion, municipio, estado, correo, telefono, descripcion, fecha) VALUES ('$tema_motivo', '$sucursal', '$grupo', '$nombre', '$ap_paterno', '$ap_materno', '$direccion', '$municipio', '$estado', '$correo', '$telefono', '$descripcion', '$fecha')";
+    $insertSQL = "INSERT INTO frm_atencion(tema_motivo, sucursal, grupo, nombre, ap_paterno, ap_materno, direccion, municipio, estado, correo, telefono, descripcion, fecha, archivo_atencion) VALUES ('$tema_motivo', '$sucursal', '$grupo', '$nombre', '$ap_paterno', '$ap_materno', '$direccion', '$municipio', '$estado', '$correo', '$telefono', '$descripcion', '$fecha', '$reporte')";
     $mysqli->query($insertSQL);
 
 
@@ -28,9 +35,131 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     $ejecutar = $mysqli->query($query);
     $detalle = $ejecutar->fetch_assoc();
 
+
+    /// SE GENERA EL ARCHIVO PDF Y SE GUARDA EN EL SERVIDOR
+    $html = '
+
+        <div class="col-xs-12">
+            <table style="border: 1px solid #ddd;border-collapse: collapse;font-family: Tahoma, Geneva, sans-serif;font-size:12px;">
+                    <tr>
+                        <td style="text-align:center;padding:15px;background-color:#3498db;color:#ffffff;" colspan="2">DATOS DE IDENTIFICACIÓN</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            <b>SUCURSAL:</b>
+                        </td>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            '.$detalle['NombreSucursal'].', '.$detalle['Estado'].'
+                        </td>
+                    <tr>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            <b>GRUPO:</b>
+                        </td>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            '.$grupo.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            <b>NOMBRE:</b>
+                        </td>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            '.$nombre.' '.$ap_paterno.' '.$ap_materno.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            <b>DIRECCIÓN:</b>
+                        </td>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            '.$estado.', '.$municipio.', '.$direccion.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            <b>CORREO ELECTRÓNICO:</b>
+                        </td>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            '.$correo.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            <b>NÚMERO TELEFÓNICO</b>
+                        </td>
+                        <td style="text-align:left;border: 1px solid #ddd">
+                            '.$telefono.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;padding:15px;border: 1px solid #ddd;background-color:#3498db;color:#ffffff;" colspan="2">DESCRIPCIÓN</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left;border: 1px solid #ddd">
+                            '.$descripcion.'
+                        </td>
+                    </tr>
+            </table>
+        </div>';
+
+
+    $mpdf = new mPDF('c', 'Letter'); // seleccionamos el tamaño de la hoja
+    ob_start();
+
+    $mpdf->setAutoTopMargin = 'pad';
+    $mpdf->keep_table_proportions = TRUE;
+    $mpdf->SetHTMLHeader('
+    <header class="clearfix">
+      <div>
+        <table style="padding:0px;margin-top:-20px;">
+          <tr>
+            <td style="text-align:left;margin-bottom:0px;font-size:12px;">
+                  <div>
+                    <img src="administracion/reportes/img/logo_mas_kapital.png" >
+                  </div>
+            </td>
+            <td style="text-align:right;font-size:12px;">
+                  <div>
+                    <h2>
+                        ATENCIÓN A CLIENTES
+                    </h2>             
+                  </div>
+                  <div>
+                    <h3>TEMA O MOTIVO: <span style="color:red">'.$tema_motivo.'</span></h3>
+                  </div>
+                  <div>'.date('d/m/Y', $fecha).'</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </header>
+      ');
+    $css = file_get_contents('administracion/reportes/css/style_reporte.css');  
+    //$mpdf->AddPage('L'); //se cambia la orientacion de la pagina
+    $mpdf->pagenumPrefix = 'Página / Page ';
+    $mpdf->pagenumSuffix = ' - ';
+    $mpdf->nbpgPrefix = ' de ';
+    //$mpdf->nbpgSuffix = ' pages';
+    $mpdf->SetFooter('{PAGENO}{nbpg}');
+    $mpdf->writeHTML($css,1);
+
+    ob_end_clean();
+
+    $mpdf->writeHTML($html);
+    //$pdf_listo = $mpdf->Output('reporte.pdf', 'I');
+    
+    /// CON LA LINEA DE ABAJO GENERAMOS EL PDF Y LO ENVIAMOS POR EMAIL, PERO NO LO GUARDAMOS
+    //28_03_2017 $pdf_listo = $mpdf->Output('reporte_trimestral.pdf', 'S'); //reemplazamos la I por S(regresa el documento como string)
+    /// CON LA LINEA DE ABAJO GENERAMOS EL PDF Y LO GUARDAMOS EN UNA CARPETA
+    $mpdf->Output(''.$ruta_pdf.''.$nombre_pdf.'', 'F'); //reemplazamos la I por S(regresa el documento como string)
+
+    /// FIN
+
+
+    /// SE GENERA EL CORREO
     $asunto = 'Atención a Clientes | '.$tema_motivo.'';
 
-    $cuerpo_mensaje = '
+    $mensaje_correo = '
         <html>
         <head>
             <meta charset="utf-8">
@@ -112,30 +241,19 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
         </body>
         </html>
     ';
-    /*if(isset($correos_oc['email1'])){
-        $token = strtok($correos_oc['email1'], "\/\,\;");
-        while ($token !== false)
-        {
-            $mail->AddCC($token);
-            $token = strtok('\/\,\;');
-        }
-    }
-    if(isset($correos_oc['email2'])){
-        $token = strtok($correos_oc['email2'], "\/\,\;");
-        while ($token !== false)
-        {
-            $mail->AddCC($token);
-            $token = strtok('\/\,\;');
-        }
-    }*/
 
-    $mail->AddCC('soporteinforganic@gmail.com');
+
+    $mail->AddAddress('soporteinforganic@gmail.com');
+
     $mail->Subject = utf8_decode($asunto);
-    $mail->Body = utf8_decode($cuerpo_mensaje);
-    $mail->MsgHTML(utf8_decode($cuerpo_mensaje));
+    $mail->Body = utf8_decode($mensaje_correo);
+    $mail->MsgHTML(utf8_decode($mensaje_correo));
+    //$mail->AddAttachment($pdf_listo, 'reporte.pdf');
+
+    //$mail->addStringAttachment($pdf_listo, 'reporte_trimestral.pdf'); // SE ENVIA LA CADENA DE TEXTO DEL PDF POR EMAIL
+    $mail->AddAttachment($reporte);
     $mail->Send();
     $mail->ClearAddresses();
-    $mail->ClearAttachments();
 
     echo "<script>alert('SE HA ENVIADO LA NOTIFICACIÓN');</script>";
 }

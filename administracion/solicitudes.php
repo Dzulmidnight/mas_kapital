@@ -168,9 +168,9 @@
                                     ?>
 	                                    <tr id="<?php echo $idfila; ?>" class="gradeX">
 	                                      <td><?php echo $fecha; ?></td>
-	                                      <td><?php echo utf8_decode($nombre); ?></td>
+	                                      <td><?php echo $nombre; ?></td>
                                         <td><?php echo $solicitud['Carrera']; ?></td>
-	                                      <td><?php echo utf8_decode($solicitud['Puesto']); ?></td>
+	                                      <td><?php echo $solicitud['Puesto']; ?></td>
 	                                      <td><?php echo $solicitud['Estado']; ?></td>
 	                                      <td>
 	                                      	<?php 
@@ -186,7 +186,8 @@
 	                                      <td>
 	                                        <form id="<?php echo 'frm_solicitud'.$solicitud['idSolicitudTrabajo'] ?>" action="" method="POST">
 	                                          <input type="hidden" name="idSolicitudTrabajo" value="<?php echo $solicitud['idSolicitudTrabajo'] ?>">
-	                                          <a class="btn btn-xs btn-info" href="detalle_solicitud.php?solicitud=<?php echo $solicitud['idSolicitudTrabajo']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
+                                            <a data-toggle="tooltip" title="Descargar solicitud" target="_new" href="<?php echo '../'.$solicitud['archivo_atencion']; ?>"><img src="../img/logos/logo_pdf.png" alt=""></a>
+	                                          <a class="btn btn-xs btn-info" href="detalle_solicitud.php?solicitud=<?php echo $solicitud['archivo_solicitud']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
 	                                          <input type="hidden" name="idSolicitante" value="<?php echo $solicitud['idSolicitante']; ?>">
 
 	                                          <button type="submit" name="eliminar_solicitud" class="btn btn-danger btn-xs" value="<?php echo $solicitud['idSolicitudTrabajo']; ?>" onclick="return confirm('¿Desea eliminar la solicitud ?');"><i class="fa fa-trash-o "></i></button>

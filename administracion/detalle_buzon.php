@@ -1,7 +1,9 @@
 <?php 
   require('../conexion/conexion.php');
   require('../conexion/sesion.php');
-
+  
+  $seccion = 'formularios';
+  $menu = 'atencion';
   if(isset($_POST['guardar_sucursal']) && $_POST['guardar_sucursal'] == 1){
     $nombre = $_POST['nombre'];
     $estado = $_POST['estado'];
@@ -163,33 +165,7 @@
                                   <div class="bio-row">
                                       <p><span class="bold">Teléfono</span>: <?php echo $detalle_mensaje['telefono']; ?></p>
                                   </div>
-                                  <!--<div class="bio-row">
-                                      <p><span class="bold">Client </span>: <a href="#">Themeforest</a></p>
-                                  </div>
-                                  <div class="bio-row">
-                                      <p><span class="bold">Version </span>: v.2.3</p>
-                                  </div>
-                                  <div class="bio-row">
-                                      <p><span class="bold">Participants </span>:
-                                      <span class="p-team">
-                                          <a href="#"><img alt="image" class="" src="img/chat-avatar.jpg"></a>
-                                          <a href="#"><img alt="image" class="" src="img/chat-avatar2.jpg"></a>
-                                          <a href="#"><img alt="image" class="" src="img/pro-ac-1.png"></a>
-                                      </span>
-                                      </p>
-                                  </div>
 
-                                  <div class="col-lg-12">
-                                      <dl class="dl-horizontal mtop20 p-progress">
-                                          <dt>Project Completed:</dt>
-                                          <dd>
-                                              <div class="progress progress-striped active ">
-                                                  <div style="width: 80%;" class="progress-bar progress-bar-success"></div>
-                                              </div>
-                                              <small>Project completed in <strong>80%</strong>. Remaining close the project, sign a contract and invoice.</small>
-                                          </dd>
-                                      </dl>
-                                  </div>-->
                               </div>
 
                           </div>
