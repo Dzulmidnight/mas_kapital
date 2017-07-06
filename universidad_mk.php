@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="<?php echo $contenido['meta_description']; ?>">
     <meta name="author" content="">
     <title>Universidad | Más kapital</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -149,9 +149,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <!--<div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/v4Z0qYXmtUw" frameborder="0" allowfullscreen></iframe>
-                    </div>-->
+
                     <div class="col-md-12">
                         <div class="embed-responsive embed-responsive-16by9"> 
                             <iframe class="embed-responsive-item" src="<?php echo $contenido['url_video']; ?>" frameborder="0" allowfullscreen></iframe>

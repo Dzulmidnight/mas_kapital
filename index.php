@@ -2,12 +2,18 @@
     include('conexion/conexion.php');
     $menu = 'index';
     $idpagina = 1; // 1 = quienes somos
+
+    /// CONSULTAMOS LA INFORMACIÓN DE LA PAGINA 1
+    $query_pagina = "SELECT * FROM pagina1 WHERE idpagina1 = $idpagina";
+    $consultar = $mysqli->query($query_pagina);
+    $contenido = $consultar->fetch_assoc();
+
  ?>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="<?php echo $contenido['meta_description']; ?>">
     <meta name="author" content="MásKapital">
     <title>Inicio | Más kapital</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -125,11 +131,6 @@
      ?>	
     <!--/#home-slider-->
     
-    <?php 
-    $query_pagina = "SELECT * FROM pagina1 WHERE idpagina1 = $idpagina";
-    $consultar = $mysqli->query($query_pagina);
-    $contenido = $consultar->fetch_assoc();
-     ?>
     <section id="services">
         <div class="container">
             <div class="row">
@@ -192,8 +193,7 @@
     <section id="features">
         <div class="container">
             <div class="row">
-                    <!-- 15_05_2017 <div class="col-sm-6 col-md-offset-1 fadeInLeft text-center" style="padding-left:20em;margin-top:3em;"> -->
-                
+            
                 <!--- SECCIÓN LG-MD -->
                 <div class="hidden-sm hidden-xs col-md-6 fadeInLeft text-center" style="margin-top:3em;">
                     <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b><?php echo $contenido['sec2_sub1']; ?></b></h1>
@@ -224,7 +224,7 @@
                     </p>
                 </div>
                 <div class="visible-xs col-xs-12">
-                    <img class="img-responsive" style="height:500px;float:right" src="<?php echo 'administracion'.$contenido['sec2_img1']; ?>" alt="" >
+                    <img class="img-responsive" style="height:500px;float:right" src="<?php echo 'administracion/'.$contenido['sec2_img1']; ?>" alt="" >
                 </div>
                 
             </div>

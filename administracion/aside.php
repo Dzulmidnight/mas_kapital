@@ -21,6 +21,7 @@
                     <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="mas_flexible.php">Más Flexible</a></li>
                     <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="universidad_mk.php">Universidad Mk</a></li>
                     <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a href="atencion_clientes.php">Atención a Clientes</a></li>
+                    <li <?php if(isset($menu) && $menu == 'meta'){echo 'class="active"'; } ?>><a href="meta_description.php">Meta description</a></li>
 
                 </ul>
             </li>

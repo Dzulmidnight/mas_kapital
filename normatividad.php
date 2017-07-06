@@ -1,12 +1,17 @@
 <?php 
 include('conexion/conexion.php');
+$menu = 'normatividad';
 $idpagina = 2; // 2 = NORMATIVIDAD
+/// CONSULTAMOS LA INFORMACIÓN DE LA PAGINA 1
+$query_pagina = "SELECT * FROM pagina2 WHERE idpagina2 = $idpagina";
+$consultar = $mysqli->query($query_pagina);
+$contenido = $consultar->fetch_assoc();
  ?>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="<?php echo $contenido['meta_description']; ?>">
     <meta name="author" content="">
     <title>Normatividad | Más kapital</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -57,41 +62,35 @@ $idpagina = 2; // 2 = NORMATIVIDAD
     </style>
 
     <style>
-.carousel-indicators {
+      .carousel-indicators {
 
-  position: absolute;
-  bottom: 40%;
-  z-index: 15;
-  width: 30px;
-  margin-left: 20px;
-  list-style: none;
-  text-align: center;
-  right: 5%;
-  left:95%
-}
-.carousel-indicators li{
-  display: block;
-  width: 20px;
-  height: 20px;
-  margin-bottom: 20px;
-}
-.carousel-indicators .active {
- width: 22px;
- height: 22px;
- margin-bottom: 20px;
- background-color: #fff;
-}
-ul {
-    list-style-image: url('img/mas_flexible/circulo.png');
-
-}       
-        
+        position: absolute;
+        bottom: 40%;
+        z-index: 15;
+        width: 30px;
+        margin-left: 20px;
+        list-style: none;
+        text-align: center;
+        right: 5%;
+        left:95%
+      }
+      .carousel-indicators li{
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-bottom: 20px;
+      }
+      .carousel-indicators .active {
+       width: 22px;
+       height: 22px;
+       margin-bottom: 20px;
+       background-color: #fff;
+      }              
     </style>
 </head><!--/head-->
 
 <body>
     <?php 
-    $menu = 'normatividad';
     include('header.php');
      ?>
     <div class="container" style="border-top: 10px solid #8787b7;border-bottom:10px solid #263c89;">

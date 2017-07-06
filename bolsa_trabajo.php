@@ -47,46 +47,6 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="dist/jstree.min.js"></script>
 
-<!-- <script language="javascript">   -->
-    <!-- function GuardarTrabajo(){ -->
-        <!-- alert ('GuardarTrabajo'); -->
-<!-- // var Compania = $('#Compania').val(); -->
-<!-- // var FechaInicio = $('#FechaInicio').val();
-// var FechaTermino = $('#FechaTermino').val();
-// var Direccion = $('#Direccion').val();
-// var Telefono = $('#Telefono').val();
-// var Puesto = $('#Puesto').val();
-// var Motivo = $('#Motivo').val();
-// var Salario = $('#Salario').val();
-// var NombreJefe = $('#NombreJefe').val();
-// var PuestoJefe = $('#PuestoJefe').val();
-// var Informacion = $('#Informacion').val();
-// var Porque = $('#Porque').val();
-// var Ax=1;
-
-//         $.ajax({ 
-//             type: 'POST', 
-//             url: 'sqls.php',
-//             data: {Compania:Compania,
-//                     FechaInicio:FechaInicio,
-//                     FechaTermino:FechaTermino,
-//                     Direccion:Direccion,
-//                     Telefono:Telefono,
-//                     Puesto:Puesto,
-//                     Motivo:Motivo,
-//                     Salario:Salario,
-//                     NombreJefe:NombreJefe,
-//                     PuestoJefe:PuestoJefe,
-//                     Informacion:Informacion,
-//                     Porque:Porque,
-//                     Ax:Ax}, 
-//             success: function(data) { 
-//             $('#TrabajoAnt').html(data); 
-//             $('#result div').slideDown(1000); 
-//             } 
-//         });
-    } 
-</script> -->
 
 
 <script>
@@ -123,10 +83,10 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
   </script>  
 <script type="text/javascript">
     $(document).ready(function(){
-        <?
-        if (isset($_GET['acc'])==1){ ?>
-        $('#modalAlert').modal('toggle');
-    <?}?>
+        <?php
+        if (isset($_GET['acc'])==1){ 
+         echo "$('#modalAlert').modal('toggle');";
+        } ?>
     });
 </script>
 <script language="javascript">
@@ -179,7 +139,7 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
 <script language="javascript">  
     $(document).ready(function(){ //Elimina los registros de solicitudes de trabajo no terminadas (cuando cierra el modal)
 $('#modal_frm_trabajo').on('hidden.bs.modal', function (e) {
-<? include ('conexion.php');
+<?php include ('conexion.php');
             $sql="UPDATE SolicitudTrabajo SET Estatus='0' WHERE SolicitudTrabajo.Seccion<10";
             $mysqli->query($sql);
 

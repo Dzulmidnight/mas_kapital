@@ -4,14 +4,14 @@
     //consultamos la pagina3 = masflexible
     $query = "SELECT * FROM pagina3 WHERE idpagina3 = $idpagina";
     $consultar = $mysqli->query($query);
-    $detalle = $consultar->fetch_assoc();
+    $contenido = $consultar->fetch_assoc();
  ?>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="<?php echo $contenido['meta_description']; ?>">
+    <meta name="author" content="MasKapital">
     <title>MásFlexible | Más kapital</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -181,37 +181,37 @@
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img1']; ?>" alt="<?php echo $detalle['sec1_titulo1']; ?>">
+                            <img src="<?php echo 'administracion/'.$contenido['sec1_img1']; ?>" alt="<?php echo $contenido['sec1_titulo1']; ?>">
                         </div>
-                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo1']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont1']; ?></p>
+                        <h2 style="color:#29327e"><?php echo $contenido['sec1_titulo1']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont1']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img2']; ?>" alt="<?php echo $detalle['sec1_titulo2']; ?>">
+                            <img src="<?php echo 'administracion/'.$contenido['sec1_img2']; ?>" alt="<?php echo $contenido['sec1_titulo2']; ?>">
                         </div>
-                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo2']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont2']; ?></p>
+                        <h2 style="color:#35bddf"><?php echo $contenido['sec1_titulo2']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont2']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="img/index/rentable.png" alt="<?php echo $detalle['sec1_titulo3']; ?>">
+                            <img src="img/index/rentable.png" alt="<?php echo $contenido['sec1_titulo3']; ?>">
                         </div>
-                        <h2 style="color:#29327e"><?php echo $detalle['sec1_titulo3']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont3']; ?></p>
+                        <h2 style="color:#29327e"><?php echo $contenido['sec1_titulo3']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont3']; ?></p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="1200ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                            <img src="<?php echo 'administracion/'.$detalle['sec1_img4']; ?>" alt="<?php echo $detalle['sec1_titulo4']; ?>">
+                            <img src="<?php echo 'administracion/'.$contenido['sec1_img4']; ?>" alt="<?php echo $contenido['sec1_titulo4']; ?>">
                         </div>
-                        <h2 style="color:#35bddf"><?php echo $detalle['sec1_titulo4']; ?></h2>
-                        <p><?php echo $detalle['sec1_cont4']; ?></p>
+                        <h2 style="color:#35bddf"><?php echo $contenido['sec1_titulo4']; ?></h2>
+                        <p><?php echo $contenido['sec1_cont4']; ?></p>
                     </div>
                 </div>
 
@@ -223,9 +223,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec1_titulo5']; ?></b></h1>
+                    <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><b><?php echo $contenido['sec1_titulo5']; ?></b></h1>
                     <p class="text-justify">
-                        <?php echo $detalle['sec1_cont5']; ?>
+                        <?php echo $contenido['sec1_cont5']; ?>
                     </p>
                 </div>
             </div>
@@ -240,37 +240,37 @@
                 <div class="divs col-md-2">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont1']; ?>  
+                        <?php echo $contenido['sec2_cont1']; ?>  
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont2']; ?>   
+                        <?php echo $contenido['sec2_cont2']; ?>   
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont3']; ?>
+                        <?php echo $contenido['sec2_cont3']; ?>
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont4']; ?>
+                        <?php echo $contenido['sec2_cont4']; ?>
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont5']; ?>   
+                        <?php echo $contenido['sec2_cont5']; ?>   
                     </p>
                 </div>
                 <div class="divs col-md-2" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont6']; ?>   
+                        <?php echo $contenido['sec2_cont6']; ?>   
                     </p>
                 </div>
             </div>
@@ -279,37 +279,37 @@
                 <div class="divs-sm col-sm-4 col-xs-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont1']; ?>  
+                        <?php echo $contenido['sec2_cont1']; ?>  
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont2']; ?>   
+                        <?php echo $contenido['sec2_cont2']; ?>   
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont3']; ?>
+                        <?php echo $contenido['sec2_cont3']; ?>
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont4']; ?>
+                        <?php echo $contenido['sec2_cont4']; ?>
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont5']; ?>   
+                        <?php echo $contenido['sec2_cont5']; ?>   
                     </p>
                 </div>
                 <div class="divs-sm col-sm-4 col-xs-4" >
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
-                        <?php echo $detalle['sec2_cont6']; ?>   
+                        <?php echo $contenido['sec2_cont6']; ?>   
                     </p>
                 </div>
             </div>
@@ -323,12 +323,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ">
-                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><b><?php echo $detalle['sec3_titulo1']; ?></b></h1>
-                    <h2 class="text-center"><?php echo $detalle['sec3_sub1']; ?></h2>
+                    <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><b><?php echo $contenido['sec3_titulo1']; ?></b></h1>
+                    <h2 class="text-center"><?php echo $contenido['sec3_sub1']; ?></h2>
                 </div>
                 <div class="col-md-12">
                     <p style="padding-left:6em;padding-right:6em;" class="text-center">
-                        <?php echo $detalle['sec3_cont1']; ?>
+                        <?php echo $contenido['sec3_cont1']; ?>
                     </p>
                 </div>
             </div>

@@ -269,8 +269,8 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="<?php echo $contenido['meta_description']; ?>">
+    <meta name="author" content="MasKapital">
     <title>Atención a clientes | Más kapital</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -349,8 +349,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     include('menu_lateral.php');
      ?> 
 
-    <!--/#home-slider-->
-    <!--<section id="atencion" style="background-image: url('img/atencion_clientes/banner_atencion.png');background-repeat:no-repeat; padding-top:5em;">-->
+
     <section id="">
         <div class="container">
             <div class="row">

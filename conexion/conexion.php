@@ -6,4 +6,15 @@ $mysqli = new mysqli('localhost','root','','maskapital');
 		echo "Error:" .$mysqli->connect_errno()."\n";
 		exit;
 	}
+/*
+$mysqli = new mysqli('localhost','usuario','password','bd');
+
+	if($mysqli->connect_errno){
+		echo "No se puede conectar";
+		echo "Error:" .$mysqli->connect_errno()."\n";
+		exit;
+	}
+
+*/
+
 ?>
