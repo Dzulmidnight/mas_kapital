@@ -31,4 +31,26 @@
 	        <a href="sucursales.php"><img src="img/logos/ico_localizacion.png" alt=""></a>
 	    </div>
 	</div>
-</div>	
+</div>
+
+    <script>
+        function aparecer(){
+            var elements = document.getElementsByClassName('barra_lateral_2');
+
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'inline';
+                elements[i].style.transitionDelay = "2s";
+            }
+
+      
+        }
+        function desaparecer(){
+            var elements = document.getElementsByClassName('barra_lateral_2');
+            for(var i = 0, length = elements.length; i < length; i++) {
+                elements[i].style.display = 'none';
+                elements[i].style.transitionDelay = "2s";
+            }
+        }
+
+
+    </script>

@@ -2,7 +2,7 @@
 include_once("class.phpmailer.php");
 include_once("class.smtp.php");
 
-$mail = new PHPMailer();
+/*$mail = new PHPMailer();
 $mail->IsSMTP();
 //$mail->SMTPSecure = "ssl";
 $mail->Host = "mailtrap.io";
@@ -15,9 +15,9 @@ $mail->Password = "7e87bca11dc4a5";
 
 $mail->From = "soporte@d-spp.org";
 $mail->FromName = utf8_decode("CORREO MASKAPITAL");
-$mail->AddBCC("yasser.midnight@gmail.com", "correo Oculto");
+$mail->AddBCC("yasser.midnight@gmail.com", "correo Oculto");*/
 
-/*
+
 $mail = new PHPMailer();
 $mail->IsSMTP();
 //$mail->SMTPSecure = "ssl";
@@ -31,6 +31,6 @@ $mail->Password = "fDfMxo=fHxQ^";
 
 $mail->From = "soporte@inforganic.net";
 $mail->FromName = utf8_decode("CORREO MASKAPITAL");
-$mail->AddBCC("yasser.midnight@gmail.com", "correo Oculto");*/
+$mail->AddBCC("yasser.midnight@gmail.com", "correo Oculto");
 
  ?>

@@ -1,8 +1,11 @@
 <?php 
-require_once('correo/mail.php');
-require_once('administracion/mpdf/mpdf.php');
+include('conexion/conexion.php');
+
 
 if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
+include('correo/mail.php');
+include('administracion/mpdf/mpdf.php');
+
     $nombre_denunciante = $_POST['nombre_denunciante'];
     $estado_denunciante = $_POST['estado_denunciante'];
     $telefono_denunciante = $_POST['telefono_denunciante'];
@@ -238,11 +241,6 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
     $mail->AddAttachment($reporte);
     $mail->Send();
     $mail->ClearAddresses();
-
-
-
-
-
 }
  ?>
 <section id="footer_2">
