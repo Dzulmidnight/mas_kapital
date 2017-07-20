@@ -33,7 +33,7 @@ $contenido = $consultar->fetch_assoc();
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <script>
         $(document).ready(function() {

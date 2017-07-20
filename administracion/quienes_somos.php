@@ -346,7 +346,7 @@ if (!isset($_SESSION)) {
                                                               <div class="col-md-3">
                                                                   <div class="fileupload fileupload-new" data-provides="fileupload">
                                                                       <div class="fileupload-new thumbnail" style="width: 200px; height: 90px;">
-                                                                          <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                          <img src="https://via.placeholder.com/1800x700" alt="" />
                                                                       </div>
                                                                       <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                                                                       <div>
@@ -378,7 +378,7 @@ if (!isset($_SESSION)) {
                                                                   <h3 class="alert alert-info">Agregar nueva imagen</h3>
                                                                   <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
                                                                       <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                                          <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                          <img src="https://via.placeholder.com/1800x700" alt="" />
                                                                       </div>
                                                                       <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
                                                                       <div>
@@ -617,7 +617,7 @@ if (!isset($_SESSION)) {
                                             
                                             <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
                                                 <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                    <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                    <img src="https://via.placeholder.com/1800x700" alt="" />
                                                 </div>
                                                 <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
                                                 <div>

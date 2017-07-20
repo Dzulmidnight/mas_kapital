@@ -2,6 +2,7 @@
  // grab recaptcha library
 require_once "recaptchalib.php";
 require('conexion/conexion.php'); 
+
 if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
     $nombre_denunciante = $_POST['nombre_denunciante'];
     $estado_denunciante = $_POST['estado_denunciante'];
@@ -18,7 +19,6 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
 }
  ?>
 
-<!DOCTYPE html>
 <html lang="esp">
 <head>
     <meta charset="utf-8">
@@ -44,7 +44,7 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <link rel="stylesheet" href="dist/themes/default/style.css" />
     <script language="javascript" src="js/jquery-1.3.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="dist/jstree.min.js"></script>
 
 
@@ -80,7 +80,8 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
         return $respuesta;
         });
     });
-  </script>  
+</script>
+
 <script type="text/javascript">
     $(document).ready(function(){
         <?php
@@ -115,7 +116,7 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
         $.ajax({ 
             type: 'POST', 
             url: 'sqls.php',
-            data: {idVacante:idVacante,Ax:Ax}, 
+            data: {idVacante:idVacante,Ax:Ax},
             success: function(data) { 
             $('#requisitos').html(data); 
             $('#requisitos div').slideDown(1000); 
@@ -139,12 +140,12 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
 <script language="javascript">  
     $(document).ready(function(){ //Elimina los registros de solicitudes de trabajo no terminadas (cuando cierra el modal)
 $('#modal_frm_trabajo').on('hidden.bs.modal', function (e) {
-<?php include ('conexion.php');
-            $sql="UPDATE SolicitudTrabajo SET Estatus='0' WHERE SolicitudTrabajo.Seccion<10";
-            $mysqli->query($sql);
+<?php 
+    $sql="UPDATE SolicitudTrabajo SET Estatus = '0' WHERE SolicitudTrabajo.Seccion < 10";
+    $mysqli->query($sql);
 
-            $sqlD="DELETE FROM Solicitante WHERE EXISTS (SELECT 1 FROM SolicitudTrabajo WHERE Solicitante.idSolicitante = SolicitudTrabajo.idSolicitante AND SolicitudTrabajo.Seccion < 10 AND SolicitudTrabajo.Estatus=0)";
-            $mysqli->query($sqlD);
+    $sqlD="DELETE FROM Solicitante WHERE EXISTS (SELECT 1 FROM SolicitudTrabajo WHERE Solicitante.idSolicitante = SolicitudTrabajo.idSolicitante AND SolicitudTrabajo.Seccion < 10 AND SolicitudTrabajo.Estatus=0)";
+    $mysqli->query($sqlD);
 ?>
         });
     })
@@ -252,37 +253,7 @@ var Ax='1';
         }
     </style>
 
-    <style>
-.carousel-indicators {
 
-  position: absolute;
-  bottom: 40%;
-  z-index: 15;
-  width: 30px;
-  margin-left: 20px;
-  list-style: none;
-  text-align: center;
-  right: 5%;
-  left:95%
-}
-.carousel-indicators li{
-  display: block;
-  width: 20px;
-  height: 20px;
-  margin-bottom: 20px;
-}
-.carousel-indicators .active {
- width: 22px;
- height: 22px;
- margin-bottom: 20px;
- background-color: #fff;
-}
-ul {
-    list-style-image: url('img/mas_flexible/circulo.png');
-    margin: 4em;
-}       
-        
-    </style>
 </head><!--/head-->
 
 <body>
@@ -325,7 +296,7 @@ ul {
 
 <ul style="font-size: 1.3em;">
 <?php
-include ('conexion.php');
+
 $Aux=0;
 //$sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
 $sqlSuc="SELECT sucursales.Estado FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales GROUP BY sucursales.Estado";

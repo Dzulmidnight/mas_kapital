@@ -33,7 +33,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
             $('#menu_oculto').hide(0);
             $(window).scroll(function(){
                 var windowHeight = $(window).scrollTop();
@@ -131,10 +131,10 @@
             <div class="row">
                 <div class="col-md-4" style="padding-left:1em;padding-right:1em">
                     <div class="col-sm-12" style="background:#f26e23">
-                        <a href="http://www.universidadmaskapital.com.mx/"><h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1></a>
+                        <a href="https://www.universidadmaskapital.com.mx/"><h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1></a>
                     </div>
                     <div class="col-sm-12">
-                        <h2><a href="http://www.universidadmaskapital.com.mx/">Universidad MásKapital</a></h2>
+                        <h2><a href="https://www.universidadmaskapital.com.mx/">Universidad MásKapital</a></h2>
                     </div>
                     <div class="col-sm-12">
                         <h2>CONTACTO</h2>

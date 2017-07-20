@@ -2,7 +2,7 @@
 require_once('conexion/conexion.php');
 require_once('correo/mail.php');
 require_once('funciones/funciones.php');
-require_once('administracion/mpdf/mpdf.php');
+//require_once('administracion/mpdf/mpdf.php');
 
 if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     $tema_motivo = $_POST['tema_motivo'];
@@ -170,7 +170,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                 <thead>
                     <tr>
                         <th style="padding: 15px;border: 1px solid #ddd" align="center">
-                            <img class="img-responsive" src="http://iotechdata1.xyz/mas_kapital/img/logos/logo_mas_kapital.png" alt="logo">
+                            <img class="img-responsive" src="https://iotechdata1.xyz/mas_kapital/img/logos/logo_mas_kapital.png" alt="logo">
                         </th>
                         <th style="padding: 15px;border: 1px solid #ddd" align="left">
                             <h3>TEMA O MOTIVO: <span style="color:red">'.$tema_motivo.'</span></h3>
@@ -289,7 +289,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <script>
         $(document).ready(function() {
