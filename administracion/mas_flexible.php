@@ -106,7 +106,7 @@
     $sec3_cont1 = $_POST['sec3_cont1'];
 
     
-    $updateSQL = sprintf("UPDATE pagina3 SET sec1_img1 = %s, sec1_titulo1 = %s, sec1_cont1 = %s, sec1_img2 = %s, sec1_titulo2 = %s, sec1_cont2 = %s, sec1_img3 = %s, sec1_titulo3 = %s, sec1_cont3 = %s, sec1_img4 = %s, sec1_titulo4 = %s, sec1_cont4 = %s, sec1_titulo5 = %s, sec1_cont5 = %s, sec2_cont1 = %s, sec2_cont2 = %s, sec2_cont3 = %s, sec2_cont4 = %s, sec2_cont5 = %s, sec2_cont6 = %s, sec3_titulo1 = %s, sec3_sub1 = %s, sec3_cont1 = %s WHERE idpagina3 = %s",
+    /*$updateSQL = sprintf("UPDATE pagina3 SET sec1_img1 = %s, sec1_titulo1 = %s, sec1_cont1 = %s, sec1_img2 = %s, sec1_titulo2 = %s, sec1_cont2 = %s, sec1_img3 = %s, sec1_titulo3 = %s, sec1_cont3 = %s, sec1_img4 = %s, sec1_titulo4 = %s, sec1_cont4 = %s, sec1_titulo5 = %s, sec1_cont5 = %s, sec2_cont1 = %s, sec2_cont2 = %s, sec2_cont3 = %s, sec2_cont4 = %s, sec2_cont5 = %s, sec2_cont6 = %s, sec3_titulo1 = %s, sec3_sub1 = %s, sec3_cont1 = %s WHERE idpagina3 = %s",
       GetSQLValueString($sec1_img1, "text"),
       GetSQLValueString($sec1_titulo1, "text"),
       GetSQLValueString($sec1_cont1, "text"),
@@ -130,7 +130,9 @@
       GetSQLValueString($sec3_titulo1, "text"),
       GetSQLValueString($sec3_sub1, "text"),
       GetSQLValueString($sec3_cont1, "text"),
-      GetSQLValueString($idpagina, "int"));
+      GetSQLValueString($idpagina, "int"));*/
+
+    $updateSQL = "UPDATE pagina3 SET sec1_img1 = '$sec1_img1', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_img2 = '$sec1_img2', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_img3 = '$sec1_img3', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_img4 = '$sec1_img4', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec1_titulo5 = '$sec1_titulo5', sec1_cont5 = '$sec1_cont5', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec2_cont4 = '$sec2_cont4', sec2_cont5 = '$sec2_cont5', sec2_cont6 = '$sec2_cont6', sec3_titulo1 = '$sec3_titulo1', sec3_sub1 = '$sec3_sub1', sec3_cont1 = '$sec3_cont1' WHERE idpagina3 = $idpagina";
 
     $actualizar = $mysqli->query($updateSQL);
 
@@ -165,14 +167,17 @@
         }
       }
 
-      $insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
+      /*$insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
         GetSQLValueString($idpagina, "int"),
         GetSQLValueString($titulo_dinamico, "text"),
         GetSQLValueString($contenido_dinamico, "text"),
         GetSQLValueString($img_dinamica, "text"),
         GetSQLValueString($tipo_seccion, "int"),
         GetSQLValueString($orden, "int"));
+      $insertar = $mysqli->query($insertSQL);*/
+      $insertSQL = "INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES ($idpagina, '$titulo_dinamico', '$contenido_dinamico', '$img_dinamica', '$tipo_seccion', $orden)";
       $insertar = $mysqli->query($insertSQL);
+
     }
 
   }

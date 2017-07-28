@@ -1,10 +1,10 @@
 <?php 
-  require('../conexion/conexion.php');
-  require('../conexion/sesion.php');
-  include('funciones.php');
+require('../conexion/conexion.php');
+require('../conexion/sesion.php');
+require('funciones.php');
 
 if (!isset($_SESSION)) {
-  session_start();
+//session_start();
   
   $redireccion = "../index.php?ADM";
 
@@ -12,7 +12,6 @@ if (!isset($_SESSION)) {
     header("Location:".$redireccion);
   }
 }
-
 
   /******* VARIABLES GENERALES *******/
   $idpagina = 1; // 1 = quienes somos
@@ -148,7 +147,7 @@ if (!isset($_SESSION)) {
       $sec4_img1 = $sec4_img1_actual;
     }
 
-    $updateSQL = sprintf("UPDATE pagina1 SET sec1_img1 = %s, sec1_titulo1 = %s, sec1_cont1 = %s, sec1_img2 = %s, sec1_titulo2 = %s, sec1_cont2 = %s, sec1_img3 = %s, sec1_titulo3 = %s, sec1_cont3 = %s, sec1_img4 = %s, sec1_titulo4 = %s, sec1_cont4 = %s, sec2_titulo1 = %s, sec2_sub1 = %s, sec2_cont1 = %s, sec2_img1 = %s, sec3_titulo1 = %s, sec3_cont1 = %s, sec3_titulo2 = %s, sec3_cont2 = %s, sec4_img1 = %s, sec4_link1 = %s, sec4_titulo1 = %s, sec4_sub1 = %s, sec4_cont1 = %s WHERE idpagina1 = %s",
+    /*$updateSQL = sprintf("UPDATE pagina1 SET sec1_img1 = %s, sec1_titulo1 = %s, sec1_cont1 = %s, sec1_img2 = %s, sec1_titulo2 = %s, sec1_cont2 = %s, sec1_img3 = %s, sec1_titulo3 = %s, sec1_cont3 = %s, sec1_img4 = %s, sec1_titulo4 = %s, sec1_cont4 = %s, sec2_titulo1 = %s, sec2_sub1 = %s, sec2_cont1 = %s, sec2_img1 = %s, sec3_titulo1 = %s, sec3_cont1 = %s, sec3_titulo2 = %s, sec3_cont2 = %s, sec4_img1 = %s, sec4_link1 = %s, sec4_titulo1 = %s, sec4_sub1 = %s, sec4_cont1 = %s WHERE idpagina1 = %s",
       GetSQLValueString($sec1_img1, "text"),
       GetSQLValueString($sec1_titulo1, "text"),
       GetSQLValueString($sec1_cont1, "text"),
@@ -174,7 +173,9 @@ if (!isset($_SESSION)) {
       GetSQLValueString($sec4_titulo1, "text"),
       GetSQLValueString($sec4_sub1, "text"),
       GetSQLValueString($sec4_cont1, "text"),
-      GetSQLValueString($idpagina, "int"));
+      GetSQLValueString($idpagina, "int"));*/
+
+      $updateSQL = "UPDATE pagina1 SET sec1_img1 = '$sec1_img1', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_img2 = '$sec1_img2', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_img3 = '$sec1_img3', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_img4 = '$sec1_img4', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_sub1 = '$sec2_sub1', sec2_cont1 = '$sec2_cont1', sec2_img1 = '$sec2_img1', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_img1 = '$sec4_img1', sec4_link1 = '$sec4_link1', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1' WHERE idpagina1 = $idpagina";
 
     $actualizar = $mysqli->query($updateSQL);
 
@@ -207,13 +208,15 @@ if (!isset($_SESSION)) {
         }
       }
 
-      $insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
+      /*$insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
         GetSQLValueString($idpagina, "int"),
         GetSQLValueString($titulo_dinamico, "text"),
         GetSQLValueString($contenido_dinamico, "text"),
         GetSQLValueString($img_dinamica, "text"),
         GetSQLValueString($tipo_seccion, "int"),
-        GetSQLValueString($orden, "int"));
+        GetSQLValueString($orden, "int"));*/
+
+      $insertSQL = "INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES ($idpagina, '$titulo_dinamico', '$contenido_dinamico', '$img_dinamica', '$tipo_seccion', $orden)";
       $insertar = $mysqli->query($insertSQL);
     }
 
@@ -639,7 +642,7 @@ if (!isset($_SESSION)) {
                                 $num_filas = $consultar->num_rows;
 
                                 if($num_filas>0){
-                                  while($contenido_dinamico = $consultar->fetch_assoc()){
+                                  while($contenido_dinamico = $consultar->fetch_assoc()){ //INICIA WHILE
                                     if($contenido_dinamico['tipo_seccion'] == 1){
                                     ?>
                                       <section class="well" style="margin-top:10em;">
@@ -690,7 +693,8 @@ if (!isset($_SESSION)) {
                                       </section>
                                     <?php
                                     }
-                                  }
+                                    echo "<button class='btn btn-warning' type='submit' name='eliminar_seccion' value='".$contenido_dinamico['idseccion_dinamica']."'>Eliminar Sección</button>";
+                                  } // TERMINA WHILE
                                 }
                                 ?>
                                 <!-- TERMINAN LAS SECCIONES DINAMICAS -->

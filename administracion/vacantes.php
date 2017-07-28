@@ -138,7 +138,7 @@
                                 <th>Sucursal</th>
                                 <th>Puesto</th>
                                 <th>Num. Vacantes</th>
-                                <th>Estatus</th>
+                                <!--<th>Estatus</th>-->
                                 <th>Acciones</th>
                             </tr>
                           </thead>
@@ -154,7 +154,7 @@
                                 <td><?php echo $vacantes['NombreSucursal']; ?></td>
                                 <td><?php echo $vacantes['Puesto']; ?></td>
                                 <td><?php echo $vacantes['num_vacantes']; ?></td>
-                                <td>
+                                <!--<td>
                                   <?php 
                                   if($vacantes['estatus'] == 1){
                                     echo '<span class="label label-success label-mini">Activo</span>';
@@ -163,7 +163,7 @@
                                     echo '<span class="label label-danger label-mini">Inactivo</span>';
                                   }
                                    ?>
-                                </td>
+                                </td>-->
                                 
                                 <td>
                                   <form id="frm_acciones" action="" method="POST">
@@ -376,7 +376,7 @@
                   </div>
                   <div class="modal-footer">
                       <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                      <button class="btn btn-success" type="submit" name="guarda_vacante" value="1"> Guardar Sucursal</button>
+                      <button class="btn btn-success" type="submit" name="guarda_vacante" value="1"> Guardar Vacante</button>
                   </div>              
               </form>
             </div>

@@ -1,6 +1,5 @@
-<?php
-	//$mysqli = new mysqli('10.100.162.223','root','hdmi#2018','maskapital');
-	//$mysqli = new mysqli('174.136.25.252','maskapit_user','WITK;3I2*d97','maskapit_bd');
+<?php 
+//$mysqli = new mysqli('localhost','iotechda_kapital',',xE{JANzV)pE','iotechda_maskapital');
 $mysqli = new mysqli('localhost','root','','maskapital');
 	if($mysqli->connect_errno){
 		echo "No se puede conectar";

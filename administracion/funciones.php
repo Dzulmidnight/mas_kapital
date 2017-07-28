@@ -29,5 +29,4 @@ if (!function_exists("GetSQLValueString")) {
     return $theValue;
   }
 }
-
- ?>
+?>

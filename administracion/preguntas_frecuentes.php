@@ -133,7 +133,7 @@
                                             <div class="modal-body">
                                               <!-- page start-->
                                               <div class="row">
-                                                <input type="text" name="idfaq" value="<?php echo $preguntas['idfaq']; ?>">
+                                                <input type="hidden" name="idfaq" value="<?php echo $preguntas['idfaq']; ?>">
                                                 <input type="text" class="form-control" name="pregunta" value="<?php echo $preguntas['pregunta']; ?>">
                                                 <br>
                                                 <textarea class="form-control" name="respuesta" id="" rows="5" ><?php echo $preguntas['respuesta']; ?></textarea>
