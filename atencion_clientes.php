@@ -2,9 +2,11 @@
 require_once('conexion/conexion.php');
 require_once('correo/mail.php');
 require_once('funciones/funciones.php');
-require_once('administracion/mpdf/mpdf.php');
+
 
 if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
+    require_once('administracion/mpdf/mpdf.php');
+
     $tema_motivo = $_POST['tema_motivo'];
     $sucursal = $_POST['sucursal'];
     $grupo = $_POST['grupo'];
@@ -136,7 +138,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
       ');
     $css = file_get_contents('administracion/reportes/css/style_reporte.css');  
     //$mpdf->AddPage('L'); //se cambia la orientacion de la pagina
-    $mpdf->pagenumPrefix = 'Página / Page ';
+    $mpdf->pagenumPrefix = 'Página ';
     $mpdf->pagenumSuffix = ' - ';
     $mpdf->nbpgPrefix = ' de ';
     //$mpdf->nbpgSuffix = ' pages';
@@ -170,7 +172,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                 <thead>
                     <tr>
                         <th style="padding: 15px;border: 1px solid #ddd" align="center">
-                            <img class="img-responsive" src="http://mas_kapital.mx/img/logos/logo_mas_kapital.png" alt="logo">
+                            <img class="img-responsive" src="http://maskapital.mx/img/logos/logo_mas_kapital.png" alt="logo">
                         </th>
                         <th style="padding: 15px;border: 1px solid #ddd" align="left">
                             <h3>TEMA O MOTIVO: <span style="color:red">'.$tema_motivo.'</span></h3>
@@ -242,8 +244,11 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
         </html>
     ';
 
-
-    $mail->AddAddress('soporteinforganic@gmail.com');
+    if($tema_motivo == 'DENUNCIAS'){
+        $mail->AddAddress('contraloria@maskapital.com.mx');
+    }else{
+        $mail->AddAddress('mesaservicio2@maskapital.com.mx');
+    }
 
     $mail->Subject = utf8_decode($asunto);
     $mail->Body = utf8_decode($mensaje_correo);
@@ -254,8 +259,9 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     $mail->AddAttachment($reporte);
     $mail->Send();
     $mail->ClearAddresses();
+    $alerta = utf8_decode('SE HA ENVIADO LA NOTIFICACIÓN');
 
-    echo "<script>alert('SE HA ENVIADO LA NOTIFICACIÓN');</script>";
+    echo "<script>alert('".$alerta."');</script>";
 }
 
     $idpagina = 5; //id de la pagina mas flexible
@@ -418,7 +424,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                 <div class="col-md-8 col-xs-12 text-center">
                     <form id="formulario_ayuda" action="" method="POST">
                         <div class="col-sm-12" style="margin-bottom:1em;">
-                            <select class="form-control" id="tema_motivo" name="tema_motivo" required>
+                            <select class="form-control" id="tema_motivo2" name="tema_motivo" required>
                                 <option value="">* TEMA O MOTIVO</option>
                                 <option value="SOLICITA INFORMACIÓN">SOLICITA INFORMACIÓN</option>
                                 <option value="ACLARACIONES DE CRÉDITO">ACLARACIONES DE CRÉDITO</option>
@@ -433,7 +439,7 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                             <p style="background-color: #d2ecfb;padding:10px;"><b>DATOS DE IDENTIFICACIÓN</b></p>
                         </div>
                         <div class="col-sm-4">
-                            <select class="form-control" id="sucursal" name="sucursal" required>
+                            <select class="form-control" id="sucursal2" name="sucursal" required>
                                 <option value="">SUCURSAL QUE LE ATIENDE</option>
                                 <?php 
                                 $query = "SELECT * FROM sucursales";
@@ -445,26 +451,26 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                             </select>
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="grupo" name="grupo" value="" placeholder="GRUPO AL QUE PERTENECE" onBlur="ponerMayusculas(this)">
+                            <input class="form-control" type="text" id="grupo2" name="grupo" value="" placeholder="GRUPO AL QUE PERTENECE" onBlur="ponerMayusculas(this)">
                         </div>
                         
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="ap_paterno" name="ap_paterno" value="" placeholder="APELLIDO PATERNO" onBlur="ponerMayusculas(this)">
+                            <input type="text" class="form-control" id="ap_paterno2" name="ap_paterno" value="" placeholder="APELLIDO PATERNO" onBlur="ponerMayusculas(this)">
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="ap_materno" name="ap_materno" value="" placeholder="APELLIDO MATERNO" onBlur="ponerMayusculas(this)">
+                            <input type="text" class="form-control" id="ap_materno2" name="ap_materno" value="" placeholder="APELLIDO MATERNO" onBlur="ponerMayusculas(this)">
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="" placeholder="* NOMBRE(S)" onBlur="ponerMayusculas(this)" required>
+                            <input type="text" class="form-control" id="nombre2" name="nombre" value="" placeholder="* NOMBRE(S)" onBlur="ponerMayusculas(this)" required>
                         </div>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="direccion" name="direccion" value="" placeholder="DIRECCIÓN" onBlur="ponerMayusculas(this)" required>
+                            <input type="text" class="form-control" id="direccion2" name="direccion" value="" placeholder="DIRECCIÓN" onBlur="ponerMayusculas(this)" required>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="municipio" name="municipio" value="" placeholder="MUNICIPIO" onBlur="ponerMayusculas(this)" required>
+                            <input type="text" class="form-control" id="municipio2" name="municipio" value="" placeholder="MUNICIPIO" onBlur="ponerMayusculas(this)" required>
                         </div>
                         <div class="col-sm-6">
-                            <select class="form-control" id="estado" name="estado">
+                            <select class="form-control" id="estado2" name="estado">
                                 <option value="">ESTADO</option>
                                 <?php 
                                 $query = "SELECT * FROM estados";
@@ -476,20 +482,20 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                             </select>
                         </div>
                         <div class="col-sm-6">
-                            <input type="email" class="form-control" id="correo" name="correo" placeholder="CORREO ELECTRÓNICO" required>
+                            <input type="email" class="form-control" id="correo2" name="correo" placeholder="CORREO ELECTRÓNICO" required>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="NÚMERO TELEFÓNICO CON LADA">
+                            <input type="text" class="form-control" id="telefono2" name="telefono" placeholder="NÚMERO TELEFÓNICO CON LADA">
                         </div>
                         <div class="col-sm-12">
                             <p style="background-color: #d2ecfb;padding:10px;margin-top:10px;"><b>DESCRIPCIÓN</b></p>
                         </div>      
                         <div class="col-sm-12">
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="10" placeholder="Para un atención más ágil, describa a detalle y si los tuviera puntualizando datos exactos." onBlur="ponerMayusculas(this)" required></textarea>
+                            <textarea class="form-control" id="descripcion2" name="descripcion" rows="10" placeholder="Para un atención más ágil, describa a detalle y si los tuviera puntualizando datos exactos." onBlur="ponerMayusculas(this)" required></textarea>
                         </div>
                         <div class="col-sm-12">
                             <input type="hidden" name="correo_ayuda" value="1">
-                            <input type="submit" class="form-control btn btn-primary" value="ENVIAR" onclick="return validar()">
+                            <input type="submit" class="form-control btn btn-primary" value="ENVIAR" onclick="return validar2()">
                         </div>
                     </form>
                 </div>
@@ -502,66 +508,66 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
     <?php include('footer.php'); ?>
 
     <script>
-        function validar() {
+        function validar2() {
 
-            tema = document.getElementById("tema_motivo").selectedIndex;
+            tema = document.getElementById("tema_motivo2").selectedIndex;
             if( tema == null || tema == 0 ) {
                 alert('DEBES SELECCIONAR UN TEMA O MOTIVO');
-                document.getElementById("tema_motivo").focus();
+                document.getElementById("tema_motivo2").focus();
                 return false;
             }
-            sucursal = document.getElementById("sucursal").selectedIndex;
-            if( sucursal == null || sucursal == 0 ) {
+            sucursal2 = document.getElementById("sucursal2").selectedIndex;
+            if( sucursal2 == null || sucursal2 == 0 ) {
                 alert('DEBES SELECCIONAR UNA SUCURSAL');
-                document.getElementById("sucursal").focus();
+                document.getElementById("sucursal2").focus();
                 return false;
             }
 
-            nombre = document.getElementById("nombre").value;
-            if ( nombre == null || nombre.length == 0 || /^\s+$/.test(nombre)) {
+            nombre2 = document.getElementById("nombre2").value;
+            if ( nombre2 == null || nombre2.length == 0 || /^\s+$/.test(nombre2)) {
             // Si no se cumple la condicion...
                 alert('DEBES DE INGRESAR TU NOMBRE');
-                document.getElementById("nombre").focus();
+                document.getElementById("nombre2").focus();
                 return false;
 
             }
 
-            direccion = document.getElementById("direccion").value;
-            if ( direccion == null || direccion.length == 0 || /^\s+$/.test(direccion)) {
+            direccion2 = document.getElementById("direccion2").value;
+            if ( direccion2 == null || direccion2.length == 0 || /^\s+$/.test(direccion2)) {
             // Si no se cumple la condicion...
                 alert('DEBES DE INGRESAR TU DIRECCIÓN');
-                document.getElementById("direccion").focus();
+                document.getElementById("direccion2").focus();
                 return false;
             }
 
-            municipio = document.getElementById("municipio").value;
-            if ( municipio == null || municipio.length == 0 || /^\s+$/.test(municipio)) {
+            municipio2 = document.getElementById("municipio2").value;
+            if ( municipio2 == null || municipio2.length == 0 || /^\s+$/.test(municipio2)) {
             // Si no se cumple la condicion...
                 alert('DEBES DE INGRESAR TU MUNICIPIO');
-                document.getElementById("municipio").focus();
+                document.getElementById("municipio2").focus();
                 return false;
             }
 
-            estado = document.getElementById("estado").selectedIndex;
-            if( estado == null || estado == 0 ) {
+            estado2 = document.getElementById("estado2").selectedIndex;
+            if( estado2 == null || estado2 == 0 ) {
                 alert('DEBES SELECCIONAR TU ESTADO');
-                document.getElementById("estado").focus();
+                document.getElementById("estado2").focus();
                 return false;
             }
 
-            correo = document.getElementById("correo").value;
-            if ( correo == null || correo.length == 0 || /^\s+$/.test(correo)) {
+            correo2 = document.getElementById("correo2").value;
+            if ( correo2 == null || correo2.length == 0 || /^\s+$/.test(correo2)) {
             // Si no se cumple la condicion...
                 alert('DEBES DE INGRESAR UN CORREO ELECTRÓNICO DE CONTACTO');
-                document.getElementById("correo").focus();
+                document.getElementById("correo2").focus();
                 return false;
             }
 
-            descripcion = document.getElementById("descripcion").value;
-            if ( descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)) {
+            descripcion2 = document.getElementById("descripcion2").value;
+            if ( descripcion2 == null || descripcion2.length == 0 || /^\s+$/.test(descripcion2)) {
             // Si no se cumple la condicion...
                 alert('DEBES DE INGRESAR UNA DESCRIPCIÓN');
-                document.getElementById("descripcion").focus();
+                document.getElementById("descripcion2").focus();
                 return false;
             }
            

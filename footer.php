@@ -116,7 +116,7 @@ include('administracion/mpdf/mpdf.php');
       ');
     $css = file_get_contents('administracion/reportes/css/style_reporte.css');  
     //$mpdf->AddPage('L'); //se cambia la orientacion de la pagina
-    $mpdf->pagenumPrefix = 'Página / Page ';
+    $mpdf->pagenumPrefix = 'Página ';
     $mpdf->pagenumSuffix = ' - ';
     $mpdf->nbpgPrefix = ' de ';
     //$mpdf->nbpgSuffix = ' pages';
@@ -134,7 +134,7 @@ include('administracion/mpdf/mpdf.php');
     $mpdf->Output(''.$ruta_pdf.''.$nombre_pdf.'', 'F'); //reemplazamos la I por S(regresa el documento como string)
 
     //GENERAMOS EL MENSAJE DE CORREO PARA NOTIFICAR LA NUEVA DENUNCIA
-    $asunto = 'MásKapital - Buzón de denuncias PLD';
+    $asunto = 'Buzón de denuncias PLD';
     $mensaje_correo = '
         <html>
         <head>
@@ -230,7 +230,7 @@ include('administracion/mpdf/mpdf.php');
     ';
 
 
-    $mail->AddAddress('soporteinforganic@gmail.com');
+    $mail->AddAddress('contraloria@maskapital.com.mx');
 
     $mail->Subject = utf8_decode($asunto);
     $mail->Body = utf8_decode($mensaje_correo);
@@ -241,6 +241,11 @@ include('administracion/mpdf/mpdf.php');
     $mail->AddAttachment($reporte);
     $mail->Send();
     $mail->ClearAddresses();
+
+    $alerta = 'SE HA ENVIADO LA NOTIFICACIÓN';
+
+    echo "<script>alert('".$alerta."');</script>";
+
 }
  ?>
 <section id="footer_2">
@@ -311,12 +316,12 @@ include('administracion/mpdf/mpdf.php');
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="text" class="form-control" name="nombre_denunciante" placeholder="Nombre">
+                                            <input type="text" class="form-control" id="nombre_denunciante" name="nombre_denunciante" placeholder="Nombre">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <select class="form-control" name="estado_denunciante" id="">
+                                            <select class="form-control" id="estado_denunciante" name="estado_denunciante" id="">
                                                 <option value="">Ubicación(Estado):</option>
                                                 <?php 
                                                 $query = "SELECT nombre FROM estados";
@@ -328,7 +333,7 @@ include('administracion/mpdf/mpdf.php');
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="telefono_denunciante" placeholder="Teléfono:">
+                                            <input type="text" class="form-control" id="telefono_denunciante" name="telefono_denunciante" placeholder="Teléfono:">
                                         </td>
                                     </tr>
                                 </table>
@@ -340,12 +345,12 @@ include('administracion/mpdf/mpdf.php');
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="text" class="form-control" name="nombre_denuncia" placeholder="Nombre:">
+                                            <input type="text" class="form-control" id="nombre_denuncia" name="nombre_denuncia" placeholder="Nombre:">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <select class="form-control" name="sucursal" id="">
+                                            <select class="form-control" name="sucursal" id="sucursal">
                                                 <option value="">Sucursal</option>
                                                 <?php 
                                                 $query = "SELECT idSucursales, NombreSucursal FROM sucursales";
@@ -363,12 +368,12 @@ include('administracion/mpdf/mpdf.php');
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="text" class="form-control" name="motivo" placeholder="Motivo:">
+                                            <input type="text" class="form-control" id="motivo" name="motivo" placeholder="Motivo:">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <textarea class="form-control" rows="5" name="descripcion" placeholder="Descripción:"></textarea>
+                                            <textarea class="form-control" rows="5" id="descripcion" name="descripcion" placeholder="Descripción:"></textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -380,7 +385,7 @@ include('administracion/mpdf/mpdf.php');
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="enviar_denuncia" value="1">Enviar Correo</button>
+                    <button type="submit" class="btn btn-primary" name="enviar_denuncia" onclick="return validar()" value="1">Enviar Correo</button>
                 </div>
             </div>            
         </form>
@@ -511,3 +516,62 @@ include('administracion/mpdf/mpdf.php');
         </div>
     </div>
 </div>
+
+<script>
+    /// FUNCIÓN PARA VALIDAR LOS CAMPOS OBLIGATORIOS
+    function validar() {
+        nombre_denunciante = document.getElementById("nombre_denunciante").value;
+        if ( nombre_denunciante == null || nombre_denunciante.length == 0 || /^\s+$/.test(nombre_denunciante)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR EL NOMBRE');
+            document.getElementById("nombre_denunciante").focus();
+            return false;
+        }
+        estado_denunciante = document.getElementById("estado_denunciante").selectedIndex;
+        if( estado_denunciante == null || estado_denunciante == 0 ) {
+            alert('DEBES SELECCIONAR EL ESTADO');
+            document.getElementById("estado_denunciante").focus();
+            return false;
+        }
+
+        telefono_denunciante = document.getElementById("telefono_denunciante").value;
+        if ( telefono_denunciante == null || telefono_denunciante.length == 0 || /^\s+$/.test(telefono_denunciante)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR UN NÚMERO DE TELÉFONO');
+            document.getElementById("telefono_denunciante").focus();
+            return false;
+        }
+        nombre_denuncia = document.getElementById("nombre_denuncia").value;
+        if (nombre_denuncia == null || nombre_denuncia.length == 0 || /^\s+$/.test(nombre_denuncia)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR UN NOMBRE');
+            document.getElementById("nombre_denuncia").focus();
+            return false;
+        }
+        sucursal = document.getElementById("sucursal").selectedIndex;
+        if( sucursal == null || sucursal == 0 ) {
+            alert('DEBES SELECCIONAR UNA SUCURSAL');
+            document.getElementById("sucursal").focus();
+            return false;
+        }
+
+        motivo = document.getElementById("motivo").value;
+        if ( motivo == null || motivo.length == 0 || /^\s+$/.test(motivo)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR EL MOTIVO');
+            document.getElementById("motivo").focus();
+            return false;
+        }
+        descripcion = document.getElementById("descripcion").value;
+        if ( descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR UNA DESCRIPCIÓN');
+            document.getElementById("descripcion").focus();
+            return false;
+        }
+
+        return true;
+    }
+
+
+</script>

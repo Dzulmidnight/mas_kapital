@@ -4,6 +4,9 @@ require_once "recaptchalib.php";
 require('conexion/conexion.php'); 
 
 if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
+include('correo/mail.php');
+include('administracion/mpdf/mpdf.php');
+
     $nombre_denunciante = $_POST['nombre_denunciante'];
     $estado_denunciante = $_POST['estado_denunciante'];
     $telefono_denunciante = $_POST['telefono_denunciante'];
@@ -14,8 +17,236 @@ if(isset($_POST['enviar_denuncia']) && $_POST['enviar_denuncia'] == 1){
     $descripcion = $_POST['descripcion'];
     $fecha = time();
 
-    $query = "INSERT INTO frm_denuncia (nombre_denunciante, estado_denunciante, telefono_denunciante, nombre_denuncia, sucursal, otro_departamento, motivo, descripcion, fecha) VALUES ('$nombre_denunciante', '$estado_denunciante', '$telefono_denunciante', '$nombre_denuncia', '$sucursal', '$otro_departamento', '$motivo', '$descripcion', '$fecha')";
+    $ruta_pdf = 'administracion/reportes/denuncias/';
+    $nombre_pdf = 'denuncia_'.time().'.pdf';
+    $reporte = $ruta_pdf.$nombre_pdf;
+
+    $query = "INSERT INTO frm_denuncia (nombre_denunciante, estado_denunciante, telefono_denunciante, nombre_denuncia, sucursal, otro_departamento, motivo, descripcion, fecha, archivo_denuncia) VALUES ('$nombre_denunciante', '$estado_denunciante', '$telefono_denunciante', '$nombre_denuncia', '$sucursal', '$otro_departamento', '$motivo', '$descripcion', '$fecha', '$reporte')";
     $insertar = $mysqli->query($query);
+
+/********  SE ENVIA CORREO SOBRE REPORTE TRIMESTRAL  ************/
+    $query = "SELECT NombreSucursal FROM sucursales WHERE idSucursales = $sucursal";
+    $consultar = $mysqli->query($query);
+    $detalle_sucursal = $consultar->fetch_assoc();
+
+    $html = '
+
+        <div class="col-xs-12">
+            <table style="border: 1px solid #ddd;border-collapse: collapse;font-family: Tahoma, Geneva, sans-serif;font-size:12px;">
+                <tbody>
+                    <tr>
+                        <td style="background-color:#3498db;color:#ecf0f1;" colspan="2"><b>Datos Denunciante:</b></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left" colspan="2">
+                            <b>Nombre: </b>'.$nombre_denunciante.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">
+                            <b>Estado: </b>'.$estado_denunciante.'
+                        </td>
+                        <td style="text-align:left">
+                            <b>Teléfono: </b>'.$telefono_denunciante.'
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-md-12">
+            <table style="border: 1px solid #ddd;border-collapse: collapse;font-family: Tahoma, Geneva, sans-serif;font-size:12px;">
+                <tr>
+                    <td style="background-color:#3498db;color:#ecf0f1;" colspan="2"><b>Datos Denuncia:</b></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left" colspan="2">
+                        <b>Nombre de la Denuncia: </b>'.$nombre_denuncia.'
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">
+                        <b>Sucursal: </b>'.$detalle_sucursal['NombreSucursal'].'
+                    </td>
+                    <td>
+                        <b>Otro departarmento: </b>'.$otro_departamento.'
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:left" colspan="2">
+                        <b>Motivo: </b>'.$motivo.'
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:left" colspan="2">
+                        <b>Descripción: </b>'.$descripcion.'
+                    </td>
+                </tr>
+            </table>
+        </div>';
+
+
+
+    $mpdf = new mPDF('c', 'Letter');
+    ob_start();
+
+    $mpdf->setAutoTopMargin = 'pad';
+    $mpdf->keep_table_proportions = TRUE;
+    $mpdf->SetHTMLHeader('
+    <header class="clearfix">
+      <div>
+        <table style="padding:0px;margin-top:-20px;">
+          <tr>
+            <td style="text-align:left;margin-bottom:0px;font-size:12px;">
+                  <div>
+                    <img src="administracion/reportes/img/logo_mas_kapital.png" >
+                  </div>
+            </td>
+            <td style="text-align:right;font-size:12px;">
+                  <div>
+                    <h2>
+                        BUZÓN DE DENUNCIAS PLD
+                    </h2>             
+                  </div>
+                  <div>'.date('d/m/Y', $fecha).'</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </header>
+      ');
+    $css = file_get_contents('administracion/reportes/css/style_reporte.css');  
+    //$mpdf->AddPage('L'); //se cambia la orientacion de la pagina
+    $mpdf->pagenumPrefix = 'Página ';
+    $mpdf->pagenumSuffix = ' - ';
+    $mpdf->nbpgPrefix = ' de ';
+    //$mpdf->nbpgSuffix = ' pages';
+    $mpdf->SetFooter('{PAGENO}{nbpg}');
+    $mpdf->writeHTML($css,1);
+
+    ob_end_clean();
+
+    $mpdf->writeHTML($html);
+    //$pdf_listo = $mpdf->Output('reporte.pdf', 'I');
+    
+    /// CON LA LINEA DE ABAJO GENERAMOS EL PDF Y LO ENVIAMOS POR EMAIL, PERO NO LO GUARDAMOS
+    //28_03_2017 $pdf_listo = $mpdf->Output('reporte_trimestral.pdf', 'S'); //reemplazamos la I por S(regresa el documento como string)
+    /// CON LA LINEA DE ABAJO GENERAMOS EL PDF Y LO GUARDAMOS EN UNA CARPETA
+    $mpdf->Output(''.$ruta_pdf.''.$nombre_pdf.'', 'F'); //reemplazamos la I por S(regresa el documento como string)
+
+    //GENERAMOS EL MENSAJE DE CORREO PARA NOTIFICAR LA NUEVA DENUNCIA
+    $asunto = 'Buzón de denuncias PLD';
+    $mensaje_correo = '
+        <html>
+        <head>
+            <meta charset="utf-8">
+        </head>
+        <body>
+        
+            <table style="font-family: Tahoma, Geneva, sans-serif; font-size:13px; color: #797979;border: 1px solid #ddd;text-align: left;border-collapse: collapse;width: 100%;" >
+                <thead>
+                    <tr>
+                        <th style="padding: 15px;border: 1px solid #ddd" align="center">
+                            <img class="img-responsive" src="http://iotechdata1.xyz/mas_kapital/img/logos/logo_mas_kapital.png" alt="logo">
+                        </th>
+                        <th style="padding: 15px;border: 1px solid #ddd" align="left">
+                            <h3>Buzón de denuncias PLD</h3>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;padding:15px;background-color:#3498db;color:#ffffff;" colspan="2">DATOS DENUNCIANTE</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            Nombre:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$nombre_denunciante.'</b>
+                        </td>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            Estado:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$estado_denunciante.'</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            Teléfono:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$telefono_denunciante.'</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;padding:15px;background-color:#3498db;color:#ffffff;" colspan="2">DATOS DENUNCIA</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            Nombre:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$nombre_denuncia.'</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            Sucursal:
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$detalle_sucursal['NombreSucursal'].'</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            Otro departamento
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$otro_departamento.'</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            Motivo
+                        </td>
+                        <td style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$motivo.'</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;padding:15px;border: 1px solid #ddd;background-color:#3498db;color:#ffffff;" colspan="2">DESCRIPCIÓN</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 15px;border: 1px solid #ddd">
+                            <b>'.$descripcion.'</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </body>
+        </html>
+    ';
+
+
+    $mail->AddAddress('contraloria@maskapital.com.mx');
+
+    $mail->Subject = utf8_decode($asunto);
+    $mail->Body = utf8_decode($mensaje_correo);
+    $mail->MsgHTML(utf8_decode($mensaje_correo));
+    //$mail->AddAttachment($pdf_listo, 'reporte.pdf');
+
+    //$mail->addStringAttachment($pdf_listo, 'reporte_trimestral.pdf'); // SE ENVIA LA CADENA DE TEXTO DEL PDF POR EMAIL
+    $mail->AddAttachment($reporte);
+    $mail->Send();
+    $mail->ClearAddresses();
+
+    $alerta = utf8_decode('SE HA ENVIADO LA NOTIFICACIÓN');
+
+    echo "<script>alert('".$alerta."');</script>";
+
 }
  ?>
 
@@ -443,24 +674,24 @@ while ($fila=$sqlResE->fetch_row())
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="text" class="form-control" name="nombre_denunciante" placeholder="Nombre">
+                                            <input type="text" class="form-control" id="nombre_denunciante" name="nombre_denunciante" placeholder="Nombre">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <select class="form-control" name="estado_denunciante" id="">
+                                            <select class="form-control" id="estado_denunciante" name="estado_denunciante" id="">
                                                 <option value="">Ubicación(Estado):</option>
                                                 <?php 
                                                 $query = "SELECT nombre FROM estados";
                                                 $consultar = $mysqli->query($query);
                                                 while($estado = $consultar->fetch_assoc()){
-                                                    echo '<option value="'.$estado['nombre'].'">'.$estado['nombre'].'</option>';
+                                                    echo '<option value="'.utf8_encode($estado['nombre']).'">'.utf8_encode($estado['nombre']).'</option>';
                                                 }
                                                  ?>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="telefono_denunciante" placeholder="Teléfono:">
+                                            <input type="text" class="form-control" id="telefono_denunciante" name="telefono_denunciante" placeholder="Teléfono:">
                                         </td>
                                     </tr>
                                 </table>
@@ -472,18 +703,18 @@ while ($fila=$sqlResE->fetch_row())
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="text" class="form-control" name="nombre_denuncia" placeholder="Nombre:">
+                                            <input type="text" class="form-control" id="nombre_denuncia" name="nombre_denuncia" placeholder="Nombre:">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <select class="form-control" name="sucursal" id="">
+                                            <select class="form-control" name="sucursal" id="sucursal">
                                                 <option value="">Sucursal</option>
                                                 <?php 
                                                 $query = "SELECT idSucursales, NombreSucursal FROM sucursales";
                                                 $consultar = $mysqli->query($query);
                                                 while($sucursales = $consultar->fetch_assoc()){
-                                                    echo '<option value="'.$sucursales['idSucursales'].'">'.$sucursales['NombreSucursal'].'</option>';
+                                                    echo '<option value="'.utf8_encode($sucursales['idSucursales']).'">'.utf8_encode($sucursales['NombreSucursal']).'</option>';
                                                 }
                                                  ?>
                                             </select>
@@ -495,12 +726,12 @@ while ($fila=$sqlResE->fetch_row())
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="text" class="form-control" name="motivo" placeholder="Motivo:">
+                                            <input type="text" class="form-control" id="motivo" name="motivo" placeholder="Motivo:">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <textarea class="form-control" rows="5" name="descripcion" placeholder="Descripción:"></textarea>
+                                            <textarea class="form-control" rows="5" id="descripcion" name="descripcion" placeholder="Descripción:"></textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -512,7 +743,7 @@ while ($fila=$sqlResE->fetch_row())
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="enviar_denuncia" value="1">Enviar Correo</button>
+                    <button type="submit" class="btn btn-primary" name="enviar_denuncia" onclick="return validar()" value="1">Enviar Correo</button>
                 </div>
             </div>            
         </form>
@@ -680,6 +911,61 @@ while ($fila=$sqlResE->fetch_row())
   </div>
 </div>
     <script>
+    /// FUNCIÓN PARA VALIDAR LOS CAMPOS OBLIGATORIOS
+    function validar() {
+        nombre_denunciante = document.getElementById("nombre_denunciante").value;
+        if ( nombre_denunciante == null || nombre_denunciante.length == 0 || /^\s+$/.test(nombre_denunciante)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR EL NOMBRE');
+            document.getElementById("nombre_denunciante").focus();
+            return false;
+        }
+        estado_denunciante = document.getElementById("estado_denunciante").selectedIndex;
+        if( estado_denunciante == null || estado_denunciante == 0 ) {
+            alert('DEBES SELECCIONAR EL ESTADO');
+            document.getElementById("estado_denunciante").focus();
+            return false;
+        }
+
+        telefono_denunciante = document.getElementById("telefono_denunciante").value;
+        if ( telefono_denunciante == null || telefono_denunciante.length == 0 || /^\s+$/.test(telefono_denunciante)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR UN NÚMERO DE TELÉFONO');
+            document.getElementById("telefono_denunciante").focus();
+            return false;
+        }
+        nombre_denuncia = document.getElementById("nombre_denuncia").value;
+        if (nombre_denuncia == null || nombre_denuncia.length == 0 || /^\s+$/.test(nombre_denuncia)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR UN NOMBRE');
+            document.getElementById("nombre_denuncia").focus();
+            return false;
+        }
+        sucursal = document.getElementById("sucursal").selectedIndex;
+        if( sucursal == null || sucursal == 0 ) {
+            alert('DEBES SELECCIONAR UNA SUCURSAL');
+            document.getElementById("sucursal").focus();
+            return false;
+        }
+
+        motivo = document.getElementById("motivo").value;
+        if ( motivo == null || motivo.length == 0 || /^\s+$/.test(motivo)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR EL MOTIVO');
+            document.getElementById("motivo").focus();
+            return false;
+        }
+        descripcion = document.getElementById("descripcion").value;
+        if ( descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)) {
+        // Si no se cumple la condicion...
+            alert('DEBES INGRESAR UNA DESCRIPCIÓN');
+            document.getElementById("descripcion").focus();
+            return false;
+        }
+
+        return true;
+    }
+
         function aparecer(){
             var elements = document.getElementsByClassName('barra_lateral_2');
             for(var i = 0, length = elements.length; i < length; i++) {

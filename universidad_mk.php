@@ -134,7 +134,7 @@
                         <a href="https://www.universidadmaskapital.com.mx/"><h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1></a>
                     </div>
                     <div class="col-sm-12">
-                        <h2><a href="https://www.universidadmaskapital.com.mx/">Universidad MásKapital</a></h2>
+                        <h2><a target="_new" href="http://www.universidadmaskapital.com.mx/login/">Universidad MásKapital</a></h2>
                     </div>
                     <div class="col-sm-12">
                         <h2>CONTACTO</h2>

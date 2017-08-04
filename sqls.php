@@ -1189,7 +1189,7 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 			      ');
 			    $css = file_get_contents('administracion/reportes/css/style_reporte.css');  
 			    //$mpdf->AddPage('L'); //se cambia la orientacion de la pagina
-			    $mpdf->pagenumPrefix = 'Página / Page ';
+			    $mpdf->pagenumPrefix = 'Página ';
 			    $mpdf->pagenumSuffix = ' - ';
 			    $mpdf->nbpgPrefix = ' de ';
 			    //$mpdf->nbpgSuffix = ' pages';
