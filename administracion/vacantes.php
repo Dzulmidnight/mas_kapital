@@ -312,7 +312,7 @@
                                         $query = "SELECT Estado FROM sucursales GROUP BY Estado";
                                         $consultar = $mysqli->query($query);
                                         ?>
-                                          <select class="form-control" name="estado" id="sucursal_estado" required>
+                                          <select style="border:1px solid #c0392b" class="form-control" name="estado" id="sucursal_estado" >
                                             <option value="">Selecciona un Estado</option>
                                             <?php 
                                             while($estados = $consultar->fetch_assoc()){
@@ -320,6 +320,7 @@
                                             }
                                             ?>
                                           </select>
+                                          <p style="font-size:10px;color:#c0392b">*Nota: Debe seleccionar el estado <br>para mostrar las sucursales</p>
                                       </td>
                                       <td id="respuesta">
                                       </td>
@@ -331,7 +332,7 @@
                                     </tr>
                                     <tr>
                                       <td>
-                                        <input type="text" class="form-control" name="puesto" placeholder="Puesto" onBlur="ponerMayusculas(this)" required>
+                                        <input type="text" class="form-control" id="puesto" name="puesto" placeholder="Puesto" onBlur="ponerMayusculas(this)" >
                                       </td>
                                       <td>
                                         <input type="text" class="form-control" name="contrato" placeholder="Contrato">
@@ -356,7 +357,7 @@
                                     </tr>
                                     <tr>
                                       <td>
-                                        <textarea name="requisitos" id="" class="form-control" rows="2"></textarea>
+                                        <textarea name="requisitos" id="requisitos" class="form-control" rows="2"></textarea>
                                       </td>
                                       <td>
                                         <textarea name="ofrecemos" id="" class="form-control" rows="2"></textarea>
@@ -376,7 +377,7 @@
                   </div>
                   <div class="modal-footer">
                       <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                      <button class="btn btn-success" type="submit" name="guarda_vacante" value="1"> Guardar Vacante</button>
+                      <button class="btn btn-success" type="submit" name="guarda_vacante" value="1" onclick="return validar()"> Guardar Vacante</button>
                   </div>              
               </form>
             </div>
@@ -429,6 +430,35 @@
            });
         });
       });
+
+        function validar() {
+
+            tema = document.getElementById("sucursal_estado").selectedIndex;
+            if( tema == null || tema == 0 ) {
+                alert('DEBES SELECCIONAR UN ESTADO');
+                document.getElementById("sucursal_estado").focus();
+                return false;
+            }
+            puesto = document.getElementById("puesto").value;
+            if ( puesto == null || puesto.length == 0 || /^\s+$/.test(puesto)) {
+            // Si no se cumple la condicion...
+                alert('DEBES INGRESAR EL PUESTO');
+                document.getElementById("puesto").focus();
+                return false;
+
+            }
+
+            requisitos = document.getElementById("requisitos").value;
+            if ( requisitos == null || requisitos.length == 0 || /^\s+$/.test(requisitos)) {
+            // Si no se cumple la condicion...
+                alert('DEBES INGRESAR LOS REQUISITOS');
+                document.getElementById("requisitos").focus();
+                return false;
+            }
+          
+            return true;
+        }
+
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()

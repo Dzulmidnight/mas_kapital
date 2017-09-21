@@ -274,45 +274,85 @@
                     </p>
                 </div>
             </div>
-
-            <div class="row visible-sm visible-xs">
-                <div class="divs-sm col-sm-4 col-xs-4">
+            <!-- VISIBLE EN SM -->
+            <div class="row visible-sm">
+                <div class="divs-sm col-sm-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
                         <?php echo $contenido['sec2_cont1']; ?>  
                     </p>
                 </div>
-                <div class="divs-sm col-sm-4 col-xs-4" >
+                <div class="divs-sm col-sm-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
                         <?php echo $contenido['sec2_cont2']; ?>   
                     </p>
                 </div>
-                <div class="divs-sm col-sm-4 col-xs-4" >
+                <div class="divs-sm col-sm-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
                         <?php echo $contenido['sec2_cont3']; ?>
                     </p>
                 </div>
-                <div class="divs-sm col-sm-4 col-xs-4" >
+                <div class="divs-sm col-sm-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
                         <?php echo $contenido['sec2_cont4']; ?>
                     </p>
                 </div>
-                <div class="divs-sm col-sm-4 col-xs-4" >
+                <div class="divs-sm col-sm-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
                         <?php echo $contenido['sec2_cont5']; ?>   
                     </p>
                 </div>
-                <div class="divs-sm col-sm-4 col-xs-4" >
+                <div class="divs-sm col-sm-4">
                     <img src="img/mas_flexible/icono_beneficios.png" alt="">
                     <p>
                         <?php echo $contenido['sec2_cont6']; ?>   
                     </p>
                 </div>
             </div>
+            <!-- VISIBLE EN XS -->
+            <div class="row visible-xs">
+                <div class="divs-xs col-xs-12">
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        <?php echo $contenido['sec2_cont1']; ?>  
+                    </p>
+                </div>
+                <div class="divs-xs col-xs-12" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        <?php echo $contenido['sec2_cont2']; ?>   
+                    </p>
+                </div>
+                <div class="divs-xs col-xs-12" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        <?php echo $contenido['sec2_cont3']; ?>
+                    </p>
+                </div>
+                <div class="divs-xs col-xs-12" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        <?php echo $contenido['sec2_cont4']; ?>
+                    </p>
+                </div>
+                <div class="divs-xs col-xs-12" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        <?php echo $contenido['sec2_cont5']; ?>   
+                    </p>
+                </div>
+                <div class="divs-xs col-xs-12" >
+                    <img src="img/mas_flexible/icono_beneficios.png" alt="">
+                    <p>
+                        <?php echo $contenido['sec2_cont6']; ?>   
+                    </p>
+                </div>
+            </div>
+
 
         </div>
     </section>

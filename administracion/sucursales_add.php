@@ -70,7 +70,6 @@
     $idsucursal = $_POST['eliminar_sucursal'];
     $sql = "DELETE FROM sucursales WHERE idSucursales = '$idsucursal'";
     $mysqli->query($sql);
-    echo "<script>alert('Se ha eliminado la sucursal');</script>";
   }
   $seccion = 'informacion';
   $menu = 'sucursales_add';
@@ -369,7 +368,7 @@
                                     <tr>
                                       <td>Nombre Sucursal</td>
                                       <td colspan="3">
-                                        <input type="text" class="form-control" name="nombre" id="f-name" placeholder="Nombre de la Sucursal" required>
+                                        <input type="text" class="form-control" name="nombre" id="nombre_sucursal" placeholder="Nombre de la Sucursal">
                                       </td>
                                     </tr>
                                     <tr>
@@ -379,11 +378,11 @@
                                         $query = "SELECT nombre FROM estados";
                                         $consultar = $mysqli->query($query);
                                         ?>
-                                          <select class="form-control" name="estado" id="" required>
+                                          <select class="form-control" name="estado" id="estado" >
                                             <option value="">Selecciona un Estado</option>
                                             <?php 
                                             while($estados = $consultar->fetch_assoc()){
-                                              echo "<option values='".$estados['nombre']."'>".$estados['nombre']."</option>";
+                                              echo "<option values='".utf8_encode($estados['nombre'])."'>".utf8_encode($estados['nombre'])."</option>";
                                             }
                                             ?>
                                           </select>
@@ -392,27 +391,27 @@
                                     <tr>
                                       <td>Municipio</td>
                                       <td colspan="3">
-                                        <input type="text" class="form-control" name="municipio" id="" placeholder="Municipio" required>
+                                        <input type="text" class="form-control" name="municipio" id="municipio" placeholder="Municipio" >
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Colonia</td>
                                       <td>
-                                        <input type="text" class="form-control" name="colonia" placeholder="Colonia" required>
+                                        <input type="text" class="form-control" name="colonia" id="colonia" placeholder="Colonia" >
                                       </td>
                                       <td>C.P.</td>
                                       <td>
-                                        <input type="text" class="form-control" name="cp" placeholder="C.P." required>
+                                        <input type="text" class="form-control" name="cp" id="cp" placeholder="C.P." >
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Calle</td>
                                       <td>
-                                        <input type="text" class="form-control" name="calle" id="" placeholder="Calle" required>
+                                        <input type="text" class="form-control" name="calle" id="calle" placeholder="Calle" >
                                       </td>
                                       <td>Num. Ext.</td>
                                       <td>
-                                        <input type="text" class="form-control" name="numero" id="" placeholder="Num. #" required>
+                                        <input type="text" class="form-control" name="numero" id="numero" placeholder="Num. #" >
                                       </td>
                                     </tr>
                                     <tr>
@@ -424,11 +423,11 @@
                                     <tr>
                                       <td>Teléfono</td>
                                       <td>
-                                        <input type="text" class="form-control" name="telefono" id="" placeholder="Teléfono" required>
+                                        <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" >
                                       </td>
                                       <td>Email</td>
                                       <td>
-                                        <input type="text" class="form-control" name="email" id="" placeholder="Email" required>
+                                        <input type="text" class="form-control" name="email" id="email" placeholder="Email" >
                                       </td>
                                     </tr>
                                     <tr>
@@ -447,7 +446,7 @@
                                     <tr>
                                       <td>Imagen Sucursal</td>
                                       <td colspan="3">
-                                        <input type="file" class="form-control" name="img_sucursal" id="">
+                                        <input type="file" class="form-control" name="img_sucursal" id="img_sucursal">
                                       </td>
                                     </tr>
                                   </table>
@@ -459,14 +458,90 @@
                   </div>
                   <div class="modal-footer">
                       <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                      <button class="btn btn-success" type="submit" name="guardar_sucursal" value="1"> Guardar Sucursal</button>
+                      <button class="btn btn-success" type="submit" name="guardar_sucursal" value="1" onclick="return validar()"> Guardar Sucursal</button>
                   </div>              
               </form>
             </div>
         </div>
     </div>
     <!-- modal -->
+    <script>
+        function validar() {
 
+            nombre_sucursal = document.getElementById("nombre_sucursal").value;
+            if ( nombre_sucursal == null || nombre_sucursal.length == 0 || /^\s+$/.test(nombre_sucursal)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR EL NOMBRE DE LA SUCURSAL');
+                document.getElementById("nombre_sucursal").focus();
+                return false;
+
+            }
+        
+            estado = document.getElementById("estado").selectedIndex;
+            if( estado == null || estado == 0 ) {
+                alert('DEBES SELECCIONAR UN ESTADO');
+                document.getElementById("estado").focus();
+                return false;
+            }
+
+            municipio = document.getElementById("municipio").value;
+            if ( municipio == null || municipio.length == 0 || /^\s+$/.test(municipio)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR EL MUNICIPIO');
+                document.getElementById("municipio").focus();
+                return false;
+
+            }
+
+            cp = document.getElementById("cp").value;
+            if ( cp == null || cp.length == 0 || /^\s+$/.test(cp)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR EL CODIGO POSTAL');
+                document.getElementById("cp").focus();
+                return false;
+
+            }
+
+            calle = document.getElementById("calle").value;
+            if ( calle == null || calle.length == 0 || /^\s+$/.test(calle)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR LA CALLE');
+                document.getElementById("calle").focus();
+                return false;
+
+            }
+
+            numero = document.getElementById("numero").value;
+            if ( numero == null || numero.length == 0 || /^\s+$/.test(numero)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR EL NUMERO DE LA CALLE');
+                document.getElementById("numero").focus();
+                return false;
+
+            }
+
+            telefono = document.getElementById("telefono").value;
+            if ( telefono == null || telefono.length == 0 || /^\s+$/.test(telefono)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR EL TELÉFONO DE CONTACTO');
+                document.getElementById("telefono").focus();
+                return false;
+
+            }
+
+
+            email = document.getElementById("email").value;
+            if ( email == null || email.length == 0 || /^\s+$/.test(email)) {
+            // Si no se cumple la condicion...
+                alert('DEBES DE INGRESAR EL CORREO DE CONTACTO');
+                document.getElementById("email").focus();
+                return false;
+
+            }
+           
+            return true;
+        }
+    </script>
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery-ui-1.9.2.custom.min.js"></script>

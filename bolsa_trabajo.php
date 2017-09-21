@@ -231,7 +231,8 @@ include('administracion/mpdf/mpdf.php');
     ';
 
 
-    $mail->AddAddress('contraloria@maskapital.com.mx');
+    //$mail->AddAddress('contraloria@maskapital.com.mx');
+    $mail->AddAddress('cumplimiento@maskapital.com.mx');
 
     $mail->Subject = utf8_decode($asunto);
     $mail->Body = utf8_decode($mensaje_correo);
@@ -521,59 +522,71 @@ var Ax='1';
     <div style="padding-top:1em;padding-bottom:1em; height:29em ">
         <div class="container">
             <div class="row" style="height: 100%">
-                <div class="col-md-3" style=" background:#8787b7; padding: 0em; color:#ffffff; height: 29em">
+                <div class="col-md-3 col-xs-12" style=" background:#8787b7; padding: 0em; color:#ffffff; height: 29em">
                     <h2  style="color:#ffffff" class="text-center">FILTRAR</h2>
                     <div style="background-color: #263c89; padding:2em 0em 1em 2em; height: 100%; overflow-x: scroll;" class="acidjs-css3-treeview" id="cheksbx">
 
-<ul style="font-size: 1.3em;">
-<?php
+                    <ul style="font-size: 1.3em;">
+                    <?php
 
-$Aux=0;
-//$sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
-$sqlSuc="SELECT sucursales.Estado FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales GROUP BY sucursales.Estado";
+                    $Aux = 0;
+                    $active = 0;
+                    //$sqlSuc="SELECT DISTINCT Estado FROM Sucursales";
+                    $sqlSuc="SELECT sucursales.Estado FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales GROUP BY sucursales.Estado";
+                    $sqlResE=$mysqli->query($sqlSuc);
 
-$sqlResE=$mysqli->query($sqlSuc);
-while ($fila=$sqlResE->fetch_row()) 
-{ 
-  if ($Aux=0) {
-?><li data-jstree='{ "opened" : true }' id="<?php echo $fila[0] ?>"> <?php echo $fila[0]?>
-<? } else {
-    ?> <li id="<?php echo $fila[0]?>"> <?php echo $fila[0]?>
-    <?} ?>
-        <ul>
-        <?php  
-        //$sqlMun="SELECT idSucursales,Municipio FROM Sucursales WHERE Estado='$fila[0]' ";
-        $sqlMun="SELECT vacantes.idSucursales, sucursales.Municipio FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales WHERE Estado = '$fila[0]' GROUP BY vacantes.idSucursales";
-        $ResMun=$mysqli->query($sqlMun); 
+                    while ($fila=$sqlResE->fetch_row()) 
+                    { 
+                      if ($Aux=0){
+                        ?>
+                        <li data-jstree='{"opened":false,"selected":false}' id="<?php echo $fila[0] ?>"> <?php echo $fila[0]?>
+                        <?php 
+                        }else{
+                            if ($fila[0]=='Oaxaca'){
+                        ?>
+                                <li data-jstree='{"opened:":false, "selected":true}' id="<?php echo $fila[0]?>"> <?php echo $fila[0]?>
+                            <?php  
+                            }else{
+                            ?> 
+                                <li id="<?php echo $fila[0]?>"> <?php echo $fila[0]?>
+                        <?
+                        } 
+                            } 
+                        ?>
+                            <ul>
+                            <?php  
+                            $sqlMun="SELECT vacantes.idSucursales, sucursales.Municipio FROM vacantes INNER JOIN sucursales ON vacantes.idSucursales = sucursales.idSucursales WHERE Estado = '$fila[0]' GROUP BY vacantes.idSucursales";
+                            $ResMun=$mysqli->query($sqlMun); 
 
-        while ($Mun=$ResMun->fetch_row())
-        { 
-              if ($Aux=0) {?>
-            <li data-jstree='{"selected" : false}' id="<?php echo $Mun[1]?>" value="<?php echo $Mun[1]; ?>" ><?php echo $Mun[1]; ?></li>
-    <?}        else
-                { 
-                ?> <li id="<?php echo $Mun[1]?>" value="<?php echo $Mun[1]; ?>" ><?php echo $Mun[1]; ?> </li>
-              <?  }
+                            while ($Mun=$ResMun->fetch_row())
+                            { 
+                                if ($Aux=0) {?>
+                                    <li data-jstree='{"opened":false,"selected":false}' id="<?php echo $Mun[1]?>" value="<?php echo $Mun[1]; ?>" ><?php echo $Mun[1]; ?></li>
+                                <?}
+                              else
+                                    { 
+                                    ?> <li id="<?php echo $Mun[1]?>" value="<?php echo $Mun[1]; ?>" ><?php echo $Mun[1]; ?> </li>
+                                <?  }
 
 
-     } ?>
-        </ul>
-    </li>
-<? $Aux++; } ?>
-</ul>
+                            } ?>
+                            </ul>
+                        </li>
+                    <? $Aux++; } ?>
+                    </ul>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9 col-xs-12">
                     <div style="background-color: #8787b7">
                     <label class="h4" style="color:white">Resultados Obtenidos:</label></div>
                     <div class="container-fluid" style="padding-left: 0em ">
                         <div class="row">
-                            <div class="col-md-7" style="height: 30em; overflow-x: scroll;">
+                            <div class="col-md-7 col-xs-6" style="height: 30em; overflow-x: scroll;">
                                 <div id="divPuesto" name="divPuesto">
 
                                 </div>
                                 </div>
-                            <div class="col-md-5" style="height: 30em; overflow-x: scroll;">
+                            <div class="col-md-5 col-xs-6" style="overflow-x: scroll;">
                                 <div class="row">
                                     <label class="h4">Requisitos de la vacante</label>
                                     <div class="col-md-12" id="requisitos" name="requisitos">
@@ -588,10 +601,10 @@ while ($fila=$sqlResE->fetch_row())
         </div>
     </div>
 </section>
-<section style="margin-top:10em;">
+<section class="hidden-xs" style="margin-top:10em;">
     <div class="container"> 
         <div class="row" id="talento">
-            <div class="text-center col-md-12" style="margin-top:35%">
+            <div class="text-center col-md-12 col-xs-12" style="margin-top:35%">
                 <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
                     <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
                 </button>
@@ -602,6 +615,25 @@ while ($fila=$sqlResE->fetch_row())
         </div>
     </div>
 </section>
+
+<!-- VISIBLE PARA MOVILES -->
+<section class="visible-xs" style="margin-top:10em;">
+    <div class="row">
+        <div class="" style="padding:0px;margin:0px;"> 
+            <div class="" id="talento" style="padding-top:10em;">
+                <div class="text-center col-xs-12" style="border-top: 3px solid #fff;width:70%;left:15%">
+                    <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
+                        <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
+                    </button>
+                </div>
+                <div class="col-md-12" style="margin-top:10%; border-bottom: 3px solid #fff;width:70%;left:15%">
+                    <h1 class="text-center" style="color:#fff;font-size:50px;">Tu talento es bienvenido</h1>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>
+
     <!--/#services-->
 
     <!-- INICIA FOOTER -->
@@ -761,7 +793,7 @@ while ($fila=$sqlResE->fetch_row())
             <div class="modal-body text-justify" style="padding-left:4em;padding-right:4em;">
                 
                 <p>
-                    En cumplimiento a lo establecido por la Ley Federal de Protección de datos personales en Posesión de los Particulares LFPDPPP (“LEY”), KAPITALMUJER SOCIEDAD ANÓNIMA DE CAPITAL VARIABLE SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE ENTIDAD NO REGULADA, con domicilio ubicado en Heroica Escuela Naval Militar No. 316, colonia Reforma, Oaxaca de Juárez, Oaxaca, C.P. 68050, hace de su conocimiento que está comprometido con la protección de sus datos personales, al ser responsable de su uso, manejo y confidencialidad, por lo que en todo momento buscará que el tratamiento de sus datos sea legítimo, controlado e informado, a efecto de garantizar la privacidad de los mismos.
+                    En cumplimiento a lo establecido por la Ley Federal de Protección de datos personales en Posesión de los Particulares LFPDPPP (“LEY”), KAPITALMUJER SOCIEDAD ANÓNIMA DE CAPITAL VARIABLE SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE ENTIDAD NO REGULADA, con domicilio ubicado en calle Violetas No. 104, Col. Reforma, Oaxaca de Juárez, Oaxaca, C.P.68050, hace de su conocimiento que está comprometido con la protección de sus datos personales, al ser responsable de su uso, manejo y confidencialidad, por lo que en todo momento buscará que el tratamiento de sus datos sea legítimo, controlado e informado, a efecto de garantizar la privacidad de los mismos.
                 </p>
                 <h3>
                     <b>

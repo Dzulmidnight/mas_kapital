@@ -1,6 +1,6 @@
-<?php 
-    include ('conexion/conexion.php');
- ?>
+<?php
+include('conexion/conexion.php');
+?>
 
 <!DOCTYPE html>
 <html lang="esp">
@@ -28,10 +28,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
-    <script language="javascript" src="js/jquery-1.3.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
             $('#menu_oculto').hide(0);
             $(window).scroll(function(){
                 var windowHeight = $(window).scrollTop();
@@ -56,7 +57,7 @@
         }
     </style>
 <style>
-  #map {
+  #map{
     height: 100%;
   }
   html, body {
@@ -64,7 +65,7 @@
     margin: 0;
     padding: 0;
   }
-  .btn-sucursal {
+  .btn-sucursal{
   color: #ffffff;
     background-color: #f26e23;
     border: none;
@@ -72,7 +73,7 @@
     height: 40px;
     margin-bottom: 10px;
 }
-#Estados .active {
+#Estados .active{
     color: #ffffff;
     background-color: #263c89;
     border: none;
@@ -84,7 +85,7 @@
 
 </head><!--/head-->
 
-<body>
+<body onload="ClickOaxaca();">
 	<?php
     $menu = 'sucursales';
     include('header.php');
@@ -120,27 +121,32 @@
     <section>
         <div class="container">
             <div class="row">
-                    <div class="col-md-12">
+                    <!--<div class="col-md-12">
                         <select class="form-control"  name="nombre_sucursal" id="">
                             <option value="">¿Sábes el nombre de tu sucursal?</option>
                         </select>
-                    </div>
+                    </div>-->
                     <div class="col-md-9" style="font-size:16px;">
                         <h2>Selecciona el Estado</h2>
                         <div class="row" id="Estados">
                         <?php
 
-                        $sqlSuc="SELECT DISTINCT Estado FROM sucursales";
-                        $sqlResE=$mysqli->query($sqlSuc);
-                        $clase="";
-                        $num=1;
-                        while ($fila=$sqlResE->fetch_row()) 
-                        {?>
+                        $sqlSuc = "SELECT DISTINCT Estado FROM sucursales";
+                        $sqlResE = $mysqli->query($sqlSuc);
+                        $clase = "";
+                        $num = 1;
+                        while ($fila=$sqlResE->fetch_row()){
+                        ?>
                             <div class="col-xs-4 col-sm-3">
+                                <?php if ($fila[0]=='Oaxaca') { ?>
+                                    <button class="btn-sucursal active" id="btnEstados" name="btnEstados" value="<?php echo $fila[0]; ?>"><?php  echo $fila[0];?></button>
+                             <?php    } else{ ?>
                                 <button class="btn-sucursal" id="btnEstados" name="btnEstados" value="<?php echo $fila[0]; ?>"><?php echo $fila[0]; ?></button>
+                            <?php } ?>
                             </div>
-                         <?php } ?>
-                          
+                         <?php 
+                        } 
+                        ?>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -159,7 +165,7 @@
                 </div>
 
                 <div class="col-md-3"> 
-                    <div class="row" id="FotoSuc" name="FotoSuc" >
+                    <div class="row" id="FotoSuc" name="FotoSuc">
                         <div class="col-sm-12">
                         </div>                    
                     </div>
@@ -183,8 +189,8 @@
 
 <script>
 $(document).ready(function() {
-$('#Sucursales').on('click','#btn_Suc', function() {
-    var accion=2;
+$('#Sucursales').on('click','#btn_Suc', function(){
+    var accion = 2;
     var Mun = $(this).val();
                    $.ajax({
                     type:'POST',
@@ -201,20 +207,36 @@ $('#Sucursales').on('click','#btn_Suc', function() {
 </script>
 
 <script>
-
 function Mapear(est){    
-    var accion=1;
+    var accion = 1;
        $.ajax({
-                    type:'POST',
-                    url:'mapa.php',
-                    data:{accion:accion},
-                    success:function(data){
-                        $('#mapa').html(data);
-                    }
-                });
+            type:'POST',
+            url:'mapa.php',
+            data:{accion:accion},
+            success:function(data){
+                $('#mapa').html(data);
+            }
+        });
        return false;
 
 }
+</script>
+<script>
+    function ClickOaxaca(){
+    var accion=1;
+    var Estado = 'Oaxaca';
+    $.ajax({
+                    type:'POST',
+                    url:'ConsultasSucursal.php',
+                    data:{Estado:Estado,accion:accion},
+                    success:function(data){
+                        $('#Sucursales').html(data);
+                        Mapear(Estado);
+                    }
+                });
+
+                return false;
+            }
 </script>
 
 <script>

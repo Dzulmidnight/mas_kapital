@@ -207,7 +207,11 @@ if (!isset($_SESSION)) {
               $img_dinamica = $ruta_img.basename($_FILES["img_dinamica3"]["name"]);
         }
       }
-
+      //echo '<script>alert("se ha insertado")</script>';
+      $insertSQL2 = "INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion) VALUES ($idpagina, '$titulo_dinamico', '$contenido_dinamico', '$img_dinamica', $tipo_seccion)";
+      //echo $insertSQL2;
+      $insertar = $mysqli->query($insertSQL2);
+      //echo "<script>alert('".$insertSQL."')</script>";
       /*$insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
         GetSQLValueString($idpagina, "int"),
         GetSQLValueString($titulo_dinamico, "text"),
@@ -215,9 +219,7 @@ if (!isset($_SESSION)) {
         GetSQLValueString($img_dinamica, "text"),
         GetSQLValueString($tipo_seccion, "int"),
         GetSQLValueString($orden, "int"));*/
-
-      $insertSQL = "INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES ($idpagina, '$titulo_dinamico', '$contenido_dinamico', '$img_dinamica', '$tipo_seccion', $orden)";
-      $insertar = $mysqli->query($insertSQL);
+      
     }
 
 
@@ -230,6 +232,53 @@ if (!isset($_SESSION)) {
 
     $query = "DELETE FROM slide WHERE idslide = $idslide";
     $eliminar = $mysqli->query($query);
+  }
+
+  // MODIFICAMOS EL CONTENIDO DE LAS SECCIONES DINAMICAS
+  if(isset($_POST['modificar_seccion']) && $_POST['modificar_seccion'] != 0){
+    $idseccion_dinamica = $_POST['modificar_seccion'];
+    $ruta_img = '../img/seccion_dinamica/';
+    $titulo = '';
+    $contenido = '';
+    $img = '';
+    if(!empty($_POST['img_existente'.$idseccion_dinamica])){
+      $img_existente = $_POST['img_existente'.$idseccion_dinamica];
+    }else{
+      $img_existente = '';
+    }
+
+    if(isset($_POST['titulo_edit'.$idseccion_dinamica])){
+      $titulo = $_POST['titulo_edit'.$idseccion_dinamica];
+    }else{
+      $titulo = '';
+    }
+    if(isset($_POST['contenido_edit'.$idseccion_dinamica])){
+      $contenido = $_POST['contenido_edit'.$idseccion_dinamica];
+    }else{
+      $contenido = '';
+    }
+    if(!empty($_FILES['img_edit'.$idseccion_dinamica]['name'])){
+        if(file_exists($img_existente)){
+          unlink($img_existente);
+        }
+        $_FILES["img_edit".$idseccion_dinamica]["name"];
+          move_uploaded_file($_FILES["img_edit".$idseccion_dinamica]["tmp_name"], $ruta_img.$_FILES["img_edit".$idseccion_dinamica]["name"]);
+          $img = $ruta_img.basename($_FILES["img_edit".$idseccion_dinamica]["name"]);
+          //$archivo = $rutaArchivo.basename($fecha."_".$_FILES["nueva_cotizacion"]["name"]);
+    }else{
+      $img = $img_existente;
+    }
+
+    //echo "<script>alert('$titulo');</script>";
+    $updateSQL = "UPDATE seccion_dinamica SET titulo = '$titulo', contenido = '$contenido', img = '$img' WHERE idseccion_dinamica = '$idseccion_dinamica'";
+    $actualizar = $mysqli->query($updateSQL);
+  }
+  ///ELIMINAMOS LAS SECCIONES DINAMICAS
+  if(isset($_POST['eliminar_seccion'])){
+    $idseccion_dinamica = $_POST['eliminar_seccion'];
+    $delteSQL = "DELETE FROM seccion_dinamica WHERE idseccion_dinamica = $idseccion_dinamica";
+    $eliminar = $mysqli->query($delteSQL);
+    //echo '<script>alert("SE HA ELIMINADO LA SECCIÓN")</script>';
   }
 
   $seccion = 'secciones';
@@ -637,12 +686,12 @@ if (!isset($_SESSION)) {
                                 </section>
 
                                 <?php 
-                                $query = "SELECT * FROM seccion_dinamica WHERE idpagina = $idpagina";
+                                $query = "SELECT * FROM seccion_dinamica WHERE idpagina = $idpagina ORDER BY idseccion_dinamica DESC";
                                 $consultar = $mysqli->query($query);
                                 $num_filas = $consultar->num_rows;
 
                                 if($num_filas>0){
-                                  while($contenido_dinamico = $consultar->fetch_assoc()){ //INICIA WHILE
+                                  while($contenido_dinamico = $consultar->fetch_assoc()){
                                     if($contenido_dinamico['tipo_seccion'] == 1){
                                     ?>
                                       <section class="well" style="margin-top:10em;">
@@ -662,6 +711,64 @@ if (!isset($_SESSION)) {
                                               </div>
                                           </div>
                                       </section>
+                                    
+                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                  
+                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <!-- Modal Modificar sección dinámica -->
+                                      <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog modal-lg">
+                                              <div class="modal-content">
+                                                
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title"><b>Modificar Sección dinámica</b></h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <!-- page start-->
+                                                      <div class="row">
+                                                          <div class="col-md-12">
+                                                            <div class="form-group">
+                                                              <label for="titulo_edit"><b>Titulo</b></label>
+                                                              <input type="text" class="form-control" name="<?php echo 'titulo_edit'.$contenido_dinamico['idseccion_dinamica']; ?>"  value="<?php echo $contenido_dinamico['titulo']; ?>" placeholder="Titulo">
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                            <div class="form-group">
+                                                              <label for="contenido_edit"><b>Contenido</b></label>
+                                                              <textarea name="<?php echo 'contenido_edit'.$contenido_dinamico['idseccion_dinamica']; ?>"  class="form-control" rows="10"><?php echo nl2br($contenido_dinamico['contenido']); ?></textarea>
+                                                            </div>  
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                            <img class="img-responsive" src="<?php echo $contenido_dinamico['img']; ?>" alt="">
+                                                            <div class="form-group">
+                                                                <div class="controls col-md-12">
+                                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                                      <span class="btn btn-white btn-file">
+                                                                      <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                                      <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                      <input type="file" name="<?php echo 'img_edit'.$contenido_dinamico['idseccion_dinamica']; ?>" class="default" />
+                                                                      </span>
+                                                                        <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                        <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="<?php echo 'img_existente'.$contenido_dinamico['idseccion_dinamica']; ?>" value="<?php echo $contenido_dinamico['img']; ?>">
+                                                            </div>
+                                                          </div>
+                                                      </div>
+                                                      <!-- page end-->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                                                        <button class="btn btn-success" type="submit" name="modificar_seccion" value="<?php echo $contenido_dinamico['idseccion_dinamica']; ?>"> Guarda Cambios</button>
+                                                    </div>              
+                                            
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!-- modal -->
+
                                     <?php
                                     }else if($contenido_dinamico['tipo_seccion'] == 2){
                                     ?>
@@ -679,6 +786,44 @@ if (!isset($_SESSION)) {
                                               </div>
                                           </div>
                                       </section>
+
+                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                      
+                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <!-- Modal Modificar sección dinámica -->
+                                      <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog modal-lg">
+                                              <div class="modal-content">
+                                                
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title"><b>Modificar Sección dinámica</b></h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <!-- page start-->
+                                                      <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                              <label for="titulo_edit"><b>Titulo</b></label>
+                                                              <input type="text" class="form-control" name="<?php echo 'titulo_edit'.$contenido_dinamico['idseccion_dinamica']; ?>" id="" value="<?php echo $contenido_dinamico['titulo']; ?>" placeholder="Titulo">
+                                                            </div>
+                                                            <div class="form-group">
+                                                              <label for="contenido_edit"><b>Contenido</b></label>
+                                                              <textarea name="<?php echo 'contenido_edit'.$contenido_dinamico['idseccion_dinamica']; ?>" id="" class="form-control" rows="10"><?php echo nl2br($contenido_dinamico['contenido']); ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                      <!-- page end-->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                                                        <button class="btn btn-success" type="submit" name="modificar_seccion" value="<?php echo $contenido_dinamico['idseccion_dinamica']; ?>"> Guarda Cambios</button>
+                                                    </div>              
+                                            
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!-- modal -->
                                     <?php
                                     }else if($contenido_dinamico['tipo_seccion'] == 3){
                                     ?>
@@ -691,10 +836,55 @@ if (!isset($_SESSION)) {
                                               </div>
                                           </div>
                                       </section>
+                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                      
+                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <!-- Modal Modificar sección dinámica -->
+                                      <!-- Modal Modificar sección dinámica -->
+                                      <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog modal-lg">
+                                              <div class="modal-content">
+                                                
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title"><b>Modificar Sección dinámica</b></h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <!-- page start-->
+                                                      <div class="row">
+                                                          <div class="col-md-12">
+                                                            <img class="img-responsive" src="<?php echo $contenido_dinamico['img']; ?>" alt="">
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <div class="controls col-md-12">
+                                                                  <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                                    <span class="btn btn-white btn-file">
+                                                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
+                                                                    <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                    <input type="file" name="<?php echo 'img_edit'.$contenido_dinamico['idseccion_dinamica'] ?>" class="default" />
+                                                                    </span>
+                                                                      <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                                      <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                                  </div>
+                                                              </div>
+                                                              <input type="hidden" name="<?php echo 'img_existente'.$contenido_dinamico['idseccion_dinamica']; ?>" value="<?php echo $contenido_dinamico['img']; ?>">
+                                                          </div>
+                                                      </div>
+                                                      <!-- page end-->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                                                        <button class="btn btn-success" type="submit" name="modificar_seccion" value="<?php echo $contenido_dinamico['idseccion_dinamica']; ?>"> Guarda Cambios</button>
+                                                    </div>              
+                                            
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!-- modal -->
+                                      <!-- modal -->
                                     <?php
                                     }
-                                    echo "<button class='btn btn-warning' type='submit' name='eliminar_seccion' value='".$contenido_dinamico['idseccion_dinamica']."'>Eliminar Sección</button>";
-                                  } // TERMINA WHILE
+                                  }
                                 }
                                 ?>
                                 <!-- TERMINAN LAS SECCIONES DINAMICAS -->

@@ -80,7 +80,7 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 			?>
 			<div class="col-md-12 <?echo $clase2 ; ?>" style="border: 0.2em solid #8787b7; margin-top: 1em"
 			<div class="row">
-			<div class="col-md-12"><label style="color:green"><? echo utf8_encode($fila2[1]);//Puesto ?></label></div>
+			<div class="col-md-12"><label style="color:green"><? echo $fila2[1];//Puesto ?></label></div>
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-8">
@@ -92,7 +92,7 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 						</div>
 					</div>
 					<div class="col-md-4">
-					<button onclick="btnPostularse(<? echo $fila2[0];?>)" style="background-color:#8787b7" class="btn btn-primary btn-block">Postularse</button>
+					<button onclick="btnPostularse(<? echo $fila2[0];?>)" style="background-color:#8787b7" class="btn btn-primary btn-block">Requisitos</button>
 					</div>
 					<div class="col-md-12"><p style="margin: 0px">Tipo de Contrato:<? echo $fila2[5] ; ?></p></div>
 
@@ -133,7 +133,7 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 		$fila2=$res2->fetch_assoc();
 		?>
         <div class="col-md-12" style="background-color: green; color: white ">
-		<label class="h4"><? echo utf8_encode($fila2['Puesto']);?></label>
+		<label class="h4"><? echo $fila2['Puesto'];?></label>
 		</div>
 		<div class="col-md-12">
 			<p style="margin: 0em">Requisitos</p>
@@ -141,7 +141,7 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 		$sql="SELECT Requisito FROM requisitos WHERE idVacantes=$idVacante";
 		$res=$mysqli->query($sql);
 		 while ($fila=$res->fetch_assoc()) {?>
-			<p style="margin: 0em">-<?	echo utf8_encode($fila['Requisito']);?></p><?
+			<p style="margin: 0em">-<?	echo $fila['Requisito'];?></p><?
 			}
 		?><p style="margin: 1em 0em 0em">Ofrecemos</p> <?php
 		$sql3="SELECT Ofrecemos FROM requisitos WHERE idVacantes=$idVacante";
@@ -152,7 +152,7 @@ if($_POST['Ax']==2){ //Eliminar Trabajo
 		 	
 		 	?>
 
-		 <p style="margin: 0em">-<?	echo utf8_encode($fila3['Ofrecemos']);?></p><?
+		 <p style="margin: 0em">-<?	echo $fila3['Ofrecemos'];?></p><?
 			}} ?>
 		</div>
 		<?
@@ -1240,7 +1240,7 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 			        </html>
 			    ';
 
-			    $mail->AddAddress('soporteinforganic@gmail.com');
+			    $mail->AddAddress('auxrellab02@maskapital.com.mx');
 
 			    $mail->Subject = utf8_decode($asunto);
 			    $mail->Body = utf8_decode($mensaje_correo);

@@ -2,7 +2,7 @@
 require('../conexion/conexion.php');
 $estado = $_POST['estado'];
 
-$query = "SELECT * FROM Sucursales WHERE Estado = '$estado'";
+$query = "SELECT * FROM sucursales WHERE Estado = '$estado'";
 $consultar = $mysqli->query($query);
 
 echo "<select class='form-control' name='sucursal'>";

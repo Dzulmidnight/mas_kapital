@@ -123,11 +123,6 @@
     }
     #descripcion_universidad{
       background-image: url(../img/universidad_mk/banner_descripcion.jpg);
-      background-color: #fbfafa;
-      background-size: cover;
-
-      position: static;
-      width: 100%;
     }
 
     #portal_mk{
@@ -219,7 +214,7 @@
       height: 50px;
     }
     
-    /** DIVS SM-XS ***/
+    /** DIVS SM ***/
     .divs-sm{
       background-color: #b0b0d1;
       height: 300px;
@@ -237,6 +232,26 @@
     .divs-sm:hover img{
       height: 50px;
     }
+    /** DIVS XS ***/
+    .divs-xs{
+      background-color: #b0b0d1;
+      height: 120px;
+      padding: 1.5em 2.5em 0em 2.5em;
+      text-align: center;
+      color: #FFFFFF;
+      transition: .5s;
+    }
+    .divs-xs p{
+      margin-top: 1em;
+    }
+    .divs-xs:hover{
+      background-color: #263c89;
+    }
+    .divs-xs:hover img{
+      height: 25px;
+    }
+
+
     
     #normatividad{
       text-align: center;

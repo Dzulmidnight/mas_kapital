@@ -3,7 +3,7 @@ require('../conexion/conexion.php');
 
 $idfrm_denuncia = $_POST['idfrm_denuncia'];
 
-$query = "SELECT frm_denuncia.*, Sucursales.NombreSucursal FROM frm_denuncia LEFT JOIN Sucursales ON frm_denuncia.sucursal = Sucursales.idSucursales WHERE idfrm_denuncia = $idfrm_denuncia";
+$query = "SELECT frm_denuncia.*, sucursales.NombreSucursal FROM frm_denuncia LEFT JOIN sucursales ON frm_denuncia.sucursal = sucursales.idSucursales WHERE idfrm_denuncia = $idfrm_denuncia";
 $consultar = $mysqli->query($query);
 $datos = $consultar->fetch_assoc();
 ?>

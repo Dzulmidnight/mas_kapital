@@ -2,14 +2,14 @@
 </div>
 
 <script>
- function initMap() {
+function initMap(){
 <?php 
-    include('conexion.php');
-    $sql="SELECT * FROM sucursales WHERE MapaActivo=1 ORDER BY idSucursales";
-    $result=$mysqli->query($sql);
-    $aux=1;
-    while ($fila=$result->fetch_assoc()){
-      ?>
+    include('conexion/conexion.php');
+    $sql = "SELECT * FROM sucursales WHERE MapaActivo = 1 ORDER BY idSucursales";
+    $result = $mysqli->query($sql);
+    $aux = 1;
+    while($fila=$result->fetch_assoc()){
+?>
       var myLatlng<?php echo $aux; ?> = new google.maps.LatLng(<?php echo $fila['X']; ?>,<?php echo $fila['Y']; ?>);
       <?php 
       $aux++; 
@@ -24,7 +24,7 @@ var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 
 <?php 
-    include('conexion.php');
+    include('conexion/conexion.php');
     $sql="SELECT * FROM sucursales WHERE MapaActivo=1 ORDER BY idSucursales DESC";
     $result=$mysqli->query($sql);
     $aux=1;

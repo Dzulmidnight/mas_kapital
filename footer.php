@@ -23,7 +23,7 @@ include('administracion/mpdf/mpdf.php');
     $query = "INSERT INTO frm_denuncia (nombre_denunciante, estado_denunciante, telefono_denunciante, nombre_denuncia, sucursal, otro_departamento, motivo, descripcion, fecha, archivo_denuncia) VALUES ('$nombre_denunciante', '$estado_denunciante', '$telefono_denunciante', '$nombre_denuncia', '$sucursal', '$otro_departamento', '$motivo', '$descripcion', '$fecha', '$reporte')";
     $insertar = $mysqli->query($query);
 
-/********  SE ENVIA CORREO SOBRE REPORTE TRIMESTRAL  ************/
+
     $query = "SELECT NombreSucursal FROM sucursales WHERE idSucursales = $sucursal";
     $consultar = $mysqli->query($query);
     $detalle_sucursal = $consultar->fetch_assoc();
@@ -230,7 +230,8 @@ include('administracion/mpdf/mpdf.php');
     ';
 
 
-    $mail->AddAddress('contraloria@maskapital.com.mx');
+    //$mail->AddAddress('contraloria@maskapital.com.mx');
+    $mail->AddAddress('cumplimiento@maskapital.com.mx');
 
     $mail->Subject = utf8_decode($asunto);
     $mail->Body = utf8_decode($mensaje_correo);
@@ -403,7 +404,7 @@ include('administracion/mpdf/mpdf.php');
             <div class="modal-body text-justify" style="padding-left:4em;padding-right:4em;">
                 
                 <p>
-                    En cumplimiento a lo establecido por la Ley Federal de Protección de datos personales en Posesión de los Particulares LFPDPPP (“LEY”), KAPITALMUJER SOCIEDAD ANÓNIMA DE CAPITAL VARIABLE SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE ENTIDAD NO REGULADA, con domicilio ubicado en Heroica Escuela Naval Militar No. 316, colonia Reforma, Oaxaca de Juárez, Oaxaca, C.P. 68050, hace de su conocimiento que está comprometido con la protección de sus datos personales, al ser responsable de su uso, manejo y confidencialidad, por lo que en todo momento buscará que el tratamiento de sus datos sea legítimo, controlado e informado, a efecto de garantizar la privacidad de los mismos.
+                    En cumplimiento a lo establecido por la Ley Federal de Protección de datos personales en Posesión de los Particulares LFPDPPP (“LEY”), KAPITALMUJER SOCIEDAD ANÓNIMA DE CAPITAL VARIABLE SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE ENTIDAD NO REGULADA, con domicilio ubicado en calle Violetas No. 104, Col. Reforma, Oaxaca de Juárez, Oaxaca, C.P.68050, hace de su conocimiento que está comprometido con la protección de sus datos personales, al ser responsable de su uso, manejo y confidencialidad, por lo que en todo momento buscará que el tratamiento de sus datos sea legítimo, controlado e informado, a efecto de garantizar la privacidad de los mismos.
                 </p>
                 <h3>
                     <b>

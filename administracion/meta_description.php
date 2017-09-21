@@ -9,9 +9,7 @@
   /// INSERTAMOS LA INFORMACIÓN DEL META-DESCRIPTION DE CADA PÁGINA
   if(isset($_POST['meta_index']) && $_POST['meta_index'] == 1){
     $idpagina = 1;
-    $updateSQL = sprintf("UPDATE pagina1 SET meta_description = %s WHERE idpagina1 = %s",
-      GetSQLValueString($_POST['descripcion'], "text"),
-      GetSQLValueString($idpagina, "int"));
+    $updateSQL = "UPDATE pagina1 SET meta_description = '$_POST[descripcion]' WHERE idpagina1 = $idpagina";
     $actualizar = $mysqli->query($updateSQL);
 
   }else if(isset($_POST['meta_normatividad']) && $_POST['meta_normatividad'] == 2){
@@ -20,34 +18,27 @@
     $consultar = $mysqli->query($query);
     $total = $consultar->num_rows;
     if($total == 0){
-      $insertSQL = sprintf("INSERT INTO pagina2 (idpagina2, meta_description) VALUES (%s, %s)",
-        GetSQLValueString($idpagina, "int"),
-        GetSQLValueString($_POST['descripcion'], "text"));
+
+      $insertSQL = "INSERT INTO pagina2(idpagina2, meta_description) VALUES (idpagina2, '$_POST[descripcion]')";
       $insertar = $mysqli->query($insertSQL);
     }else{
-      $updateSQL = sprintf("UPDATE pagina2 SET meta_description = %s WHERE idpagina2 = %s",
-        GetSQLValueString($_POST['descripcion'], "text"),
-        GetSQLValueString($idpagina, "int"));
+      $updateSQL = "UPDATE pagina2 SET meta_description = '$_POST[descripcion]' WHERE idpagina2 = $idpagina";
       $actualizar = $mysqli->query($updateSQL);
     }
-
   }else if(isset($_POST['meta_masflexible']) && $_POST['meta_masflexible'] == 3){
     $idpagina = 3;
-    $updateSQL = sprintf("UPDATE pagina3 SET meta_description = %s WHERE idpagina3 = %s",
-      GetSQLValueString($_POST['descripcion'], "text"),
-      GetSQLValueString($idpagina, "int"));
+
+    $updateSQL = "UPDATE pagina3 SET meta_description = '$_POST[descripcion]' WHERE idpagina3 = $idpagina";
     $actualizar = $mysqli->query($updateSQL);
   }else if(isset($_POST['meta_universidad']) && $_POST['meta_universidad'] == 4){
     $idpagina = 4;
-    $updateSQL = sprintf("UPDATE pagina4 SET meta_description = %s WHERE idpagina4 = %s",
-      GetSQLValueString($_POST['descripcion'], "text"),
-      GetSQLValueString($idpagina, "int"));
+
+    $updateSQL = "UPDATE pagina4 SET meta_description = '$_POST[descripcion]' WHERE idpagina4 = $idpagina";
     $actualizar = $mysqli->query($updateSQL);
   }else if(isset($_POST['meta_atencion']) && $_POST['meta_atencion'] == 5){
     $idpagina = 5;
-    $updateSQL = sprintf("UPDATE pagina5 SET meta_description = %s WHERE idpagina5 = %s",
-      GetSQLValueString($_POST['descripcion'], "text"),
-      GetSQLValueString($idpagina, "int"));
+
+    $updateSQL = "UPDATE pagina5 SET meta_description = '$_POST[descripcion]' WHERE idpagina5 = $idpagina";
     $actualizar = $mysqli->query($updateSQL);
   }
   /// FIN

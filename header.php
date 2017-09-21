@@ -26,7 +26,7 @@
                     <li class="dropdown <?php if($menu == 'flexible'){echo 'active'; } ?>"><a href="mas_flexible.php"><b>MÁS FLEXIBLE</b> <i class="fa fa-angle-down"></i></a>
                         <ul role="menu" class="sub-menu">
                             <li><a href="mas_flexible.php#caracteristicas">MÁSPUNTOS</a></li>
-                            <li><a href="mas_flexible.php#donde-pagar">¿DÓNDE PAGAR?</a></li>
+                            <li><a href="mas_flexible.php#caracteristicas">¿DÓNDE PAGAR?</a></li>
                         </ul>
                     </li>
                     <li <?php if($menu == 'universidad'){echo 'class="active"';} ?>><a href="universidad_mk.php"><b>UNIVERSIDAD MK</b></a></li>

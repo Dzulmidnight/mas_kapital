@@ -20,9 +20,9 @@
 	    </div>
 	    <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
 	        <div class="barra_lateral_2" style="padding-left:53px;display:none">
-	            <a style="color:#ffffff;" href="mas_flexible.php#caracteristicas"><b>MÁSPUNTOS</b></a>
+	            <a href="mas_flexible.php#caracteristicas" style="color:#ffffff;"><b>MÁSPUNTOS</b></a>
 	        </div>
-	        <a href=""><img src="img/logos/ico_maspuntos.png" alt=""></a>
+	        <a href="mas_flexible.php#caracteristicas"><img src="img/logos/ico_maspuntos.png" alt=""></a>
 	    </div>
 	    <div class="barra_lateral_1" onmouseover="aparecer();" onmouseout="desaparecer()">
 	        <div class="barra_lateral_2" style="padding-left:53px;display:none">
