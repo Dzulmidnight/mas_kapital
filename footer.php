@@ -278,9 +278,11 @@ include('administracion/mpdf/mpdf.php');
                 <div class="col-xs-12">
                     <h2 style="color:#ffffff"><b>NORMATIVIDAD</b></h2>
                     <p style="text-align: justify;">Cónoce nuestro aviso de privacidad, es tu derecho.</p>
-                    <p ><a id="aviso-privacidad" href="" data-toggle="modal" data-target="#aviso"><b>AVISO DE PRIVACIDAD</b></a></p>
+                    <p class="hidden-xs"><a id="aviso-privacidad" href="" data-toggle="modal" data-target="#aviso"><b>AVISO DE PRIVACIDAD</b></a></p>
+                    <p class="visible-xs"><a style="color:#f26e23" id="aviso-privacidad-xs" href="" data-toggle="modal" data-target="#aviso"><b>AVISO DE PRIVACIDAD</b></a></p>
                     <p style="text-align: justify;">Denuncia cualquier irregularidad, tu reporte es completamente anónimo.</p>
-                    <p ><a id="buzon-denuncias" href="" data-toggle="modal" data-target="#buzon"><b>BUZÓN DE DENUNCIAS PLD</b></a></p>
+                    <p class="hidden-xs"><a id="buzon-denuncias" href="" data-toggle="modal" data-target="#buzon"><b>BUZÓN DE DENUNCIAS PLD</b></a></p>
+                    <p class="visible-xs"><a style="color:#f26e23;" id="buzon-denuncias-xs" href="" data-toggle="modal" data-target="#buzon"><b>BUZÓN DE DENUNCIAS PLD</b></a></p>
                 </div>
             </div>                
         </div>

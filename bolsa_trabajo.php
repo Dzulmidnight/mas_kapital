@@ -581,12 +581,12 @@ var Ax='1';
                     <label class="h4" style="color:white">Resultados Obtenidos:</label></div>
                     <div class="container-fluid" style="padding-left: 0em ">
                         <div class="row">
-                            <div class="col-md-7 col-xs-6" style="height: 30em; overflow-x: scroll;">
+                            <div class="col-md-7 col-xs-12" style="height: 30em; overflow-x: scroll;">
                                 <div id="divPuesto" name="divPuesto">
 
                                 </div>
                                 </div>
-                            <div class="col-md-5 col-xs-6" style="overflow-x: scroll;">
+                            <div class="col-md-5 col-xs-12" style="overflow-x: scroll;">
                                 <div class="row">
                                     <label class="h4">Requisitos de la vacante</label>
                                     <div class="col-md-12" id="requisitos" name="requisitos">
@@ -621,11 +621,11 @@ var Ax='1';
     <div class="row">
         <div class="" style="padding:0px;margin:0px;"> 
             <div class="" id="talento" style="padding-top:10em;">
-                <div class="text-center col-xs-12" style="border-top: 3px solid #fff;width:70%;left:15%">
+                <!--<div class="text-center col-xs-12" style="border-top: 3px solid #fff;width:70%;left:15%">
                     <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
                         <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
                     </button>
-                </div>
+                </div>-->
                 <div class="col-md-12" style="margin-top:10%; border-bottom: 3px solid #fff;width:70%;left:15%">
                     <h1 class="text-center" style="color:#fff;font-size:50px;">Tu talento es bienvenido</h1>
                 </div>
@@ -634,9 +634,8 @@ var Ax='1';
     </div>
 </section>
 
-    <!--/#services-->
 
-    <!-- INICIA FOOTER -->
+<!-- INICIA FOOTER -->
 
 <section id="footer_2">
     <div class="container">
@@ -664,13 +663,17 @@ var Ax='1';
                 </div>
             </div>
             <div class="col-md-4">
+
                 <div class="col-xs-12">
                     <h2 style="color:#ffffff"><b>NORMATIVIDAD</b></h2>
                     <p style="text-align: justify;">Cónoce nuestro aviso de privacidad, es tu derecho.</p>
-                    <p ><a id="aviso-privacidad" href="" data-toggle="modal" data-target="#aviso"><b>AVISO DE PRIVACIDAD</b></a></p>
+                    <p class="hidden-xs"><a id="aviso-privacidad" href="" data-toggle="modal" data-target="#aviso"><b>AVISO DE PRIVACIDAD</b></a></p>
+                    <p class="visible-xs"><a style="color:#f26e23" id="aviso-privacidad-xs" href="" data-toggle="modal" data-target="#aviso"><b>AVISO DE PRIVACIDAD</b></a></p>
                     <p style="text-align: justify;">Denuncia cualquier irregularidad, tu reporte es completamente anónimo.</p>
-                    <p ><a id="buzon-denuncias" href="" data-toggle="modal" data-target="#buzon"><b>BUZÓN DE DENUNCIAS PLD</b></a></p>
+                    <p class="hidden-xs"><a id="buzon-denuncias" href="" data-toggle="modal" data-target="#buzon"><b>BUZÓN DE DENUNCIAS PLD</b></a></p>
+                    <p class="visible-xs"><a style="color:#f26e23;" id="buzon-denuncias-xs" href="" data-toggle="modal" data-target="#buzon"><b>BUZÓN DE DENUNCIAS PLD</b></a></p>
                 </div>
+
             </div>                
         </div>
     </div>

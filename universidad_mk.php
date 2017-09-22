@@ -135,7 +135,7 @@
                 <div class="col-md-4" style="padding-left:1em;padding-right:1em">
                     <div class="row">
                         <div class="col-sm-12" style="background:#f26e23">
-                            <a href="https://www.universidadmaskapital.com.mx/"><h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1></a>
+                            <a href="http://www.universidadmaskapital.com.mx/"><h1 style="color:#ffffff;padding-left:1em;"><b>PORTAL</b></h1></a>
                         </div>
                         <div class="col-sm-12">
                             <h2><a target="_new" href="http://www.universidadmaskapital.com.mx/login/">Universidad MásKapital</a></h2>
@@ -157,7 +157,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="embed-responsive embed-responsive-16by9"> 
-                                <iframe class="embed-responsive-item" src="<?php echo $contenido['url_video']; ?>" autoplay="false" frameborder="0" allowfullscreen></iframe>
+                                <iframe class="embed-responsive-item" src="<?php echo $contenido['url_video']; ?>" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>  
                         <div class="col-md-10 text-justify">

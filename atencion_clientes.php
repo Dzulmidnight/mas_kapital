@@ -387,9 +387,6 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                     <div class="hidden-xs col-sm-4">
                         <img src="<?php echo 'administracion/'.$contenido['img']; ?>" alt="">
                     </div>
-                    <div class="visible-xs col-xs-12">
-                        <img style="height:200px;" src="<?php echo 'administracion/'.$contenido['img']; ?>" alt="">
-                    </div>
                 </div>
                 
             </div>
