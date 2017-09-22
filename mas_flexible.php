@@ -386,7 +386,7 @@
       while($contenido_dinamico = $consultar->fetch_assoc()){
         if($contenido_dinamico['tipo_seccion'] == 1){
         ?>
-          <section style="margin-top:10em;">
+          <section <?php echo 'id="'.$contenido_dinamico['identificador'].'"'; ?> style="margin-top:10em;">
               <div class="container">
                   <div class="row">
                     <div class="col-md-12">
@@ -406,7 +406,7 @@
         <?php
         }else if($contenido_dinamico['tipo_seccion'] == 2){
         ?>
-          <section style="margin-top:10em;">
+          <section <?php echo 'id="'.$contenido_dinamico['identificador'].'"'; ?> style="margin-top:10em;">
               <div class="container">
                   <div class="row">
                     <div class="col-md-12">
@@ -423,7 +423,7 @@
         <?php
         }else if($contenido_dinamico['tipo_seccion'] == 3){
         ?>
-          <section style="margin-top:10em;">
+          <section <?php echo 'id="'.$contenido_dinamico['identificador'].'"'; ?> style="margin-top:10em;">
               <div class="container">
                   <div class="row">
                     <div class="col-md-12">

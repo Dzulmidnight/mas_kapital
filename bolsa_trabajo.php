@@ -620,13 +620,13 @@ var Ax='1';
 <section class="visible-xs" style="margin-top:10em;">
     <div class="row">
         <div class="" style="padding:0px;margin:0px;"> 
-            <div class="" id="talento" style="padding-top:10em;">
+            <div class="" id="talentoXS" style="padding-top:8em;">
                 <!--<div class="text-center col-xs-12" style="border-top: 3px solid #fff;width:70%;left:15%">
                     <button onclick="NuevoR()" class="text-center" name="boton_trabajo" id="boton_trabajo" data-toggle="modal" data-target="#modal_frm_trabajo" style="width:300px;border:0px;">
                         <h3 style="margin-top:1em;margin-bottom:1em;"><b>ENVÍANOS TUS DATOS</b></h3 style="color:#fff">
                     </button>
                 </div>-->
-                <div class="col-md-12" style="margin-top:10%; border-bottom: 3px solid #fff;width:70%;left:15%">
+                <div class="col-md-12" style="border-bottom: 3px solid #fff;width:70%;left:15%">
                     <h1 class="text-center" style="color:#fff;font-size:50px;">Tu talento es bienvenido</h1>
                 </div>
             </div>

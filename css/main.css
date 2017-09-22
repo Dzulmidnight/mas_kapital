@@ -112,6 +112,17 @@
       position: static;
       width: 100%;
     }
+    #talentoXS{
+      background-image: url(../img/bolsa_trabajo/taza.jpg);
+      background-color: #fbfafa;
+      background-size: cover;
+      height: 300px;
+      background-position: center;
+      display: table;
+      position: static;
+      width: 100%;
+    }
+
     #boton_trabajo{
       background:#9c91c5;
       color: #fff;
