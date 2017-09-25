@@ -113,6 +113,7 @@
                     <table class="table table-striped table-hover table-bordered" id="editable-sample">
                         <thead>
                           <tr>
+                              <th>Permisos</th>
                               <th>Nombre completo</th>
                               <th>Tipo</th>
                               <th>Usuario</th>
@@ -129,6 +130,13 @@
                           while($registros = $ejecutar->fetch_assoc()){
                           ?>
                             <tr id="<?php echo 'row_info'.$registros['idusuario']; ?>" class="">
+                                <td>
+
+                                  <!-- Button trigger modal -->
+                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="<?php echo '#permisos'.$registros['idusuario']; ?>">
+                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configurar
+                                  </button>
+                                </td>
                                 <td>
                                   <input type="text" class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="<?php echo 'nombre'.$registros['idusuario']; ?>" value="<?php echo $registros['nombre']; ?>" readonly>
                                   
@@ -153,9 +161,145 @@
                                   <!--<a id="btn-eliminar" class="delete" href="">Eliminar</a>-->
                                 </td>
                             </tr>
+                              <!-- Modal -->
+                              <div class="modal fade" id="<?php echo 'permisos'.$registros['idusuario']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog modal-lg" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                      <h4 class="modal-title" id="myModalLabel">Modificar Permisos de Usuario</h4>
+                                    </div>
+                                    <div class="row">
+                                      <!-- PERMISOS DE LA SECCIÓN SECCIONES -->
+                                      <div class="col-md-4">
+                                        <ul>
+                                          <li>
+                                            <div class="checkbox">
+                                              <label>
+                                                <input type="checkbox" onclick="marcar_desmarcar();"> SECCIONES
+                                              </label>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <ol>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Crear
+                                                  </label>
+                                                </div>
+                                              </li>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Editar
+                                                  </label>
+                                                </div>
+                                              </li>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Eliminar
+                                                  </label>
+                                                </div>
+                                              </li>
+                                            </ol>
+                                          </li>
+                                        </ul>
+                                      </div>
+
+                                      <!-- PERMISOS DE LA SECCIÓN INFORMACIÓN -->
+                                      <div class="col-md-4">
+                                        <ul>
+                                          <li>
+                                            <div class="checkbox">
+                                              <label>
+                                                <input type="checkbox"> FORMULARIOS
+                                              </label>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <ol>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Usuarios
+                                                  </label>
+                                                </div>
+                                              </li>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Sucursales
+                                                  </label>
+                                                </div>
+                                              </li>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Vacantes
+                                                  </label>
+                                                </div>
+                                              </li>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Preguntas Frecuentes
+                                                  </label>
+                                                </div>
+                                              </li>
+                                            </ol>
+                                          </li>
+                                        </ul>
+                                      </div>
+
+                                      <!-- PERMISOS DE LA SECCIÓN FORMULARIOS -->
+                                      <div class="col-md-4">
+                                        <ul>
+                                          <li>
+                                            <div class="checkbox">
+                                              <label>
+                                                <input type="checkbox"> FORMULARIOS
+                                              </label>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <ol>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Denuncias
+                                                  </label>
+                                                </div>
+                                              </li>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Solicitudes
+                                                  </label>
+                                                </div>
+                                              </li>
+                                              <li>
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"> Atención a clientes
+                                                  </label>
+                                                </div>
+                                              </li>
+                                            </ol>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                      <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                           <?php  
                           }
-
                         ?>
                         </tbody>
                     </table>
@@ -205,6 +349,19 @@
               EditableTable.init();
           });
 
+          function marcar_desmarcar(){
+              var marca = document.getElementById('marcar');
+              var cb = document.getElementsByName('folios[]');
+
+              for (i=0; i<cb.length; i++){
+                  if(marca.checked == true){
+                    cb[i].checked = true
+                  }else{
+                    cb[i].checked = false;
+                  }
+              }
+           
+          }
           function nuevo_registro(){
             var table = document.getElementById("editable-sample");
             {
