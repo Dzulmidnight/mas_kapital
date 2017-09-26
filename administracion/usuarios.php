@@ -20,6 +20,15 @@
     $sql = "INSERT INTO usuarios (nombre, user, password, tipo) VALUES ('$nombre', '$user', '$password', '$tipo')";
     $mysqli->query($sql);
 
+    $idusuarios = $mysqli->insert_id;
+    ///creamos los registros de los permisos
+    $sql = "INSERT INTO permisos_formularios (idusuarios) VALUES ($idusuarios)";
+    $mysqli->query($sql);
+    $sql = "INSERT INTO permisos_informacion (idusuarios) VALUES ($idusuarios)";
+    $mysqli->query($sql);
+    $sql = "INSERT INTO permisos_secciones (idusuarios) VALUES ($idusuarios)";
+    $mysqli->query($sql);
+
   }
   if(isset($_POST['eliminar_usuario'])){
     $idusuario = $_POST['eliminar_usuario'];
@@ -34,6 +43,10 @@
     $password = $_POST['password'.$idusuario];
     $sql = "UPDATE usuarios SET nombre = '$nombre', user = '$user', tipo = '$tipo', password = '$password' WHERE idusuario = $idusuario";
     $mysqli->query($sql);
+  }
+
+  if(isset($_POST['modificar_permisos']) && $_POST['modificar_permisos'] == 1){
+
   }
 
   $seccion = 'informacion';
@@ -170,130 +183,132 @@
                                       <h4 class="modal-title" id="myModalLabel">Modificar Permisos de Usuario</h4>
                                     </div>
                                     <div class="row">
-                                      <!-- PERMISOS DE LA SECCIÓN SECCIONES -->
-                                      <div class="col-md-4">
-                                        <ul>
-                                          <li>
-                                            <div class="checkbox">
-                                              <label>
-                                                <input type="checkbox" onclick="marcar_desmarcar();"> SECCIONES
-                                              </label>
-                                            </div>
-                                          </li>
-                                          <li>
-                                            <ol>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Crear
-                                                  </label>
-                                                </div>
-                                              </li>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Editar
-                                                  </label>
-                                                </div>
-                                              </li>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Eliminar
-                                                  </label>
-                                                </div>
-                                              </li>
-                                            </ol>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                      
+                                        <!-- PERMISOS DE LA SECCIÓN SECCIONES -->
+                                        <div class="col-md-4">
+                                          <ul>
+                                            <li>
+                                              <div class="checkbox">
+                                                <label>
+                                                  <input id="secciones" name="secciones" type="checkbox" onclick="marcar_desmarcar1();"> SECCIONES
+                                                </label>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <ol>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="crear" type="checkbox" onclick="desmarcar1();" class="folios"> Crear
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="editar" type="checkbox" onclick="desmarcar1();" class="folios"> Editar
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="eliminar" type="checkbox" onclick="desmarcar1();" class="folios"> Eliminar
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                              </ol>
+                                            </li>
+                                          </ul>
+                                        </div>
 
-                                      <!-- PERMISOS DE LA SECCIÓN INFORMACIÓN -->
-                                      <div class="col-md-4">
-                                        <ul>
-                                          <li>
-                                            <div class="checkbox">
-                                              <label>
-                                                <input type="checkbox"> FORMULARIOS
-                                              </label>
-                                            </div>
-                                          </li>
-                                          <li>
-                                            <ol>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Usuarios
-                                                  </label>
-                                                </div>
-                                              </li>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Sucursales
-                                                  </label>
-                                                </div>
-                                              </li>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Vacantes
-                                                  </label>
-                                                </div>
-                                              </li>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Preguntas Frecuentes
-                                                  </label>
-                                                </div>
-                                              </li>
-                                            </ol>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                        <!-- PERMISOS DE LA SECCIÓN INFORMACIÓN -->
+                                        <div class="col-md-4">
+                                          <ul>
+                                            <li>
+                                              <div class="checkbox">
+                                                <label>
+                                                  <input id="informacion" name="informacion" type="checkbox" onclick="marcar_desmarcar2();"> INFORMACIÓN
+                                                </label>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <ol>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="usuarios" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Usuarios
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="sucursales" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Sucursales
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="vacantes" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Vacantes
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="faq" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Preguntas Frecuentes
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                              </ol>
+                                            </li>
+                                          </ul>
+                                        </div>
 
-                                      <!-- PERMISOS DE LA SECCIÓN FORMULARIOS -->
-                                      <div class="col-md-4">
-                                        <ul>
-                                          <li>
-                                            <div class="checkbox">
-                                              <label>
-                                                <input type="checkbox"> FORMULARIOS
-                                              </label>
-                                            </div>
-                                          </li>
-                                          <li>
-                                            <ol>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Denuncias
-                                                  </label>
-                                                </div>
-                                              </li>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Solicitudes
-                                                  </label>
-                                                </div>
-                                              </li>
-                                              <li>
-                                                <div class="checkbox">
-                                                  <label>
-                                                    <input type="checkbox"> Atención a clientes
-                                                  </label>
-                                                </div>
-                                              </li>
-                                            </ol>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                        <!-- PERMISOS DE LA SECCIÓN FORMULARIOS -->
+                                        <div class="col-md-4">
+                                          <ul>
+                                            <li>
+                                              <div class="checkbox">
+                                                <label>
+                                                  <input id="formularios" name="formularios" type="checkbox" onclick="marcar_desmarcar3();"> FORMULARIOS
+                                                </label>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <ol>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="denuncias" class="checkbox3" onclick="desmarcar3();" type="checkbox"> Denuncias
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="solicitudes" class="checkbox3" onclick="desmarcar3();" type="checkbox"> Solicitudes
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="atencion_clientes" class="checkbox3" onclick="desmarcar3();" type="checkbox"> Atención a clientes
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                              </ol>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                      <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                                      <button type="submit" name="modificar_permisos" value="1" class="btn btn-primary">Guardar Cambios</button>
                                     </div>
                                   </div>
                                 </div>
@@ -349,19 +364,65 @@
               EditableTable.init();
           });
 
-          function marcar_desmarcar(){
-              var marca = document.getElementById('marcar');
-              var cb = document.getElementsByName('folios[]');
+          function marcar_desmarcar1(){
+              var secciones = document.getElementById('secciones');
+              var cb = document.getElementsByClassName('folios');
+              //var cb = document.getElementsByClassName('folios');
+              var total = cb.length;
 
-              for (i=0; i<cb.length; i++){
-                  if(marca.checked == true){
-                    cb[i].checked = true
-                  }else{
-                    cb[i].checked = false;
-                  }
-              }
-           
+              for(i=0; i<cb.length; i++){
+                if(secciones.checked == true){
+                  cb[i].checked = true;
+                }else{
+                  cb[i].checked = false;
+                }
+              }           
           }
+          function marcar_desmarcar2(){
+              var informacion = document.getElementById('informacion');
+              var cb = document.getElementsByClassName('checkbox2');
+              //var cb = document.getElementsByClassName('folios');
+              var total = cb.length;
+
+              for(i=0; i<cb.length; i++){
+                if(informacion.checked == true){
+                  cb[i].checked = true;
+                }else{
+                  cb[i].checked = false;
+                }
+              }           
+          }
+          function marcar_desmarcar3(){
+              var formularios = document.getElementById('formularios');
+              var cb = document.getElementsByClassName('checkbox3');
+              //var cb = document.getElementsByClassName('folios');
+              var total = cb.length;
+
+              for(i=0; i<cb.length; i++){
+                if(formularios.checked == true){
+                  cb[i].checked = true;
+                }else{
+                  cb[i].checked = false;
+                }
+              }           
+          }
+
+          function desmarcar1(){
+              var opcion = document.getElementById('secciones');
+              opcion.checked = false;           
+          }
+          function desmarcar2(){
+              var opcion = document.getElementById('informacion');
+              opcion.checked = false;           
+          }
+          function desmarcar3(){
+              var opcion = document.getElementById('formularios');
+              opcion.checked = false;           
+          }
+
+
+
+
           function nuevo_registro(){
             var table = document.getElementById("editable-sample");
             {
@@ -372,14 +433,15 @@
                 var cell4 = row.insertCell(3);
                 var cell5 = row.insertCell(4);
                 var cell6 = row.insertCell(5);
-
-                cell1.innerHTML = '<input type="text" class="form-control" name="nombre1" id="" placeholder="">';
-                cell2.innerHTML = '<select class="form-control" name="tipo1"><option value="administrador">Administrador</option></select>';
-                cell3.innerHTML = '<input type="text" class="form-control" name="user1" id="" placeholder="">';
-                cell4.innerHTML = '<input type="text" class="form-control" name="password1" id="" placeholder="">';
-                cell5.innerHTML = '<button class="btn btn-success btn-xs" type="submit" id="btn-editar" name="guardar_usuario" class="" value="1">Guardar</button>';
+                var cell7 = row.insertCell(6);
+                cell1.innerHTML = '';
+                cell2.innerHTML = '<input type="text" class="form-control" name="nombre1" id="" placeholder="">';
+                cell3.innerHTML = '<select class="form-control" name="tipo1"><option value="administrador">Administrador</option></select>';
+                cell4.innerHTML = '<input type="text" class="form-control" name="user1" id="" placeholder="">';
+                cell5.innerHTML = '<input type="text" class="form-control" name="password1" id="" placeholder="">';
+                cell6.innerHTML = '<button class="btn btn-success btn-xs" type="submit" id="btn-editar" name="guardar_usuario" class="" value="1">Guardar</button>';
                 //cell5.innerHTML = '<button type="submit" class="" value="1" >Guardar</button><a id="btn-editar" class="" href="#" onclick="editar()">Guardar</a>';
-                cell6.innerHTML = '<a id="btn-eliminar" class="delete" href="#" onclick="quitar_registro()">Cancelar</a>';
+                cell7.innerHTML = '<a id="btn-eliminar" class="delete" href="#" onclick="quitar_registro()">Cancelar</a>';
             }
           }
           function quitar_registro(){

@@ -1,4 +1,5 @@
 <?php 
+    require('../conexion/conexion.php');
     require('../conexion/sesion.php');
 
     if(isset($_SESSION['usuario'])){

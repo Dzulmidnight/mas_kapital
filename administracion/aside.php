@@ -1,3 +1,10 @@
+<?php 
+    $idusuario = $_SESSION['usuario']['idusuario'];
+    $sql = "SELECT usuarios.idusuario, permisos_formularios.*, permisos_informacion.*, permisos_secciones.* FROM usuarios LEFT JOIN permisos_formularios ON usuarios.idusuario = permisos_formularios.idusuarios LEFT JOIN permisos_informacion ON usuarios.idusuario = permisos_informacion.idusuarios LEFT JOIN permisos_secciones ON usuarios.idusuario = permisos_secciones.idusuarios WHERE usuarios.idusuario = $idusuario";
+    $ejecutar = $mysqli->query($sql);
+    
+    $permisos = $ejecutar->fetch_assoc();
+ ?>
 <aside>
     <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
@@ -26,31 +33,39 @@
                 </ul>
             </li>
 
-            <li class="sub-menu">
-                <a <?php if(isset($seccion) && $seccion == 'informacion'){echo 'class="active"'; } ?> href="javascript:;" >
-                    <i class="fa fa-book"></i>
-                    <span>Información</span>
-                </a>
-                <ul class="sub">
-                    <li <?php if(isset($menu) && $menu == 'usuarios'){echo 'class="active"'; } ?>><a  href="usuarios.php">Usuarios</a></li>
-                    <li <?php if(isset($menu) && $menu == 'sucursales_add'){echo 'class="active"'; } ?>><a  href="sucursales_add.php">Sucursales</a></li>
-                    <li <?php if(isset($menu) && $menu == 'vacantes'){echo 'class="active"'; } ?>><a  href="vacantes.php">Vacantes</a></li>
-                    <li <?php if(isset($menu) && $menu == 'faq'){echo 'class="active"'; } ?>><a  href="preguntas_frecuentes.php">Preguntas Frecuentes</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a <?php if(isset($seccion) && $seccion == 'formularios'){echo 'class="active"'; } ?> href="javascript:;" >
-                    <i class="fa fa-files-o"></i>
-                    <span>Formularios</span>
-                </a>
-                <ul class="sub">
-                    <li <?php if(isset($menu) && $menu == 'denuncias'){echo 'class="active"'; } ?>><a  href="denuncias.php">Denuncias</a></li>
-                    <li <?php if(isset($menu) && $menu == 'solicitudes'){echo 'class="active"'; } ?>><a  href="solicitudes.php">Solicitudes</a></li>
-                    <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a  href="frm_atencion.php">Atención a Clientes</a></li>
-                </ul>
-            </li>
-
-
+            <?php 
+            if(isset($permisos['idpermisos_informacion'])){
+            ?>
+                <li class="sub-menu">
+                    <a <?php if(isset($seccion) && $seccion == 'informacion'){echo 'class="active"'; } ?> href="javascript:;" >
+                        <i class="fa fa-book"></i>
+                        <span>Información</span>
+                    </a>
+                    <ul class="sub">
+                        <li <?php if(isset($menu) && $menu == 'usuarios'){echo 'class="active"'; } ?>><a  href="usuarios.php">Usuarios</a></li>
+                        <li <?php if(isset($menu) && $menu == 'sucursales_add'){echo 'class="active"'; } ?>><a  href="sucursales_add.php">Sucursales</a></li>
+                        <li <?php if(isset($menu) && $menu == 'vacantes'){echo 'class="active"'; } ?>><a  href="vacantes.php">Vacantes</a></li>
+                        <li <?php if(isset($menu) && $menu == 'faq'){echo 'class="active"'; } ?>><a  href="preguntas_frecuentes.php">Preguntas Frecuentes</a></li>
+                    </ul>
+                </li>
+            <?php
+            }
+            if(isset($permisos['idpermisos_formularios'])){
+            ?>
+                <li class="sub-menu">
+                    <a <?php if(isset($seccion) && $seccion == 'formularios'){echo 'class="active"'; } ?> href="javascript:;" >
+                        <i class="fa fa-files-o"></i>
+                        <span>Formularios</span>
+                    </a>
+                    <ul class="sub">
+                        <li <?php if(isset($menu) && $menu == 'denuncias'){echo 'class="active"'; } ?>><a  href="denuncias.php">Denuncias</a></li>
+                        <li <?php if(isset($menu) && $menu == 'solicitudes'){echo 'class="active"'; } ?>><a  href="solicitudes.php">Solicitudes</a></li>
+                        <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a  href="frm_atencion.php">Atención a Clientes</a></li>
+                    </ul>
+                </li>
+            <?php
+            }
+             ?>
         </ul>
         <!-- sidebar menu end-->
     </div>
