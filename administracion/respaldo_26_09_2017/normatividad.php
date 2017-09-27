@@ -216,17 +216,13 @@
                           </header>
                           <div class="panel-body">
                             <form action="" method="POST" enctype="multipart/form-data">
-                                <?php 
-                                if(!empty($permisos['editar'])){
-                                ?>
                                 <div id="" style="position:fixed;z-index: 1;">
                                   <div class="">
                                     <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
                                   </div>
                                 </div>
-                                <?php
-                                }
-                                ?>
+
+
                                 <section id="home-slider" >
                                     <div class="container">
                                         <div class="row">
@@ -277,15 +273,9 @@
                                                                       </div>
                                                                            <input type="hidden" name="<?php echo 'img_slide_actual'.$img_slide['idslide']; ?>" value="<?php echo $img_slide['img']; ?>">
                                                                   </div>
-                                                                  <?php 
-                                                                  if(!empty($permisos['eliminar'])){
-                                                                  ?>
                                                                   <div class="col-md-3" style='margin-top:2em;'>
                                                                     <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
                                                                   </div>
-                                                                  <?php
-                                                                  }
-                                                                   ?>
                                                               </div>
                                                           </div>
 
@@ -335,18 +325,12 @@
                             <!-- INICIA SECCIONES DINAMICAS -->
                             <section>
                               <h3 style="background: #e74c3c;color:#ecf0f1;">Sección Dinamica</h3>
-                              <?php 
-                              if(!empty($permisos['crear'])){
-                              ?>
                               <select class="form-control" name="tipo_seccion" id="tipo_seccion" onchange="seccion()">
                                 <option value="">Selecciona un tipo de sección</option>
                                 <option value="1">Tipo 1</option>
                                 <option value="2">Tipo 2</option>
                                 <option value="3">Tipo 3</option>
                               </select>
-                              <?php
-                              }
-                               ?>
 
                               <div id="tipo_1" class="col-md-12 well" style="display: none">
                                 <div class="row">
@@ -432,18 +416,9 @@
                                           </div>
                                       </section>
                                     
-                                      <?php 
-                                      if(!empty($permisos['eliminar'])){
-                                      ?>
-                                        <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      <?php
-                                      }
-                                      if(!empty($permisos['editar'])){
-                                      ?>
-                                        <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
-                                      <?php
-                                      }
-                                       ?>
+                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                  
+                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-lg">
@@ -516,18 +491,9 @@
                                           </div>
                                       </section>
 
-                                      <?php 
-                                      if(!empty($permisos['eliminar'])){
-                                      ?>
-                                        <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      <?php
-                                      }
-                                      if(!empty($permisos['editar'])){
-                                      ?>
-                                        <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
-                                      <?php
-                                      }
-                                       ?>
+                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                      
+                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-lg">
@@ -574,18 +540,9 @@
                                               </div>
                                           </div>
                                       </section>
-                                      <?php 
-                                      if(!empty($permisos['eliminar'])){
-                                      ?>
-                                        <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      <?php
-                                      }
-                                      if(!empty($permisos['editar'])){
-                                      ?>
-                                        <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
-                                      <?php
-                                      }
-                                       ?>
+                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                      
+                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
                                       <!-- Modal Modificar sección dinámica -->
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -683,53 +640,49 @@
                                     </div>
                                 </section>
                             </form>
-                            <?php 
-                            if(!empty($permisos['crear'])){
-                            ?>
-                              <form id="frm-nuevo-contenido" action="" method="POST">
-                                  <section id="" style="margin-top:4em;">
-                                      <div class="container">
-                                          <h3 class="alert alert-success text-center">
-                                            <button type="button" id="btn-nuevo-contenido" class="btn btn-info"><i class="fa fa-plus-circle"></i> AGREGAR NUEVO CONTENIDO</button>
-                                          </h3>
-                                          <div class="row">
-                                              <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">                
-                                                  <div class="div-normatividad col-sm-12">
-                                                    <span class="label label-primary">Titulo</span>
-                                                    <h2 style="color:black"><input type="text" class="form-control" name="titulo" value="" onBlur="ponerMayusculas(this)" required></h2>
-                                                  </div>
-                                              </div>
-                                              <div class="col-md-8 col-xs-12">
-                                                  <div class="text-justify col-md-12">
-                                                      <div id="cnvb">
-                                                          <h2><b>Contenido</b></h2>
 
-                                                          <div class="row">
-                                                              <div class="col-md-12">
-                                                                  <section class="panel">
-                                                                      <div class="panel-body">
-                                                                        <div class="form-group">
-                                                                          <div class="col-md-12">
-                                                                            <p style="font-size:18px;">
-                                                                              <textarea class="wysihtml5 form-control" name="contenido" rows="10"></textarea>
-                                                                            </p>
-                                                                          </div>
+                            <form id="frm-nuevo-contenido" action="" method="POST">
+                                <section id="" style="margin-top:4em;">
+                                    <div class="container">
+                                        <h3 class="alert alert-success text-center">
+                                          <button type="button" id="btn-nuevo-contenido" class="btn btn-info"><i class="fa fa-plus-circle"></i> AGREGAR NUEVO CONTENIDO</button>
+                                        </h3>
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-12 sub_menu" style="padding:1em;">                
+                                                <div class="div-normatividad col-sm-12">
+                                                  <span class="label label-primary">Titulo</span>
+                                                  <h2 style="color:black"><input type="text" class="form-control" name="titulo" value="" onBlur="ponerMayusculas(this)" required></h2>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-xs-12">
+                                                <div class="text-justify col-md-12">
+                                                    <div id="cnvb">
+                                                        <h2><b>Contenido</b></h2>
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <section class="panel">
+                                                                    <div class="panel-body">
+                                                                      <div class="form-group">
+                                                                        <div class="col-md-12">
+                                                                          <p style="font-size:18px;">
+                                                                            <textarea class="wysihtml5 form-control" name="contenido" rows="10"></textarea>
+                                                                          </p>
                                                                         </div>
                                                                       </div>
-                                                                  </section>
-                                                              </div>
-                                                          </div>
-                                                      </div>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </section>
-                              </form>
-                            <?php
-                            }
-                             ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </form>
+
                           </div>
                       </section>
                       <!--Pulstate  end-->

@@ -1,7 +1,9 @@
 <?php 
   require('../conexion/conexion.php');
   require('../conexion/sesion.php');
-
+  
+  $seccion = 'formularios';
+  $menu = 'atencion';
   if(isset($_POST['guardar_sucursal']) && $_POST['guardar_sucursal'] == 1){
     $nombre = $_POST['nombre'];
     $estado = $_POST['estado'];
@@ -66,21 +68,21 @@
     $mysqli->query($sql);
   }
 
-  if(isset($_POST['eliminar_solicitud'])){
-    $idsolicitud = $_POST['eliminar_solicitud'];
-    $idSolicitante = $_POST['idSolicitante'];
-
-    $sql = "DELETE FROM SolicitudTrabajo WHERE idSolicitudTrabajo = $idsolicitud";
+  if(isset($_POST['eliminar_denuncia'])){
+    $idfrm_denuncia = $_POST['eliminar_denuncia'];
+    $sql = "DELETE FROM frm_denuncia WHERE idfrm_denuncia = '$idfrm_denuncia'";
     $mysqli->query($sql);
-
-    $sql = "DELETE FROM Solicitante WHERE idSolicitante = $idSolicitante";
-    $mysqli->query($sql);
-
-
-    echo "<script>alert('Se ha eliminado la solicitud');</script>";
+    echo "<script>alert('Se ha eliminado la denuncia');</script>";
   }
-  $seccion = 'formularios';
-  $menu = 'solicitudes';
+
+  $idSolicitudTrabajo = $_GET['solicitud'];
+
+  //$query_solicitud = "SELECT SolicitudTrabajo.*, Solicitante.* FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante WHERE SolicitudTrabajo.idSolicitudTrabajo = '$idSolicitudTrabajo'";
+
+  $query_mensaje = "SELECT frm_atencion.*, sucursales.NombreSucursal FROM frm_atencion LEFT JOIN sucursales ON frm_atencion.sucursal = sucursales.idSucursales";
+  $consultar = $mysqli->query($query_mensaje);
+
+  $detalle_mensaje = $consultar->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="esp">
@@ -92,7 +94,7 @@
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Solicitudes</title>
+    <title>Información del mensaje</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -129,125 +131,136 @@
       <!--sidebar end-->
       <!--main content start-->
 
+      <!--main content start-->
       <section id="main-content">
-        <section class="wrapper site-min-height">
-            <section class="panel">
-                <header class="panel-heading">
-                    Solicitudes Registradas
-                </header>
-                  <div class="row">
-                    <!-- inicia tabla de solicitud -->
-                    <div class="col-md-12">
+          <section class="wrapper site-min-height">
+              <!-- page start-->
+              <section class="panel">
+                  <header class="panel-heading">
+                      Información del mensaje
+                      <span class="pull-right">
+                        <a href="frm_atencion.php" class="btn btn-warning btn-xs"><i class="fa fa-reply"></i> Regresar </a>
+                      </span>
+                  </header>
+
+              </section>
+              <div class="row">
+                  <div class="col-md-12">
                       <section class="panel">
-                        <div class="panel-body">
-                            <div class="adv-table">
-                              <table  class="display table table-bordered table-striped" id="dynamic-table">
-                                <thead>
-                                  <tr>
-                                      <th>Fecha</th>
-                                      <th>Nombre</th>
-                                      <th>Carrera</th>
-                                      <th>Vacante</th>
-                                      <th class="hidden-phone">Estado</th>
-                                      <th class="hidden-phone">Teléfono</th>
-                                      <th>Acciones</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <?php 
-                                  $query = "SELECT SolicitudTrabajo.idSolicitudTrabajo, SolicitudTrabajo.Puesto, SolicitudTrabajo.archivo_solicitud, SolicitudTrabajo.fecha_solicitud, Solicitante.*, SolicitudTrabajo.Puesto, DomSolicitante.Estado, Escolaridad.Carrera FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante INNER JOIN DomSolicitante ON SolicitudTrabajo.idSolicitante = DomSolicitante.idSolicitante INNER JOIN Escolaridad ON SolicitudTrabajo.idSolicitante = Escolaridad.idSolicitante";
-                                  $consultar = $mysqli->query($query);
+                          <!--<div class="bio-graph-heading project-heading">
+                              <strong> [ New Dashboard BS3 ] </strong>
+                          </div>-->
+                          <div class="panel-body bio-graph-info">
+                              <!--<h1>New Dashboard BS3 </h1>-->
+                              <div class="row p-details">
+                                  <div class="bio-row">
+                                      <p><span class="bold">Enviado por </span>: <?php echo $detalle_mensaje['nombre'].' '.$detalle_mensaje['ap_paterno'].' '.$detalle_mensaje['ap_materno']; ?></p>
+                                  </div>
+                                  <div class="bio-row">
+                                      <p><span class="bold">Creado </span>: <span class="label label-primary"><?php echo date('d/m/Y', $detalle_mensaje['fecha']); ?></span></p>
+                                  </div>
+                                  <div class="bio-row">
+                                      <p><span class="bold">Tema o Motivo </span>: <span class="label label-primary"><?php echo $detalle_mensaje['tema_motivo']; ?></span></p>
+                                  </div>
+                                  <div class="bio-row">
+                                      <p><span class="bold">Teléfono</span>: <?php echo $detalle_mensaje['telefono']; ?></p>
+                                  </div>
 
-                                  while($solicitud = $consultar->fetch_assoc()){
-                                  	if(!empty($solicitud['fecha_solicitud'])){
-                                    	$fecha = date('d/m/Y', $solicitud['fecha_solicitud']);
-                                  	}
-                                    $nombre = $solicitud['Nombre'].' '.$solicitud['ApPaterno'].' '.$solicitud['ApMaterno'];
-                                    //inicia if
-                                    if(!empty($fecha)){
-                                    ?>
-	                                    <tr id="<?php echo $idfila; ?>" class="gradeX">
-	                                      <td><?php echo $fecha; ?></td>
-	                                      <td><?php echo $nombre; ?></td>
-                                        <td><?php echo $solicitud['Carrera']; ?></td>
-	                                      <td><?php echo $solicitud['Puesto']; ?></td>
-	                                      <td><?php echo $solicitud['Estado']; ?></td>
-	                                      <td>
-	                                      	<?php 
-	                                      	if(!empty($solicitud['TelClular'])){
-	                                      		echo 'Cel: '.$solicitud['TelCelular'];
-	                                      	}else if(!empty($solicitud['TelCasa'])){
-	                                      		echo 'Casa: '.$solicitud['TelCasa'];
-	                                      	}
-	                                      	 ?>
-	                                      </td>
+                              </div>
 
-	                                      
-	                                      <td>
-	                                        <form id="<?php echo 'frm_solicitud'.$solicitud['idSolicitudTrabajo'] ?>" action="" method="POST">
-	                                          <input type="hidden" name="idSolicitudTrabajo" value="<?php echo $solicitud['idSolicitudTrabajo'] ?>">
-                                            <a data-toggle="tooltip" title="Descargar solicitud" target="_new" href="<?php echo '../'.$solicitud['archivo_solicitud']; ?>"><img src="../img/logos/logo_pdf.png" alt=""></a>
-	                                          <a class="btn btn-xs btn-info" href="detalle_solicitud.php?solicitud=<?php echo $solicitud['idSolicitudTrabajo']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
-	                                          <input type="hidden" name="idSolicitante" value="<?php echo $solicitud['idSolicitante']; ?>">
+                          </div>
 
-	                                          <button type="submit" name="eliminar_solicitud" class="btn btn-danger btn-xs" value="<?php echo $solicitud['idSolicitudTrabajo']; ?>" onclick="return confirm('¿Desea eliminar la solicitud ?');"><i class="fa fa-trash-o "></i></button>
-	                                        </form>
-	                                        
-	                                      </td>
-	                                    </tr>
-                                    <?php
-                                    }
-                                    //termina if
-                                  
-                                      echo "<script>";
-                                        //var x = '#btn-editar'+n;
-                                        echo "$(document).on('ready',function(){";
-
-                                          echo "$('#btn-consultar_denuncia".$solicitud['idSolicitudTrabajo']."').click(function(){";
-                                            echo "var url = 'datos_denuncia.php';";                                   
-
-                                            echo "$.ajax({";                        
-                                               echo "type: 'POST',";                 
-                                               echo "url: url,";                    
-                                               echo "data: $('#frm_solicitud".$solicitud['idSolicitudTrabajo']."').serialize(),";
-                                               echo "success: function(data)";           
-                                               echo "{";
-                                                 echo "$('#datos_denuncia').html(data);";          
-                                               echo "}";
-                                             echo "});";
-                                          echo "});";
-                                        echo "});";
-                                      echo "</script>";
-
-                                  }
-                                   ?>
-                                </tbody>
-                              </table>
-                            </div>                 
-                        </div>
-               
                       </section>
-                    </div>
-                    <!-- termina tabla de solicitud -->
-                    <!--<div class="col-md-4">
-                        <section class="panel">
-                            <header class="panel-heading">
-                                Datos de la Denuncia
-                            </header>
 
-                            <div id="datos_denuncia" class="panel-body">
-                              <h4>No se encontraron registros</h4>
-                            </div>
+                      <section class="panel">
+                        <header class="panel-heading">
+                          INFORMACIÓN DEL MENSAJE
+                        </header>
+                        <div class="panel-body">
+                            <table class="table table-hover p-table">
+                              <thead>
+                                <tr>
+                                  <th class="info text-center" colspan="4">DATOS DE IDENTIFICACIÓN</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <p>TEMA O MOTIVO</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['tema_motivo']; ?></p>
+                                  </td>
+                                  <td>
+                                    <p>SUCURSAL QUE LE ATIENDE</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['NombreSucursal']; ?></p>
+                                  </td>
+                                  <td>
+                                    <p>GRUPO AL QUE PERTENECE</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['grupo']; ?></p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <p>NOMBRE(S)</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['nombre']; ?></p>
+                                  </td>
+                                  <td>
+                                    <p>APELLIDO PATERNO</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['ap_paterno']; ?></p>
+                                  </td>
+                                  <td>
+                                    <p>APELLIDO MATERNO</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['ap_materno']; ?></p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <p>DIRECCIÓN</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['direccion']; ?></p>
+                                  </td>
+                                  <td>
+                                    <p>MUNICIPIO</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['municipio']; ?></p>
+                                  </td>
+                                  <td>
+                                    <p>ESTADO</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['estado']; ?></p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2">
+                                    <p>CORREO ELECTRÓNICO</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['correo']; ?></p>
+                                  </td>
+                                  <td>
+                                    <p>NÚMERO TELEFÓNICO CON LADA</p>
+                                    <p class="bold"><?php echo $detalle_mensaje['telefono']; ?></p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="info text-center" colspan="3">DESCRIPCIÓN</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="3"><?php echo $detalle_mensaje['descripcion']; ?></td>
+                                </tr>
 
-                        </section>
-                    </div>-->
+      
+                              </tbody>
+                          </table>
+
+
+                        </div>
+                      </section>
 
                   </div>
 
-            </section>          
-        </section>
 
+                      </section>
+                  </div>
+              </div>
+              <!-- page end-->
+          </section>
       </section>
+      <!--main content end-->
       <!--main content end-->
       <!-- Right Slidebar start -->
       <!-- Right Slidebar end -->

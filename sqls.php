@@ -352,6 +352,8 @@ if(isset($_POST['parte']))
 
 
 		 if ($_POST['parte']==6) {
+		 	$Funciones = $_POST['Funciones'];
+			$Software = $_POST['Software'];
 
 			$Nivel1 = $_POST['Nivel1'];
 			$Direccion = $_POST['Direccion'];
@@ -372,7 +374,10 @@ if(isset($_POST['parte']))
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
 
-$sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='$FechaI', FechaF='$FechaF', Documento='$Documento', Carrera='$Carrera', Nivel='$Nivel2', EscuelaAct='$EscuelaActual', Curso='$CarreraActual', Dias='$DiasAsiste', Horario='$Horario', NivelAct='$GradoActual' WHERE idSolicitante=$resultado[idSolicitante]";
+			$sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='$FechaI', FechaF='$FechaF', Documento='$Documento', Carrera='$Carrera', Nivel='$Nivel2', EscuelaAct='$EscuelaActual', Curso='$CarreraActual', Dias='$DiasAsiste', Horario='$Horario', NivelAct='$GradoActual' WHERE idSolicitante=$resultado[idSolicitante]";
+			$mysqli->query($sql);
+
+			$sql ="UPDATE Conocimientos SET Funciones='$Funciones', Software='$Software' WHERE idSolicitante=$resultado[idSolicitante]";
 			$mysqli->query($sql);
 
 			?><script type="text/javascript">				
@@ -385,8 +390,8 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 
 	 if ($_POST['parte']==7) {
 
-			$Funciones = $_POST['Funciones'];
-			$Software = $_POST['Software'];
+			//26_09_2017$Funciones = $_POST['Funciones'];
+			//26_09_2017$Software = $_POST['Software'];
 			$Compania = $_POST['Compania'];
 			$FechaInicio = $_POST['FechaInicio'];
 			$FechaTermino = $_POST['FechaTermino'];
@@ -407,8 +412,8 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 			$sqlupdate = "UPDATE SolicitudTrabajo SET Seccion = $_POST[parte] WHERE idSolicitante = $resultado[idSolicitante]";
 			$mysqli->query($sqlupdate);
 
-			$sql ="UPDATE Conocimientos SET Funciones='$Funciones', Software='$Software' WHERE idSolicitante=$resultado[idSolicitante]";
-			$mysqli->query($sql);
+			//26_09_2017$sql ="UPDATE Conocimientos SET Funciones='$Funciones', Software='$Software' WHERE idSolicitante=$resultado[idSolicitante]";
+			//26_09_2017$mysqli->query($sql);
 
 			// $sql="UPDATE Empleos SET Compania='$Compania', FechaInicio='$FechaInicio',
 			// 		 FechaTermino='$FechaTermino', Direccion='$Direccion', Telefono='$Telefono', Puesto='$Puesto', Motivo='$Motivo', Salario='$Salario', NombreJefe='$NombreJefe', PuestoJefe='$PuestoJefe', Informacion='$Informacion', Porque='$Porque' WHERE idSolicitante=$resultado[idSolicitante]";
@@ -1240,8 +1245,8 @@ $sql="UPDATE Escolaridad SET Escuela='$Nivel1', Direccion='$Direccion', FechaI='
 			        </html>
 			    ';
 
-			    $mail->AddAddress('auxrellab02@maskapital.com.mx');
-
+			   // $mail->AddAddress('auxrellab02@maskapital.com.mx');
+			    $mail->AddAddress('yasser.midnight@gmail.com');
 			    $mail->Subject = utf8_decode($asunto);
 			    $mail->Body = utf8_decode($mensaje_correo);
 			    $mail->MsgHTML(utf8_decode($mensaje_correo));

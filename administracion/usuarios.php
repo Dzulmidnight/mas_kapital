@@ -1,16 +1,12 @@
-<?php 
+<?php
     require('../conexion/conexion.php');
     require('../conexion/sesion.php');
-
     if(isset($_SESSION['usuario'])){
         if($_SESSION['usuario']['tipo'] != 'administrador'){
             header('Location: conexion/salir.php');
         }
     }
-/*$sql2="SELECT idSolicitante FROM Solicitante ORDER BY idSolicitante DESC LIMIT 1";
-            $idsol=$mysqli->query($sql2);
-            $resultado=$idsol->fetch_assoc();
-*/
+
   if(isset($_POST['guardar_usuario']) && $_POST['guardar_usuario'] == 1){
     $nombre = $_POST['nombre1'];
     $user = $_POST['user1'];
@@ -45,15 +41,79 @@
     $mysqli->query($sql);
   }
 
-  if(isset($_POST['modificar_permisos']) && $_POST['modificar_permisos'] == 1){
+ 
+    $sql_usuarios = "SELECT * FROM usuarios";
+    $ejecutar = $mysqli->query($sql_usuarios);
+    while($detalle_usuarios = $ejecutar->fetch_assoc()){
+      $idusuario2 = $detalle_usuarios['idusuario'];
+      if(isset($_POST['modificar_permisos'.$idusuario2]) && $_POST['modificar_permisos'.$idusuario2] == $idusuario2){
 
-  }
+        if(isset($_POST['denuncias'.$idusuario2])){
+          $denuncias = $_POST['denuncias'.$idusuario2];
+        }else{
+          $denuncias = 0;
+        }
+        if(isset($_POST['solicitudes'.$idusuario2])){
+          $solicitudes = $_POST['solicitudes'.$idusuario2];
+        }else{
+          $solicitudes = 0;
+        }
+        if(isset($_POST['atencion_clientes'.$idusuario2])){
+          $atencion_clientes = $_POST['atencion_clientes'.$idusuario2];
+        }else{
+          $atencion_clientes = 0;
+        }
+        if(isset($_POST['usuarios'.$idusuario2])){
+          $usuarios2 = $_POST['usuarios'.$idusuario2];
+        }else{
+          $usuarios2 = 0;
+        }
+        if(isset($_POST['sucursales'.$idusuario2])){
+          $sucursales = $_POST['sucursales'.$idusuario2];
+        }else{
+          $sucursales = 0;
+        }
+        if(isset($_POST['vacantes'.$idusuario2])){
+          $vacantes = $_POST['vacantes'.$idusuario2];
+        }else{
+          $vacantes = 0;
+        }
+        if(isset($_POST['faq'.$idusuario2])){
+          $faq = $_POST['faq'.$idusuario2];
+        }else{
+          $faq = 0;
+        }
+        if(isset($_POST['crear'.$idusuario2])){
+          $crear = $_POST['crear'.$idusuario2];
+        }else{
+          $crear = 0;
+        }
+        if(isset($_POST['editar'.$idusuario2])){
+          $editar = $_POST['editar'.$idusuario2];
+        }else{
+          $editar = 0;
+        }
+        if(isset($_POST['eliminar'.$idusuario2])){
+          $eliminar = $_POST['eliminar'.$idusuario2];
+        }else{
+          $eliminar = 0;
+        }
+        //actualizamos los PERMISOS_FORMULARIOS
+        $updateSQL = "UPDATE permisos_formularios SET denuncias = '$denuncias', solicitudes = '$solicitudes', atencion_clientes = '$atencion_clientes' WHERE idusuarios = $idusuario2";
+        $mysqli->query($updateSQL);
+        //actualizamos los PERMISOS_INFORMACIÓN
+        $updateSQL = "UPDATE permisos_informacion SET usuarios = '$usuarios2', sucursales = '$sucursales', vacantes = '$vacantes', faq = '$faq' WHERE idusuarios = $idusuario2";
+        $mysqli->query($updateSQL);
+        //actualizamos los PERMISOS_SECCIONES
+        $updateSQL = "UPDATE permisos_secciones SET crear = '$crear', editar = '$editar', eliminar = '$eliminar' WHERE idusuarios = $idusuario2";
+        $mysqli->query($updateSQL);
+      }
+      
+    }
+
 
   $seccion = 'informacion';
   $menu = 'usuarios';
-
-
-
  ?>
 <!DOCTYPE html>
 <html lang="esp">
@@ -137,7 +197,7 @@
                         </thead>
                         <tbody>
                         <?php 
-                          $query = "SELECT * FROM usuarios";
+                          $query = "SELECT usuarios.*, permisos_formularios.*, permisos_informacion.*, permisos_secciones.* FROM usuarios LEFT JOIN permisos_formularios ON usuarios.idusuario = permisos_formularios.idusuarios LEFT JOIN permisos_informacion ON usuarios.idusuario = permisos_informacion.idusuarios LEFT JOIN permisos_secciones ON usuarios.idusuario = permisos_secciones.idusuarios";
                           $ejecutar = $mysqli->query($query);
                           
                           while($registros = $ejecutar->fetch_assoc()){
@@ -155,6 +215,7 @@
                                   
                                 </td>
                                 <td>
+                                  <input type="hidden" name="idusuario" value="<?php echo $registros['idusuario']; ?>">
                                   <select class="<?php echo 'frm-usuario'.$registros['idusuario']; ?> form-control" name="<?php echo 'tipo'.$registros['idusuario']; ?>" id="" readonly>
                                     <option value="<?php echo $registros['tipo']; ?>">Administrador</option>
                                   </select>
@@ -183,37 +244,33 @@
                                       <h4 class="modal-title" id="myModalLabel">Modificar Permisos de Usuario</h4>
                                     </div>
                                     <div class="row">
-                                      
+                                      <div class="col-lg-12">
                                         <!-- PERMISOS DE LA SECCIÓN SECCIONES -->
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 well">
                                           <ul>
                                             <li>
-                                              <div class="checkbox">
-                                                <label>
-                                                  <input id="secciones" name="secciones" type="checkbox" onclick="marcar_desmarcar1();"> SECCIONES
-                                                </label>
-                                              </div>
+                                              <p class="alert alert-info">SECCIONES</p>
                                             </li>
                                             <li>
                                               <ol>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="crear" type="checkbox" onclick="desmarcar1();" class="folios"> Crear
+                                                      <input name="<?php echo 'crear'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['crear'])){ echo 'checked'; } ?> value="1"> Crear
                                                     </label>
                                                   </div>
                                                 </li>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="editar" type="checkbox" onclick="desmarcar1();" class="folios"> Editar
+                                                      <input name="<?php echo 'editar'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['editar'])){ echo 'checked'; } ?> value="1"> Editar
                                                     </label>
                                                   </div>
                                                 </li>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="eliminar" type="checkbox" onclick="desmarcar1();" class="folios"> Eliminar
+                                                      <input name="<?php echo 'eliminar'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['eliminar'])){ echo 'checked'; } ?> value="1"> Eliminar
                                                     </label>
                                                   </div>
                                                 </li>
@@ -223,42 +280,38 @@
                                         </div>
 
                                         <!-- PERMISOS DE LA SECCIÓN INFORMACIÓN -->
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 well">
                                           <ul>
                                             <li>
-                                              <div class="checkbox">
-                                                <label>
-                                                  <input id="informacion" name="informacion" type="checkbox" onclick="marcar_desmarcar2();"> INFORMACIÓN
-                                                </label>
-                                              </div>
+                                              <p class="alert alert-info">INFORMACIÓN</p>
                                             </li>
                                             <li>
                                               <ol>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="usuarios" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Usuarios
+                                                      <input name="<?php echo 'usuarios'.$registros['idusuario']; ?>" class="checkbox2" type="checkbox" <?php if(!empty($registros['usuarios'])){echo 'checked'; } ?> value="1"> Usuarios
                                                     </label>
                                                   </div>
                                                 </li>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="sucursales" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Sucursales
+                                                      <input name="<?php echo 'sucursales'.$registros['idusuario']; ?>" class="checkbox2" type="checkbox" <?php if(!empty($registros['sucursales'])){echo 'checked'; } ?> value="1"> Sucursales
                                                     </label>
                                                   </div>
                                                 </li>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="vacantes" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Vacantes
+                                                      <input name="<?php echo 'vacantes'.$registros['idusuario']; ?>" class="checkbox2" type="checkbox" <?php if(!empty($registros['vacantes'])){echo 'checked'; } ?> value="1"> Vacantes
                                                     </label>
                                                   </div>
                                                 </li>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="faq" class="checkbox2" onclick="desmarcar2();" type="checkbox"> Preguntas Frecuentes
+                                                      <input name="<?php echo 'faq'.$registros['idusuario']; ?>" class="checkbox2" type="checkbox" <?php if(!empty($registros['faq'])){echo 'checked'; } ?> value="1"> Preguntas Frecuentes
                                                     </label>
                                                   </div>
                                                 </li>
@@ -268,51 +321,49 @@
                                         </div>
 
                                         <!-- PERMISOS DE LA SECCIÓN FORMULARIOS -->
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 well">
                                           <ul>
                                             <li>
-                                              <div class="checkbox">
-                                                <label>
-                                                  <input id="formularios" name="formularios" type="checkbox" onclick="marcar_desmarcar3();"> FORMULARIOS
-                                                </label>
-                                              </div>
+                                              <p class="alert alert-info">FORMULARIOS</p>
                                             </li>
                                             <li>
                                               <ol>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="denuncias" class="checkbox3" onclick="desmarcar3();" type="checkbox"> Denuncias
+                                                      <input name="<?php echo 'denuncias'.$registros['idusuario']; ?>" class="checkbox3" type="checkbox" <?php if(!empty($registros['denuncias'])){echo 'checked';} ?> value="1"> Denuncias
                                                     </label>
                                                   </div>
                                                 </li>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="solicitudes" class="checkbox3" onclick="desmarcar3();" type="checkbox"> Solicitudes
+                                                      <input name="<?php echo 'solicitudes'.$registros['idusuario']; ?>" class="checkbox3" type="checkbox" <?php if(!empty($registros['solicitudes'])){echo 'checked';} ?> value="1"> Solicitudes
                                                     </label>
                                                   </div>
                                                 </li>
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="atencion_clientes" class="checkbox3" onclick="desmarcar3();" type="checkbox"> Atención a clientes
+                                                      <input name="<?php echo 'atencion_clientes'.$registros['idusuario']; ?>" class="checkbox3" type="checkbox" <?php if(!empty($registros['atencion_clientes'])){echo 'checked';} ?> value="1"> Atención a clientes
                                                     </label>
                                                   </div>
                                                 </li>
                                               </ol>
                                             </li>
                                           </ul>
-                                        </div>
-                                      
+                                        </div>    
+                                      </div>
+                                    
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                      <button type="submit" name="modificar_permisos" value="1" class="btn btn-primary">Guardar Cambios</button>
+                                      <button type="submit" name="<?php echo 'modificar_permisos'.$registros['idusuario']; ?>" value="<?php echo $registros['idusuario']; ?>" class="btn btn-primary">Guardar Cambios</button>
                                     </div>
                                   </div>
                                 </div>
                               </div>
+
                           <?php  
                           }
                         ?>
@@ -363,64 +414,6 @@
           jQuery(document).ready(function() {
               EditableTable.init();
           });
-
-          function marcar_desmarcar1(){
-              var secciones = document.getElementById('secciones');
-              var cb = document.getElementsByClassName('folios');
-              //var cb = document.getElementsByClassName('folios');
-              var total = cb.length;
-
-              for(i=0; i<cb.length; i++){
-                if(secciones.checked == true){
-                  cb[i].checked = true;
-                }else{
-                  cb[i].checked = false;
-                }
-              }           
-          }
-          function marcar_desmarcar2(){
-              var informacion = document.getElementById('informacion');
-              var cb = document.getElementsByClassName('checkbox2');
-              //var cb = document.getElementsByClassName('folios');
-              var total = cb.length;
-
-              for(i=0; i<cb.length; i++){
-                if(informacion.checked == true){
-                  cb[i].checked = true;
-                }else{
-                  cb[i].checked = false;
-                }
-              }           
-          }
-          function marcar_desmarcar3(){
-              var formularios = document.getElementById('formularios');
-              var cb = document.getElementsByClassName('checkbox3');
-              //var cb = document.getElementsByClassName('folios');
-              var total = cb.length;
-
-              for(i=0; i<cb.length; i++){
-                if(formularios.checked == true){
-                  cb[i].checked = true;
-                }else{
-                  cb[i].checked = false;
-                }
-              }           
-          }
-
-          function desmarcar1(){
-              var opcion = document.getElementById('secciones');
-              opcion.checked = false;           
-          }
-          function desmarcar2(){
-              var opcion = document.getElementById('informacion');
-              opcion.checked = false;           
-          }
-          function desmarcar3(){
-              var opcion = document.getElementById('formularios');
-              opcion.checked = false;           
-          }
-
-
 
 
           function nuevo_registro(){

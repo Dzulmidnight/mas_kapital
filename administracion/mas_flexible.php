@@ -329,9 +329,15 @@
                           </header>
                           <div class="panel-body">
                             <form action="" method="POST" enctype="multipart/form-data">
-                                <div id="" style="position:fixed;z-index: 1;">
-                                  <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
-                                </div>
+                                <?php 
+                                if(!empty($permisos['editar'])){
+                                ?>
+                                  <div id="" style="position:fixed;z-index: 1;">
+                                    <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
+                                  </div>
+                                <?php
+                                }
+                                 ?>
                                 <!-- INICIA TITULO PRINCIPAL -->
                                 <!--<section>
                                   <div class="col-md-12 text-center" style="background-color: #f0f0f6;padding-top:3em;margin-bottom:1em;">
@@ -395,9 +401,15 @@
                                                                     La imagen debe tener un ancho y alto recomendado de 1800px X 700px
                                                                   </span>
                                                               </div>
-                                                              <div class="col-md-3" style='margin-top:2em;'>
-                                                                <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
-                                                              </div>
+                                                              <?php 
+                                                              if(!empty($permisos['eliminar'])){
+                                                              ?>
+                                                                <div class="col-md-3" style='margin-top:2em;'>
+                                                                  <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
+                                                                </div>
+                                                              <?php
+                                                              }
+                                                               ?>
 
 
                                                           </div>
@@ -641,12 +653,18 @@
                                 <!-- INICIA SECCIONES DINAMICAS -->
                                 <section>
                                   <h3 style="background: #e74c3c;color:#ecf0f1;">Sección Dinámica</h3>
-                                  <select class="form-control" name="tipo_seccion" id="tipo_seccion" onchange="seccion()">
-                                    <option value="">Selecciona un tipo de sección</option>
-                                    <option value="1">Tipo 1</option>
-                                    <option value="2">Tipo 2</option>
-                                    <option value="3">Tipo 3</option>
-                                  </select>
+                                  <?php 
+                                  if(!empty($permisos['crear'])){
+                                  ?>
+                                    <select class="form-control" name="tipo_seccion" id="tipo_seccion" onchange="seccion()">
+                                      <option value="">Selecciona un tipo de sección</option>
+                                      <option value="1">Tipo 1</option>
+                                      <option value="2">Tipo 2</option>
+                                      <option value="3">Tipo 3</option>
+                                    </select>
+                                  <?php
+                                  }
+                                   ?>
 
                                   <div id="tipo_1" class="col-md-12 well" style="display: none">
                                     <div class="row">
@@ -732,9 +750,18 @@
                                           </div>
                                       </section>
                                     
-                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                  
-                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <?php 
+                                      if(!empty($permisos['eliminar'])){
+                                      ?>
+                                        <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                      <?php
+                                      }
+                                      if(!empty($permisos['editar'])){
+                                      ?>
+                                        <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <?php
+                                      }
+                                       ?>
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-lg">
@@ -807,9 +834,18 @@
                                           </div>
                                       </section>
 
-                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      
-                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <?php 
+                                      if(!empty($permisos['eliminar'])){
+                                      ?>
+                                        <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                      <?php
+                                      }
+                                      if(!empty($permisos['editar'])){
+                                      ?>
+                                        <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <?php
+                                      }
+                                       ?>
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-lg">
@@ -856,9 +892,18 @@
                                               </div>
                                           </div>
                                       </section>
-                                      <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      
-                                      <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <?php 
+                                      if(!empty($permisos['eliminar'])){
+                                      ?>
+                                        <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
+                                      <?php
+                                      }
+                                      if(!empty($permisos['editar'])){
+                                      ?>
+                                        <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
+                                      <?php
+                                      }
+                                       ?>
                                       <!-- Modal Modificar sección dinámica -->
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

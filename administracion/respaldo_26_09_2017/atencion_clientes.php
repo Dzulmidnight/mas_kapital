@@ -130,17 +130,11 @@
                           </header>
                           <div class="panel-body">
                             <form action="" method="POST" enctype="multipart/form-data">
-                                <?php 
-                                if(!empty($permisos['editar'])){
-                                ?>
                                 <div id="" style="position:fixed;z-index: 1;">
                                   <div class="">
                                     <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
                                   </div>
                                 </div>
-                                <?php
-                                }
-                                 ?>
 
                                 <section id="">
                                     <div class="container">

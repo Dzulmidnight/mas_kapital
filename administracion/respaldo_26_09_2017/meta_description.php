@@ -101,13 +101,7 @@
                 </div>
                 <div class="panel-body">
                   <textarea class="form-control" name="descripcion" id="" rows="10" placeholder="Ingresa las palabras clave o descripción sobre la página deseada"><?php echo $detalle['meta_description']; ?></textarea>
-                  <?php 
-                  if(!empty($permisos['editar'])){
-                  ?>
-                    <button class="btn btn-info" type="submit" name="meta_index" value="1" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
-                  <?php
-                  }
-                   ?>
+                  <button class="btn btn-info" type="submit" name="meta_index" value="1" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
                 </div>
               </div>  
             </form>
@@ -125,13 +119,7 @@
                 </div>
                 <div class="panel-body">
                   <textarea class="form-control" name="descripcion" id="" rows="10" placeholder="Ingresa las palabras clave o descripción sobre la página deseada"><?php echo $detalle['meta_description']; ?></textarea>
-                  <?php 
-                  if(!empty($permisos['editar'])){
-                  ?>
-                    <button class="btn btn-info" type="submit" name="meta_normatividad" value="2" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
-                  <?php
-                  }
-                   ?>
+                  <button class="btn btn-info" type="submit" name="meta_normatividad" value="2" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
                 </div>
               </div>  
             </form>
@@ -149,13 +137,7 @@
                 </div>
                 <div class="panel-body">
                   <textarea class="form-control" name="descripcion" id="" rows="10" placeholder="Ingresa las palabras clave o descripción sobre la página deseada"><?php echo $detalle['meta_description']; ?></textarea>
-                  <?php 
-                  if(!empty($permisos['editar'])){
-                  ?>
-                    <button class="btn btn-info" type="submit" name="meta_masflexible" value="3" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
-                  <?php
-                  }
-                   ?>
+                  <button class="btn btn-info" type="submit" name="meta_masflexible" value="3" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
                 </div>
               </div>  
             </form>
@@ -173,13 +155,7 @@
                 </div>
                 <div class="panel-body">
                   <textarea class="form-control" name="descripcion" id="" rows="10" placeholder="Ingresa las palabras clave o descripción sobre la página deseada"><?php echo $detalle['meta_description']; ?></textarea>
-                  <?php 
-                  if(!empty($permisos['editar'])){
-                  ?>
-                    <button class="btn btn-info" type="submit" name="meta_universidad" value="4" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
-                  <?php
-                  }
-                   ?>
+                  <button class="btn btn-info" type="submit" name="meta_universidad" value="4" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
                 </div>
               </div>  
             </form>
@@ -197,13 +173,7 @@
                 </div>
                 <div class="panel-body">
                   <textarea class="form-control" name="descripcion" id="" rows="10" placeholder="Ingresa las palabras clave o descripción sobre la página deseada"><?php echo $detalle['meta_description']; ?></textarea>
-                  <?php 
-                  if(!empty($permisos['editar'])){
-                  ?>
-                    <button class="btn btn-info" type="submit" name="meta_atencion" value="5" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
-                  <?php
-                  }
-                   ?>
+                  <button class="btn btn-info" type="submit" name="meta_atencion" value="5" ><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
                 </div>
               </div>  
             </form>

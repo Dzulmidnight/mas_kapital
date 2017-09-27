@@ -34,7 +34,7 @@
             </li>
 
             <?php 
-            if(isset($permisos['idpermisos_informacion'])){
+            if(!empty($permisos['idpermisos_informacion'])){
             ?>
                 <li class="sub-menu">
                     <a <?php if(isset($seccion) && $seccion == 'informacion'){echo 'class="active"'; } ?> href="javascript:;" >
@@ -42,10 +42,28 @@
                         <span>Información</span>
                     </a>
                     <ul class="sub">
-                        <li <?php if(isset($menu) && $menu == 'usuarios'){echo 'class="active"'; } ?>><a  href="usuarios.php">Usuarios</a></li>
-                        <li <?php if(isset($menu) && $menu == 'sucursales_add'){echo 'class="active"'; } ?>><a  href="sucursales_add.php">Sucursales</a></li>
-                        <li <?php if(isset($menu) && $menu == 'vacantes'){echo 'class="active"'; } ?>><a  href="vacantes.php">Vacantes</a></li>
-                        <li <?php if(isset($menu) && $menu == 'faq'){echo 'class="active"'; } ?>><a  href="preguntas_frecuentes.php">Preguntas Frecuentes</a></li>
+                        <?php 
+                        if(!empty($permisos['usuarios'])){
+                        ?>
+                            <li <?php if(isset($menu) && $menu == 'usuarios'){echo 'class="active"'; } ?>><a  href="usuarios.php">Usuarios</a></li>
+                        <?php
+                        }
+                        if(!empty($permisos['sucursales'])){
+                        ?>
+                            <li <?php if(isset($menu) && $menu == 'sucursales_add'){echo 'class="active"'; } ?>><a  href="sucursales_add.php">Sucursales</a></li>
+                        <?php
+                        }
+                        if(!empty($permisos['vacantes'])){
+                        ?>
+                            <li <?php if(isset($menu) && $menu == 'vacantes'){echo 'class="active"'; } ?>><a  href="vacantes.php">Vacantes</a></li>
+                        <?php
+                        }
+                        if(!empty($permisos['faq'])){
+                        ?>
+                            <li <?php if(isset($menu) && $menu == 'faq'){echo 'class="active"'; } ?>><a  href="preguntas_frecuentes.php">Preguntas Frecuentes</a></li>
+                        <?php
+                        }
+                         ?>
                     </ul>
                 </li>
             <?php
@@ -58,9 +76,23 @@
                         <span>Formularios</span>
                     </a>
                     <ul class="sub">
-                        <li <?php if(isset($menu) && $menu == 'denuncias'){echo 'class="active"'; } ?>><a  href="denuncias.php">Denuncias</a></li>
-                        <li <?php if(isset($menu) && $menu == 'solicitudes'){echo 'class="active"'; } ?>><a  href="solicitudes.php">Solicitudes</a></li>
-                        <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a  href="frm_atencion.php">Atención a Clientes</a></li>
+                        <?php 
+                        if(!empty($permisos['denuncias'])){
+                        ?>
+                            <li <?php if(isset($menu) && $menu == 'denuncias'){echo 'class="active"'; } ?>><a  href="denuncias.php">Denuncias</a></li>
+                        <?php
+                        }
+                        if(!empty($permisos['solicitudes'])){
+                        ?>
+                            <li <?php if(isset($menu) && $menu == 'solicitudes'){echo 'class="active"'; } ?>><a  href="solicitudes.php">Solicitudes</a></li>
+                        <?php
+                        }
+                        if(!empty($permisos['atencion_clientes'])){
+                        ?>
+                            <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a  href="frm_atencion.php">Atención a Clientes</a></li>
+                        <?php
+                        }
+                         ?>
                     </ul>
                 </li>
             <?php

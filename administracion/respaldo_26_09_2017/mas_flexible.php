@@ -1,38 +1,24 @@
 <?php 
-require('../conexion/conexion.php');
-require('../conexion/sesion.php');
-require('funciones.php');
+  require('../conexion/conexion.php');
+  require('../conexion/sesion.php');
+  include('funciones.php');
 
-if (!isset($_SESSION)) {
-//session_start();
-  
-  $redireccion = "../index.php?ADM";
-
-  if(!$_SESSION["autentificado"]){
-    header("Location:".$redireccion);
-  }
-}
-
-  /******* VARIABLES GENERALES *******/
-  $idpagina = 1; // 1 = quienes somos
-  /******* VARIABLES GENERALES *******/
-
-  
+  $idpagina = 3; // 3 = MásFlexible
 
   if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
 
 
     //CONSULTAMOS EL NUMERO DE IMAGENES DENTRO DEL SLIDE PARA PODER REEMPLAZAR O MANTENER CAMBIOS
-    $ruta_slide = '../img/slider/principal/';
-
+    $ruta_slide = '../img/slider/mas_flexible/';
     $query = "SELECT * FROM slide WHERE pagina = $idpagina";
     $consultar_slide = $mysqli->query($query);
-
     while($slide = $consultar_slide->fetch_assoc()){
       $slide_actual = $_POST['img_slide_actual'.$slide['idslide']];
 
       if(!empty($_FILES['img_slide'.$slide['idslide']]['name'])){
-          unlink($slide_actual);
+          if(file_exists($slide_actual)){
+            unlink($slide_actual);
+          }
 
           $_FILES['img_slide'.$slide['idslide']]['name'];
           move_uploaded_file($_FILES['img_slide'.$slide['idslide']]['tmp_name'], $ruta_slide.$_FILES['img_slide'.$slide['idslide']]['name']);
@@ -50,21 +36,23 @@ if (!isset($_SESSION)) {
       move_uploaded_file($_FILES['nuevo_slide']['tmp_name'], $ruta_slide.$_FILES['nuevo_slide']['name']);
       $img_slide = $ruta_slide.basename($_FILES['nuevo_slide']['name']);
 
-      $query = "INSERT INTO slide (pagina, img) VALUES ('1', '$img_slide')";
+      $query = "INSERT INTO slide (pagina, img) VALUES ('$idpagina', '$img_slide')";
       $insertar = $mysqli->query($query);
 
     }
 
-    $ruta_img = '../img/index/';
-    $ruta_norma = 'img/index/'
-    ;
+    // SECCIÓN 1
+    $ruta_img = '../img/mas_flexible/';
+    $ruta_norma = 'img/mas_flexible/';
     $sec1_img1_actual = $_POST['sec1_img1_actual'];
     $sec1_img2_actual = $_POST['sec1_img2_actual'];
     $sec1_img3_actual = $_POST['sec1_img3_actual'];
     $sec1_img4_actual = $_POST['sec1_img4_actual'];
 
     if(!empty($_FILES['sec1_img1']['name'])){
-        unlink($sec1_img1_actual);
+        if(file_exists($sec1_img1_actual)){
+          unlink($sec1_img1_actual);
+        }
         $_FILES["sec1_img1"]["name"];
           move_uploaded_file($_FILES["sec1_img1"]["tmp_name"], $ruta_img.$_FILES["sec1_img1"]["name"]);
           $sec1_img1 = $ruta_img.basename($_FILES["sec1_img1"]["name"]);
@@ -73,7 +61,9 @@ if (!isset($_SESSION)) {
       $sec1_img1 = $sec1_img1_actual;
     }
     if(!empty($_FILES['sec1_img2']['name'])){
-      unlink($sec1_img2_actual);
+      if(file_exists($sec1_img2_actual)){
+        unlink($sec1_img2_actual);
+      }
         $_FILES["sec1_img2"]["name"];
           move_uploaded_file($_FILES["sec1_img2"]["tmp_name"], $ruta_img.$_FILES["sec1_img2"]["name"]);
           $sec1_img2 = $ruta_img.basename($_FILES["sec1_img2"]["name"]);
@@ -81,7 +71,9 @@ if (!isset($_SESSION)) {
       $sec1_img2 = $sec1_img2_actual;
     }
     if(!empty($_FILES['sec1_img3']['name'])){
-      unlink($sec1_img3_actual);
+      if(file_exists($sec1_img3_actual)){
+        unlink($sec1_img3_actual);
+      }
         $_FILES["sec1_img3"]["name"];
           move_uploaded_file($_FILES["sec1_img3"]["tmp_name"], $ruta_img.$_FILES["sec1_img3"]["name"]);
           $sec1_img3 = $ruta_img.basename($_FILES["sec1_img3"]["name"]);
@@ -89,7 +81,9 @@ if (!isset($_SESSION)) {
       $sec1_img3 = $sec1_img3_actual;
     }
     if(!empty($_FILES['sec1_img4']['name'])){
-      unlink($sec1_img4_actual);
+      if(file_exists($sec1_img4_actual)){
+        unlink($sec1_img4_actual);
+      }
         $_FILES["sec1_img4"]["name"];
           move_uploaded_file($_FILES["sec1_img4"]["tmp_name"], $ruta_img.$_FILES["sec1_img4"]["name"]);
           $sec1_img4 = $ruta_img.basename($_FILES["sec1_img4"]["name"]);
@@ -97,8 +91,6 @@ if (!isset($_SESSION)) {
       $sec1_img4 = $sec1_img4_actual;
     }
 
-
-    // SECCIÓN 1
     $sec1_titulo1 = $_POST['sec1_titulo1'];
     $sec1_cont1 = $_POST['sec1_cont1'];
     $sec1_titulo2 = $_POST['sec1_titulo2'];
@@ -107,47 +99,24 @@ if (!isset($_SESSION)) {
     $sec1_cont3 = $_POST['sec1_cont3'];
     $sec1_titulo4 = $_POST['sec1_titulo4'];
     $sec1_cont4 = $_POST['sec1_cont4'];
+    $sec1_titulo5 = $_POST['sec1_titulo5'];
+    $sec1_cont5 = $_POST['sec1_cont5'];
 
     // SECCIÓN 2
-    $sec2_titulo1 = $_POST['sec2_titulo1'];
-    $sec2_sub1 = $_POST['sec2_sub1'];
     $sec2_cont1 = $_POST['sec2_cont1'];
-
-    $sec2_img1_actual = $_POST['sec2_img1_actual'];
-
-    if(!empty($_FILES['sec2_img1']['name'])){
-      unlink($sec2_img1_actual);
-        $_FILES["sec2_img1"]["name"];
-          move_uploaded_file($_FILES["sec2_img1"]["tmp_name"], $ruta_img.$_FILES["sec2_img1"]["name"]);
-          $sec2_img1 = $ruta_img.basename($_FILES["sec2_img1"]["name"]);
-    }else{
-      $sec2_img1 = $sec2_img1_actual;
-    }
+    $sec2_cont2 = $_POST['sec2_cont2'];
+    $sec2_cont3 = $_POST['sec2_cont3'];
+    $sec2_cont4 = $_POST['sec2_cont4'];
+    $sec2_cont5 = $_POST['sec2_cont5'];
+    $sec2_cont6 = $_POST['sec2_cont6'];
 
     // SECCIÓN 3
     $sec3_titulo1 = $_POST['sec3_titulo1'];
+    $sec3_sub1 = $_POST['sec3_sub1'];
     $sec3_cont1 = $_POST['sec3_cont1'];
-    $sec3_titulo2 = $_POST['sec3_titulo2'];
-    $sec3_cont2 = $_POST['sec3_cont2'];
 
-    // SECCIÓN 4
-    $sec4_link1 = '';
-    $sec4_titulo1 = $_POST['sec4_titulo1'];
-    $sec4_sub1 = $_POST['sec4_sub1'];
-    $sec4_cont1 = $_POST['sec4_cont1'];
-
-    $sec4_img1_actual = $_POST['sec4_img1_actual'];
-
-    if(!empty($_FILES['sec4_img1']['name'])){
-      unlink($sec4_img1_actual);
-        $_FILES["sec4_img1"]["name"];
-          move_uploaded_file($_FILES["sec4_img1"]["tmp_name"], $ruta_img.$_FILES["sec4_img1"]["name"]);
-          $sec4_img1 = $ruta_img.basename($_FILES["sec4_img1"]["name"]);
-    }else{
-      $sec4_img1 = $sec4_img1_actual;
-    }
-
-    /*$updateSQL = sprintf("UPDATE pagina1 SET sec1_img1 = %s, sec1_titulo1 = %s, sec1_cont1 = %s, sec1_img2 = %s, sec1_titulo2 = %s, sec1_cont2 = %s, sec1_img3 = %s, sec1_titulo3 = %s, sec1_cont3 = %s, sec1_img4 = %s, sec1_titulo4 = %s, sec1_cont4 = %s, sec2_titulo1 = %s, sec2_sub1 = %s, sec2_cont1 = %s, sec2_img1 = %s, sec3_titulo1 = %s, sec3_cont1 = %s, sec3_titulo2 = %s, sec3_cont2 = %s, sec4_img1 = %s, sec4_link1 = %s, sec4_titulo1 = %s, sec4_sub1 = %s, sec4_cont1 = %s WHERE idpagina1 = %s",
+    
+    /*$updateSQL = sprintf("UPDATE pagina3 SET sec1_img1 = %s, sec1_titulo1 = %s, sec1_cont1 = %s, sec1_img2 = %s, sec1_titulo2 = %s, sec1_cont2 = %s, sec1_img3 = %s, sec1_titulo3 = %s, sec1_cont3 = %s, sec1_img4 = %s, sec1_titulo4 = %s, sec1_cont4 = %s, sec1_titulo5 = %s, sec1_cont5 = %s, sec2_cont1 = %s, sec2_cont2 = %s, sec2_cont3 = %s, sec2_cont4 = %s, sec2_cont5 = %s, sec2_cont6 = %s, sec3_titulo1 = %s, sec3_sub1 = %s, sec3_cont1 = %s WHERE idpagina3 = %s",
       GetSQLValueString($sec1_img1, "text"),
       GetSQLValueString($sec1_titulo1, "text"),
       GetSQLValueString($sec1_cont1, "text"),
@@ -160,24 +129,24 @@ if (!isset($_SESSION)) {
       GetSQLValueString($sec1_img4, "text"),
       GetSQLValueString($sec1_titulo4, "text"),
       GetSQLValueString($sec1_cont4, "text"),
-      GetSQLValueString($sec2_titulo1, "text"),
-      GetSQLValueString($sec2_sub1, "text"),
+      GetSQLValueString($sec1_titulo5, "text"),
+      GetSQLValueString($sec1_cont5, "text"),
       GetSQLValueString($sec2_cont1, "text"),
-      GetSQLValueString($sec2_img1, "text"),
+      GetSQLValueString($sec2_cont2, "text"),
+      GetSQLValueString($sec2_cont3, "text"),
+      GetSQLValueString($sec2_cont4, "text"),
+      GetSQLValueString($sec2_cont5, "text"),
+      GetSQLValueString($sec2_cont6, "text"),
       GetSQLValueString($sec3_titulo1, "text"),
+      GetSQLValueString($sec3_sub1, "text"),
       GetSQLValueString($sec3_cont1, "text"),
-      GetSQLValueString($sec3_titulo2, "text"),
-      GetSQLValueString($sec3_cont2, "text"),
-      GetSQLValueString($sec4_img1, "text"),
-      GetSQLValueString($sec4_link1, "text"),
-      GetSQLValueString($sec4_titulo1, "text"),
-      GetSQLValueString($sec4_sub1, "text"),
-      GetSQLValueString($sec4_cont1, "text"),
       GetSQLValueString($idpagina, "int"));*/
 
-      $updateSQL = "UPDATE pagina1 SET sec1_img1 = '$sec1_img1', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_img2 = '$sec1_img2', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_img3 = '$sec1_img3', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_img4 = '$sec1_img4', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec2_titulo1 = '$sec2_titulo1', sec2_sub1 = '$sec2_sub1', sec2_cont1 = '$sec2_cont1', sec2_img1 = '$sec2_img1', sec3_titulo1 = '$sec3_titulo1', sec3_cont1 = '$sec3_cont1', sec3_titulo2 = '$sec3_titulo2', sec3_cont2 = '$sec3_cont2', sec4_img1 = '$sec4_img1', sec4_link1 = '$sec4_link1', sec4_titulo1 = '$sec4_titulo1', sec4_sub1 = '$sec4_sub1', sec4_cont1 = '$sec4_cont1' WHERE idpagina1 = $idpagina";
+    $updateSQL = "UPDATE pagina3 SET sec1_img1 = '$sec1_img1', sec1_titulo1 = '$sec1_titulo1', sec1_cont1 = '$sec1_cont1', sec1_img2 = '$sec1_img2', sec1_titulo2 = '$sec1_titulo2', sec1_cont2 = '$sec1_cont2', sec1_img3 = '$sec1_img3', sec1_titulo3 = '$sec1_titulo3', sec1_cont3 = '$sec1_cont3', sec1_img4 = '$sec1_img4', sec1_titulo4 = '$sec1_titulo4', sec1_cont4 = '$sec1_cont4', sec1_titulo5 = '$sec1_titulo5', sec1_cont5 = '$sec1_cont5', sec2_cont1 = '$sec2_cont1', sec2_cont2 = '$sec2_cont2', sec2_cont3 = '$sec2_cont3', sec2_cont4 = '$sec2_cont4', sec2_cont5 = '$sec2_cont5', sec2_cont6 = '$sec2_cont6', sec3_titulo1 = '$sec3_titulo1', sec3_sub1 = '$sec3_sub1', sec3_cont1 = '$sec3_cont1' WHERE idpagina3 = $idpagina";
 
     $actualizar = $mysqli->query($updateSQL);
+
+    $insertar = $mysqli->query($query);
 
     /// EN CASO DE QUE SE AGREGUE UNA SECCIÓN DINAMICA
     $tipo_seccion = $_POST['tipo_seccion'];
@@ -207,11 +176,9 @@ if (!isset($_SESSION)) {
               $img_dinamica = $ruta_img.basename($_FILES["img_dinamica3"]["name"]);
         }
       }
-      //echo '<script>alert("se ha insertado")</script>';
-      $insertSQL2 = "INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion) VALUES ($idpagina, '$titulo_dinamico', '$contenido_dinamico', '$img_dinamica', $tipo_seccion)";
-      //echo $insertSQL2;
-      $insertar = $mysqli->query($insertSQL2);
-      //echo "<script>alert('".$insertSQL."')</script>";
+
+      $insertSQL = "INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion) VALUES ('$idpagina', '$titulo_dinamico', '$contenido_dinamico', '$img_dinamica', '$tipo_seccion')";
+
       /*$insertSQL = sprintf("INSERT INTO seccion_dinamica (idpagina, titulo, contenido, img, tipo_seccion, orden) VALUES (%s, %s, %s, %s, %s, %s)",
         GetSQLValueString($idpagina, "int"),
         GetSQLValueString($titulo_dinamico, "text"),
@@ -219,21 +186,23 @@ if (!isset($_SESSION)) {
         GetSQLValueString($img_dinamica, "text"),
         GetSQLValueString($tipo_seccion, "int"),
         GetSQLValueString($orden, "int"));*/
-      
-    }
+      $insertar = $mysqli->query($insertSQL);
 
+    }
 
   }
 
   if(isset($_POST['eliminar_slide'])){
     $idslide = $_POST['eliminar_slide'];
     $img_slide = $_POST['img_slide_actual'.$idslide.''];
-    unlink($img_slide);
+
+    if(file_exists($img_slide)){
+      unlink($img_slide);
+    }
 
     $query = "DELETE FROM slide WHERE idslide = $idslide";
     $eliminar = $mysqli->query($query);
   }
-
   // MODIFICAMOS EL CONTENIDO DE LAS SECCIONES DINAMICAS
   if(isset($_POST['modificar_seccion']) && $_POST['modificar_seccion'] != 0){
     $idseccion_dinamica = $_POST['modificar_seccion'];
@@ -281,14 +250,18 @@ if (!isset($_SESSION)) {
     //echo '<script>alert("SE HA ELIMINADO LA SECCIÓN")</script>';
   }
 
+
   $seccion = 'secciones';
-  $menu = 'quienes';
-  $sql = "SELECT * FROM pagina1 WHERE idpagina1 = $idpagina";
+  $menu = 'flexible';
+  $sql = "SELECT * FROM pagina3 WHERE idpagina3 = $idpagina";
   $ejecutar = $mysqli->query($sql);
   $contenido = $ejecutar->fetch_assoc();
  ?>
 
+<!DOCTYPE html>
 <html lang="esp">
+
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -297,7 +270,7 @@ if (!isset($_SESSION)) {
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Sección: ¿Quienes Somos?</title>
+    <title>Sección: MasFlexible</title>
     <link href="../css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -336,83 +309,84 @@ if (!isset($_SESSION)) {
   <section id="container" class="">
       <!--header start-->
       <?php 
-        include('header.php');
+      include('header.php');
        ?>
       <!--header end-->
       <!--sidebar start-->
       <?php 
-        include('aside.php');
-      ?>
+      include('aside.php');
+       ?>
       <!--sidebar end-->
       <!--main content start-->
       <section id="main-content">
-          <section>
+          <section class="">
               <div class="row">
                   <div class="col-lg-12">
                       <!--Pulstate start-->
                       <section class="">
                           <header class="panel-heading">
-                            Sección: <span style="color:red">¿Quiénes Somos?</span>
+                            Sección: <span style="color:red">MásFlexible</span>
                           </header>
                           <div class="panel-body">
-
                             <form action="" method="POST" enctype="multipart/form-data">
-                                <?php 
-                                if(!empty($permisos['editar'])){
-                                ?>
-                                  <div id="" style="position:fixed;z-index: 1;">
-                                    <div class="">
-                                      <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
-                                    </div>
+                                <div id="" style="position:fixed;z-index: 1;">
+                                  <button class="btn btn-danger" type="submit" name="guardar_cambios" value="1"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <b>Guardar Cambios</b></button> 
+                                </div>
+                                <!-- INICIA TITULO PRINCIPAL -->
+                                <!--<section>
+                                  <div class="col-md-12 text-center" style="background-color: #f0f0f6;padding-top:3em;margin-bottom:1em;">
+                                      <h1 style="color: #2a3031;font-size:50px"><b>MÁSFLEXIBLE</b></h1>
+                                      <h2 style="font-size:30px;"><i><input type="text" name="subtitulo" value="<?php echo $contenido['subtitulo']; ?>"></i></h2>
                                   </div>
-                                <?php
-                                }
-                                 ?>
+                                </section>-->
+                                <!-- TERMINA TITULO PRINCIPAL -->
+                                
                                 <!-- INICIA SECCIÓN SLIDER -->
-                                <section id="home-slider">
-                                    <div class="container">
-                                        <div class="row">
-                                    
-                                            <div style="padding:0px;">
-                                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                                    <!-- Indicators -->
-                                                    <?php 
-                                                    $query_slide = "SELECT * FROM slide WHERE pagina = $idpagina";
-                                                    $consultar = $mysqli->query($query_slide);
-                                                    $query_slide2 = "SELECT * FROM slide WHERE pagina = $idpagina ORDER BY idslide DESC";
-                                                    $consultar2 = $mysqli->query($query_slide2);
-                                                     ?>
-                                                    <ol class="carousel-indicators">
-                                                    <?php
-                                                      $contador = 0;
-                                                      while($slide = $consultar->fetch_assoc()){
-                                                        echo '<li data-target="#carousel-example-generic" data-slide-to="'.$contador.'" class=""></li>';
-                                                        $contador++;
-                                                      }
-                                                     ?>
-                                                    </ol>
+                                <section id="">
+                                  <div class="container">
+                                      <div class="row">
+                                          <div style="">
+                                              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                  <!-- Indicators -->
+                                                  <?php 
+                                                  $query_slide = "SELECT * FROM slide WHERE pagina = $idpagina";
+                                                  $consultar = $mysqli->query($query_slide);
+                                                  $query_slide2 = "SELECT * FROM slide WHERE pagina = $idpagina ORDER BY idslide DESC";
+                                                  $consultar2 = $mysqli->query($query_slide2);
+                                                  $rows_slide = $consultar2->num_rows;
+                                                   ?>
+                                                  <ol class="carousel-indicators">
+                                                  <?php
+                                                    $contador = 0;
+                                                    while($slide = $consultar->fetch_assoc()){
+                                                      echo '<li data-target="#carousel-example-generic" data-slide-to="'.$contador.'" class=""></li>';
+                                                      $contador++;
+                                                    }
+                                                   ?>
+                                                  </ol>
 
-                                                    <!-- Wrapper for slides -->
-                                                    <div class="carousel-inner" role="listbox">
-                                                        <?php
-                                                        $contador = 0;
-                                                        while($img_slide = $consultar2->fetch_assoc()){
-                                                        ?>
-                                                          <div class="item <?php if($contador == 0){echo 'active'; } ?>">
-                                                            <img class="img-responsive" src="<?php echo $img_slide['img']; ?>"  alt="imagen1">
-                                                            <div class="form-group last">
+                                                  <!-- Wrapper for slides -->
+                                                  <div class="carousel-inner" role="listbox">
+                                                      <?php
+                                                      $contador = 0;
+                                                      while($img_slide = $consultar2->fetch_assoc()){
+                                                      ?>
+                                                        <div class="item <?php if($contador == 0){echo 'active'; } ?>">
+                                                          <img class="img-responsive" src="<?php echo $img_slide['img']; ?>"  alt="imagen1">
+                                                          <!-- inicia moficar imagen -->
+                                                          <div class="form-group last">
                                                               <div class="col-md-3">
                                                                   <div class="fileupload fileupload-new" data-provides="fileupload">
                                                                       <div class="fileupload-new thumbnail" style="width: 200px; height: 90px;">
-                                                                          <img src="https://via.placeholder.com/1800x700" alt="" />
+                                                                          <img src="http://via.placeholder.com/1800x700" alt="" />
                                                                       </div>
                                                                       <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                                                                       <div>
-                                                                        <span class="btn btn-white btn-file">
-                                                                          <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
-                                                                          <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                                          <input type="file" name="<?php echo 'img_slide'.$img_slide['idslide']; ?>" class="default" />
-                                                                        </span>
+                                                                         <span class="btn btn-white btn-file">
+                                                                           <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Reemplazar</span>
+                                                                           <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                           <input type="file" name="<?php echo 'img_slide'.$img_slide['idslide']; ?>" class="default" />
+                                                                         </span>
                                                                       </div>
                                                                   </div>
                                                                   <input type="hidden" name="<?php echo 'img_slide_actual'.$img_slide['idslide']; ?>" value="<?php echo $img_slide['img']; ?>">
@@ -421,70 +395,67 @@ if (!isset($_SESSION)) {
                                                                     La imagen debe tener un ancho y alto recomendado de 1800px X 700px
                                                                   </span>
                                                               </div>
-                                                              <?php 
-                                                              if(!empty($permisos['eliminar'])){
-                                                              ?>
                                                               <div class="col-md-3" style='margin-top:2em;'>
-                                                                <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>      
+                                                                <button class="btn btn-danger" type="submit" class="" name="eliminar_slide" value="<?php echo $img_slide['idslide'] ?>" onclick="return confirm('¿Desea eliminar la imagen?');"><i class="fa fa-trash-o"></i> Eliminar Imagen</button>
                                                               </div>
-                                                              <?php
-                                                              }
-                                                              ?>
-                                                              
-                                                            </div>
-                                                          </div>
-                                                        <?php
-                                                        $contador++;
-                                                        }
-                                                         ?>
-                                                        <div class="item">
-                                                          <div class="form-group last" style="margin:10em;">
-                                                              <div class="col-md-12 text-center">
-                                                                  <h3 class="alert alert-info">Agregar nueva imagen</h3>
-                                                                  <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
-                                                                      <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                                          <img src="https://via.placeholder.com/1800x700" alt="" />
-                                                                      </div>
-                                                                      <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
-                                                                      <div>
-                                                                        <span class="btn btn-white btn-file">
-                                                                          <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
-                                                                          <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                                          <input type="file" name="nuevo_slide" class="default" />
-                                                                        </span>
-                                                                      </div>
-                                                                  </div>
-                                                                  <span class="label label-danger">NOTA</span>
-                                                                  <span>
-                                                                    La imagen debe tener un ancho y alto recomendado de 1800px X 700px
-                                                                  </span>
-                                                              </div>
-                                                          </div>
-                                                        </div>
-                                                    </div>
 
-                                                    <!-- Controls -->
-                                                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                                        <span class="sr-only">Anterior</span>
-                                                    </a>
-                                                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                                        <span class="sr-only">Siguiente</span>
-                                                    </a>
-                                                </div>                  
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+
+                                                          </div>
+                                                          <!-- termina modificar imagen -->
+                                                        </div>
+                                                      <?php
+                                                      $contador++;
+                                                      }
+                                                       ?>
+                                                      <!-- inicia agregar nueva imagen -->
+                                                      <div class="item <?php if($rows_slide == 0){echo 'active'; } ?>">
+                                                        <div class="form-group last" style="margin:10em;">
+                                                            <div class="col-md-12 text-center">
+                                                                <h3 class="alert alert-info">Agregar nueva imagen</h3>
+                                                                <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
+                                                                    <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
+                                                                        <img src="http://via.placeholder.com/1800x700" alt="" />
+                                                                    </div>
+                                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
+                                                                    <div>
+                                                                       <span class="btn btn-white btn-file">
+                                                                         <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Añadir</span>
+                                                                         <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
+                                                                         <input type="file" name="nuevo_slide" class="default" />
+                                                                       </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="label label-danger">NOTA</span>
+                                                                <span>
+                                                                  La imagen debe tener un ancho y alto recomendado de 1800px X 700px
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                      <!-- termina agregar nueva imagen -->
+                                                  </div>
+
+                                                  <!-- Controls -->
+                                                  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                                      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                      <span class="sr-only">Anterior</span>
+                                                  </a>
+                                                  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                                      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                      <span class="sr-only">Siguiente</span>
+                                                  </a>
+                                              </div>                  
+                                          </div>
+                                      </div>
+                                  </div>
                                 </section>
                                 <!-- TERMINA SECCIÓN SLIDER -->
-                                
-                                <!-- INICIA SECCIÓN 1 (sec1)-->
+
+                                <!-- INICIA SECCIÓN 1 (sec1) -->
                                 <section id="services">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                            <div class="col-sm-3 col-xs-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                                                 <div class="single-service">
                                                     <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
                                                         <img src="<?php echo $contenido['sec1_img1']; ?>" alt="<?php echo $contenido['sec1_titulo1']; ?>">
@@ -588,64 +559,94 @@ if (!isset($_SESSION)) {
                                         </div>
                                     </div>
                                 </section>
-                                <!-- TERMINA SECCIÓN 1 (sec1)-->
-                                
-                                <!-- INICIA SECCIÓN 2 (sec2) -->
+                                <!--/#services-->
+
                                 <section id="features">
-                                   <div class="container" style="background-color:#323534;padding-top:1em;padding-bottom:1em">
-                                       <div class="row">
-                                           <div class="col-md-12">
-                                               <p class="" style="padding-left:1em;font-size:24px;"><i><b><input style="width:100%" type="text" name="sec2_titulo1" value="<?php echo $contenido['sec2_titulo1']; ?>"></b></i></p>
-
-                                           </div>
-                                       </div>
-                                   </div>
-
                                     <div class="container">
                                         <div class="row">
-                                          <div class="col-md-6 fadeInLeft text-center" style="margin-top:3em;">
-                                              <h1 style="color:#323534;font-size:4em;margin-bottom:1em;"><b><input name="sec2_sub1" id="sec2_sub1" type="text" value="<?php echo $contenido['sec2_sub1']; ?>"></b></h1>
-                                              <p style="font-size:16px;text-align:justify;">
-                                                <textarea class="form-control" name="sec2_cont1" id="sec2_cont1" rows="20"><?php echo $contenido['sec2_cont1']; ?></textarea>
-                                              </p>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <img class="img-responsive" src="<?php echo $contenido['sec2_img1']; ?>" alt="" style="float:right;margin-top:-100px;">
-                                              <input type="hidden" name="sec2_img1_actual" value="<?php echo $contenido['sec2_img1']; ?>">
-                                              <div class="form-group">
-                                                  <div class="controls col-md-12">
-                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                      <span class="btn btn-white btn-file">
-                                                      <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                                      <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                      <input type="file" name="sec2_img1" class="default" />
-                                                      </span>
-                                                        <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                                        <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                                    </div>
-                                                  </div>
-                                              </div>
-                                          </div>
+                                            <div class="col-md-12">
+                                                <h1 class="text-center" style="color: #2a3031;margin-bottom:1em;"><input type="text" name="sec1_titulo5" value="<?php echo $contenido['sec1_titulo5']; ?>"></h1>
+                                                <textarea class="wysihtml5 form-control" name="sec1_cont5" rows="10"><?php echo $contenido['sec1_cont5']; ?></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- TERMINA SECCIÓN 1 (sec1) -->
+
+                                <!-- INCIA SECCIÓN 2 (sec2) -->
+                                <section id="beneficios_masflexible" style="margin-top:4em;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="divs col-md-2">
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec2_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont1']; ?></textarea>  
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec2_cont2" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont2']; ?></textarea>  
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec2_cont3" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont3']; ?></textarea>   
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec2_cont4" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont4'] ?></textarea>
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec2_cont5" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont5']; ?></textarea>   
+                                                </p>
+                                            </div>
+                                            <div class="divs col-md-2" >
+                                                <img src="../img/mas_flexible/icono_beneficios.png" alt="">
+                                                <p>
+                                                  <textarea class="form-control" name="sec2_cont6" id="" cols="30" rows="10"><?php echo $contenido['sec2_cont6']; ?></textarea>    
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </section>
                                 <!-- TERMINA SECCIÓN 2 (sec2) -->
-                                
+
+                                <!-- INICIA SECCIÓN 3 (sec3) -->
+                                <section id="caracteristicas" style="margin-top:4em;">
+                                    <div class="container">
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <h1 class="text-center" style="font-size:40px;color: #2a3031;margin-bottom:1em;"><input type="text" name="sec3_titulo1" value="<?php echo $contenido['sec3_titulo1']; ?>"></h1>
+                                            <h2 class="text-center"><input type="text" name="sec3_sub1" value="<?php echo $contenido['sec3_sub1']; ?>"></h2>
+                                          </div>
+                                          <div class="col-md-8 col-md-offset-2">
+                                            <p class="text-center">
+                                                <textarea class="form-control" name="sec3_cont1" id="" cols="30" rows="10"><?php echo $contenido['sec3_cont1']; ?></textarea>
+                                            </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- TERMINA SECCIÓN 3 (sec3) -->
+
+
                                 <!-- INICIA SECCIONES DINAMICAS -->
                                 <section>
-                                  <h3 style="background: #e74c3c;color:#ecf0f1;">Sección Dinamica</h3>
-                                  <?php 
-                                  if(!empty($permisos['crear'])){
-                                  ?>
+                                  <h3 style="background: #e74c3c;color:#ecf0f1;">Sección Dinámica</h3>
                                   <select class="form-control" name="tipo_seccion" id="tipo_seccion" onchange="seccion()">
                                     <option value="">Selecciona un tipo de sección</option>
                                     <option value="1">Tipo 1</option>
                                     <option value="2">Tipo 2</option>
                                     <option value="3">Tipo 3</option>
                                   </select>
-                                  <?php
-                                  }
-                                   ?>
 
                                   <div id="tipo_1" class="col-md-12 well" style="display: none">
                                     <div class="row">
@@ -688,7 +689,7 @@ if (!isset($_SESSION)) {
                                             
                                             <div class="fileupload fileupload-new" data-provides="fileupload" style="margin-bottom:10em;">
                                                 <div class="fileupload-new thumbnail" style="width: 500px; height: 240px;">
-                                                    <img src="https://via.placeholder.com/1800x700" alt="" />
+                                                    <img src="http://via.placeholder.com/1800x700" alt="" />
                                                 </div>
                                                 <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 500px; max-height: 240px; line-height: 20px;"></div>
                                                 <div>
@@ -730,18 +731,10 @@ if (!isset($_SESSION)) {
                                               </div>
                                           </div>
                                       </section>
-                                      <?php 
-                                      if(!empty($permisos['eliminar'])){
-                                      ?>
+                                    
                                       <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      <?php
-                                      }
-                                      if(!empty($permisos['editar'])){
-                                      ?>
+                                  
                                       <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
-                                      <?php
-                                      }
-                                       ?>
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-lg">
@@ -814,18 +807,9 @@ if (!isset($_SESSION)) {
                                           </div>
                                       </section>
 
-                                      <?php 
-                                      if(!empty($permisos['eliminar'])){
-                                      ?>
                                       <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      <?php
-                                      }
-                                      if(!empty($permisos['editar'])){
-                                      ?>
+                                      
                                       <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
-                                      <?php
-                                      }
-                                       ?>
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-lg">
@@ -872,18 +856,9 @@ if (!isset($_SESSION)) {
                                               </div>
                                           </div>
                                       </section>
-                                      <?php 
-                                      if(!empty($permisos['eliminar'])){
-                                      ?>
                                       <button class='btn btn-warning' type='submit' name='eliminar_seccion' value='<?php echo $contenido_dinamico['idseccion_dinamica'] ?>' onclick="return confirm('¿Desea eliminar la Sección dinámica?');"><span class='glyphicon glyphicon-trash glyphicon' aria-hidden='true'></span> Eliminar Sección</button>
-                                      <?php
-                                      }
-                                      if(!empty($permisos['editar'])){
-                                      ?>
+                                      
                                       <button type="button" id="" class="btn btn-info" data-toggle="modal" href="<?php echo '#modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar sección</button>
-                                      <?php
-                                      }
-                                       ?>
                                       <!-- Modal Modificar sección dinámica -->
                                       <!-- Modal Modificar sección dinámica -->
                                       <div class="modal fade" id="<?php echo 'modalSeccion'.$contenido_dinamico['idseccion_dinamica']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -933,66 +908,7 @@ if (!isset($_SESSION)) {
                                 }
                                 ?>
                                 <!-- TERMINAN LAS SECCIONES DINAMICAS -->
-
-
-                                <!-- INICIA SECCIÓN 3 (sec3) -->
-                                <section id="mision-vision">
-                                    <div class="container" >
-                                        <div class="row">
-                                          <div class="col-sm-12">
-                                              <h1 class="title text-center"><input name="sec3_titulo1" id="sec3_titulo1" type="text" value="<?php echo $contenido['sec3_titulo1']; ?>"></h1>
-                                              <p style="text-align:justify;font-size:16px;">
-                                                <textarea class="form-control" name="sec3_cont1" id="sec3_cont1" rows="5"><?php echo $contenido['sec3_cont1']; ?></textarea>
-                                              </p>
-                                          </div>
-                                          <div class="col-sm-12">
-                                              <h1 class="title text-center"><input name="sec3_titulo2" id="sec3_titulo2" type="text" value="<?php echo $contenido['sec3_titulo2'] ?>"></h1>
-                                              <p style="text-align:justify;font-size:16px;">
-                                                <textarea class="form-control" name="sec3_cont2" id="sec3_cont2" rows="5"><?php echo $contenido['sec3_cont2']; ?></textarea>
-                                              </p> 
-                                          </div>
-                                        </div>
-                                    </div>
-                                 </section>
-                                <!-- TERMINA SECCIÓN 3 (sec3) -->
-
-                                <!-- INICIA SECCIÓN 4 (sec4) -->
-                                <section id="siguenos">
-                                    <div class="container" style="background-image: url('../img/index/banner_azul.png');background-size:cover; padding-top:5em;border-top: 10px solid #263c89; border-bottom: 10px solid #263c89">
-                                        <div class="row">
-                                            <!-- visible en lg-md -->
-                                            <div class="col-md-6">
-                                                  <div class="form-group">
-                                                      <div class="controls col-md-12">
-                                                          <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                            <span class="btn btn-white btn-file">
-                                                            <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Cambiar imagen</span>
-                                                            <span class="fileupload-exists"><i class="fa fa-undo"></i> Cambiar</span>
-                                                            <input type="file" name="sec4_img1" class="default" />
-                                                            </span>
-                                                              <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                                              <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-
-                                                <a href="https://www.facebook.com/mas.kapital"><img src="<?php echo $contenido['sec4_img1']; ?>" alt=""></a>
-                                                <input type="hidden" name="sec4_img1_actual" value="<?php echo $contenido['sec4_img1']; ?>">
-                                            </div>
-                                            <div class="col-md-6" style="text-align:justify;">
-                                                <h1><b><input style="color:black" type="text" name="sec4_titulo1" value="<?php echo $contenido['sec4_titulo1']; ?>"></b></h1>
-                                                <!--<a href="https://www.facebook.com/mas.kapital"><h1><b></b></h1></a>-->
-                                                <h2 style="font-size:30px;"><b><input type="text" name="sec4_sub1" value="<?php echo $contenido['sec4_sub1'] ?>"></b></h2>
-                                                <p style="font-size:20px;"><textarea class="form-control" name="sec4_cont1" id="sec4_cont1" rows="5"><?php echo $contenido['sec4_cont1']; ?></textarea></p>
-                                            </div>
-                                          
-                                        </div>
-                                    </div>
-                                </section>
-                                <!-- TERMINA SECCIÓN 4 (sec4) -->
-
                             </form>
-      
                           </div>
                       </section>
                       <!--Pulstate  end-->
@@ -1000,11 +916,7 @@ if (!isset($_SESSION)) {
               </div>
           </section>
       </section>
-      <!--main content end-->
-      <!-- Right Slidebar start -->
 
-      <!-- Right Slidebar end -->
-      <!--footer start-->
 
       <!--footer end-->
   </section>
@@ -1039,9 +951,9 @@ if (!isset($_SESSION)) {
   <script src="js/slidebars.min.js"></script>
 
   <!--common script for all pages-->
-  <script src="js/common-scripts.js"></script>
-  <!--this page  script only-->
-  <script src="js/advanced-form-components.js"></script>
+    <script src="js/common-scripts.js"></script>
+    <!--this page  script only-->
+    <script src="js/advanced-form-components.js"></script>
 
   <script>
     function seccion(){
@@ -1061,7 +973,6 @@ if (!isset($_SESSION)) {
       }
       
     }
-
       jQuery(document).ready(function(){
 
           $('.summernote').summernote({

@@ -155,7 +155,7 @@
                                 </thead>
                                 <tbody>
                                   <?php 
-                                  $query = "SELECT SolicitudTrabajo.idSolicitudTrabajo, SolicitudTrabajo.Puesto, SolicitudTrabajo.archivo_solicitud, SolicitudTrabajo.fecha_solicitud, Solicitante.*, SolicitudTrabajo.Puesto, DomSolicitante.Estado, Escolaridad.Carrera FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante INNER JOIN DomSolicitante ON SolicitudTrabajo.idSolicitante = DomSolicitante.idSolicitante INNER JOIN Escolaridad ON SolicitudTrabajo.idSolicitante = Escolaridad.idSolicitante";
+                                  $query = "SELECT SolicitudTrabajo.idSolicitudTrabajo, SolicitudTrabajo.Puesto, SolicitudTrabajo.fecha_solicitud, Solicitante.*, SolicitudTrabajo.Puesto, DomSolicitante.Estado, Escolaridad.Carrera FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante INNER JOIN DomSolicitante ON SolicitudTrabajo.idSolicitante = DomSolicitante.idSolicitante INNER JOIN Escolaridad ON SolicitudTrabajo.idSolicitante = Escolaridad.idSolicitante";
                                   $consultar = $mysqli->query($query);
 
                                   while($solicitud = $consultar->fetch_assoc()){
@@ -186,8 +186,8 @@
 	                                      <td>
 	                                        <form id="<?php echo 'frm_solicitud'.$solicitud['idSolicitudTrabajo'] ?>" action="" method="POST">
 	                                          <input type="hidden" name="idSolicitudTrabajo" value="<?php echo $solicitud['idSolicitudTrabajo'] ?>">
-                                            <a data-toggle="tooltip" title="Descargar solicitud" target="_new" href="<?php echo '../'.$solicitud['archivo_solicitud']; ?>"><img src="../img/logos/logo_pdf.png" alt=""></a>
-	                                          <a class="btn btn-xs btn-info" href="detalle_solicitud.php?solicitud=<?php echo $solicitud['idSolicitudTrabajo']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
+                                            <a data-toggle="tooltip" title="Descargar solicitud" target="_new" href="<?php echo '../'.$solicitud['archivo_atencion']; ?>"><img src="../img/logos/logo_pdf.png" alt=""></a>
+	                                          <a class="btn btn-xs btn-info" href="detalle_solicitud.php?solicitud=<?php echo $solicitud['archivo_solicitud']; ?>"><i class="fa fa-file-text"></i> Consultar</a>
 	                                          <input type="hidden" name="idSolicitante" value="<?php echo $solicitud['idSolicitante']; ?>">
 
 	                                          <button type="submit" name="eliminar_solicitud" class="btn btn-danger btn-xs" value="<?php echo $solicitud['idSolicitudTrabajo']; ?>" onclick="return confirm('¿Desea eliminar la solicitud ?');"><i class="fa fa-trash-o "></i></button>
