@@ -199,10 +199,6 @@ if(isset($_POST['parte']))
 			$mysqli->query($sql);
 		}
 
-
-
-
-
 		if ($_POST['parte']==2) {
 
 			$Sueldo = $_POST['sueldoM'];
@@ -219,7 +215,6 @@ if(isset($_POST['parte']))
 			$Dependientes = $_POST['Dependientes'];
 			$EdoCivil = $_POST['EdoCivil'];
 			$EspEdoCivil = $_POST['EspEC'];
-			
 
 			$Estatus = 1;
 			$Puesto = $_POST['Puesto'];
@@ -526,14 +521,10 @@ if(isset($_POST['parte']))
 			$mysqli->query($sql);
 
 
+			$query_solicitud = "SELECT SolicitudTrabajo.*, Solicitante.*, DomSolicitante.*, EdoSalud.Estado AS 'Estado_salud', EdoSalud.Padece, EdoSalud.Enfermedad, EdoSalud.Meta, Documentacion.*, Madre.Nombre AS 'Nombre_madre', Madre.Vive AS 'Vive_madre', Madre.Domicilio AS 'Domicilio_madre', Madre.Ocupacion AS 'Ocupacion_madre', PadreSol.Nombre AS 'Nombre_padre', PadreSol.Vive AS 'Vive_padre', PadreSol.Domicilio AS 'Domicilio_padre', PadreSol.Ocupacion AS 'Ocupacion_padre', Esposa.Nombre AS 'Nombre_esp', Esposa.Vive AS 'Vive_esp', Esposa.Domicilio AS 'Domicilio_esp', Esposa.Ocupacion AS 'Ocupacion_esp', Escolaridad.*, Conocimientos.*, DatosEconomicos.*, DatosGenerales.* FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante LEFT JOIN DomSolicitante ON SolicitudTrabajo.idSolicitante = DomSolicitante.idSolicitante LEFT JOIN EdoSalud ON SolicitudTrabajo.idSolicitante = EdoSalud.idSolicitante LEFT JOIN Documentacion ON SolicitudTrabajo.idSolicitante = Documentacion.idSolicitante LEFT JOIN Escolaridad ON SolicitudTrabajo.idSolicitante = Escolaridad.idSolicitante LEFT JOIN Conocimientos ON SolicitudTrabajo.idSolicitante = Conocimientos.idSolicitante LEFT JOIN Madre ON SolicitudTrabajo.idSolicitante = Madre.idSolicitante LEFT JOIN PadreSol ON SolicitudTrabajo.idSolicitante = PadreSol.idSolicitante LEFT JOIN Esposa ON SolicitudTrabajo.idSolicitante = Esposa.idSolicitante LEFT JOIN DatosEconomicos ON SolicitudTrabajo.idSolicitante = DatosEconomicos.idSolicitante LEFT JOIN DatosGenerales ON SolicitudTrabajo.idSolicitante = DatosGenerales.idSolicitante WHERE SolicitudTrabajo.idSolicitante = $resultado[idSolicitante]";
+			$consultar = $mysqli->query($query_solicitud);
 
-
-
-
-			  $query_solicitud = "SELECT SolicitudTrabajo.*, Solicitante.*, DomSolicitante.*, EdoSalud.Estado AS 'Estado_salud', EdoSalud.Padece, EdoSalud.Enfermedad, EdoSalud.Meta, Documentacion.*, Madre.Nombre AS 'Nombre_madre', Madre.Vive AS 'Vive_madre', Madre.Domicilio AS 'Domicilio_madre', Madre.Ocupacion AS 'Ocupacion_madre', PadreSol.Nombre AS 'Nombre_padre', PadreSol.Vive AS 'Vive_padre', PadreSol.Domicilio AS 'Domicilio_padre', PadreSol.Ocupacion AS 'Ocupacion_padre', Esposa.Nombre AS 'Nombre_esp', Esposa.Vive AS 'Vive_esp', Esposa.Domicilio AS 'Domicilio_esp', Esposa.Ocupacion AS 'Ocupacion_esp', Escolaridad.*, Conocimientos.*, DatosEconomicos.*, DatosGenerales.* FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante LEFT JOIN DomSolicitante ON SolicitudTrabajo.idSolicitante = DomSolicitante.idSolicitante LEFT JOIN EdoSalud ON SolicitudTrabajo.idSolicitante = EdoSalud.idSolicitante LEFT JOIN Documentacion ON SolicitudTrabajo.idSolicitante = Documentacion.idSolicitante LEFT JOIN Escolaridad ON SolicitudTrabajo.idSolicitante = Escolaridad.idSolicitante LEFT JOIN Conocimientos ON SolicitudTrabajo.idSolicitante = Conocimientos.idSolicitante LEFT JOIN Madre ON SolicitudTrabajo.idSolicitante = Madre.idSolicitante LEFT JOIN PadreSol ON SolicitudTrabajo.idSolicitante = PadreSol.idSolicitante LEFT JOIN Esposa ON SolicitudTrabajo.idSolicitante = Esposa.idSolicitante LEFT JOIN DatosEconomicos ON SolicitudTrabajo.idSolicitante = DatosEconomicos.idSolicitante LEFT JOIN DatosGenerales ON SolicitudTrabajo.idSolicitante = DatosGenerales.idSolicitante WHERE SolicitudTrabajo.idSolicitante = $resultado[idSolicitante]";
-			  $consultar = $mysqli->query($query_solicitud);
-
-			  $detalle_solicitud = $consultar->fetch_assoc();
+			$detalle_solicitud = $consultar->fetch_assoc();
 
 			    /// SE GENERA EL ARCHIVO PDF Y SE GUARDA EN EL SERVIDOR ////////////
 			    $html = '
@@ -1223,24 +1214,21 @@ if(isset($_POST['parte']))
 			            <meta charset="utf-8">
 			        </head>
 			        <body>
+						<table style="font-family: Tahoma, Geneva, sans-serif; font-size:13px; color: #797979;border: 1px solid #ddd;text-align: left;border-collapse: collapse;width: 100%;" >
+							<thead>
+						      	<tr>
+						          	<th style="padding: 15px;border: 1px solid #ddd" align="center">
+						            	<img class="img-responsive" src="http://iotechdata1.xyz/mas_kapital/img/logos/logo_mas_kapital.png" alt="logo">
+						        	</th>
+						      	</tr>
+							</thead>
+							<tbody>
+						    	<tr>
+						        	<td style="text-align:center;padding:15px;background-color:#3498db;color:#ffffff;">SOLICITUD ENVIADA DE LA SECCIÓN BOLSA DE TRABAJO</td>
+						      	</tr>
 
-			            <table style="font-family: Tahoma, Geneva, sans-serif; font-size:13px; color: #797979;border: 1px solid #ddd;text-align: left;border-collapse: collapse;width: 100%;" >
-			                <thead>
-			                    <tr>
-			                        <th style="padding: 15px;border: 1px solid #ddd" align="center">
-			                            <img class="img-responsive" src="http://iotechdata1.xyz/mas_kapital/img/logos/logo_mas_kapital.png" alt="logo">
-			                        </th>
-			                        <th style="padding: 15px;border: 1px solid #ddd" align="left">
-
-			                    </tr>
-			                </thead>
-			                <tbody>
-			                    <tr>
-			                        <td style="text-align:center;padding:15px;background-color:#3498db;color:#ffffff;" colspan="2">DATOS DE IDENTIFICACIÓN</td>
-			                    </tr>
-
-			                </tbody>
-			            </table>
+							</tbody>
+						</table>
 			        </body>
 			        </html>
 			    ';
@@ -1257,9 +1245,7 @@ if(isset($_POST['parte']))
 			    $mail->Send();
 			    $mail->ClearAddresses();
 
-
-
-			header('Location: bolsa_trabajo.php?acc=1');
+header('Location: bolsa_trabajo.php?acc=1');
 			?>
 			<script type="text/javascript">	
 			</script>

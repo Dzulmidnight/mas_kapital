@@ -76,8 +76,6 @@
     $sql = "DELETE FROM Solicitante WHERE idSolicitante = $idSolicitante";
     $mysqli->query($sql);
 
-
-    echo "<script>alert('Se ha eliminado la solicitud');</script>";
   }
   $seccion = 'formularios';
   $menu = 'solicitudes';

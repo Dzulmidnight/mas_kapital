@@ -25,6 +25,8 @@
                     <td colspan="2">
                         <select class="form-control" name="Licencia" id="Licencia">
                             <option value="LICENCIA DE CONDUCIR">LICENCIA DE CONDUCIR</option>
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
                         </select>
                     </td>
                     <td colspan="2">
