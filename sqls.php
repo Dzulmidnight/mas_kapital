@@ -1233,8 +1233,7 @@ if(isset($_POST['parte']))
 			        </html>
 			    ';
 
-			   // $mail->AddAddress('auxrellab02@maskapital.com.mx');
-			    $mail->AddAddress('yasser.midnight@gmail.com');
+			   	$mail->AddAddress('auxrellab02@maskapital.com.mx');
 			    $mail->Subject = utf8_decode($asunto);
 			    $mail->Body = utf8_decode($mensaje_correo);
 			    $mail->MsgHTML(utf8_decode($mensaje_correo));

@@ -22,14 +22,38 @@
                     <span>Secciones</span>
                 </a>
                 <ul class="sub">
-                    <li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="quienes_somos.php">¿Quiénes Somos?</a></li>
-                    <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="normatividad.php">Normatividad</a></li>
-
-                    <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="mas_flexible.php">Más Flexible</a></li>
-                    <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="universidad_mk.php">Universidad Mk</a></li>
-                    <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a href="atencion_clientes.php">Atención a Clientes</a></li>
+                    <?php 
+                    if(!empty($permisos['quienes_somos'])){
+                    ?>
+                        <li <?php if(isset($menu) && $menu == 'quienes'){echo 'class="active"'; } ?>><a href="quienes_somos.php">¿Quiénes Somos?</a></li>
+                    <?php
+                    }
+                    if(!empty($permisos['normatividad'])){
+                    ?>
+                        <li <?php if(isset($menu) && $menu == 'normatividad'){echo 'class="active"'; } ?>><a href="normatividad.php">Normatividad</a></li>
+                    <?php
+                    }
+                    if(!empty($permisos['mas_flexible'])){
+                    ?>
+                        <li <?php if(isset($menu) && $menu == 'flexible'){echo 'class="active"'; } ?>><a href="mas_flexible.php">Más Flexible</a></li>
+                    <?php
+                    }
+                    if(!empty($permisos['universidad_mk'])){
+                    ?>
+                        <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="universidad_mk.php">Universidad Mk</a></li>
+                    <?php
+                    }
+                    if(!empty($permisos['atencion_clientes'])){
+                    ?>
+                        <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a href="atencion_clientes.php">Atención a Clientes</a></li>
+                    <?php
+                    }
+                    if(!empty($permisos['meta_description'])){
+                    ?>
                     <li <?php if(isset($menu) && $menu == 'meta'){echo 'class="active"'; } ?>><a href="meta_description.php">Meta description</a></li>
-
+                    <?php
+                    }
+                     ?>
                 </ul>
             </li>
 

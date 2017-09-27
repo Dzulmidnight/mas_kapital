@@ -83,7 +83,7 @@
         }else{
           $faq = 0;
         }
-        if(isset($_POST['crear'.$idusuario2])){
+        /*if(isset($_POST['crear'.$idusuario2])){
           $crear = $_POST['crear'.$idusuario2];
         }else{
           $crear = 0;
@@ -97,6 +97,36 @@
           $eliminar = $_POST['eliminar'.$idusuario2];
         }else{
           $eliminar = 0;
+        }*/
+        if(isset($_POST['quienes_somos'.$idusuario2])){
+          $quienes_somos = $_POST['quienes_somos'.$idusuario2];
+        }else{
+          $quienes_somos = 0;
+        }
+        if(isset($_POST['normatividad'.$idusuario2])){
+          $normatividad = $_POST['normatividad'.$idusuario2];
+        }else{
+          $normatividad = 0;
+        }
+        if(isset($_POST['mas_flexible'.$idusuario2])){
+          $mas_flexible = $_POST['mas_flexible'.$idusuario2];
+        }else{
+          $mas_flexible = 0;
+        }
+        if(isset($_POST['universidad_mk'.$idusuario2])){
+          $universidad_mk = $_POST['universidad_mk'.$idusuario2];
+        }else{
+          $universidad_mk = 0;
+        }
+        if(isset($_POST['atencion_clientes1'.$idusuario2])){
+          $atencion_clientes1 = $_POST['atencion_clientes1'.$idusuario2];
+        }else{
+          $atencion_clientes1 = 0;
+        }
+        if(isset($_POST['meta_description'.$idusuario2])){
+          $meta_description = $_POST['meta_description'.$idusuario2];
+        }else{
+          $meta_description = 0;
         }
         //actualizamos los PERMISOS_FORMULARIOS
         $updateSQL = "UPDATE permisos_formularios SET denuncias = '$denuncias', solicitudes = '$solicitudes', atencion_clientes = '$atencion_clientes' WHERE idusuarios = $idusuario2";
@@ -105,7 +135,7 @@
         $updateSQL = "UPDATE permisos_informacion SET usuarios = '$usuarios2', sucursales = '$sucursales', vacantes = '$vacantes', faq = '$faq' WHERE idusuarios = $idusuario2";
         $mysqli->query($updateSQL);
         //actualizamos los PERMISOS_SECCIONES
-        $updateSQL = "UPDATE permisos_secciones SET crear = '$crear', editar = '$editar', eliminar = '$eliminar' WHERE idusuarios = $idusuario2";
+        $updateSQL = "UPDATE permisos_secciones SET quienes_somos = '$quienes_somos', normatividad = '$normatividad', mas_flexible = '$mas_flexible', universidad_mk = '$universidad_mk', atencion_clientes = '$atencion_clientes1', meta_description = '$meta_description'  WHERE idusuarios = $idusuario2";
         $mysqli->query($updateSQL);
       }
       
@@ -256,6 +286,49 @@
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
+                                                      <input name="<?php echo 'quienes_somos'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['quienes_somos'])){ echo 'checked'; } ?> value="1"> ¿Quienes Somos?
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="<?php echo 'normatividad'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['normatividad'])){ echo 'checked'; } ?> value="1"> Normatividad
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="<?php echo 'mas_flexible'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['mas_flexible'])){ echo 'checked'; } ?> value="1"> Más Flexible
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="<?php echo 'universidad_mk'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['universidad_mk'])){ echo 'checked'; } ?> value="1"> Universidad MK
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="<?php echo 'atencion_clientes1'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['atencion_clientes'])){ echo 'checked'; } ?> value="1"> Atención Clientes
+                                                    </label>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="checkbox">
+                                                    <label>
+                                                      <input name="<?php echo 'meta_description'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['meta_description'])){ echo 'checked'; } ?> value="1"> Meta Description
+                                                    </label>
+                                                  </div>
+                                                </li>
+
+                                                <!--<li>
+                                                  <div class="checkbox">
+                                                    <label>
                                                       <input name="<?php echo 'crear'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['crear'])){ echo 'checked'; } ?> value="1"> Crear
                                                     </label>
                                                   </div>
@@ -273,7 +346,7 @@
                                                       <input name="<?php echo 'eliminar'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['eliminar'])){ echo 'checked'; } ?> value="1"> Eliminar
                                                     </label>
                                                   </div>
-                                                </li>
+                                                </li>-->
                                               </ol>
                                             </li>
                                           </ul>
@@ -378,14 +451,7 @@
         </section>
       </section>
 
-
-      <!--main content end-->
-      <!-- Right Slidebar start -->
-  
-      <!-- Right Slidebar end -->
-      <!--footer start-->
       <?php include('footer.php'); ?>
-      <!--footer end-->
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
