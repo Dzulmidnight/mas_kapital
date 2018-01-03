@@ -1,7 +1,7 @@
 <?php 
     require('../conexion/conexion.php');
     require('../conexion/sesion.php');
-    require_once('funciones.php');
+  //  require_once('funciones.php');
 
     if(isset($_SESSION['usuario'])){
         if($_SESSION['usuario']['tipo'] != 'administrador'){
@@ -13,10 +13,7 @@
       $pregunta = $_POST['pregunta'];
       $respuesta = $_POST['respuesta'];
 
-      $updateSQL = sprintf("UPDATE faq SET pregunta = %s, respuesta = %s WHERE idfaq = %s",
-        GetSQLValueString($pregunta, "text"),
-        GetSQLValueString($respuesta, "text"),
-        GetSQLValueString($idfaq, "int"));
+      $updateSQL = "UPDATE faq SET pregunta = '$pregunta', respuesta = '$respuesta' WHERE idfaq = $idfaq";
       $actualizar = $mysqli->query($updateSQL);
     }
     if(isset($_POST['eliminar_pregunta'])){
@@ -134,7 +131,7 @@
                                               <!-- page start-->
                                               <div class="row">
                                                 <input type="hidden" name="idfaq" value="<?php echo $preguntas['idfaq']; ?>">
-                                                <input type="text" class="form-control" name="pregunta" value="<?php echo $preguntas['pregunta']; ?>">
+                                                <input type="hidden" class="form-control" name="pregunta" value="<?php echo $preguntas['pregunta']; ?>">
                                                 <br>
                                                 <textarea class="form-control" name="respuesta" id="" rows="5" ><?php echo $preguntas['respuesta']; ?></textarea>
                                               </div>
@@ -330,6 +327,12 @@
          });
       });
     });
+    $(document).ready(function() {
+      $("#btn-pregunta").click(function() {
+        $('#modalPreguntas').modal('hide');
+      });
+    });
+
 
   </script>
 

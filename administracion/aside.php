@@ -43,7 +43,7 @@
                         <li <?php if(isset($menu) && $menu == 'universidad'){echo 'class="active"'; } ?>><a href="universidad_mk.php">Universidad Mk</a></li>
                     <?php
                     }
-                    if(!empty($permisos['atencion_clientes'])){
+                    if(!empty($permisos['sec_atencion_clientes'])){
                     ?>
                         <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a href="atencion_clientes.php">Atención a Clientes</a></li>
                     <?php
@@ -111,9 +111,9 @@
                             <li <?php if(isset($menu) && $menu == 'solicitudes'){echo 'class="active"'; } ?>><a  href="solicitudes.php">Solicitudes</a></li>
                         <?php
                         }
-                        if(!empty($permisos['atencion_clientes'])){
+                        if(empty($permisos['frm_atencion_clientes'])){
                         ?>
-                            <li <?php if(isset($menu) && $menu == 'atencion'){echo 'class="active"'; } ?>><a  href="frm_atencion.php">Atención a Clientes</a></li>
+                            <li <?php if(isset($menu) && $menu == 'frm_atencion'){echo 'class="active"'; } ?>><a  href="frm_atencion.php">Atención a Clientes</a></li>
                         <?php
                         }
                          ?>

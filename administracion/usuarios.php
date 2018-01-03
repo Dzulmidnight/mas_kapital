@@ -1,11 +1,11 @@
 <?php
-    require('../conexion/conexion.php');
-    require('../conexion/sesion.php');
-    if(isset($_SESSION['usuario'])){
-        if($_SESSION['usuario']['tipo'] != 'administrador'){
-            header('Location: conexion/salir.php');
-        }
-    }
+  require('../conexion/conexion.php');
+  require('../conexion/sesion.php');
+  if(isset($_SESSION['usuario'])){
+      if($_SESSION['usuario']['tipo'] != 'administrador'){
+          header('Location: conexion/salir.php');
+      }
+  }
 
   if(isset($_POST['guardar_usuario']) && $_POST['guardar_usuario'] == 1){
     $nombre = $_POST['nombre1'];
@@ -58,10 +58,10 @@
         }else{
           $solicitudes = 0;
         }
-        if(isset($_POST['atencion_clientes'.$idusuario2])){
-          $atencion_clientes = $_POST['atencion_clientes'.$idusuario2];
+        if(isset($_POST['frm_atencion_clientes'.$idusuario2])){
+          $frm_atencion_clientes = $_POST['frm_atencion_clientes'.$idusuario2];
         }else{
-          $atencion_clientes = 0;
+          $frm_atencion_clientes = 0;
         }
         if(isset($_POST['usuarios'.$idusuario2])){
           $usuarios2 = $_POST['usuarios'.$idusuario2];
@@ -118,10 +118,10 @@
         }else{
           $universidad_mk = 0;
         }
-        if(isset($_POST['atencion_clientes1'.$idusuario2])){
-          $atencion_clientes1 = $_POST['atencion_clientes1'.$idusuario2];
+        if(isset($_POST['sec_atencion_clientes'.$idusuario2])){
+          $sec_atencion_clientes = $_POST['sec_atencion_clientes'.$idusuario2];
         }else{
-          $atencion_clientes1 = 0;
+          $sec_atencion_clientes = 0;
         }
         if(isset($_POST['meta_description'.$idusuario2])){
           $meta_description = $_POST['meta_description'.$idusuario2];
@@ -129,13 +129,13 @@
           $meta_description = 0;
         }
         //actualizamos los PERMISOS_FORMULARIOS
-        $updateSQL = "UPDATE permisos_formularios SET denuncias = '$denuncias', solicitudes = '$solicitudes', atencion_clientes = '$atencion_clientes' WHERE idusuarios = $idusuario2";
+        $updateSQL = "UPDATE permisos_formularios SET denuncias = '$denuncias', solicitudes = '$solicitudes', frm_atencion_clientes = '$frm_atencion_clientes' WHERE idusuarios = $idusuario2";
         $mysqli->query($updateSQL);
         //actualizamos los PERMISOS_INFORMACIÓN
         $updateSQL = "UPDATE permisos_informacion SET usuarios = '$usuarios2', sucursales = '$sucursales', vacantes = '$vacantes', faq = '$faq' WHERE idusuarios = $idusuario2";
         $mysqli->query($updateSQL);
         //actualizamos los PERMISOS_SECCIONES
-        $updateSQL = "UPDATE permisos_secciones SET quienes_somos = '$quienes_somos', normatividad = '$normatividad', mas_flexible = '$mas_flexible', universidad_mk = '$universidad_mk', atencion_clientes = '$atencion_clientes1', meta_description = '$meta_description'  WHERE idusuarios = $idusuario2";
+        $updateSQL = "UPDATE permisos_secciones SET quienes_somos = '$quienes_somos', normatividad = '$normatividad', mas_flexible = '$mas_flexible', universidad_mk = '$universidad_mk', sec_atencion_clientes = '$sec_atencion_clientes', meta_description = '$meta_description'  WHERE idusuarios = $idusuario2";
         $mysqli->query($updateSQL);
       }
       
@@ -314,7 +314,7 @@
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="<?php echo 'atencion_clientes1'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['atencion_clientes'])){ echo 'checked'; } ?> value="1"> Atención Clientes
+                                                      <input name="<?php echo 'sec_atencion_clientes'.$registros['idusuario']; ?>" type="checkbox" class="folios" <?php if(!empty($registros['sec_atencion_clientes'])){ echo 'checked'; } ?> value="1"> Atención Clientes
                                                     </label>
                                                   </div>
                                                 </li>
@@ -418,7 +418,7 @@
                                                 <li>
                                                   <div class="checkbox">
                                                     <label>
-                                                      <input name="<?php echo 'atencion_clientes'.$registros['idusuario']; ?>" class="checkbox3" type="checkbox" <?php if(!empty($registros['atencion_clientes'])){echo 'checked';} ?> value="1"> Atención a clientes
+                                                      <input name="<?php echo 'frm_atencion_clientes'.$registros['idusuario']; ?>" class="checkbox3" type="checkbox" <?php if(!empty($registros['frm_atencion_clientes'])){echo 'checked';} ?> value="1"> Atención a clientes
                                                     </label>
                                                   </div>
                                                 </li>

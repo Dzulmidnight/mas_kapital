@@ -74,7 +74,7 @@
 
   }
   $seccion = 'formularios';
-  $menu = 'atencion';
+  $menu = 'frm_atencion';
 ?>
 <!DOCTYPE html>
 <html lang="esp">

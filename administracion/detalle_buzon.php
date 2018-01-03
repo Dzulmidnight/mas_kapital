@@ -75,11 +75,11 @@
     echo "<script>alert('Se ha eliminado la denuncia');</script>";
   }
 
-  $idSolicitudTrabajo = $_GET['solicitud'];
+  $idfrm_atencion = $_GET['solicitud'];
 
   //$query_solicitud = "SELECT SolicitudTrabajo.*, Solicitante.* FROM SolicitudTrabajo INNER JOIN Solicitante ON SolicitudTrabajo.idSolicitante = Solicitante.idSolicitante WHERE SolicitudTrabajo.idSolicitudTrabajo = '$idSolicitudTrabajo'";
 
-  $query_mensaje = "SELECT frm_atencion.*, sucursales.NombreSucursal FROM frm_atencion LEFT JOIN sucursales ON frm_atencion.sucursal = sucursales.idSucursales";
+  $query_mensaje = "SELECT frm_atencion.*, sucursales.NombreSucursal FROM frm_atencion LEFT JOIN sucursales ON frm_atencion.sucursal = sucursales.idSucursales WHERE idfrm_atencion = $idfrm_atencion";
   $consultar = $mysqli->query($query_mensaje);
 
   $detalle_mensaje = $consultar->fetch_assoc();
@@ -240,7 +240,7 @@
                                   <td class="info text-center" colspan="3">DESCRIPCIÓN</td>
                                 </tr>
                                 <tr>
-                                  <td colspan="3"><?php echo $detalle_mensaje['descripcion']; ?></td>
+                                  <td colspan="3"><?php echo nl2br($detalle_mensaje['descripcion']); ?></td>
                                 </tr>
 
       
@@ -269,123 +269,7 @@
       <!--footer end-->
   </section>
 
-    <!-- Modal Agregar Sucursal -->
-    <div class="modal fade" id="modalSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <form action="" method="POST" enctype="multipart/form-data">
-                  <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title"><b>Formulario Sucursal </b></h4>
-                  </div>
-                  <div class="modal-body">
-                    <!-- page start-->
-                    <div class="row">
 
-                        <aside class="profile-info col-lg-12">
-                            <section class="panel">
-                                <div class="panel-body bio-graph-info">
-                                  <table class="table table-bordered">
-                                    <tr>
-                                      <td>Nombre Sucursal</td>
-                                      <td colspan="3">
-                                        <input type="text" class="form-control" name="nombre" id="f-name" placeholder="Nombre de la Sucursal">
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Estado</td>
-                                      <td colspan="3">
-                                        <?php 
-                                        $query = "SELECT nombre FROM estados";
-                                        $consultar = $mysqli->query($query);
-                                        ?>
-                                          <select class="form-control" name="estado" id="">
-                                            <option value="">Selecciona un Estado</option>
-                                            <?php 
-                                            while($estados = $consultar->fetch_assoc()){
-                                              echo "<option values='".$estados['nombre']."'>".$estados['nombre']."</option>";
-                                            }
-                                            ?>
-                                          </select>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Municipio</td>
-                                      <td colspan="3">
-                                        <input type="text" class="form-control" name="municipio" id="" placeholder="Municipio">
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Colonia</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="colonia" placeholder="Colonia">
-                                      </td>
-                                      <td>C.P.</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="cp" placeholder="C.P.">
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Calle</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="calle" id="" placeholder="Calle">
-                                      </td>
-                                      <td>Num. Ext.</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="numero" id="" placeholder="Num. #">
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Referencias</td>
-                                      <td colspan="3">
-                                        <textarea class="form-control" name="referencia" id="" rows="2" placeholder="Ej: Planta Interior, Local #"></textarea>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Teléfono</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="telefono" id="" placeholder="Teléfono">
-                                      </td>
-                                      <td>Email</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="email" id="" placeholder="Email">
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td class="info text-center" colspan="4"><b>Coordenadas Aproximadas de la Sucursal</b></td>
-                                    </tr>
-                                    <tr>
-                                      <td>Coordenada X</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="x" id="" placeholder="Ej: 16.831622">
-                                      </td>
-                                      <td>Coordenada Y</td>
-                                      <td>
-                                        <input type="text" class="form-control" name="y" id="" placeholder="Ej: -96.782573">
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Imagen Sucursal</td>
-                                      <td colspan="3">
-                                        <input type="file" class="form-control" name="img_sucursal" id="">
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </div>
-                            </section>
-                        </aside>
-                    </div>
-                    <!-- page end-->
-                  </div>
-                  <div class="modal-footer">
-                      <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                      <button class="btn btn-success" type="submit" name="guardar_sucursal" value="1"> Guardar Sucursal</button>
-                  </div>              
-              </form>
-            </div>
-        </div>
-    </div>
-    <!-- modal -->
 
 
     <!-- js placed at the end of the document so the pages load faster -->

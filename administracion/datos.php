@@ -1,6 +1,6 @@
 <?php
 require('../conexion/conexion.php');
-require_once('funciones.php');
+//require_once('funciones.php');
 
 if(isset($_SESSION['usuario'])){
     if($_SESSION['usuario']['tipo'] != 'administrador'){
@@ -12,11 +12,9 @@ if(isset($_POST['guardar_cambios']) && $_POST['guardar_cambios'] == 1){
   $pregunta = $_POST['pregunta'];
   $respuesta = $_POST['respuesta'];
 
-  $updateSQL = sprintf("UPDATE faq SET pregunta = %s, respuesta = %s WHERE idfaq = %s",
-    GetSQLValueString($pregunta, "text"),
-    GetSQLValueString($respuesta, "text"),
-    GetSQLValueString($idfaq, "int"));
+  $updateSQL = "UPDATE faq SET pregunta = '$pregunta', respuesta = '$respuesta' WHERE idfaq = $idfaq";
   $actualizar = $mysqli->query($updateSQL);
+
 }
 if(isset($_POST['eliminar_pregunta'])){
   $idpregunta = $_POST['eliminar_pregunta'];
@@ -102,8 +100,8 @@ $insertar = $mysqli->query($query);
                                             <div class="modal-body">
                                               <!-- page start-->
                                               <div class="row">
-                                                <input type="text" name="idfaq" value="<?php echo $preguntas['idfaq']; ?>">
-                                                <input type="text" class="form-control" name="pregunta" value="<?php echo $preguntas['pregunta']; ?>">
+                                                <input type="hidden" name="idfaq" value="<?php echo $preguntas['idfaq']; ?>">
+                                                <input type="hidden" class="form-control" name="pregunta" value="<?php echo $preguntas['pregunta']; ?>">
                                                 <br>
                                                 <textarea class="form-control" name="respuesta" id="" rows="5" ><?php echo $preguntas['respuesta']; ?></textarea>
                                               </div>

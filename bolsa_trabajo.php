@@ -807,14 +807,14 @@ var Ax='1';
                     Los datos personales que proporcione usted como titular o su representante legal a KAPITALMUJER S.A. DE C.V. SOFOM ENR, tendrán el uso que en forma enunciativa pero no limitativa se describe a continuación:
                 </p>
                 <p>
-                    Para identificar, ubicar, comunicar, contactar y/o enviar o suministrar información, necesaria para llevar a cabo la relación contractual de arrendamiento de un inmueble para uso comercial que tenemos con usted.
+                    Para identificar, ubicar, comunicar, requerir, contactar y/o enviar o suministrar información, necesaria para llevar a cabo la relación contractual de arrendamiento de un inmueble para uso comercial que tenemos con usted.
                 </p>
                 <p>
                     Entendiéndose por datos personales, aquellos que la Ley identifica como cualquier información concerniente a una persona física identificada o identificable.
                 </p>
                 <p>
                     Así mismo le informamos que para cumplir con las finalidades previstas en este aviso de privacidad, serán recabados y tratados datos personales sensibles, como aquéllos que refieren a:
-                    <ul>
+                    <ul style="list-style-type:disc">
                         <li>Situación crediticia; y</li>
                         <li>Estado de salud presente o futuro</li>
                     </ul>
@@ -845,20 +845,20 @@ var Ax='1';
                     En caso de que desee ejercer sus derechos de Acceso, Ratificación, Cancelación u Oposición, estos los podrán ejercer en todo momento utilizando los siguientes mecanismos:
                 </p>
                 <p>
-                    <ul>
+                    <ul style="list-style-type:disc">
                         <li>
-                            Vía correo electrónico a: notificaciones.maskapital@gmail.com
+                            Vía correo electrónico a: notificaciones.maskapital@gmail.comasdf
                         </li>
                         <li>
-                            Carta enviada a Heroica Escuela Naval Militar No. 316, colonia Reforma, Oaxaca de Juárez, Oaxaca; Código Postal 68050, en atención a la C. Erendira Itandehui Vásquez Arrazola. 
+                            Carta enviada a calle Violetas  No. 104, Colonia Reforma, Oaxaca de Juárez, Oaxaca, C.P. 68050, en atención a la C. Eréndira Itandehui Vásquez Arrazola.
                         </li>
-                    </ul>
+                    </ul style="list-style-type:disc">
                 </p>
                 <p>
                     La recepción de solicitudes podrá realizarse de lunes a viernes de las 8:00 a las 17:00 horas, excepto días festivos. Por lo anterior, deberá hacernos saber de manera fehaciente y detallada los datos personales específicos a los que usted desea tener acceso o quiere sean rectificados, cancelados o revisados, así como cumplir con los requisitos que solicita la “Ley” en el art. 29 que son:
                 </p>
                 <p>
-                    <ul>
+                    <ul style="list-style-type:disc">
                         <li>
                             Nombre del titular (dueño de los datos) y domicilio completo o cualquier otro medio para comunicarle la respuesta a su solicitud.
                         </li>
@@ -885,7 +885,7 @@ var Ax='1';
                     En ese entendido nos comprometemos a no transferir su información personal a terceros sin su consentimiento, salvo las excepciones previstas en el artículo 37 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, así como a realizar esta transferencia en los términos que fija esa ley. 
                 </p>
                 <p>
-                    Por lo que en el caso de que exista la necesidad de transferir sus datos personales, KAPITALMUJER S.A. DE C.V. SOFOM ENR debe tener su consentimiento previo. Si usted no manifiesta su oposición para que sus datos personales sean transferidos, se entenderá que ha otorgado su consentimiento para ello. 
+                    Por lo que en el caso de que exista la necesidad de transferir sus datos personales, KAPITALMUJER S.A. DE C.V. SOFOM ENR debe tener su consentimiento previo. Si usted no manifiesta su oposición para que sus datos personales sean transferidos dentro del plazo señalado por la Ley, se entenderá que ha otorgado su consentimiento para ello. 
                 </p>
                 <p>
                     Así mismo únicamente transferiremos sus datos personales sensibles, contando con su consentimiento expreso, lo anterior de conformidad con lo que establece el artículo 9 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares. 
@@ -900,6 +900,9 @@ var Ax='1';
                 </p>
                 <p>
                     En tal caso, dichas modificaciones o actualizaciones estarán a su disposición a través de anuncios visibles en nuestras oficinas o sucursales de atención a clientes.
+                </p>
+                <p>
+                    El presente AVISO DE PRIVACIDAD, cumple con los requisitos  que dispone la Ley Federal de Protección  de Datos Personales  en Posesión de Particulares.
                 </p>
                 
             </div>

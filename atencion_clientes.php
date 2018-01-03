@@ -97,8 +97,8 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                         <td style="text-align:center;padding:15px;border: 1px solid #ddd;background-color:#3498db;color:#ffffff;" colspan="2">DESCRIPCIÓN</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align:left;border: 1px solid #ddd">
-                            '.$descripcion.'
+                        <td colspan="2" style="text-align:text-justify;border: 1px solid #ddd">
+                            '.nl2br($descripcion).'
                         </td>
                     </tr>
             </table>
@@ -234,8 +234,8 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
                         <td style="text-align:center;padding:15px;border: 1px solid #ddd;background-color:#3498db;color:#ffffff;" colspan="2">DESCRIPCIÓN</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="padding: 15px;border: 1px solid #ddd">
-                            '.$descripcion.'
+                        <td colspan="2" style="padding: 15px;border: 1px solid #ddd;text-align: justify">
+                            '.nl2br($descripcion).'
                         </td>
                     </tr>
                 </tbody>
@@ -244,10 +244,20 @@ if(isset($_POST['correo_ayuda']) && $_POST['correo_ayuda'] == 1){
         </html>
     ';
 
-    if($tema_motivo == 'DENUNCIAS'){
+    if($tema_motivo == 'SOLICITA INFORMACIÓN'){
+        $mail->AddAddress('auxrellab03@maskapital.com.mx');
+    }else if($tema_motivo == 'ACLARACIONES DE CRÉDITO'){
+        $mail->AddAddress('mesaservicio2@maskapital.com.mx');
+    }else if($tema_motivo == 'QUEJAS Y SUGERENCIAS'){
+        $mail->AddAddress('une_aclaracionesmk@maskapital.com.mx');
+    }else if($tema_motivo == 'INFORMACIÓN LEGAL'){
+        $mail->AddAddress('une_aclaracionesmk@maskapital.com.mx');
+    }else if($tema_motivo == 'PROVEEDORES'){
+        $mail->AddAddress('comprascorporativo@maskapital.com.mx');
+    }else if($tema_motivo == 'DENUNCIAS'){
         $mail->AddAddress('contraloria@maskapital.com.mx');
     }else{
-        $mail->AddAddress('mesaservicio2@maskapital.com.mx');
+        $mail->AddAddress('auxrellab03@maskapital.com.mx');  
     }
 
     $mail->Subject = utf8_decode($asunto);
